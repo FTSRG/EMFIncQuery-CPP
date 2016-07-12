@@ -83,6 +83,15 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 		
 }
 
+@Data class BinaryTransitiveClosureStub extends DependentSearchOperationStub{
+	public static val String NAME = "BinaryTransitiveClosure"
+	
+	val CharSequence matcher
+	val Set<PVariable> bindings
+} 
+
+
+
 @Data class ExtendInstanceOfStub extends InstanceOfStub {
 
 	public static val String NAME = "IterateOverInstances"

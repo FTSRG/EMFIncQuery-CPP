@@ -29,6 +29,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
+import hu.bme.mit.incquery.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
 
 class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	
@@ -105,6 +106,14 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		dependencies += dependency
 		searchOperations += new NACOperationStub(matchingFrame, #{dependency}, matcherName, boundVariables)
 	}
+	
+	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
+		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+		val dependency = new MatcherReference(calledPQuery, boundParameters)
+		dependencies += dependency
+		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables)
+	}
+	
 	
 	def getPatternBodyStub() {
 		return new PatternBodyStub(pBody, id, matchingFrame, searchOperations);
