@@ -26,9 +26,9 @@ interface ISearchOperationStub {
 
 @Data
 abstract class AbstractSearchOperationStub implements ISearchOperationStub{
-	
+
 	val MatchingFrameStub matchingFrame
-	
+
 }
 
 @Data class InstanceOfStub extends AbstractSearchOperationStub {
@@ -52,11 +52,11 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 }
 
 @Data class ExpressionStub extends AbstractSearchOperationStub {
-	
+
 	val Set<PVariable> variables
-	
+
 	val CharSequence expression
-	
+
 }
 
 @Data class CheckInstanceOfStub extends InstanceOfStub {
@@ -66,35 +66,44 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 }
 
 @Data class CheckSingleNavigationStub extends SingleNavigationStub {
-	
+
 	public static val String NAME = "SingleAssociationCheck"
-	
+
 }
 
 @Data class CheckMultiNavigationStub extends MultiNavigationStub {
-	
+
 	public static val String NAME = "MultiAssociationCheck"
-	
+
 }
 
 @Data abstract class DependentSearchOperationStub extends AbstractSearchOperationStub {
-	
+
 	@Accessors(NONE) val Set<MatcherReference> dependencies
-	
+
 	def getDependencies() {
 		dependencies
 	}
-		
+
 }
 
 @Data class NACOperationStub extends DependentSearchOperationStub {
-	
+
 	public static val String NAME = "NACOperation"
-	
+
 	val CharSequence matcher
 	val Set<PVariable> bindings
-		
+
 }
+
+@Data class BinaryTransitiveClosureStub extends DependentSearchOperationStub{
+	public static val String NAME = "BinaryTransitiveClosure"
+
+	val CharSequence matcher
+	val Set<PVariable> bindings
+}
+
+
 
 @Data class ExtendInstanceOfStub extends InstanceOfStub {
 
@@ -103,15 +112,15 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 }
 
 @Data class ExtendSingleNavigationStub extends SingleNavigationStub {
-	
+
 	public static val String NAME = "NavigateSingleAssociation"
-	
+
 }
 
 @Data class ExtendMultiNavigationStub extends MultiNavigationStub {
-	
+
 	public static val String NAME = "NavigateMultiAssociation"
-	
+
 }
 
 @Data class ExtendExpressionStub extends ExpressionStub {

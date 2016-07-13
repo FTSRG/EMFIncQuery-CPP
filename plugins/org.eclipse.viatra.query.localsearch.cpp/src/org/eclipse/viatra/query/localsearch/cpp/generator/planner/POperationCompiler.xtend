@@ -27,6 +27,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
 
 /**
  * @author Robert Doczi
@@ -46,7 +47,7 @@ class POperationCompiler {
 
 		CompilerHelper::createOperationsList(plan).forEach[compile(acceptor)]
 	}
-	
+
 	def compile(POperation pOperation, ISearchOperationAcceptor acceptor) {
 		switch (pOperation) {
 			PApply: {
@@ -91,25 +92,29 @@ class POperationCompiler {
 		val adornment = negativePatternCall.actualParametersTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
 		].toSet
-		
+
 		val keySize = negativePatternCall.actualParametersTuple.size
-		
+
 		val params = negativePatternCall.referredQuery.parameters
 		val boundParams = newHashSet
-		
+
 		for(i : 0..<keySize) {
 			val pVariable = negativePatternCall.actualParametersTuple.get(i) as PVariable
 			if(bindings.contains(variableMapping.get(pVariable))) {
 				boundParams += params.get(i)
-			}	
+			}
 		}
-		
+
 		acceptor.acceptNACOperation(negativePatternCall.referredQuery, adornment, boundParams)
 	}
 
 //	def dispatch createCheck(CheckPConstraint constraint, Map<PVariable, Integer> variableMapping, String patternName) {
 //		pattern.addSearchOperation(new CheckExpressionStub(matchingFrame, constraint.affectedVariables, constraint.expression))
 //	}
+
+	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
+		//nop
+	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop
@@ -136,15 +141,15 @@ class POperationCompiler {
 			EStructuralFeatureInstancesKey: {
 				var src = constraint.getVariableInTuple(0)
 				var trg = constraint.getVariableInTuple(1)
-				
+
 				val fromBound = variableBindings.get(constraint).contains(variableMapping.get(src))
 				val toBound = variableBindings.get(constraint).contains(variableMapping.get(trg))
-				
+
 				if (!fromBound && !toBound) {
 					acceptor.acceptIterateOverClassInstances(src, new EClassTransitiveInstancesKey(inputKey.wrappedKey.EContainingClass))
-					//operations += new ExtendInstanceOfStub(matchingFrame, src, inputKey.wrappedKey.EContainingClass)					
+					//operations += new ExtendInstanceOfStub(matchingFrame, src, inputKey.wrappedKey.EContainingClass)
 				}
-				
+
 				if (toBound) {
 					acceptor.acceptExtendToAssociationTarget(src, trg, inputKey)
 				} else {
@@ -173,7 +178,7 @@ class POperationCompiler {
 										pConstraint.affectedVariables.map [
 											variableMapping.get(it)
 										].toSet
-									) 
+									)
 		}
 	}
 }
