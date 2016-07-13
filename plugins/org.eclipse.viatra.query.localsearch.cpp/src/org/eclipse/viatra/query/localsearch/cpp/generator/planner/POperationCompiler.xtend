@@ -34,6 +34,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.Binary
  */
 class POperationCompiler {
 
+	
 	var Map<PVariable, Integer> variableMapping
 	var Map<PConstraint, Set<Integer>> variableBindings
 	var Map<PVariable, TypeInfo> typeMapping
@@ -113,7 +114,27 @@ class POperationCompiler {
 //	}
 
 	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
-		//nop
+		val sourceIndex = variableMapping.get(transitiveClosure.affectedVariables.get(0))
+		val targetIndex = variableMapping.get(transitiveClosure.affectedVariables.get(1))
+		
+		val bindings = variableBindings.get(transitiveClosure)
+		val adornment = transitiveClosure.variablesTuple.elements.filter(PVariable).filter[
+			bindings.contains(variableMapping.get(it))
+		].toSet
+
+		val keySize = transitiveClosure.variablesTuple.size
+
+		val params = transitiveClosure.referredQuery.parameters
+		val boundParams = newHashSet
+
+		for(i : 0..<keySize) {
+			val pVariable = transitiveClosure.variablesTuple.get(i) as PVariable
+			if(bindings.contains(variableMapping.get(pVariable))) {
+				boundParams += params.get(i)
+			}
+		}
+		
+		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, sourceIndex, targetIndex)
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
@@ -174,6 +195,7 @@ class POperationCompiler {
 	private def allBound(PConstraint pConstraint) {
 		switch (pConstraint) {
 			NegativePatternCall: return true
+			BinaryTransitiveClosure: return true
 			default: return variableBindings.get(pConstraint).containsAll(
 										pConstraint.affectedVariables.map [
 											variableMapping.get(it)

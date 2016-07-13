@@ -101,6 +101,9 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 
 	val CharSequence matcher
 	val Set<PVariable> bindings
+
+	val int sourceIndex
+	val int targetIndex
 }
 
 
