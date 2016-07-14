@@ -1,0 +1,45 @@
+//package hu.bme.mit.localsearch.cpp.tool.featureTest.query
+//import "http://robot.ecore/featured"
+/*
+pattern entityNameStartsWithSmallCase(entity) {
+    NamedElement.name(entity, name);
+    check (!name.matches("^[A-Z].+"));
+} or {
+	NamedElement.name(entity, name);
+//	name == eval()
+}
+
+pattern entityNameSize(entity : NamedElement) {
+    NamedElement.name(entity, name);
+    check (name.length() < 30);
+} or {
+	NamedElement.name(entity, name);
+    true == eval(name.length() < 30);
+}
+
+@Bind(parameters={robot})
+pattern partsOfRobot(robot, robotpart){
+	Robot.basePart(robot,robotpart);
+}
+
+pattern robotPartCount(rob, N) {
+    Robot(rob);
+    N == count find partsOfRobot(rob, _); //
+    //na == "Hello"; //
+}
+
+/*
+pattern superEntity(e,superEntity){
+    Entity.isA(e,superEntity);
+}
+
+pattern allSuperEntity(e,superEntity) {
+    find superEntity+(e, superEntity);
+}
+
+pattern unfinishedItem(item){ 
+	Item.status(item, status); 
+	status == Status::UNFINISHED; 
+};
+
+* */

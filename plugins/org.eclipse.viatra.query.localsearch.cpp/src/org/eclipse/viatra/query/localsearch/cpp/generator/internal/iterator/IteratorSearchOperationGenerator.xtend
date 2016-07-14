@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
 
 /**
  * @author Robert Doczi
@@ -105,6 +106,16 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
+	
+	def dispatch compileOperation(BinaryTransitiveClosureStub operation, StringBuilder setupCode) '''
+		/* TODO
+		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == 0) {
+			«compileNext(setupCode)»
+		}*/
+	'''
+	
 
 	def replaceVars(CharSequence expression) {
 		var expressionString = expression.toString

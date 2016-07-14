@@ -120,11 +120,15 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		searchOperations += new NACOperationStub(matchingFrame, #{dependency}, matcherName, boundVariables)
 	}
 
-	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, Integer sourceIndex, Integer targetIndex){
+	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
 		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
-		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables, sourceIndex, targetIndex)
+		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables)
+	}
+	
+	override acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
+		//TODO
 	}
 
 

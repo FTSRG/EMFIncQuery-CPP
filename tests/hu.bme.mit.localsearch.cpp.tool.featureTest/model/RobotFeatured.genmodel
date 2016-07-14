@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hu.bme.mit.localsearch.cpp.tool.featureTest/emf-gen"
+    modelPluginID="hu.bme.mit.localsearch.cpp.tool.featureTest" modelName="RobotFeatured"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>RobotFeatured.ecore</foreignModel>
+  <genPackages prefix="Robot" disposableProviderFactory="true" ecorePackage="RobotFeatured.ecore#/">
+    <genClasses ecoreClass="RobotFeatured.ecore#//RobotPart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute RobotFeatured.ecore#//RobotPart/length"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference RobotFeatured.ecore#//RobotPart/close"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute RobotFeatured.ecore#//RobotPart/ID"/>
+    </genClasses>
+    <genClasses ecoreClass="RobotFeatured.ecore#//Robot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference RobotFeatured.ecore#//Robot/parts"/>
+    </genClasses>
+    <genClasses ecoreClass="RobotFeatured.ecore#//Obstacle"/>
+    <genClasses image="false" ecoreClass="RobotFeatured.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute RobotFeatured.ecore#//NamedElement/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,30 @@
+package hu.bme.mit.localsearch.cpp.tool.featuretest.query
+
+import "http://robot.ecore/model/uri"
+/*
+pattern robot(rob, named){
+	Robot(rob);
+	NamedElement(named);
+}
+
+pattern trans(rob, named){
+	Robot(rob);
+	NamedElement(named);
+	find robot+(rob,named);
+}*/
+
+//@Bind(parameters={robot})
+pattern partsOfRobot(robot, robotpart){
+	Robot.parts(robot,robotpart);
+}
+
+pattern robotPartCount(rob, N) {
+    //Robot(rob);
+    Robot.degree(rob, N);
+    N == count find partsOfRobot(rob, _); //
+}
+/*
+pattern notPartBindNone(rob: Robot ,part: RobotPart){
+	Obstacle(_obst);
+	neg find partsOfRobot(rob,part);
+}*/

@@ -34,5 +34,6 @@ public interface ISearchOperationAcceptor {
 	public void acceptExtendToAssociationSource(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);
 	public void acceptExtendToAssociationTarget(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);
 	public void acceptNACOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters);
-	public void acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, Integer sourceIndex, Integer targetIndex);
+	public void acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters);
+	public void acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters);
 }

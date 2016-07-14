@@ -1,0 +1,23 @@
+package hu.bme.mit.localsearch.cpp.tool.featuretest.query
+
+import "http://arch.ecore/model"
+
+pattern linked(S1,S2){
+	SN(S1);
+	SN(S2);
+	SN.link(S1,S2);
+} or {
+	SN(S1);
+	SN(S2);
+	SN.link(S2,S1);
+}
+
+pattern pconnected(C1,C2){
+	SN(S1);
+	CL.cnn(C1,S1);
+	CL.cnn(C2,S1);
+} or {
+	CL.cnn(C1,S1);
+	CL.cnn(C2,S2);
+	find linked+(S1,S2);
+}

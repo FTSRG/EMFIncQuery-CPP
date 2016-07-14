@@ -101,11 +101,14 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 
 	val CharSequence matcher
 	val Set<PVariable> bindings
-
-	val int sourceIndex
-	val int targetIndex
 }
 
+@Data class PatternMatchCounterStub extends DependentSearchOperationStub{
+	public static val String NAME = "PatternMatchCounter"
+	
+	val CharSequence matcher
+	val Set<PVariable> bindings
+}
 
 
 @Data class ExtendInstanceOfStub extends InstanceOfStub {

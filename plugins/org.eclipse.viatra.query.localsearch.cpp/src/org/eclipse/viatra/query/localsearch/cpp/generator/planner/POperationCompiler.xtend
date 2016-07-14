@@ -28,6 +28,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedP
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
 
 /**
  * @author Robert Doczi
@@ -134,7 +135,11 @@ class POperationCompiler {
 			}
 		}
 		
-		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, sourceIndex, targetIndex)
+		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams)
+	}
+	
+	def dispatch createCheck(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor){
+		println("Check constraint type not yet implemented: " + patternmatch)
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
@@ -182,6 +187,10 @@ class POperationCompiler {
 
 	def dispatch createExtend(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {
 		throw new UnsupportedOperationException("Cannot extend through a negative pattern call");
+	}
+	
+	def dispatch createExtend(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor) {
+		println("Extend constraint type not yet implemented: " + patternmatch)
 	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
