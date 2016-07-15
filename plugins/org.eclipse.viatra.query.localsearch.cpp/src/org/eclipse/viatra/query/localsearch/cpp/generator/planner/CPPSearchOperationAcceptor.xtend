@@ -40,6 +40,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
+import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
 
 /**
  * @author Robert Doczi
@@ -125,10 +126,15 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
 		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables)
+		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
+		
 	}
 	
 	override acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
-		//TODO
+		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+		val dependency = new MatcherReference(calledPQuery, boundParameters)
+		dependencies += dependency
+		searchOperations += new PatternMatchCounterStub(matchingFrame,#{dependency}, matcherName, boundVariables)
 	}
 
 

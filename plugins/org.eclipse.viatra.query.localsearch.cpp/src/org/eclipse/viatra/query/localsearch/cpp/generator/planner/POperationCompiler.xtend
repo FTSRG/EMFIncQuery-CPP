@@ -190,7 +190,23 @@ class POperationCompiler {
 	}
 	
 	def dispatch createExtend(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor) {
-		println("Extend constraint type not yet implemented: " + patternmatch)
+		val bindings = variableBindings.get(patternmatch)
+		val adornment = patternmatch.actualParametersTuple.elements.filter(PVariable).filter[
+			bindings.contains(variableMapping.get(it))
+		].toSet
+
+		val keySize = patternmatch.actualParametersTuple.size
+
+		val params = patternmatch.referredQuery.parameters
+		val boundParams = newHashSet
+
+		for(i : 0..<keySize) {
+			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable
+			if(bindings.contains(variableMapping.get(pVariable))) {
+				boundParams += params.get(i)
+			}
+		}
+		acceptor.acceptPatternMatchCounter(patternmatch.referredQuery, adornment, boundParams)
 	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
@@ -205,6 +221,7 @@ class POperationCompiler {
 		switch (pConstraint) {
 			NegativePatternCall: return true
 			BinaryTransitiveClosure: return true
+			PatternMatchCounter: return variableBindings.get(pConstraint).contains(variableMapping.get(pConstraint.resultVariable))
 			default: return variableBindings.get(pConstraint).containsAll(
 										pConstraint.affectedVariables.map [
 											variableMapping.get(it)
