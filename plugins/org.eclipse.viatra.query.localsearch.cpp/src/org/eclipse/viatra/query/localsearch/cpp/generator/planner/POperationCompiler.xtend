@@ -115,8 +115,8 @@ class POperationCompiler {
 //	}
 
 	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
-		val sourceIndex = variableMapping.get(transitiveClosure.affectedVariables.get(0))
-		val targetIndex = variableMapping.get(transitiveClosure.affectedVariables.get(1))
+		//val sourceIndex = variableMapping.get(transitiveClosure.affectedVariables.get(0))
+		//val targetIndex = variableMapping.get(transitiveClosure.affectedVariables.get(1))
 		
 		val bindings = variableBindings.get(transitiveClosure)
 		val adornment = transitiveClosure.variablesTuple.elements.filter(PVariable).filter[

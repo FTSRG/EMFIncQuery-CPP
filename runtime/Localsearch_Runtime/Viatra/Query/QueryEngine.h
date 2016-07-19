@@ -14,7 +14,7 @@ public:
 
 private:
 	QueryEngine(const ModelRoot *model);
-	
+
 	const ModelRoot *_model;
 };
 
@@ -37,7 +37,7 @@ typename QuerySpecification<ModelRoot>::Matcher QueryEngine<ModelRoot>::matcher(
 template<class ModelRoot>
 QueryEngine<ModelRoot>::QueryEngine(const ModelRoot* model)
 	: _model(model) {
-	
+
 }
 
 } /* namespace Query */

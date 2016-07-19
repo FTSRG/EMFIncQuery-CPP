@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <algorithm>
 #include <memory>
@@ -53,16 +53,15 @@ inline void SearchPlan<MatchingFrame>::add_operation(Operations::ISearchOperatio
 template<class MatchingFrame>
 inline void SearchPlan<MatchingFrame>::add_operation(std::vector<Operations::ISearchOperation<MatchingFrame> *> operations) {
 	std::transform(std::begin(operations), std::end(operations), std::back_inserter(_operations),
-		[](Operations::ISearchOperation<MatchingFrame> * op) {return std::shared_ptr<::Query::Operations::ISearchOperation<MatchingFrame> >(op); }
+		[](Operations::ISearchOperation<MatchingFrame> * op) {return std::shared_ptr<::Viatra::Query::Operations::ISearchOperation<MatchingFrame> >(op); }
 	);
 }
 
 template<class MatchingFrame>
-inline const std::vector<std::shared_ptr<Operations::ISearchOperation<MatchingFrame> > >& Query::Plan::SearchPlan<MatchingFrame>::get_operations() const {
+inline const std::vector<std::shared_ptr<Operations::ISearchOperation<MatchingFrame> > >& ::Viatra::Query::Plan::SearchPlan<MatchingFrame>::get_operations() const {
 	return _operations;
 }
 
 } /* namespace Plan */
 } /* namespace Query */
 } /* namespace Viatra */
-

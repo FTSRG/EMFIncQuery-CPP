@@ -101,7 +101,7 @@ public:
     };
 
 	PreparedSearchPlanExecutor prepare(const MatchingFrame& frame);
-	
+
 	bool execute(MatchingFrame& frame);
     void reset_plan();
 
@@ -134,7 +134,7 @@ private:
 };
 
 template<class MatchingFrame>
-inline SearchPlanExecutor<MatchingFrame>::SearchPlanExecutor(const SearchPlan<MatchingFrame> plan, const Matcher::ISearchContext context) 
+inline SearchPlanExecutor<MatchingFrame>::SearchPlanExecutor(const SearchPlan<MatchingFrame> plan, const Matcher::ISearchContext context)
 	: _plan(plan), _context(context), _currentOperation(-1), _operationCount(-1) {
 }
 
@@ -194,12 +194,12 @@ inline void SearchPlanExecutor<MatchingFrame>::init(MatchingFrame& frame) {
 }
 
 template<class MatchingFrame>
-inline SearchPlanExecutor<MatchingFrame>::iterator::iterator() 
+inline SearchPlanExecutor<MatchingFrame>::iterator::iterator()
 	: SearchPlanExecutor(nullptr, false) {
 }
 
 template<class MatchingFrame>
-inline SearchPlanExecutor<MatchingFrame>::iterator::iterator(SearchPlanExecutor * exec, bool isEnd, const MatchingFrame & frame) 
+inline SearchPlanExecutor<MatchingFrame>::iterator::iterator(SearchPlanExecutor * exec, bool isEnd, const MatchingFrame & frame)
 	: _exec(exec), _frame(frame), _atEnd(isEnd), _nrOfMatches(0) {
 	if (!_atEnd) {
 		operator++();
@@ -248,7 +248,7 @@ inline SearchPlanExecutor<MatchingFrame>::PreparedSearchPlanExecutor::PreparedSe
 
 template<class MatchingFrame>
 inline bool SearchPlanExecutor<MatchingFrame>::PreparedSearchPlanExecutor::execute() {
-	return exec.execute(_frame);
+	return _exec.execute(_frame);
 }
 
 template<class MatchingFrame>
