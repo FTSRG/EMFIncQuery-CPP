@@ -22,7 +22,7 @@ import org.eclipse.viatra.query.localsearch.cpp.generator.model.ISearchOperation
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.MatchingFrameStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.NACOperationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
-import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
+//import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternBodyStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.TypeInfo
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.VariableInfo
@@ -121,11 +121,12 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		searchOperations += new NACOperationStub(matchingFrame, #{dependency}, matcherName, boundVariables)
 	}
 
-	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
+	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable target){
 		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+		val matchName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Match'''
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
-		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables)
+		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, target)
 		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
 
 	}

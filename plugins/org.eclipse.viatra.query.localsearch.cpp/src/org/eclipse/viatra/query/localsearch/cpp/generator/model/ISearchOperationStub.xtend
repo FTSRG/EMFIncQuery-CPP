@@ -99,8 +99,10 @@ abstract class AbstractSearchOperationStub implements ISearchOperationStub{
 @Data class BinaryTransitiveClosureStub extends DependentSearchOperationStub{
 	public static val String NAME = "TransitiveClosureCheck"
 
-	val CharSequence matcher
+	val CharSequence matcherName
+	val CharSequence matchName
 	val Set<PVariable> bindings
+	val PVariable target
 }
 /*
 * In middle of implementation

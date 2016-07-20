@@ -132,8 +132,9 @@ class POperationCompiler {
 				boundParams += params.get(i)
 			}
 		}
-
-		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams)
+		val target = transitiveClosure.variablesTuple.elements.filter(PVariable).toSet.toArray.get(1) as PVariable
+		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, target)
+		acceptor.hashCode
 	}
 
 	def dispatch createCheck(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor){

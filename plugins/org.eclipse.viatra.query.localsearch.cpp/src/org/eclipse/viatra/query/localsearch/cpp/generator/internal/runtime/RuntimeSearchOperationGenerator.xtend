@@ -21,7 +21,7 @@ import org.eclipse.viatra.query.localsearch.cpp.generator.model.ExtendSingleNavi
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.ISearchOperationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.NACOperationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
-import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
+//import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
@@ -74,8 +74,8 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 
 	private dispatch def compileOperation(BinaryTransitiveClosureStub operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
-		return '''create_«BinaryTransitiveClosureStub::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
+		setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		return '''create_«BinaryTransitiveClosureStub::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
 	}
   /*
   * In middle of implementation
@@ -110,6 +110,10 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 
 	private def toNavigator(EClass type, String name) {
 		'''&«type.toCppName»::«name»'''
+	}
+	
+	private def toGetterTarget(PVariable variable, BinaryTransitiveClosureStub operation){
+		'''&«operation.matchName»::«variable.name»'''
 	}
 
 	private def toGetter(PVariable variable) {

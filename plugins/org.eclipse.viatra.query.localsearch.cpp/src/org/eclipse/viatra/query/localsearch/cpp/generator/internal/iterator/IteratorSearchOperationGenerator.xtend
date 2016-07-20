@@ -111,7 +111,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		/* TODO: This needs to work in order to BTC iterator based functionality.
      * This code is copied from Negative Pattern Find function
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		«val youShallNotPrint = setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(_model,  _context);''')»
 		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == 0) {
 			«compileNext(setupCode)»
 		}*/
