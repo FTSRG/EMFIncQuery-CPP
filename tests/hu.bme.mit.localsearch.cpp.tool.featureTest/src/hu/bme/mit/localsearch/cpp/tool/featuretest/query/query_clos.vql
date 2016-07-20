@@ -2,6 +2,7 @@ package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 
 import "http://arch.ecore/model"
 
+@Bind(parameters={S1})
 pattern linked(S1,S2){
 	SN(S1);
 	SN(S2);

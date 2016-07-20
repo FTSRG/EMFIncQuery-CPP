@@ -1,4 +1,5 @@
 /bin/
 /emf-gen/
-/cpp-gen/
 *.o
+*.jpg
+*.aird
