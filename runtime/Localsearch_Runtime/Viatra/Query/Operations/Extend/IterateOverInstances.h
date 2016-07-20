@@ -44,9 +44,6 @@ inline IterateOverInstances<SrcType, MatchingFrame, ModelRoot>::IterateOverInsta
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
 inline void IterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_initialize(MatchingFrame&, const Matcher::ISearchContext&) {
-  std::cout << "IterateOverInst" << std::endl;
-  std::cout << typeid(SrcType{}).name() << std::endl;
-  std::cout << typeid(_model).name() << std::endl;
 	auto& data = ModelIndex<typename std::remove_pointer<SrcType>::type, ModelRoot>::instances(_model);
 	ExtendOperation<SrcType, std::list<SrcType>, MatchingFrame>::set_data(std::cbegin(data), std::cend(data));
 }

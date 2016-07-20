@@ -21,6 +21,8 @@ import org.eclipse.viatra.query.localsearch.cpp.generator.model.ExtendSingleNavi
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.ISearchOperationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.MatchingFrameStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.NACOperationStub
+import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
+import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternBodyStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.TypeInfo
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.VariableInfo
@@ -39,8 +41,6 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
-import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
-import org.eclipse.viatra.query.localsearch.cpp.generator.model.PatternMatchCounterStub
 
 /**
  * @author Robert Doczi
@@ -127,16 +127,18 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		dependencies += dependency
 		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, boundVariables)
 		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
-		
-	}
-	
-	override acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
-		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
-		val dependency = new MatcherReference(calledPQuery, boundParameters)
-		dependencies += dependency
-		searchOperations += new PatternMatchCounterStub(matchingFrame,#{dependency}, matcherName, boundVariables)
-	}
 
+	}
+/*
+ * In middle of implementation
+ *
+ *	override acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
+ *		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+ *		val dependency = new MatcherReference(calledPQuery, boundParameters)
+ *		dependencies += dependency
+ *		searchOperations += new PatternMatchCounterStub(matchingFrame,#{dependency}, matcherName, boundVariables)
+ *	}
+ */
 
 	def getPatternBodyStub() {
 		return new PatternBodyStub(pBody, id, matchingFrame, searchOperations);

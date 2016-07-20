@@ -23,6 +23,7 @@ import org.eclipse.viatra.query.localsearch.cpp.generator.model.ExtendMultiNavig
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.ExtendSingleNavigationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.ISearchOperationStub
 import org.eclipse.viatra.query.localsearch.cpp.generator.model.NACOperationStub
+import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
 import java.util.Collection
 import java.util.LinkedList
 import java.util.Map
@@ -33,7 +34,6 @@ import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.localsearch.cpp.generator.model.BinaryTransitiveClosureStub
 
 /**
  * @author Robert Doczi
@@ -93,12 +93,12 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		«val tarName = operation.target.cppName»
 		«val srcName = operation.source.cppName»
 		«val relName = operation.key.name»
-		auto& data = «srcName»->«relName»; 
+		auto& data = «srcName»->«relName»;
 		if(std::find(data.begin(), data.end(), «tarName») != data.end()) {
 			«compileNext(setupCode)»
 		}
 	'''
-	
+
 	def dispatch compileOperation(NACOperationStub operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
 		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
@@ -106,16 +106,17 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
-	
+
 	def dispatch compileOperation(BinaryTransitiveClosureStub operation, StringBuilder setupCode) '''
-		/* TODO
+		/* TODO: This needs to work in order to BTC iterator based functionality.
+     * This code is copied from Negative Pattern Find function
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
 		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
 		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == 0) {
 			«compileNext(setupCode)»
 		}*/
 	'''
-	
+
 
 	def replaceVars(CharSequence expression) {
 		var expressionString = expression.toString
@@ -169,7 +170,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«val variableType = matchGenerator.matchingFrame.getVariableStrictType(keyVariable)»
 			match.«parameter.name» = «keyVariable.cppName.castTo(variableType)»;
 		«ENDFOR»
-		
+
 		«matchFoundHandler.apply("match")»
 	'''
 
@@ -179,13 +180,13 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		else
 			createMatch
 	}
-	
+
 	def getCppName(PVariable variable) {
 		getCachedData(variableNameCache, variable.name) [
 			variable.purgedName
 		]
 	}
-	
+
 	def incrementName(PVariable variable) {
 		val name = variable.purgedName
 		val count = getCachedData(variableNameCounter, variable.name) [
@@ -202,7 +203,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			NameUtils::getPurgedName(variable)
 		]
 	}
-	
+
 	private def <Key, Value> getCachedData(Map<Key, Value> cache, Key key, (Key) => Value supplier) {
 		if(!cache.containsKey(key)) {
 			val value = supplier.apply(key)
@@ -228,11 +229,11 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			variable.cppName
 		}
 	}
-	
+
 	private dispatch def getType(EStructuralFeature key) {
 		return key.EType
 	}
-	
+
 	private dispatch def getType(EClassifier key) {
 		return key
 	}

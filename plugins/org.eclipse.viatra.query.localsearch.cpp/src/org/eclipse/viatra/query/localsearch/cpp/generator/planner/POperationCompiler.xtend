@@ -35,7 +35,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMa
  */
 class POperationCompiler {
 
-	
+
 	var Map<PVariable, Integer> variableMapping
 	var Map<PConstraint, Set<Integer>> variableBindings
 	var Map<PVariable, TypeInfo> typeMapping
@@ -115,9 +115,7 @@ class POperationCompiler {
 //	}
 
 	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
-		//val sourceIndex = variableMapping.get(transitiveClosure.affectedVariables.get(0))
-		//val targetIndex = variableMapping.get(transitiveClosure.affectedVariables.get(1))
-		
+
 		val bindings = variableBindings.get(transitiveClosure)
 		val adornment = transitiveClosure.variablesTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
@@ -134,10 +132,10 @@ class POperationCompiler {
 				boundParams += params.get(i)
 			}
 		}
-		
+
 		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams)
 	}
-	
+
 	def dispatch createCheck(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor){
 		println("Check constraint type not yet implemented: " + patternmatch)
 	}
@@ -188,27 +186,30 @@ class POperationCompiler {
 	def dispatch createExtend(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {
 		throw new UnsupportedOperationException("Cannot extend through a negative pattern call");
 	}
-	
-	def dispatch createExtend(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor) {
-		val bindings = variableBindings.get(patternmatch)
-		val adornment = patternmatch.actualParametersTuple.elements.filter(PVariable).filter[
-			bindings.contains(variableMapping.get(it))
-		].toSet
 
-		val keySize = patternmatch.actualParametersTuple.size
-
-		val params = patternmatch.referredQuery.parameters
-		val boundParams = newHashSet
-
-		for(i : 0..<keySize) {
-			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable
-			if(bindings.contains(variableMapping.get(pVariable))) {
-				boundParams += params.get(i)
-			}
-		}
-		acceptor.acceptPatternMatchCounter(patternmatch.referredQuery, adornment, boundParams)
-	}
-
+ /*
+  * In middle of implementation
+  *
+	*def dispatch createExtend(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor) {
+	*	val bindings = variableBindings.get(patternmatch)
+	*	val adornment = patternmatch.actualParametersTuple.elements.filter(PVariable).filter[
+	*		bindings.contains(variableMapping.get(it))
+	*	].toSet
+  *
+	*	val keySize = patternmatch.actualParametersTuple.size
+  *
+	*	val params = patternmatch.referredQuery.parameters
+	*	val boundParams = newHashSet
+  *
+  *		for(i : 0..<keySize) {
+  *			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable
+  *			if(bindings.contains(variableMapping.get(pVariable))) {
+  *				boundParams += params.get(i)
+  *			}
+  *		}
+  *		acceptor.acceptPatternMatchCounter(patternmatch.referredQuery, adornment, boundParams)
+  *	}
+  */
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop
 	}
@@ -221,7 +222,7 @@ class POperationCompiler {
 		switch (pConstraint) {
 			NegativePatternCall: return true
 			BinaryTransitiveClosure: return true
-			PatternMatchCounter: return variableBindings.get(pConstraint).contains(variableMapping.get(pConstraint.resultVariable))
+			//PatternMatchCounter: return variableBindings.get(pConstraint).contains(variableMapping.get(pConstraint.resultVariable))
 			default: return variableBindings.get(pConstraint).containsAll(
 										pConstraint.affectedVariables.map [
 											variableMapping.get(it)

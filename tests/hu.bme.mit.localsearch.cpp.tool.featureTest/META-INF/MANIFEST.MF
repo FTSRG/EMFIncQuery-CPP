@@ -6,13 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: hu.bme.mit.localsearch.cpp.tool.featuretest.query,
- arch,
- arch.impl,
- arch.util,
- robot,
- robot.impl,
- robot.util
+Export-Package: hu.bme.mit.localsearch.cpp.tool.featuretest.query
 Require-Bundle: org.eclipse.core.runtime;resolution:=optional;x-installation:=greedy,
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
