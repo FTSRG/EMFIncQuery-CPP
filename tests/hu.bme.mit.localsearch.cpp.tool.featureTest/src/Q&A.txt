@@ -1,14 +1,19 @@
 --------------------------------------------------------------------------------------------------------------------------------
 Ecore modellből C++ kód generátor hol található és hol tudunk implementálni bele bool támogatást.
+--> Itt van implementálva: CPPHelper -> PrimitiveTypeHelper és tényleg hiányzik a bool.
 --------------------------------------------------------------------------------------------------------------------------------
 Main függvényben miért kell &&?
 for(auto&& match : matches){...}
+--> Ha visszatérési értékként bool vectort kapnánk, akkor abban az esetben szükséges a jobb oldali referencia. Amúgy nem.
 --------------------------------------------------------------------------------------------------------------------------------
 IteratorSearchOperationGenerator.xtend
 :136 Nem kellene egy typename az std::remove_pointer elé?
+--> Igazából mehet, bár furcsa.
 --------------------------------------------------------------------------------------------------------------------------------
 *** !! PositivePatternCall //Lehet értelme implementálni, amióta heurisztika dönthet úgy, hogy nem flatten-el. by BMarci
+--> VIATRA 1.4-ben már lehetséges lesz, hogy a plan PositivePatternCall-t adjon plan-ben.
 *** !! TypeFilterConstraint
+--> Újhelyi Zolit kell megkérdezni ezzel kapcsolatban.
 *** ?? Ezek támogatottak a terv készítés során vagy csak nagyon drága műveletek?
 
 *** !! Equality
@@ -16,9 +21,12 @@ IteratorSearchOperationGenerator.xtend
 *** .. Vátozó lekötésre kerül és ConstantValue check vagy...
 *** .. Változók egymásnak megfeleltődnek és egységesen kezelődik utána.
 *** ?? Tudsz mutatni egy pattern-t ami a tervben Equality checkre fordul?
+--> Igen, eddig ez így volt, még nem biztos, hogy ez így is marad VIATRA 1.4-ben.
 
 *** !! ExpressionEvaluation
 *** ?? Ti már terveztetek egy megoldást. Részletek?
+--> Egy sablon generálódjék, aminek paraméterlistáján szerepeljen minden hivatkozott változó, így a felhasználó maga implementálhatja C++ nyelven ugyan azt, amit a check(...) törzsében deklarált.
+--> TODO: XBaseEvaluator.XExpression hol kapja meg a PVariable-t? Most név alapján kéri le, vissza kéne jutni a PVariable-höz.
 --------------------------------------------------------------------------------------------------------------------------------
 BinaryTransitiveClosure Iterator based implementation
 
@@ -29,7 +37,9 @@ find callBTC+(source, target)
 *** !! Nincs matcher, amivel iterálhatunk az elemek közt.
 *** ?? Helyette ellenőrizzük, hogy target accessible típusú? //vagy ez editor felelősség inkább
 *** ?? Majd vegyük a target típusának _instances listáját és azon iteráljunk végig.
-
+--> Matcher-es megoldás az ajánlott
+--> Fontos comment az iterátoros Matcher generátorban: // TODO: this does not work with if there are multiple query files, 
+somehow the related matcher generator needs to be accessed and its include path should be used
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityEnum(item){
 	Item.status(item, status);
@@ -42,7 +52,28 @@ Plan{item}:PROJECT!_{item}
 <Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item;status;)]
 <Plan{}:START_{}<>>>>>>
 *** ?? Első két subplan fordítva lenne olcsóbb??
+--> Vannak érdekes feature-jei a régi Planner-nek, ez most lesz lecserélve VIATRA 1.4-ben. 
 *** !! supplierKey típusa EEnumLiteralImpl
+*** ?? Tehát ConstantValue-ban típuskonverziót kell végezni? supplierKey típusa Integer
+*** ?? Honnan lehet tudni, hogy count-ban milyen típusú elemek vannak?
+*** ?? Ez inkább editor felelősség? C++ szinten viszont mindenképp azzonos típusúnak kell lennie. Ez hogy oldahtó meg?
+--> Enumból generálja le a kódot, majd név alapján ellenőriz. Nem érdemes szívni az érték alapú ellenőrzéssel, C++11-ben már nem is működne.
+--> ConstansValue csak primitív típust kaphat, szóval nem tűnik nagy effortnak.
+--> Legyen az editor szintjén a nyelv dolga ezt ellenőrizni.
+--------------------------------------------------------------------------------------------------------------------------------
+pattern inequalityInt(item){
+	Item.^count(item, n);
+	n != 8;
+}
+Caused by: java.util.NoSuchElementException
+	at java.util.AbstractList$Itr.next(AbstractList.java:364)
+	at java.util.AbstractCollection.addAll(AbstractCollection.java:343)
+	at java.util.LinkedHashSet.<init>(LinkedHashSet.java:169)
+	at com.google.common.collect.Sets.newLinkedHashSet(Sets.java:325)
+	at org.eclipse.xtext.xbase.lib.IterableExtensions.toSet(IterableExtensions.java:574)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
 --------------------------------------------------------------------------------------------------------------------------------
 pattern inequalityEnum(item){
 	Item.status(item, status);
@@ -58,36 +89,23 @@ Caused by: java.util.NoSuchElementException
 	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
 	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
 	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
+
+--> Aggasztó hiba, Robi utána néz majd.
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityInt(item){
 	Item.^count(item, n);
 	n == 8;
 }
+
 *** ?? prefix identifier?
+--> Ha keyword-öt használunk, akkor ezzel jelezhetjük, hogy ez egy model elem.
+
 Plan{item}:PROJECT!_{item}
 <Plan{n,item}:APPLY_PC[ExportedParameter:item]
 <Plan{n,item}:APPLY_PC[ConstantValue::8@T(n;)]
 <Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
 <Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.count@T(item;n;)]
 <Plan{}:START_{}<>>>>>>
-*** ?? Tehát ConstantValue-ban típuskonverziót kell végezni? supplierKey típusa Integer
-*** ?? Honnan lehet tudni, hogy count-ban milyen típusú elemek vannak?
-*** ?? Ez inkább editor felelősség? C++ szinten viszont mindenképp azzonos típusúnak kell lennie. Ez hogy oldahtó meg?
---------------------------------------------------------------------------------------------------------------------------------
-pattern inequalityInt(item){
-	Item.^count(item, n);
-	n != 8;
-}
-*** ?? Hibát vált ki.
-Caused by: java.util.NoSuchElementException
-	at java.util.AbstractList$Itr.next(AbstractList.java:364)
-	at java.util.AbstractCollection.addAll(AbstractCollection.java:343)
-	at java.util.LinkedHashSet.<init>(LinkedHashSet.java:169)
-	at com.google.common.collect.Sets.newLinkedHashSet(Sets.java:325)
-	at org.eclipse.xtext.xbase.lib.IterableExtensions.toSet(IterableExtensions.java:574)
-	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
-	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
-	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2){
 	Item.status(item1,a);
@@ -102,7 +120,7 @@ Plan{item2,item1}:PROJECT!_{item1,item2}
 <Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
 <Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
 <Plan{}:START_{}<>>>>>>>>
-*** ... Equality check ezzé flatten-elődik.
+*** ... Equality check ezzé flatten-elődik. !!VIATRA 1.3
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2, a, b){
 	Item.status(item1,a);
@@ -119,7 +137,7 @@ Plan{b,item2,item1}:PROJECT!_{item1,item2,b,b}
 <Plan{item1}:APPLY_PC[ExportedParameter:item1]
 <Plan{item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
 <Plan{}:START_{}<>>>>>>>>>>
-*** ... Equality check ezzé flatten-elődik.
+*** ... Equality check ezzé flatten-elődik. !!VIATRA 1.3
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2, a, b){
 	Item.status(item1,a);
@@ -138,6 +156,7 @@ Plan{a,b,item1,item2}:PROJECT!_{item1,item2,a,b}
 <Plan{a,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;a;)]
 <Plan{}:START_{}<>>>>>>>>>>>
 *** ... Inequality check
+--> JAVA-s POperationCompiler implementáció jó kiindulás lehet implementáláskor
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityInt(item){
 	Item.valid(item, true);
@@ -148,7 +167,6 @@ Plan{item}:PROJECT!_{item}
 <Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
 <Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.valid@T(item;.virtual{0};)]
 <Plan{}:START_{}<>>>>>>
-*** ... suplierKey típusa Boolean
 --------------------------------------------------------------------------------------------------------------------------------
 import "http://unfinished.ecore/model"
 import "http://robot.ecore/model/uri"
@@ -161,8 +179,10 @@ pattern partsOfRobot(robot : Robot, robotpart: RobotPart){
 }
 
 pattern equalityInt(item: Item, robot: RobotPart){
-	Item.^count(item, n);
+	Item.^count(item, N);
 	N == count find partsOfRobot(rob, part);
 }
 
 *** !! Query hu.bme.mit.localsearch.cpp.tool.featuretest.query.partsOfRobot contains errors.
+--> Probléma az volt, hogy nem jelezte ki azt a hibát, hogy nincs legenrálva a Model code (*.genmodel-ből)
+--> Hogy kijelezze a hibát Convert-elni kellett a project-et VIATRA project-é, majd XText project-é, hogy ezek nature-jei bekerüljenek a plugin nature-ök közé.
