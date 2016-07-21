@@ -1,0 +1,168 @@
+--------------------------------------------------------------------------------------------------------------------------------
+Ecore modellből C++ kód generátor hol található és hol tudunk implementálni bele bool támogatást.
+--------------------------------------------------------------------------------------------------------------------------------
+Main függvényben miért kell &&?
+for(auto&& match : matches){...}
+--------------------------------------------------------------------------------------------------------------------------------
+IteratorSearchOperationGenerator.xtend
+:136 Nem kellene egy typename az std::remove_pointer elé?
+--------------------------------------------------------------------------------------------------------------------------------
+*** !! PositivePatternCall //Lehet értelme implementálni, amióta heurisztika dönthet úgy, hogy nem flatten-el. by BMarci
+*** !! TypeFilterConstraint
+*** ?? Ezek támogatottak a terv készítés során vagy csak nagyon drága műveletek?
+
+*** !! Equality
+*** .. Tapasztalataim szerint nem jelenik meg, mert flatten-elésre kerül.
+*** .. Vátozó lekötésre kerül és ConstantValue check vagy...
+*** .. Változók egymásnak megfeleltődnek és egységesen kezelődik utána.
+*** ?? Tudsz mutatni egy pattern-t ami a tervben Equality checkre fordul?
+
+*** !! ExpressionEvaluation
+*** ?? Ti már terveztetek egy megoldást. Részletek?
+--------------------------------------------------------------------------------------------------------------------------------
+BinaryTransitiveClosure Iterator based implementation
+
+pattern btc(source, accessible){...}
+...
+find callBTC+(source, target)
+...
+*** !! Nincs matcher, amivel iterálhatunk az elemek közt.
+*** ?? Helyette ellenőrizzük, hogy target accessible típusú? //vagy ez editor felelősség inkább
+*** ?? Majd vegyük a target típusának _instances listáját és azon iteráljunk végig.
+
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityEnum(item){
+	Item.status(item, status);
+	status == Status::UNFINISHED;
+}
+Plan{item}:PROJECT!_{item}
+<Plan{item,status}:APPLY_PC[ExportedParameter:item]
+<Plan{item,status}:APPLY_PC[ConstantValue::UNFINISHED@T(status;)]
+<Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item;status;)]
+<Plan{}:START_{}<>>>>>>
+*** ?? Első két subplan fordítva lenne olcsóbb??
+*** !! supplierKey típusa EEnumLiteralImpl
+--------------------------------------------------------------------------------------------------------------------------------
+pattern inequalityEnum(item){
+	Item.status(item, status);
+	status != Status::UNFINISHED;
+}
+*** ?? Nem fordul plan-é, hiányzik valami.
+Caused by: java.util.NoSuchElementException
+	at java.util.AbstractList$Itr.next(AbstractList.java:364)
+	at java.util.AbstractCollection.addAll(AbstractCollection.java:343)
+	at java.util.LinkedHashSet.<init>(LinkedHashSet.java:169)
+	at com.google.common.collect.Sets.newLinkedHashSet(Sets.java:325)
+	at org.eclipse.xtext.xbase.lib.IterableExtensions.toSet(IterableExtensions.java:574)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityInt(item){
+	Item.^count(item, n);
+	n == 8;
+}
+*** ?? prefix identifier?
+Plan{item}:PROJECT!_{item}
+<Plan{n,item}:APPLY_PC[ExportedParameter:item]
+<Plan{n,item}:APPLY_PC[ConstantValue::8@T(n;)]
+<Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.count@T(item;n;)]
+<Plan{}:START_{}<>>>>>>
+*** ?? Tehát ConstantValue-ban típuskonverziót kell végezni? supplierKey típusa Integer
+*** ?? Honnan lehet tudni, hogy count-ban milyen típusú elemek vannak?
+*** ?? Ez inkább editor felelősség? C++ szinten viszont mindenképp azzonos típusúnak kell lennie. Ez hogy oldahtó meg?
+--------------------------------------------------------------------------------------------------------------------------------
+pattern inequalityInt(item){
+	Item.^count(item, n);
+	n != 8;
+}
+*** ?? Hibát vált ki.
+Caused by: java.util.NoSuchElementException
+	at java.util.AbstractList$Itr.next(AbstractList.java:364)
+	at java.util.AbstractCollection.addAll(AbstractCollection.java:343)
+	at java.util.LinkedHashSet.<init>(LinkedHashSet.java:169)
+	at com.google.common.collect.Sets.newLinkedHashSet(Sets.java:325)
+	at org.eclipse.xtext.xbase.lib.IterableExtensions.toSet(IterableExtensions.java:574)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
+	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityObj(item1,item2){
+	Item.status(item1,a);
+	Item.status(item2,b);
+	a == b;
+}
+Plan{item2,item1}:PROJECT!_{item1,item2}
+<Plan{b,item2,item1}:APPLY_PC[ExportedParameter:item2]
+<Plan{b,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{b,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{b,item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
+<Plan{}:START_{}<>>>>>>>>
+*** ... Equality check ezzé flatten-elődik.
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityObj(item1,item2, a, b){
+	Item.status(item1,a);
+	Item.status(item2,b);
+	a == b;
+}
+Plan{b,item2,item1}:PROJECT!_{item1,item2,b,b}
+<Plan{b,item2,item1}:APPLY_PC[ExportedParameter:b]
+<Plan{b,item2,item1}:APPLY_PC[ExportedParameter:a(b)]
+<Plan{b,item2,item1}:APPLY_PC[ExportedParameter:item2]
+<Plan{b,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
+<Plan{b,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{b,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{}:START_{}<>>>>>>>>>>
+*** ... Equality check ezzé flatten-elődik.
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityObj(item1,item2, a, b){
+	Item.status(item1,a);
+	Item.status(item2,b);
+	a != b;
+}
+Plan{a,b,item1,item2}:PROJECT!_{item1,item2,a,b}
+<Plan{a,b,item1,item2}:APPLY_PC[ExportedParameter:b]
+<Plan{a,b,item1,item2}:APPLY_PC[ExportedParameter:item2]
+<Plan{a,b,item1,item2}:APPLY_PC[Inequality:a!=b]
+<Plan{a,b,item1,item2}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{a,b,item1,item2}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{a,item1}:APPLY_PC[ExportedParameter:a]
+<Plan{a,item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{a,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{a,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;a;)]
+<Plan{}:START_{}<>>>>>>>>>>>
+*** ... Inequality check
+--------------------------------------------------------------------------------------------------------------------------------
+pattern equalityInt(item){
+	Item.valid(item, true);
+}
+Plan{item}:PROJECT!_{item}
+<Plan{item,.virtual{0}}:APPLY_PC[ExportedParameter:item]
+<Plan{item,.virtual{0}}:APPLY_PC[ConstantValue::true@T(.virtual{0};)]
+<Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.valid@T(item;.virtual{0};)]
+<Plan{}:START_{}<>>>>>>
+*** ... suplierKey típusa Boolean
+--------------------------------------------------------------------------------------------------------------------------------
+import "http://unfinished.ecore/model"
+import "http://robot.ecore/model/uri"
+
+@Bind(parameters={robot})
+pattern partsOfRobot(robot : Robot, robotpart: RobotPart){
+	Robot(robot);
+	RobotPart(robotpart);
+	Robot.parts(robot,robotpart);
+}
+
+pattern equalityInt(item: Item, robot: RobotPart){
+	Item.^count(item, n);
+	N == count find partsOfRobot(rob, part);
+}
+
+*** !! Query hu.bme.mit.localsearch.cpp.tool.featuretest.query.partsOfRobot contains errors.
