@@ -11,6 +11,6 @@ pattern partsOfRobot(robot : Robot, robotpart: RobotPart){
 }
 
 pattern equalityInt(item: Item, robot: RobotPart){
-	Item.^count(item, n);
-	N == count find partsOfRobot(rob, part);
+	Item.^count(item, N);
+	N == count find partsOfRobot(robot, part);
 }

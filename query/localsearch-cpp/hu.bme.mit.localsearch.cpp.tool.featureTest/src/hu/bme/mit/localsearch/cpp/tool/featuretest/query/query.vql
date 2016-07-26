@@ -12,7 +12,7 @@ pattern trans(rob, named){
 	NamedElement(named);
 	find robot+(rob,named);
 }*/
-
+/*
 @Bind(parameters={robot})
 pattern partsOfRobot(robot: Robot, robotpart: RobotPart){
 	//Robot(robot);
@@ -23,7 +23,7 @@ pattern partsOfRobot(robot: Robot, robotpart: RobotPart){
 pattern robotPartCount(rob, N) {
 	Robot(rob);
     N == count find partsOfRobot(rob, _);
-}
+}*/
 /*
 pattern notPartBindNone(rob: Robot ,part: RobotPart){
 	Obstacle(_obst);

@@ -1,4 +1,4 @@
-//package hu.bme.mit.localsearch.cpp.tool.featureTest.query
+package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 //import "http://robot.ecore/featured"
 /*
 pattern entityNameStartsWithSmallCase(entity) {

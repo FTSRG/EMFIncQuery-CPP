@@ -40,7 +40,6 @@ namespace {
     for(auto name : checkList) i++;
     ASSERT_EQ(numOfRingMembers, checkList.size());
   }
-
  /*
   * Testing matcher function with one parameter, signature matches(::arch::SN* S1).
   * It iterates over the SN instances and query the linked SN's.
