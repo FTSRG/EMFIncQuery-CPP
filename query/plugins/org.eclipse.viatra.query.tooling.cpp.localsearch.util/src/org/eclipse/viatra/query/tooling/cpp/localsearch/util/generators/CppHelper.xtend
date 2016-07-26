@@ -218,7 +218,8 @@ class PrimitiveTypeHelper implements TypeHelper {
 		"EDouble" -> "double",
 		"EFloat" -> "float",
 		"EShort" -> "short",
-		"EChar" -> "char"
+		"EChar" -> "char",
+		"EBoolean" -> "bool"
 	}
 	
 	static val PRIMITIVE_DEFAULT_VALUES = #{
@@ -228,7 +229,8 @@ class PrimitiveTypeHelper implements TypeHelper {
 		"double" -> "0.0",
 		"float" -> "0.0f",
 		"short" -> "0",
-		"char" -> '\'\\0\''
+		"char" -> '\'\\0\'',
+		"bool" -> "false"
 	}
 	
 	val EDataType eDataType

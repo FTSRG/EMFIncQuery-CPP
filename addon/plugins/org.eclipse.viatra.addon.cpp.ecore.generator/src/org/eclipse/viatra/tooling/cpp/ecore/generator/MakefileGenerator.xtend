@@ -56,14 +56,13 @@ class MakefileGenerator {
 		##############################################################################
 		
 		CXX=g++
-		CXXFLAGS=-O3 -std=c++11 -Wall -Wextra -I. -I../../Localsearch_Runtime/
+		CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./«ecoreModel.resourceName»/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 		LFLAGS=
 		MAKE=make
-		LIBPATH=-L"../../Localsearch_Runtime/Debug" -Wl,-rpath,"../../Localsearch_Runtime/Debug"
-		LIBS=-lLocalsearch_Runtime
+		LIBS=-lgtest
 		
 		COMPILE=$(CXX) $(CXXFLAGS) -c -o $@ $<
-		LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBPATH) $(LIBS)
+		LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 		
 		.SUFFIXES:
 		.SUFFIXES: .cpp .h .o
