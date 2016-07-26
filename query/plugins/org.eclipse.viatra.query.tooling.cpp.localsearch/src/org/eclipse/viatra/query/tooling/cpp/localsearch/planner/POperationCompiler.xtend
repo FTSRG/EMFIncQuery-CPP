@@ -108,7 +108,7 @@ class POperationCompiler {
 
 		acceptor.acceptNACOperation(negativePatternCall.referredQuery, adornment, boundParams)
 	}
-/*
+
 	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
 
 		val bindings = variableBindings.get(transitiveClosure)
@@ -131,7 +131,7 @@ class POperationCompiler {
 		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, target)
 		acceptor.hashCode
 	}
-*/
+
 	def dispatch createCheck(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor){
 		println("Check constraint type not yet implemented: " + patternmatch)
 	}

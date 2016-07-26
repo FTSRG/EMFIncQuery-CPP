@@ -25,6 +25,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescri
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 
 /**
  * @author Robert Doczi
@@ -70,6 +71,21 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		return '''create_«NACOperationDescriptor::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
 
+	private dispatch def compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) {
+			val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
+			setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+			return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
+	}
+	  /*
+	  * In middle of implementation
+	  *
+		* private dispatch def compileOperation(PatternMatchCounterStub operation, StringBuilder setupCode) {
+		*	val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
+		*	setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		*	return '''create_«PatternMatchCounterStub::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
+		* }
+	  */
+
 	private dispatch def compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
 		return '''create_«ExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
 	}
@@ -94,6 +110,10 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	
 	private def toNavigator(EClass type, String name) {
 		'''&«type.toCppName»::«name»'''		
+	}
+
+	private def toGetterTarget(PVariable variable, BinaryTransitiveClosureDescriptor operation){
+		'''&«operation.matchName»::«variable.name»'''
 	}
 	
 	private def toGetter(PVariable variable) {

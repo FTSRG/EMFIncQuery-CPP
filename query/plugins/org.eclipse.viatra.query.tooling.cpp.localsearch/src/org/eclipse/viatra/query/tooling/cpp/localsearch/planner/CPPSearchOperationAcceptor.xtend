@@ -40,6 +40,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescri
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 
 /**
  * @author Robert Doczi
@@ -125,7 +126,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		val matchName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Match'''
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
-		searchOperations += new BinaryTransitiveClosureStub(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, target)
+		searchOperations += new BinaryTransitiveClosureDescriptor(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, target)
 		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
 
 	}

@@ -33,6 +33,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescri
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 
 /**
  * @author Robert Doczi
@@ -106,7 +107,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		}
 	'''
 
-	def dispatch compileOperation(BinaryTransitiveClosureStub operation, StringBuilder setupCode) '''
+	def dispatch compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) '''
 		/* TODO: This needs to work in order to BTC iterator based functionality.
      * This code is copied from Negative Pattern Find function
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»

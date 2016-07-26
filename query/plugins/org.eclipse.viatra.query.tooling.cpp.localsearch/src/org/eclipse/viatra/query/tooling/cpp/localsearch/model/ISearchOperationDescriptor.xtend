@@ -24,9 +24,7 @@ import org.eclipse.xtend.lib.annotations.Data
 interface ISearchOperationDescriptor {
 }
 
-@Data
-
-abstract class AbstractSearchOperationDescriptor implements ISearchOperationDescriptor{
+@Data abstract class AbstractSearchOperationDescriptor implements ISearchOperationDescriptor{
 
 	val MatchingFrameDescriptor matchingFrame
 
@@ -95,7 +93,7 @@ abstract class AbstractSearchOperationDescriptor implements ISearchOperationDesc
 
 }
 
-@Data class BinaryTransitiveClosureStub extends DependentSearchOperationStub{
+@Data class BinaryTransitiveClosureDescriptor extends DependentSearchOperationDescriptor{
 	public static val String NAME = "TransitiveClosureCheck"
 
 	val CharSequence matcherName
