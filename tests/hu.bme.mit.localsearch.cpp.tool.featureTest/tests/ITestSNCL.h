@@ -42,4 +42,6 @@ class ITestSNCL : public ::testing::Test {
   std::list<::arch::CL*> clStore;
   std::unordered_set<PconnectedMatch> notConnectedSet;
   ::arch::SN* modelroot = nullptr;
+  ::arch::SN* deletableSN = nullptr;
+  ::arch::CL* deletableCL = nullptr;
 };

@@ -114,6 +114,57 @@ TEST_F(SNCLGenCppTest, linkedQueryDoubleBoundTest) {
         << match.C1->name << "-" << match.C2->name << std::endl;
     }
   }
+
+ /*
+  * Testing hot deletation of a Node.
+  * After deletation, if the query return the match which
+  * was connected through the deleted Node, that is inappropriate.
+  * Q: Is it the users responsibility to delete an object properly?
+  */
+  TEST_F(SNCLGenCppTest,runtimeDeleteSN){
+    std::string deletedName = deletableSN->name;
+    snStore.remove(deletableSN);
+    for(auto sn : snStore)
+      for(auto it = sn->link.begin(); it != sn->link.end();++it)
+        if(*it == deletableSN) sn->link.erase(it);
+    for(auto cl : clStore)
+      if(cl->cnn == deletableSN) cl->cnn = nullptr;
+    delete deletableSN;
+    try{
+      auto queriedMatches = pconnectedMatcher.matches();
+      for(auto match : queriedMatches){
+        if(match.C1->name == "C5" && match.C2->name == "C6") FAIL() << "Not properly handled one SN's delete. SN.name = " << deletedName;
+        if(match.C1->name == "C6" && match.C2->name == "C5") FAIL() << "Not properly handled one SN's delete. SN.name = " << deletedName;
+      }
+    }catch(...){
+      FAIL() << "Unhandled exception";
+    }
+  }
+
+ /*
+  * Test in beta phase
+  * Q: Is it the users responsibility to delete an object properly?
+  */
+  TEST_F(SNCLGenCppTest, runtimeDeleteCL){
+    std::string deletedName = deletableCL->name;
+    clStore.remove(deletableCL);
+    delete deletableCL;
+    try{
+      auto queriedMatches = pconnectedMatcher.matches();
+      for(auto match : queriedMatches){
+        if(match.C1->name == "C2" || match.C2->name == "C2") FAIL() << "Not properly handled one CN's delete. CN.name = " << deletedName;
+      }
+    }catch(...){
+      FAIL() << "Unhandled exception";
+    }
+  }
+ /*
+  * neg find test
+  * CL not connected to any SN
+  */
+  TEST_F(SNCLGenCppTest,runtimeCnnChangeToNullPTR){
+    //deletableCL
+  }
 }
 
 int main(int argc, char **argv) {

@@ -73,12 +73,14 @@ protected:
     numOfLinks = 8; // e.g. S1--link--S2 counts two times, once inorder and once traversal
     numOfRingMembers = 4; // number of SNs which connected via link association
 
-    //Set refferences between objects
+    //Set references between objects
     c1->cnn=s1; c2->cnn=s2; c3->cnn=s3; c4->cnn=s4;
   	c5->cnn=s5; c6->cnn=s5;
 
-    //The root object
+    //The root object and choosed objects for testing
     modelroot = s2;
+    deletableSN = s5;
+    deletableCL = c2;
 
     PconnectedMatch m;
     m.C1 = c1; m.C2 = c5; notConnectedSet.insert(m);  //C1-C5
