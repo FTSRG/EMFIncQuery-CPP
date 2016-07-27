@@ -21,6 +21,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySp
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 
 /**
  * @author Robert Doczi
@@ -61,25 +63,19 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 	}
 	
 	override protected compilePlanExecution(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
-		auto _classHelper = &_context->get_class_helper();
-		
-		«assignParamsToVariables(pattern)»
-		
+		auto _classHelper = &_context->get_class_helper();		
+		«assignParamsToVariables(pattern)»		
 		«val sog = searchOperations.get(pattern).get(patternBody)»
-		«sog.matchFoundHandler = ['''matches.insert(«it»);''']»
-		
+		«sog.matchFoundHandler = ['''matches.insert(«it»);''']»		
 		«val setupCode = new StringBuilder»
-		«val executionCode = sog.compile(setupCode)»
-		
-		«setupCode.toString»
-		
+		«val executionCode = sog.compile(setupCode)»		
+		«setupCode.toString»		
 		«executionCode»
 	'''
 	
 	def assignParamsToVariables(PatternDescriptor pattern) {
 		val matchingFrame = pattern.patternBodies.head.matchingFrame
-		'''
-		«FOR param : pattern.boundParameters»
+		'''«FOR param : pattern.boundParameters»
 		«val varName = NameUtils::getPurgedName(param.toPVariable(matchingFrame))»
 		«IF varName != param.name»
 			auto «NameUtils::getPurgedName(param.toPVariable(matchingFrame))» = «param.name»;
@@ -87,6 +83,76 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		«ENDFOR»
 		'''
 	}
+	
+	override compileInner() '''
+		template<class ModelRoot>
+		class «unitName» {
+		public:
+			«unitName»(const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context) 
+				: _model(model), _context(context) {
+			}
+		
+			«FOR pattern : patternGroup»
+				«compileGetter(pattern)»
+			«ENDFOR»
+			
+		private:
+			«FOR pattern : patternGroup»
+				«FOR patternBody : pattern.patternBodies»
+					«FOR operation : patternBody.searchOperations»
+						«compileAdditionalFields(operation)»
+					«ENDFOR»
+				«ENDFOR»
+			«ENDFOR»
+			const ModelRoot* _model;
+			const ::Viatra::Query::Matcher::ISearchContext* _context;
+		};
+		«FOR pattern : patternGroup»
+			«FOR patternBody : pattern.patternBodies»
+				«FOR operation : patternBody.searchOperations»
+					«compileAdditionFunctions(operation)»
+				«ENDFOR»
+			«ENDFOR»
+		«ENDFOR»
+	'''
+	
+	private dispatch def compileAdditionalFields(ISearchOperationDescriptor descriptor)''''''
+	
+	private dispatch def compileAdditionalFields(BinaryTransitiveClosureDescriptor descriptor)'''
+		template<class NavigationMatcher, class SrcType>
+		bool transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const;
+		
+	'''
+	private dispatch def compileAdditionFunctions(ISearchOperationDescriptor descriptor) ''''''
+	
+	private dispatch def compileAdditionFunctions(BinaryTransitiveClosureDescriptor descriptor) '''
+	
+	template<class ModelRoot>
+	template<class NavigationMatcher, class SrcType>
+	inline bool «unitName»<ModelRoot>::transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const {
+		std::unordered_set<SrcType> sourcesToEvaluate; 
+		sourcesToEvaluate.insert(src);
+		std::unordered_set<SrcType> sourceEvaluated; 
+	
+		do{
+			auto it = sourcesToEvaluate.begin();
+			auto currentSrc = *it;
+			sourcesToEvaluate.erase(it);
+			sourceEvaluated.insert(currentSrc);
+	
+			auto matches = matcher.matches(currentSrc);
+			for(auto& match : matches)
+			{
+				auto foundTarget = match.«descriptor.target.name»;
+	
+				if(trg == foundTarget) return true;
+				else if( sourceEvaluated.count(foundTarget) == 0)
+					sourcesToEvaluate.insert(foundTarget);
+			}
+		} while(!sourcesToEvaluate.empty());
+		return false;
+	}
+	'''
 	
 	
 	

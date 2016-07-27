@@ -59,7 +59,6 @@ class POperationCompiler {
 					return createCheck(pConstraint, acceptor)
 				else
 					return createExtend(pConstraint, acceptor)
-
 			}
 			PStart: {
 			}

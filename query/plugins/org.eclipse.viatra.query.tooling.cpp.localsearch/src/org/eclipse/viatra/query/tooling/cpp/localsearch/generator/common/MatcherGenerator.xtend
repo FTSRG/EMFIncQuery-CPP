@@ -10,16 +10,14 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 
 /**
  * @author Robert Doczi
@@ -63,64 +61,12 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			«ENDFOR»
 			
 		private:
-			«FOR pattern : patternGroup»
-				«FOR patternBody : pattern.patternBodies»
-					«FOR operation : patternBody.searchOperations»
-						«compileAdditionalFields(operation)»
-					«ENDFOR»
-				«ENDFOR»
-			«ENDFOR»
 			const ModelRoot* _model;
 			const ::Viatra::Query::Matcher::ISearchContext* _context;
 		};
-		«FOR pattern : patternGroup»
-			«FOR patternBody : pattern.patternBodies»
-				«FOR operation : patternBody.searchOperations»
-					«compileAdditionFunctions(operation)»
-				«ENDFOR»
-			«ENDFOR»
-		«ENDFOR»
 	'''
 	
-	private dispatch def compileAdditionalFields(ISearchOperationDescriptor descriptor)''''''
-	
-	private dispatch def compileAdditionalFields(BinaryTransitiveClosureDescriptor descriptor)'''
-		template<class NavigationMatcher, class SrcType>
-		bool transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const;
-		
-	'''
-	private dispatch def compileAdditionFunctions(ISearchOperationDescriptor descriptor) ''''''
-	
-	private dispatch def compileAdditionFunctions(BinaryTransitiveClosureDescriptor descriptor) '''
-	
-	template<class ModelRoot>
-	template<class NavigationMatcher, class SrcType>
-	inline bool «unitName»<ModelRoot>::transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const {
-		std::unordered_set<SrcType> sourcesToEvaluate; 
-		sourcesToEvaluate.insert(src);
-		std::unordered_set<SrcType> sourceEvaluated; 
-	
-		do{
-			auto it = sourcesToEvaluate.begin();
-			auto currentSrc = *it;
-			sourcesToEvaluate.erase(it);
-			sourceEvaluated.insert(currentSrc);
-	
-			auto matches = matcher.matches(currentSrc);
-			for(auto& match : matches)
-			{
-				auto foundTarget = match.«descriptor.target.name»;
-	
-				if(trg == foundTarget) return true;
-				else if( sourceEvaluated.count(foundTarget) == 0)
-					sourcesToEvaluate.insert(foundTarget);
-			}
-		} while(!sourcesToEvaluate.empty());
-		return false;
-	}
-	'''
-	
-	private def compileGetter(PatternDescriptor pattern) '''
+	protected def compileGetter(PatternDescriptor pattern) '''
 		std::unordered_set<«name»Match> matches(«getParamList(pattern)») const {
 			««« TODO: Move using statements
 			using ::Viatra::Query::Matcher::ISearchContext;
