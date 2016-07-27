@@ -53,6 +53,13 @@ Plan{item}:PROJECT!_{item}
 <Plan{}:START_{}<>>>>>>
 *** ?? Első két subplan fordítva lenne olcsóbb??
 --> Vannak érdekes feature-jei a régi Planner-nek, ez most lesz lecserélve VIATRA 1.4-ben. 
+*** !! VIATRA 1.4:
+Plan{item}:PROJECT!_{item}
+<Plan{item,status}:APPLY_PC[ExportedParameter:item]
+<Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item;status;)]
+<Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{status}:APPLY_PC[ConstantValue::UNFINISHED@T(status;)]
+<Plan{status}:START_{status}<>>>>>>
 *** !! supplierKey típusa EEnumLiteralImpl
 *** ?? Tehát ConstantValue-ban típuskonverziót kell végezni? supplierKey típusa Integer
 *** ?? Honnan lehet tudni, hogy count-ban milyen típusú elemek vannak?
@@ -74,6 +81,7 @@ Caused by: java.util.NoSuchElementException
 	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compile(PlanCompiler.java:206)
 	at org.eclipse.viatra.query.localsearch.cpp.generator.planner.PlanCompiler.compilePlan(PlanCompiler.java:110)
 	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
+*** !! Javítva VIATRA 1.4-el
 --------------------------------------------------------------------------------------------------------------------------------
 pattern inequalityEnum(item){
 	Item.status(item, status);
@@ -91,6 +99,7 @@ Caused by: java.util.NoSuchElementException
 	at org.eclipse.viatra.query.localsearch.cpp.generator.LocalSearchCppGenerator$3.apply(LocalSearchCppGenerator.java:80)
 
 --> Aggasztó hiba, Robi utána néz majd.
+*** !! Javítva VIATRA 1.4-el
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityInt(item){
 	Item.^count(item, n);
@@ -106,6 +115,13 @@ Plan{item}:PROJECT!_{item}
 <Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
 <Plan{n,item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.count@T(item;n;)]
 <Plan{}:START_{}<>>>>>>
+*** !! VIATRA 1.4:
+Plan{item}:PROJECT!_{item}
+<Plan{item,n}:APPLY_PC[ExportedParameter:item]
+<Plan{item,n}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.count@T(item;n;)]
+<Plan{item,n}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{n}:APPLY_PC[ConstantValue::8@T(n;)]
+<Plan{n}:START_{n}<>>>>>>
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2){
 	Item.status(item1,a);
@@ -121,6 +137,15 @@ Plan{item2,item1}:PROJECT!_{item1,item2}
 <Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
 <Plan{}:START_{}<>>>>>>>>
 *** ... Equality check ezzé flatten-elődik. !!VIATRA 1.3
+*** !! VIATRA 1.4:
+Plan{item1,item2}:PROJECT!_{item1,item2}
+<Plan{b,item1,item2}:APPLY_PC[ExportedParameter:item2]
+<Plan{b,item1,item2}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{b,item1,item2}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{b,item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
+<Plan{}:START_{}<>>>>>>>>
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2, a, b){
 	Item.status(item1,a);
@@ -138,6 +163,17 @@ Plan{b,item2,item1}:PROJECT!_{item1,item2,b,b}
 <Plan{item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
 <Plan{}:START_{}<>>>>>>>>>>
 *** ... Equality check ezzé flatten-elődik. !!VIATRA 1.3
+*** !! VIATRA 1.4:
+Plan{item2,b,item1}:PROJECT!_{item1,item2,b,b}
+<Plan{item2,b,item1}:APPLY_PC[ExportedParameter:item2]
+<Plan{item2,b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{item2,b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{b,item1}:APPLY_PC[ExportedParameter:b]
+<Plan{b,item1}:APPLY_PC[ExportedParameter:a(b)]
+<Plan{b,item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{b,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;b;)]
+<Plan{}:START_{}<>>>>>>>>>>
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityObj(item1,item2, a, b){
 	Item.status(item1,a);
@@ -157,6 +193,18 @@ Plan{a,b,item1,item2}:PROJECT!_{item1,item2,a,b}
 <Plan{}:START_{}<>>>>>>>>>>>
 *** ... Inequality check
 --> JAVA-s POperationCompiler implementáció jó kiindulás lehet implementáláskor
+*** VIATRA 1.4:
+Plan{b,a,item2,item1}:PROJECT!_{item1,item2,a,b}
+<Plan{b,a,item2,item1}:APPLY_PC[ExportedParameter:b]
+<Plan{b,a,item2,item1}:APPLY_PC[ExportedParameter:item2]
+<Plan{b,a,item2,item1}:APPLY_PC[Inequality:a!=b]
+<Plan{b,a,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item2;)]
+<Plan{b,a,item2,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item2;b;)]
+<Plan{a,item1}:APPLY_PC[ExportedParameter:a]
+<Plan{a,item1}:APPLY_PC[ExportedParameter:item1]
+<Plan{a,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item1;)]
+<Plan{a,item1}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item1;a;)]
+<Plan{}:START_{}<>>>>>>>>>>>
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityInt(item){
 	Item.valid(item, true);
@@ -167,6 +215,13 @@ Plan{item}:PROJECT!_{item}
 <Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
 <Plan{item,.virtual{0}}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.valid@T(item;.virtual{0};)]
 <Plan{}:START_{}<>>>>>>
+*** !! VIATRA 1.4:
+Plan{item}:PROJECT!_{item}
+<Plan{.virtual{0},item}:APPLY_PC[ExportedParameter:item]
+<Plan{.virtual{0},item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.valid@T(item;.virtual{0};)]
+<Plan{.virtual{0},item}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{.virtual{0}}:APPLY_PC[ConstantValue::true@T(.virtual{0};)]
+<Plan{.virtual{0}}:START_{.virtual{0}}<>>>>>>
 --------------------------------------------------------------------------------------------------------------------------------
 import "http://unfinished.ecore/model"
 import "http://robot.ecore/model/uri"
