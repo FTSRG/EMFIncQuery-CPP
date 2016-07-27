@@ -108,13 +108,13 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 	'''
 
 	def dispatch compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) '''
-		/* TODO: This needs to work in order to BTC iterator based functionality.
-     * This code is copied from Negative Pattern Find function
+		«val trgName = operation.target.cppName»
+		«val srcName = operation.source.cppName»
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
 		«val youShallNotPrint = setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(_model,  _context);''')»
-		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == 0) {
+		if(transitive_closure_check(«matcherName», «srcName», «trgName»)) {
 			«compileNext(setupCode)»
-		}*/
+		}
 	'''
 
 

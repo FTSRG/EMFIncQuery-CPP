@@ -99,6 +99,7 @@ interface ISearchOperationDescriptor {
 	val CharSequence matcherName
 	val CharSequence matchName
 	val Set<PVariable> bindings
+	val PVariable source
 	val PVariable target
 }
 /*

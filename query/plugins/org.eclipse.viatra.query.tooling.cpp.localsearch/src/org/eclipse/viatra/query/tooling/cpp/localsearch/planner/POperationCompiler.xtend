@@ -127,8 +127,10 @@ class POperationCompiler {
 				boundParams += params.get(i)
 			}
 		}
-		val target = transitiveClosure.variablesTuple.elements.filter(PVariable).toSet.toArray.get(1) as PVariable
-		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, target)
+		val inputParams = transitiveClosure.variablesTuple.elements.filter(PVariable).toList
+		val source = inputParams.get(0) as PVariable
+		val target = inputParams.get(1) as PVariable
+		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, source, target)
 		acceptor.hashCode
 	}
 

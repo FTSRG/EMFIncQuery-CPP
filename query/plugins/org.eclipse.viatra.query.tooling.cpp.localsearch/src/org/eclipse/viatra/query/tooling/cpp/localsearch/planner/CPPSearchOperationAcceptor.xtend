@@ -121,12 +121,12 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		searchOperations += new NACOperationDescriptor(matchingFrame, #{dependency}, matcherName, boundVariables)
 	}
 
-	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable target){
+	override acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable source, PVariable target){
 		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
 		val matchName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Match'''
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
-		searchOperations += new BinaryTransitiveClosureDescriptor(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, target)
+		searchOperations += new BinaryTransitiveClosureDescriptor(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, source, target)
 		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
 
 	}
