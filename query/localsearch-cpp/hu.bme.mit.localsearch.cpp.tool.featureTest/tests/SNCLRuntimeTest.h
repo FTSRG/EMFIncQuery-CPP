@@ -5,32 +5,39 @@
 // **************************************
 //Source: https://github.com/google/googletest/blob/master/googletest/docs/Documentation.md
 //You need to compile with -lgtest
+//
+//For Coverage Test
+// pip install gcovr
+// compile with "-O0 -std=c++14 -Wall -Wextra -pedantic -fprofile-arcs -ftest-coverage -fPIC"
+// link with "-lgcov --coverage"
+// Run application
+// mkdir cov_test && cd cov_test
+// gcovr -r . --html --html-details -o example2.html
+#pragma once
 
 #include "ITestSNCL.h"
+#include "Viatra/Query/QueryEngine.h"
+#include "Viatra/Query/Sncl_runtime/LinkedMatcher.h"
+#include "Viatra/Query/Sncl_runtime/PconnectedMatcher.h"
+//#include "Viatra/Query/Sncl_runtime/IsolatedMatcher.h"
 
 using namespace ::Viatra::Query;
-using namespace ::Viatra::Query::Query_clos;
+using namespace ::arch;
 
 // The fixture for testing class SNCLGenCpp.
-class SNCLGenCppTest: public ITestSNCL {
+class SNCLRuntimeTest: public ITestSNCL {
   // You can remove any or all of the following functions if its body
   // is empty.
 public:
-  QueryEngine<::arch::SN> engine = QueryEngine<::arch::SN>::empty();
-  LinkedQuerySpecification<::arch::SN>::Matcher linkedMatcher
-        = engine.matcher<LinkedQuerySpecification>();
-  PconnectedQuerySpecification<::arch::SN>::Matcher pconnectedMatcher
-        = engine.matcher<PconnectedQuerySpecification>();
-
-  SNCLGenCppTest() {
+  SNCLRuntimeTest() {
     // You can do set-up work for each test here.
   }
 
-  virtual ~SNCLGenCppTest() {
+  virtual ~SNCLRuntimeTest() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
 
-  static bool validMatch(LinkedMatch match){
+  static bool validMatch(Sncl_runtime::LinkedMatch match){
     for(auto node : match.S1->link){
       if(node == match.S2) return true;
     }
@@ -50,19 +57,19 @@ protected:
     //The objects below have another storage.
     //arch::Node:_instances, collection: std::list<...>
     //arch::CL::_instances, collection: std::list<...>
-    auto c1 = new ::arch::CL(); c1->name = "C1"; clStore.push_back(c1);
-  	auto c2 = new ::arch::CL(); c2->name = "C2"; clStore.push_back(c2);
-  	auto c3 = new ::arch::CL(); c3->name = "C3"; clStore.push_back(c3);
-  	auto c4 = new ::arch::CL(); c4->name = "C4"; clStore.push_back(c4);
-  	auto c5 = new ::arch::CL(); c5->name = "C5"; clStore.push_back(c5);
-  	auto c6 = new ::arch::CL(); c6->name = "C6"; clStore.push_back(c6);
+    auto c1 = new CL(); c1->name = "C1"; clStore.push_back(c1);
+  	auto c2 = new CL(); c2->name = "C2"; clStore.push_back(c2);
+  	auto c3 = new CL(); c3->name = "C3"; clStore.push_back(c3);
+  	auto c4 = new CL(); c4->name = "C4"; clStore.push_back(c4);
+  	auto c5 = new CL(); c5->name = "C5"; clStore.push_back(c5);
+  	auto c6 = new CL(); c6->name = "C6"; clStore.push_back(c6);
 
     //arch::SN::_instances, collection: std::list<...>
-    auto s1 = new ::arch::SN(); s1->name = "S1"; snStore.push_back(s1);
-    auto s2 = new ::arch::SN(); s2->name = "S2"; snStore.push_back(s2);
-  	auto s3 = new ::arch::SN(); s3->name = "S3"; snStore.push_back(s3);
-  	auto s4 = new ::arch::SN(); s4->name = "S4"; snStore.push_back(s4);
-  	auto s5 = new ::arch::SN(); s5->name = "S5"; snStore.push_back(s5);
+    auto s1 = new SN(); s1->name = "S1"; snStore.push_back(s1);
+    auto s2 = new SN(); s2->name = "S2"; snStore.push_back(s2);
+  	auto s3 = new SN(); s3->name = "S3"; snStore.push_back(s3);
+  	auto s4 = new SN(); s4->name = "S4"; snStore.push_back(s4);
+  	auto s5 = new SN(); s5->name = "S5"; snStore.push_back(s5);
 
     //Setting up a ring with four SN and an isolated island.
   	s1->link.push_back(s2);
@@ -82,7 +89,7 @@ protected:
     deletableSN = s5;
     deletableCL = c2;
 
-    PconnectedMatch m;
+    Sncl_runtime::PconnectedMatch m;
     m.C1 = c1; m.C2 = c5; notConnectedSet.insert(m);  //C1-C5
     m.C2 = c6; notConnectedSet.insert(m);             //C1-C6
     m.C1 = c2; notConnectedSet.insert(m);             //C2-C6
@@ -116,4 +123,12 @@ protected:
     }
     snStore.clear();
   }
+
+  QueryEngine<SN> engine = QueryEngine<SN>::empty();
+  Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher = engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
+  Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher = engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+  //IsolatedQuerySpecification<SN>::Matcher isolatedMatcher = engine.matcher<IsolatedQuerySpecification>();
+
+  std::unordered_set<Sncl_runtime::PconnectedMatch> notConnectedSet;
+
 };

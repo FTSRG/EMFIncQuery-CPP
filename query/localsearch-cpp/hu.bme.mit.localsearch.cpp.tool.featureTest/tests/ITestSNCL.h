@@ -3,21 +3,20 @@
 // COPY ME NEXT TO GENERATED MAKEFILE
 //
 // **************************************
+#pragma once
+#include <unordered_set>
 #include "gtest/gtest.h"
+
 #include "Arch/arch_def.h"
 #include "ArchIndex.h"
-#include "Viatra/Query/QueryEngine.h"
-
-#include "Viatra/Query/Query_clos/LinkedMatcher.h"
-#include "Viatra/Query/Query_clos/PconnectedMatcher.h"
-#include "Viatra/Query/Query_clos/PconnectedMatch.h"
+#include "Viatra/Query/Sncl_runtime/PconnectedMatch.h"
 
 /**
  * @author Krisztian Toth
  */
 
  using namespace ::Viatra::Query;
- using namespace ::Viatra::Query::Query_clos;
+ using namespace ::Viatra::Query::Sncl_runtime;
 
 class ITestSNCL : public ::testing::Test {
  protected:
@@ -40,7 +39,6 @@ class ITestSNCL : public ::testing::Test {
   int numOfRingMembers;
   std::list<::arch::SN*> snStore;
   std::list<::arch::CL*> clStore;
-  std::unordered_set<PconnectedMatch> notConnectedSet;
   ::arch::SN* modelroot = nullptr;
   ::arch::SN* deletableSN = nullptr;
   ::arch::CL* deletableCL = nullptr;
