@@ -21,4 +21,8 @@ pattern pconnected(C1,C2){
 	CL.cnn(C1,S1);
 	CL.cnn(C2,S2);
 	find linked+(S1,S2);
-}
+}/*
+@Bind(parameters={C1})
+pattern isolated(C1 : CL, C2 :CL){
+	neg find pconnected(C1,C2);
+}*/
