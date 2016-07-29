@@ -130,8 +130,8 @@ private:
 		iterator end();
 
 	private:
-		MatchingFrame _frame;
 		SearchPlanExecutor _exec;
+		MatchingFrame _frame;	
 	};
 
     void init(MatchingFrame& frame);

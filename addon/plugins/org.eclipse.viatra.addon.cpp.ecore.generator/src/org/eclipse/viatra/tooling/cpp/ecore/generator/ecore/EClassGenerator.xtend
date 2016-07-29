@@ -39,6 +39,7 @@ class EClassGenerator {
 		«val ns = NamespaceHelper::getNamespaceHelper(clazz)»
 		#include "«ns.toString("/")»_decl.h"
 		
+		««« TODO this does not work with if there are multiple Ecore files referenced in model
 		«FOR parent : clazz.getEGenericSuperTypes.map[getEClassifier]»
 			#include "«NamespaceHelper::getNamespaceHelper(parent).toString("/")»/«parent.name».h"
 		«ENDFOR»
@@ -68,7 +69,7 @@ class EClassGenerator {
 				«val ah = CppHelper::getAttributeHelper(a)»
 				«ah.declaration»
 			«ENDFOR»
-			
+			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				«ah.declaration»
@@ -88,6 +89,7 @@ class EClassGenerator {
 		«val ns = NamespaceHelper::getNamespaceHelper(clazz)»
 		«val assoc = clazz.getEReferences»
 		«FOR includedClass : assoc.map[getEReferenceType].toSet»
+			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			#include "«NamespaceHelper.getNamespaceHelper(includedClass).toString("/")»/«includedClass.name».h"
 		«ENDFOR»
 		
@@ -98,9 +100,9 @@ class EClassGenerator {
 		«ENDFOR»	
 		
 		std::list<«clazz.name»*> «clazz.name»::_instances;
-		
+		«»
 		«clazz.name»::«clazz.name»()«IF !assoc.empty»
-				«FOR a : assoc.filter[it.upperBound == 1] BEFORE ': ' SEPARATOR ','»«a.name»(NULL)«ENDFOR»«ENDIF» {
+				«FOR a : assoc.filter[it.upperBound == 1] BEFORE ': ' SEPARATOR ','»«a.name»(nullptr)«ENDFOR»«ENDIF» {
 			_instances.push_back(this);
 		}
 		
