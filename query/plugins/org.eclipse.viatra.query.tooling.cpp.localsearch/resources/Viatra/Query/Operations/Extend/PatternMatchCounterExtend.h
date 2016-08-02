@@ -56,6 +56,7 @@ private:
 	const RequiredMatcher _matcher;
 	CountResultMp _countResultMp;
 	std::tuple<Mp...> _memberPointers;
+    std::list<CountResultT> _objectHolder;
 };
 
 
