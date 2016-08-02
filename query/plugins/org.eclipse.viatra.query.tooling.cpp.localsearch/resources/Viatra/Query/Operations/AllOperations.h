@@ -23,6 +23,7 @@
 #include "Check/CheckExpression.h"
 #include "Check/NACOperation.h"
 #include "Check/TransitiveClosureCheck.h"
+#include "Check/PatternMatchCounterCheck.h"
 
 //extend
 #include "Extend/IterateOverInstances.h"

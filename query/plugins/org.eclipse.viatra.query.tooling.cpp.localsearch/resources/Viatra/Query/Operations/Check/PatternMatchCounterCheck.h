@@ -7,6 +7,8 @@
  *
  * Contributors:
  *     Robert Doczi - initial API and implementation
+ *     Szilagyi Gabor - Implementation
+ *     Toth Krisztian David - Implementation
  *******************************************************************************/
 #pragma once
 
@@ -26,20 +28,20 @@ namespace Check {
  *
  * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
  * @tparam RequiredMatcher The matcher for the expression which needs to be counted.
- * @tparam CountResultMp The member pointer type for the count field of the MatchingFrame 
+ * @tparam CountResultMp The member pointer type for the count field of the MatchingFrame
  * @tparam Mp The arbitrary list of member pointers to access the proper field of the frame (to pass them to the matcher).
 */
 template<class MatchingFrame, class RequiredMatcher, class CountResultMp, class ...Mp>
-class CountCheck : public CheckOperation<MatchingFrame> {
+class PatternMatchCounterCheck : public CheckOperation<MatchingFrame> {
 public:
-	CountCheck(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp... memberPointers);
+	PatternMatchCounterCheck(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp... memberPointers);
 
 protected:
 	bool check(MatchingFrame& frame, const Matcher::ISearchContext& context);
 
 private:
 
-	template<unsigned int... index>
+	template<size_t... index>
 	bool invoke_helper(MatchingFrame& frame, std::index_sequence<index...>);
 
 	const RequiredMatcher _matcher;
@@ -48,26 +50,26 @@ private:
 };
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultMp, class ...Mp>
-inline CountCheck<MatchingFrame, RequiredMatcher, class CountResultMp, Mp...>::CountCheck(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp ...memberPointers) :
-	_matcher(matcher), _countResultMp(CountResultMp), _memberPointers(memberPointers...)  {
+inline PatternMatchCounterCheck<MatchingFrame, RequiredMatcher, CountResultMp, Mp...>::PatternMatchCounterCheck(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp ...memberPointers) :
+	_matcher(matcher), _countResultMp(countResultMp), _memberPointers(memberPointers...)  {
 }
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultMp, class ...Mp>
-inline bool CountCheck<MatchingFrame, RequiredMatcher, class CountResultMp, Mp...>::check(MatchingFrame & frame, const Matcher::ISearchContext & context) {
-	constexpr auto Size = std::tuple_size<typename std::decay<std::tuple<Mp...>>::type>::value;
+inline bool PatternMatchCounterCheck<MatchingFrame, RequiredMatcher, CountResultMp, Mp...>::check(MatchingFrame & frame, const Matcher::ISearchContext & context) {
+	constexpr size_t Size = std::tuple_size<typename std::decay<std::tuple<Mp...>>::type>::value;
 	return invoke_helper(frame, std::make_index_sequence<Size>{});
 }
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultMp, class ...Mp>
-CountCheck<MatchingFrame, RequiredMatcher, class CountResultMp, Mp...>* create_CountCheck(const RequiredMatcher& matcher, Mp... memberPointers) {
-	return new CountCheck<MatchingFrame, RequiredMatcher, Mp...>(matcher, memberPointers...);
+PatternMatchCounterCheck<MatchingFrame, RequiredMatcher, CountResultMp, Mp...>* create_PatternMatchCounterCheck(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp... memberPointers) {
+	return new PatternMatchCounterCheck<MatchingFrame, RequiredMatcher, CountResultMp, Mp...>(matcher, countResultMp, memberPointers...);
 }
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultMp, class ...Mp>
-template<unsigned int ...index>
-inline bool CountCheck<MatchingFrame, RequiredMatcher, class CountResultMp, Mp...>::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) {
+template<size_t...index>
+inline bool PatternMatchCounterCheck<MatchingFrame, RequiredMatcher, CountResultMp, Mp...>::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) {
 	auto matches = _matcher.matches((frame.*std::get<index>(std::forward<std::tuple<Mp...>>(_memberPointers)))...);
-	return matches.size() == frame.*countResultMp;
+	return matches.size() == frame.*_countResultMp;
 }
 
 }  /* namespace Check */
