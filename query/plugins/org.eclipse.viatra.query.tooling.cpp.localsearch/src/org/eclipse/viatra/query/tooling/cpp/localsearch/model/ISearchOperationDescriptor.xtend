@@ -24,13 +24,15 @@ import org.eclipse.xtend.lib.annotations.Data
 interface ISearchOperationDescriptor {
 }
 
-@Data abstract class AbstractSearchOperationDescriptor implements ISearchOperationDescriptor{
+@Data
+abstract class AbstractSearchOperationDescriptor implements ISearchOperationDescriptor{
 
 	val MatchingFrameDescriptor matchingFrame
 
 }
 
-@Data class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
+@Data 
+class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	val PVariable variable
 
@@ -102,16 +104,20 @@ interface ISearchOperationDescriptor {
 	val PVariable source
 	val PVariable target
 }
-/*
-* In middle of implementation
-*
-* @Data class PatternMatchCounterStub extends DependentSearchOperationStub{
-*	public static val String NAME = "PatternMatchCounter"
-*
-*	val CharSequence matcher
-*	val Set<PVariable> bindings
-* }
-*/
+
+@Data class PatternMatchCounterCheckDescription extends DependentSearchOperationDescriptor{
+	public static val String NAME = "PatternMatchCounterCheck"
+	val CharSequence matcher
+	val Set<PVariable> bindings
+	val PVariable resultVariable
+}
+
+@Data class PatternMatchCounterExtendDescription extends DependentSearchOperationDescriptor{
+	public static val String NAME = "PatternMatchCounterExtend"
+	val CharSequence matcher
+	val Set<PVariable> bindings
+	val PVariable resultVariable
+}
 
 @Data class ExtendInstanceOfDescriptor extends InstanceOfDescriptor {
 

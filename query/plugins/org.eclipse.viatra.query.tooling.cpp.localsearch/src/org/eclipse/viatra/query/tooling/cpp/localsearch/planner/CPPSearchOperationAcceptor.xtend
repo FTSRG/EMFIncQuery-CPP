@@ -12,10 +12,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 
 import com.google.common.base.Optional
 import com.google.common.collect.Maps
-
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import java.util.List
 import java.util.Map
 import java.util.Set
@@ -28,19 +24,24 @@ import org.eclipse.viatra.query.runtime.matchers.planning.SubPlan
 import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
-import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 
 /**
  * @author Robert Doczi
@@ -130,16 +131,21 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
 
 	}
-/*
- * In middle of implementation
- *
- *	override acceptPatternMatchCounter(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters){
- *		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
- *		val dependency = new MatcherReference(calledPQuery, boundParameters)
- *		dependencies += dependency
- *		searchOperations += new PatternMatchCounterStub(matchingFrame,#{dependency}, matcherName, boundVariables)
- *	}
- */
+
+	override acceptPatternMatchCounterCheck(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable resultVariable){
+		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+		val dependency = new MatcherReference(calledPQuery, boundParameters)
+		dependencies += dependency
+		searchOperations += new PatternMatchCounterCheckDescription(matchingFrame, #{dependency}, matcherName, boundVariables, resultVariable )
+	}
+	
+	override acceptPatternMatchCounterExtend(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable resultVariable){
+		val matcherName = '''«calledPQuery.fullyQualifiedName.substring(calledPQuery.fullyQualifiedName.lastIndexOf('.')+1).toFirstUpper»Matcher'''
+		val dependency = new MatcherReference(calledPQuery, boundParameters)
+		dependencies += dependency
+		searchOperations += new PatternMatchCounterExtendDescription(matchingFrame, #{dependency}, matcherName, boundVariables, resultVariable)
+	}
+
 
 	def getPatternBodyStub() {
 		return new PatternBodyDescriptor(pBody, id, matchingFrame, searchOperations);
