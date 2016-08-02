@@ -6,7 +6,6 @@
         eType="#//Obstacle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nearby" upperBound="-1"
         eType="#//Obstacle"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceSection" eType="ecore:EClass ../../hu.bme.mit.inf.safetylogic.model/model/model.ecore#//Section"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOperational" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -22,12 +21,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Engine" eSuperTypes="#//Obstacle">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="train" eType="ecore:EClass ../../hu.bme.mit.inf.safetylogic.model/model/model.ecore#//Train"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Wagon" eSuperTypes="#//Obstacle">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="train" eType="ecore:EClass ../../hu.bme.mit.inf.safetylogic.model/model/model.ecore#//Train"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Engine" eSuperTypes="#//Obstacle"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Wagon" eSuperTypes="#//Obstacle"/>
   <eClassifiers xsi:type="ecore:EClass" name="RobotModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedelement" upperBound="-1"
         eType="#//NamedElement" containment="true"/>

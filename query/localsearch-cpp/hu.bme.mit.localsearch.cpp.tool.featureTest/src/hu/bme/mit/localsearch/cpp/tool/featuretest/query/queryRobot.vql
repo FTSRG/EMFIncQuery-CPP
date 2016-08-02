@@ -1,7 +1,7 @@
 package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 
-import "http://robot.ecore/model/uri"
-
+//import "http://robot.ecore/model/uri"
+/*
 @Bind(parameters={robot})
 pattern partsOfRobot(robot, robotpart){
 	Robot.parts(robot,robotpart);
@@ -13,4 +13,4 @@ pattern partsOfRobot(robot, robotpart){
 pattern isDangerous(robot, robotpart, obstacle){
 	find partsOfRobot(robot,robotpart);
 	RobotPart.close(robotpart,obstacle);
-}
+}*/

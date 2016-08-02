@@ -28,3 +28,4 @@
 //extend
 #include "Extend/IterateOverInstances.h"
 #include "Extend/NavigateAssociation.h"
+#include "Extend/PatternMatchCounterExtend.h"

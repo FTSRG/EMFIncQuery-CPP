@@ -13,7 +13,9 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
@@ -22,10 +24,10 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigat
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
-import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
 
 /**
  * @author Robert Doczi
@@ -72,19 +74,21 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 
 	private dispatch def compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) {
-			val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-			setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
-			return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
+		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
+		setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
 	}
-	  /*
-	  * In middle of implementation
-	  *
-		* private dispatch def compileOperation(PatternMatchCounterStub operation, StringBuilder setupCode) {
-		*	val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		*	setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
-		*	return '''create_«PatternMatchCounterStub::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
-		* }
-	  */
+	private dispatch def compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) {
+		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
+		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		return '''create_«PatternMatchCounterCheckDescription::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.resultVariable.toGetter», «operation.bindings.map[toGetter].join(", ")»)'''
+	}
+	
+	private dispatch def compileOperation(PatternMatchCounterExtendDescription operation, StringBuilder setupCode) {
+		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
+		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		return '''create_«PatternMatchCounterExtendDescription::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.resultVariable.toGetter», «operation.bindings.map[toGetter].join(", ")»)'''
+	}
 
 	private dispatch def compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
 		return '''create_«ExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''

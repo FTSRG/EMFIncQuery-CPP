@@ -31,7 +31,6 @@ import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBa
 import org.eclipse.viatra.query.runtime.localsearch.planner.cost.impl.VariableBindingBasedCostFunction
 import org.eclipse.viatra.query.runtime.localsearch.plan.PlannerConfiguration
 import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHintKeys
-import org.eclipse.viatra.query.runtime.localsearch.planner.cost.ICostFunction
 
 /**
  * @author Robert Doczi

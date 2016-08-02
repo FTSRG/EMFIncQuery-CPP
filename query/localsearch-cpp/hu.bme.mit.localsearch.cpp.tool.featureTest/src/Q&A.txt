@@ -38,7 +38,7 @@ find callBTC+(source, target)
 *** ?? Helyette ellenőrizzük, hogy target accessible típusú? //vagy ez editor felelősség inkább
 *** ?? Majd vegyük a target típusának _instances listáját és azon iteráljunk végig.
 --> Matcher-es megoldás az ajánlott
---> Fontos comment az iterátoros Matcher generátorban: // TODO: this does not work with if there are multiple query files, 
+--> Fontos comment az iterátoros Matcher generátorban: // TODO: this does not work with if there are multiple query files,
 somehow the related matcher generator needs to be accessed and its include path should be used
 --------------------------------------------------------------------------------------------------------------------------------
 pattern equalityEnum(item){
@@ -52,7 +52,7 @@ Plan{item}:PROJECT!_{item}
 <Plan{item,status}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.status@T(item;status;)]
 <Plan{}:START_{}<>>>>>>
 *** ?? Első két subplan fordítva lenne olcsóbb??
---> Vannak érdekes feature-jei a régi Planner-nek, ez most lesz lecserélve VIATRA 1.4-ben. 
+--> Vannak érdekes feature-jei a régi Planner-nek, ez most lesz lecserélve VIATRA 1.4-ben.
 *** !! VIATRA 1.4:
 Plan{item}:PROJECT!_{item}
 <Plan{item,status}:APPLY_PC[ExportedParameter:item]
@@ -241,3 +241,17 @@ pattern equalityInt(item: Item, robot: RobotPart){
 *** !! Query hu.bme.mit.localsearch.cpp.tool.featuretest.query.partsOfRobot contains errors.
 --> Probléma az volt, hogy nem jelezte ki azt a hibát, hogy nincs legenrálva a Model code (*.genmodel-ből)
 --> Hogy kijelezze a hibát Convert-elni kellett a project-et VIATRA project-é, majd XText project-é, hogy ezek nature-jei bekerüljenek a plugin nature-ök közé.
+Plan{robot,robotpart}:PROJECT!_{robot,robotpart}
+<Plan{robot,robotpart}:APPLY_PC[ExportedParameter:robotpart]
+<Plan{robot,robotpart}:APPLY_PC[TypeConstraint::http://robot.ecore/model/uri/Robot.parts@T(robot;robotpart;)]
+<Plan{robot}:APPLY_PC[ExportedParameter:robot]
+<Plan{robot}:APPLY_PC[TypeConstraint::http://robot.ecore/model/uri/Robot@T(robot;)]
+<Plan{robot}:START_{robot}<>>>>>>
+Plan{item,robot}:PROJECT!_{item,robot}
+<Plan{item,N,robot}:APPLY_PC[PatternMatchCounter:hu.bme.mit.localsearch.cpp.tool.featuretest.query.partsOfRobot@T(robot;_part;)->N]
+<Plan{item,N,robot}:APPLY_PC[ExportedParameter:robot]
+<Plan{item,N,robot}:APPLY_PC[TypeConstraint::http://robot.ecore/model/uri/Robot@T(robot;)]
+<Plan{item,N}:APPLY_PC[ExportedParameter:item]
+<Plan{item,N}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item@T(item;)]
+<Plan{item,N}:APPLY_PC[TypeConstraint::http://unfinished.ecore/model/Item.count@T(item;N;)]
+<Plan{}:START_{}<>>>>>>>>

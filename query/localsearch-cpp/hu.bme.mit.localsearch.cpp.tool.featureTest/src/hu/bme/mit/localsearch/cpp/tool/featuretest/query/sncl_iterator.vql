@@ -1,11 +1,9 @@
 package hu.bme.mit.localsearch.cpp.tool.featuretest.query
-
+/*
 import "http://arch.ecore/model"
 
 @Bind(parameters={S1})
-pattern linked(S1,S2){
-	SN(S1);
-	SN(S2);
+pattern linked(S1 : SN,S2 : SN){
 	SN.link(S1,S2);
 } or {
 	SN(S1);
@@ -22,8 +20,8 @@ pattern pconnected(C1,C2){
 	CL.cnn(C2,S2);
 	find linked+(S1,S2);
 }
-/*
+
 @Bind(parameters={C1})
-pattern isolated(C1 : CL, C2 :CL){
-	neg find pconnected(C1,C2);
+pattern isolated(C1 : CL){
+	neg find pconnected(C1,_C2);
 }*/
