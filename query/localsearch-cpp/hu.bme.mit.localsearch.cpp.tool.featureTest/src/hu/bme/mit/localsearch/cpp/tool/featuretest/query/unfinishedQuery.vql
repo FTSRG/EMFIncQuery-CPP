@@ -1,16 +1,13 @@
 package hu.bme.mit.localsearch.cpp.tool.featuretest.query
-
+/*
 import "http://unfinished.ecore/model"
 import "http://robot.ecore/model/uri"
 
 @Bind(parameters={robot})
-pattern partsOfRobot(robot : Robot, robotpart: RobotPart){
-	Robot(robot);
-	RobotPart(robotpart);
+pattern partsOfRobot(robot, robotpart){
 	Robot.parts(robot,robotpart);
 }
 
-pattern equalityInt(item: Item, robot: RobotPart){
-	Item.^count(item, N);
-	N == count find partsOfRobot(robot, part);
-}
+pattern equalityInt(robot : Robot, N){
+	N == count find partsOfRobot(robot, _part);
+}*/

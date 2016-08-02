@@ -1,6 +1,6 @@
 package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 
-import "http://robot.ecore/model/uri"
+//import "http://robot.ecore/model/uri"
 /*
 pattern robot(rob, named){
 	Robot(rob);
