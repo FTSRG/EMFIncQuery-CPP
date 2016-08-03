@@ -21,6 +21,12 @@ pattern pconnected(C1,C2){
 	find linked+(S1,S2);
 }
 
+pattern countlinks(C1, N){
+	CL.cnn(C1,S1);
+	N == count find linked(S1,_S2);
+}
+*/
+/*
 @Bind(parameters={C1})
 pattern isolated(C1 : CL){
 	neg find pconnected(C1,_C2);
