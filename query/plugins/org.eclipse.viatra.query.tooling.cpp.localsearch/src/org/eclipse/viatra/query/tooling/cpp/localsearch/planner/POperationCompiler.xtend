@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import java.util.Map
 import java.util.Set
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
+import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey
 import org.eclipse.viatra.query.runtime.matchers.planning.SubPlan
 import org.eclipse.viatra.query.runtime.matchers.planning.operations.PApply
@@ -25,10 +24,23 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.impl.EDataTypeImpl
+import org.eclipse.emf.ecore.EFactory
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery.PQueryStatus
+import org.eclipse.viatra.query.runtime.matchers.tuple.FlatTuple
+import java.util.List
+import com.google.common.collect.Lists
+import org.eclipse.viatra.query.runtime.matchers.planning.SubPlanFactory
 
 /**
  * @author Robert Doczi
@@ -39,8 +51,11 @@ class POperationCompiler {
 	var Map<PVariable, Integer> variableMapping
 	var Map<PConstraint, Set<Integer>> variableBindings
 	var Map<PVariable, TypeInfo> typeMapping
+	
 
 	def void compile(SubPlan plan, PBody pBody, Set<PVariable> boundVariables, ISearchOperationAcceptor acceptor) {
+		var newOperationList = injectSupplementTypeConstraints(plan)
+		plan = reEssamblePlan(newOperationList)
 		variableMapping = CompilerHelper::createVariableMapping(plan)
 		typeMapping = CompilerHelper::createTypeMapping(plan)
 		variableBindings = CompilerHelper::cacheVariableBindings(plan, variableMapping, boundVariables.map[variableMapping.get(it)].toSet)
@@ -48,6 +63,40 @@ class POperationCompiler {
 		acceptor.initialize(plan, variableMapping, variableBindings)
 
 		CompilerHelper::createOperationsList(plan).forEach[compile(acceptor)]
+	}
+	
+	def reEssamblePlan(List<POperation> operations) {
+		val reversedOperationList = Lists::reverse(operations);
+		var i = 0;
+		SubPlanFactory subPlanFactory = new SubPlanFactory(reversedOperationList.get(i));
+	}
+	
+	def injectSupplementTypeConstraints(SubPlan plan) {
+		var operationList = CompilerHelper::createOperationsList(plan)
+		var i = 0;
+		while(operationList.size > i){
+			var pOperation = operationList.get(i)
+			switch(pOperation){
+				PApply: {
+					val pConstraint = pOperation.getPConstraint
+					switch(pConstraint){
+						PatternMatchCounter: {
+							var supplierKey = new EDataTypeInSlotsKey(EcorePackage.Literals.EINT)
+							pConstraint.PSystem.setStatus(PQueryStatus.UNINITIALIZED);
+							var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,new FlatTuple(pConstraint.resultVariable), supplierKey)
+							
+							operationList.add(i,new PApply(supTypeConst))
+							i++
+						}
+					}
+				}
+				default:{
+					
+				}
+			}
+			i++
+		}
+		return operationList
 	}
 
 	def compile(POperation pOperation, ISearchOperationAcceptor acceptor) {
@@ -83,6 +132,16 @@ class POperationCompiler {
 				val trg = constraint.getVariableInTuple(1)
 
 				acceptor.acceptContainmentCheck(src, trg, inputKey)
+			}
+		}
+	}
+	
+	def dispatch createCheck(SupplementTypeConstraint constraint, ISearchOperationAcceptor acceptor) {
+		val inputKey = constraint.supplierKey
+		switch (inputKey){
+			EDataTypeInSlotsKey: {
+				val variable = constraint.getVariableInTuple(0)
+				//acceptor.acceptInstanceOfDataTypeCheck(variable, inputKey)
 			}
 		}
 	}
@@ -194,6 +253,10 @@ class POperationCompiler {
 				}
 			}
 		}
+	}
+	
+	def dispatch createExtend(SupplementTypeConstraint constraint, ISearchOperationAcceptor acceptor) {
+		//nop
 	}
 
 	def dispatch createExtend(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {

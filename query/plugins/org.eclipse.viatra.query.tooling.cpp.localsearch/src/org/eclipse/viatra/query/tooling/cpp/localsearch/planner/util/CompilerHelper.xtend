@@ -30,6 +30,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
+import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 
 /**
  * @author Robert Doczi
@@ -100,11 +101,11 @@ class CompilerHelper {
 		}
 		return variableBindings
 	}
-
+	//TODO: doesn't support EAttributes, only model elements
 	static def Map<PVariable, TypeInfo> createTypeMapping(SubPlan plan) {
 		val Map<PVariable, TypeInfo> typeMapping = Maps::newHashMap()
-		var Set<PVariable> allVarialbes = plan.getAllEnforcedConstraints().map[getAffectedVariables].flatten.toSet
-		allVarialbes.forEach[pVar |
+		var Set<PVariable> allVariables = plan.getAllEnforcedConstraints().map[getAffectedVariables].flatten.toSet
+		allVariables.forEach[pVar |
 			var EClass leastStrictType = getLeastStrictType(pVar)
 			if (leastStrictType !== null) {
 				typeMapping.put(pVar, new TypeInfo(leastStrictType, getStrictestType(pVar)))
@@ -147,7 +148,10 @@ class CompilerHelper {
 						return ((key as EClassTransitiveInstancesKey)).getWrappedKey()
 					} else if (key instanceof EStructuralFeatureInstancesKey) {
 						return ((key as EStructuralFeatureInstancesKey)).getWrappedKey().getEType()
+					} else if ((key instanceof EDataTypeInSlotsKey)) {
+						return ((key as EDataTypeInSlotsKey)).getEmfKey()
 					}
+					
 					return null
 				}
 			]).filter([c|c !== null]).toSet
