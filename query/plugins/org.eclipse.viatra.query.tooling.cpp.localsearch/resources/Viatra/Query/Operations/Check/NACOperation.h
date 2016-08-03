@@ -38,7 +38,7 @@ protected:
 
 private:
 
-	template<unsigned int... index>
+	template<size_t... index>
 	bool invoke_helper(MatchingFrame& frame, std::index_sequence<index...>);
 
 	const RequiredMatcher _matcher;
@@ -62,7 +62,7 @@ NACOperation<MatchingFrame, RequiredMatcher, Mp...>* create_NACOperation(const R
 }
 
 template<class MatchingFrame, class RequiredMatcher, class ...Mp>
-template<unsigned int ...index>
+template<size_t ...index>
 inline bool NACOperation<MatchingFrame, RequiredMatcher, Mp...>::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) {
 	auto matches = _matcher.matches((frame.*std::get<index>(std::forward<std::tuple<Mp...>>(_memberPointers)))...);
 	return matches.size() == 0;

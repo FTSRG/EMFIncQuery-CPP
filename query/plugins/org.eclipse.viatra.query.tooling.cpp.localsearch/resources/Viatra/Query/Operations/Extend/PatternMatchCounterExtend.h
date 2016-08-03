@@ -37,18 +37,18 @@ template<class MatchingFrame, class RequiredMatcher, class CountResultT, class .
 class PatternMatchCounterExtend : public ExtendOperation<CountResultT, std::list<CountResultT>, MatchingFrame> {
 	using CountResultMp = CountResultT MatchingFrame::*;
 public:
-	
+
 	inline PatternMatchCounterExtend(const RequiredMatcher& matcher, CountResultMp countResultMp, Mp... memberPointers)
 	  :	ExtendOperation<CountResultT, std::list<CountResultT>, MatchingFrame>(countResultMp)
 	  , _matcher(matcher)
 	  , _countResultMp(countResultMp)
-	  , _memberPointers(memberPointers...)  
+	  , _memberPointers(memberPointers...)
 	{
 	}
 
 	void on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context);
-	
-	
+
+
 	template<size_t... index>
 	CountResultT invoke_helper(MatchingFrame& frame, std::index_sequence<index...>);
 
@@ -62,22 +62,22 @@ private:
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultT, class ...Mp>
 inline void PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, CountResultT, Mp...>
-			::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext&) 
+			::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext&)
 {
     _objectHolder.clear();
-	
+
 	constexpr auto VariableCount = std::tuple_size<typename std::decay<std::tuple<Mp...>>::type>::value;
 	CountResultT countResult = invoke_helper(frame, std::make_index_sequence<VariableCount>{});
-	
+
 	_objectHolder.push_back(countResult);
-	
-    ExtendOperation<TrgType, std::list<TrgType>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
+
+    ExtendOperation<CountResultT, std::list<CountResultT>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
 }
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultT, class ...Mp>
 template<size_t ...index>
 inline CountResultT PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, CountResultT, Mp...>
-		::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) 
+		::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>)
 {
 	auto matches = _matcher.matches((frame.*std::get<index>(std::forward<std::tuple<Mp...>>(_memberPointers)))...);
 	return matches.size();
@@ -85,11 +85,11 @@ inline CountResultT PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, Co
 
 
 template<class MatchingFrame, class RequiredMatcher, class CountResultT, class ...Mp>
-PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, CountResultT, Mp...>* 
+PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, CountResultT, Mp...>*
 	create_PatternMatchCounterExtend(
-		const RequiredMatcher& matcher, 
+		const RequiredMatcher& matcher,
 		CountResultT MatchingFrame::*countResultMp,
-		Mp... memberPointers) 
+		Mp... memberPointers)
 {
 	return new PatternMatchCounterExtend<MatchingFrame, RequiredMatcher, CountResultT, Mp...>(matcher, countResultMp, memberPointers...);
 }
