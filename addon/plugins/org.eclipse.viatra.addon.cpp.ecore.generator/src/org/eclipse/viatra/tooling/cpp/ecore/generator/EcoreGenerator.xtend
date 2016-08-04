@@ -20,8 +20,10 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.FileSystemAccess
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.FileSystemTaskHandler
 import org.eclipse.viatra.tooling.cpp.ecore.generator.common.PackageGenerator
 import org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EClassGenerator
+import org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EEnumGenerator
 
 import static org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EClassGenerator.*
+import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -61,6 +63,10 @@ class EcoreGenerator {
 
 	def dispatch void generate(EClass clazz, FileSystemAccess fsa) {
 		EClassGenerator::generateClass(clazz, fsa)
+	}
+	
+	def dispatch void generate(EEnum eenum, FileSystemAccess fsa){
+		EEnumGenerator::generateEnum(eenum, fsa)		
 	}
 
 	def dispatch void generate(EObject obj, FileSystemAccess fsa) {

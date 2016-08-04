@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EReference
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
+import org.eclipse.emf.ecore.EEnum
+import org.eclipse.emf.ecore.ENamedElement
 
 /**
  * @author Robert Doczi
@@ -55,6 +57,7 @@ class CppHelper {
 			[
 				switch it {
 					EClass: new ClassHelper(it)
+					EEnum: new EnumHelper(it)
 					EDataType: new PrimitiveTypeHelper(it)
 				}
 			])
@@ -205,6 +208,36 @@ class ClassHelper implements TypeHelper {
 	
 	override getDefaultValue() {
 		'''nullptr'''
+	}
+	
+}
+
+
+class EnumHelper implements TypeHelper {
+	
+	val EEnum eEnum
+	
+	val String name
+	val String fqn
+	
+	new(EEnum eEnum) {
+		this.eEnum = eEnum
+		
+		val ns = NamespaceHelper::getNamespaceHelper(eEnum)
+		this.name = eEnum.name
+		this.fqn = '''::«ns.toString»::«name»'''
+	}
+	
+	override getName() {
+		name
+	}	
+	
+	override getFQN() {
+		fqn
+	}
+	
+	override getDefaultValue() {
+		'''«this.fqn»::«(eEnum.defaultValue as ENamedElement).name»'''
 	}
 	
 }
