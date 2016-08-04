@@ -303,7 +303,7 @@ class POperationCompiler {
 			}
 		}
 		val resultVar = patternmatch.resultVariable
-		acceptor.acceptPatternMatchCounterCheck(patternmatch.referredQuery, adornment, boundParams, resultVar)
+		acceptor.acceptPatternMatchCounterExtend(patternmatch.referredQuery, adornment, boundParams, resultVar)
 	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
