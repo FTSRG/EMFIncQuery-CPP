@@ -19,6 +19,7 @@
 #include <list>
 #include <type_traits>
 #include <utility>
+#include <unordered_set>
 
 namespace Viatra {
 namespace Query {
