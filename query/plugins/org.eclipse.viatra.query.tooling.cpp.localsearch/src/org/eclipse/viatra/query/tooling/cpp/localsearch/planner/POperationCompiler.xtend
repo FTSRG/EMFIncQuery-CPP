@@ -10,12 +10,16 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 
+import java.util.List
 import java.util.Map
 import java.util.Set
+import javax.activation.UnsupportedDataTypeException
+import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey
 import org.eclipse.viatra.query.runtime.matchers.planning.SubPlan
+import org.eclipse.viatra.query.runtime.matchers.planning.SubPlanFactory
 import org.eclipse.viatra.query.runtime.matchers.planning.operations.PApply
 import org.eclipse.viatra.query.runtime.matchers.planning.operations.POperation
 import org.eclipse.viatra.query.runtime.matchers.planning.operations.PProject
@@ -28,19 +32,11 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativeP
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery.PQueryStatus
+import org.eclipse.viatra.query.runtime.matchers.tuple.FlatTuple
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
-import org.eclipse.emf.ecore.EDataType
-import org.eclipse.emf.ecore.impl.EDataTypeImpl
-import org.eclipse.emf.ecore.EFactory
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EcorePackage
-import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery.PQueryStatus
-import org.eclipse.viatra.query.runtime.matchers.tuple.FlatTuple
-import java.util.List
-import com.google.common.collect.Lists
-import org.eclipse.viatra.query.runtime.matchers.planning.SubPlanFactory
 
 /**
  * @author Robert Doczi
@@ -52,23 +48,50 @@ class POperationCompiler {
 	var Map<PConstraint, Set<Integer>> variableBindings
 	var Map<PVariable, TypeInfo> typeMapping
 	
+	
 
 	def void compile(SubPlan plan, PBody pBody, Set<PVariable> boundVariables, ISearchOperationAcceptor acceptor) {
 		var newOperationList = injectSupplementTypeConstraints(plan)
-		plan = reEssamblePlan(newOperationList)
-		variableMapping = CompilerHelper::createVariableMapping(plan)
-		typeMapping = CompilerHelper::createTypeMapping(plan)
-		variableBindings = CompilerHelper::cacheVariableBindings(plan, variableMapping, boundVariables.map[variableMapping.get(it)].toSet)
+		val newPlan = reAssemblePlan(newOperationList, pBody)
+		variableMapping = CompilerHelper::createVariableMapping(newPlan)
+		typeMapping = CompilerHelper::createTypeMapping(newPlan)
+		variableBindings = CompilerHelper::cacheVariableBindings(newPlan, variableMapping, boundVariables.map[variableMapping.get(it)].toSet)
 
-		acceptor.initialize(plan, variableMapping, variableBindings)
+		acceptor.initialize(newPlan, variableMapping, variableBindings)
 
-		CompilerHelper::createOperationsList(plan).forEach[compile(acceptor)]
+		CompilerHelper::createOperationsList(newPlan).forEach[compile(acceptor)]
 	}
 	
-	def reEssamblePlan(List<POperation> operations) {
-		val reversedOperationList = Lists::reverse(operations);
-		var i = 0;
-		SubPlanFactory subPlanFactory = new SubPlanFactory(reversedOperationList.get(i));
+
+	
+	def reAssemblePlan(List<POperation> operations, PBody pBody) {
+		val reversedOperationList = operations //Lists::reverse(operations)
+		var i = 0
+		val subPlanFactory = new SubPlanFactory(pBody)
+		var op = reversedOperationList.get(i) 
+		var plan = subPlanFactory.createSubPlan(op)
+		var allConstraints = newArrayList
+		i++
+		while(i < reversedOperationList.size){
+			op = reversedOperationList.get(i)
+			switch (op) {
+				PStart: {
+					plan = subPlanFactory.createSubPlan(reversedOperationList.get(i))
+				}
+				PProject: {
+					plan = subPlanFactory.createSubPlan(reversedOperationList.get(i), plan)
+				}
+				PApply: {
+					if(!allConstraints.contains(op.PConstraint)){
+						allConstraints.add(op.PConstraint) 
+						plan = subPlanFactory.createSubPlan(reversedOperationList.get(i), plan)
+					}
+			
+				}
+			}
+			i++	
+		}
+		return plan
 	}
 	
 	def injectSupplementTypeConstraints(SubPlan plan) {
@@ -84,8 +107,8 @@ class POperationCompiler {
 							var supplierKey = new EDataTypeInSlotsKey(EcorePackage.Literals.EINT)
 							pConstraint.PSystem.setStatus(PQueryStatus.UNINITIALIZED);
 							var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,new FlatTuple(pConstraint.resultVariable), supplierKey)
-							
-							operationList.add(i,new PApply(supTypeConst))
+							//The operationList.size - 1 is the position of last PConstraint: PProject, it has to be the last.
+							operationList.add(operationList.size-1,new PApply(supTypeConst))
 							i++
 						}
 					}
@@ -137,13 +160,7 @@ class POperationCompiler {
 	}
 	
 	def dispatch createCheck(SupplementTypeConstraint constraint, ISearchOperationAcceptor acceptor) {
-		val inputKey = constraint.supplierKey
-		switch (inputKey){
-			EDataTypeInSlotsKey: {
-				val variable = constraint.getVariableInTuple(0)
-				//acceptor.acceptInstanceOfDataTypeCheck(variable, inputKey)
-			}
-		}
+		//nop
 	}
 
 	def dispatch createCheck(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {
@@ -252,6 +269,9 @@ class POperationCompiler {
 					acceptor.acceptExtendToAssociationSource(src, trg, inputKey)
 				}
 			}
+			EDataTypeInSlotsKey: {
+				throw new UnsupportedDataTypeException("Cannot interpret TypeConstraint with primitiveType.")
+			}
 		}
 	}
 	
@@ -273,6 +293,8 @@ class POperationCompiler {
 		
 		val params = patternmatch.referredQuery.parameters
 		val boundParams = newHashSet
+		
+		//patternmatch.actualParametersTuple.elements.filter[pVar | bindings.contains(variableMapping.get())]
 		
 		for(i : 0..<keySize) {
 			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable

@@ -101,12 +101,11 @@ class CompilerHelper {
 		}
 		return variableBindings
 	}
-	//TODO: doesn't support EAttributes, only model elements
 	static def Map<PVariable, TypeInfo> createTypeMapping(SubPlan plan) {
 		val Map<PVariable, TypeInfo> typeMapping = Maps::newHashMap()
 		var Set<PVariable> allVariables = plan.getAllEnforcedConstraints().map[getAffectedVariables].flatten.toSet
 		allVariables.forEach[pVar |
-			var EClass leastStrictType = getLeastStrictType(pVar)
+			var EClassifier leastStrictType = getLeastStrictType(pVar)
 			if (leastStrictType !== null) {
 				typeMapping.put(pVar, new TypeInfo(leastStrictType, getStrictestType(pVar)))
 			} else {
@@ -135,7 +134,7 @@ class CompilerHelper {
 					.head
 	}
 
-	private static def EClass getLeastStrictType(PVariable pVar) {
+	private static def EClassifier getLeastStrictType(PVariable pVar) {
 		var Set<EClassifier> possibleTypes = pVar.getReferringConstraintsOfType(typeof(TypeConstraint)).
 			filter([constraint |
 				{
@@ -155,16 +154,19 @@ class CompilerHelper {
 					return null
 				}
 			]).filter([c|c !== null]).toSet
-		var EClass leastStrictType = null
+		var EClassifier leastStrictType = null
 		for (EClass type : Iterables::filter(possibleTypes, typeof(EClass))) {
 			if (leastStrictType === null) {
 				leastStrictType = type
-			} else if(type.isSuperTypeOf(leastStrictType)) leastStrictType = type
+			} else if(type.isSuperTypeOf(leastStrictType as EClass)) leastStrictType = type
 		}
+		for (EDataType type : Iterables::filter(possibleTypes, typeof(EDataType)))
+			if (leastStrictType === null)
+				leastStrictType = type
 		return leastStrictType
 	}
 
-	private static def EClass getStrictestType(PVariable pVar) {
+	private static def EClassifier getStrictestType(PVariable pVar) {
 		var Set<EClassifier> possibleTypes = pVar.getReferringConstraintsOfType(typeof(TypeConstraint)).
 			filter([constraint |
 				{
@@ -177,11 +179,13 @@ class CompilerHelper {
 						return ((key as EClassTransitiveInstancesKey)).getWrappedKey()
 					} else if (key instanceof EStructuralFeatureInstancesKey) {
 						return ((key as EStructuralFeatureInstancesKey)).getWrappedKey().getEType()
+					} else if ((key instanceof EDataTypeInSlotsKey)) {
+						return ((key as EDataTypeInSlotsKey)).getEmfKey()
 					}
 					return null
 				}
 			]).filter([c|c !== null]).toSet
-		var EClass strictestType = null
+		var EClassifier strictestType = null
 		for (EClass type : Iterables::filter(possibleTypes, typeof(EClass))) {
 			if (strictestType === null) {
 				strictestType = type
@@ -198,6 +202,10 @@ class CompilerHelper {
 					}
 				}
 			}
+		}
+		for (EDataType type : Iterables::filter(possibleTypes, typeof(EDataType))){
+			if(strictestType === null) 
+				strictestType = type
 		}
 		return strictestType
 	}
