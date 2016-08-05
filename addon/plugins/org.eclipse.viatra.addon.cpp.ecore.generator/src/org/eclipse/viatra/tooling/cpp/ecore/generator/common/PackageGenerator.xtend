@@ -18,6 +18,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelpe
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.NamespaceHelper
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
+import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -55,6 +56,10 @@ class PackageGenerator {
 		
 		«FOR clazz : pack.eContents.filter(EClass)»
 			class «clazz.name»;
+		«ENDFOR»
+		
+		«FOR eenum : pack.eContents.filter(EEnum)»
+			#include "«NamespaceHelper::getNamespaceHelper(eenum).toString("/")»/«eenum.name».h"
 		«ENDFOR»
 		
 		} /* namespace «pack.name» */
