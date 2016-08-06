@@ -39,6 +39,9 @@ class PackageGenerator {
 		«FOR clazz : pack.eContents.filter(EClass)»
 			#include "«NamespaceHelper::getNamespaceHelper(clazz).toString("/")»/«clazz.name».h"
 		«ENDFOR»
+		«FOR eenum : pack.eContents.filter(EEnum)»
+			#include "«NamespaceHelper::getNamespaceHelper(eenum).toString("/")»/«eenum.name».h"
+		«ENDFOR»
 		
 		«guard.end»
 	'''
@@ -54,17 +57,19 @@ class PackageGenerator {
 		«ENDFOR»
 		namespace «pack.name» {
 		
-		«FOR clazz : pack.eContents.filter(EClass)»
-			class «clazz.name»;
-		«ENDFOR»
+			«FOR clazz : pack.eContents.filter(EClass)»
+				class «clazz.name»;
+			«ENDFOR»
 		
-		«FOR eenum : pack.eContents.filter(EEnum)»
-			#include "«NamespaceHelper::getNamespaceHelper(eenum).toString("/")»/«eenum.name».h"
-		«ENDFOR»
 		
 		} /* namespace «pack.name» */
 		«FOR namespace : ns»
 			} /* namespace «namespace» */
+		«ENDFOR»
+		
+		
+		«FOR eenum : pack.eContents.filter(EEnum)»
+			#include "«NamespaceHelper::getNamespaceHelper(eenum).toString("/")»/«eenum.name».h"
 		«ENDFOR»
 		
 		«guard.end»
