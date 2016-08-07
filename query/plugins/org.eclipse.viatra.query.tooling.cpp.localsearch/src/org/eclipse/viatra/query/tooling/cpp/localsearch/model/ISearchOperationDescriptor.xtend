@@ -85,6 +85,13 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val Object value
 }
 
+
+@Data class CheckInequalityDescriptor extends AbstractSearchOperationDescriptor {
+	public static val String NAME = "InequalityCheck"
+	val PVariable var1
+	val PVariable var2
+}
+
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {
 
 	public static val String NAME = "MultiAssociationCheck"

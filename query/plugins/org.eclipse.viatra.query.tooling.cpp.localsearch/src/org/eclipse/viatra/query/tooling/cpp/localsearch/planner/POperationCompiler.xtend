@@ -38,6 +38,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality
 
 /**
  * @author Robert Doczi
@@ -239,6 +240,13 @@ class POperationCompiler {
 		val value = constraint.supplierKey
 		
 		acceptor.acceptConstantValueExtend(variable, value);
+	}
+	
+	def dispatch createCheck(Inequality constraint, ISearchOperationAcceptor acceptor){
+		val who = constraint.getWho
+		val withWhom = constraint.getWithWhom
+		
+		acceptor.acceptInequalityCheck(who, withWhom);
 	}
 
 	def dispatch createCheck(PConstraint constraint, ISearchOperationAcceptor acceptor) {

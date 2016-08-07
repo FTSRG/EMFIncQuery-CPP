@@ -30,6 +30,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 
 /**
  * @author Robert Doczi
@@ -106,6 +107,10 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	
 	private dispatch def compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
 		return '''create_«ExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
+	}
+	
+	private dispatch def compileOperation(CheckInequalityDescriptor operation, StringBuilder setupCode) {
+		return '''create_«CheckInequalityDescriptor::NAME»(«operation.var1.toGetter», «operation.var2.toGetter»)'''
 	}
 	
 	private dispatch def compileOperation(ExtendSingleNavigationDescriptor operation, StringBuilder setupCode) {
