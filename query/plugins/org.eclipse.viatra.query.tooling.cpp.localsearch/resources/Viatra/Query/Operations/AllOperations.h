@@ -20,6 +20,7 @@
 // check
 #include "Check/InstanceOfCheck.h"
 #include "Check/AssociationCheck.h"
+#include "Check/InequalityCheck.h"
 #include "Check/CheckExpression.h"
 #include "Check/NACOperation.h"
 #include "Check/TransitiveClosureCheck.h"
