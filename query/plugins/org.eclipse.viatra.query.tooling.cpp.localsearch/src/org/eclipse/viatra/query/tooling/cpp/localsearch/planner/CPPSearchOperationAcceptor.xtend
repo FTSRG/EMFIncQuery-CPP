@@ -27,9 +27,11 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
@@ -145,6 +147,15 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		dependencies += dependency
 		searchOperations += new PatternMatchCounterExtendDescription(matchingFrame, #{dependency}, matcherName, boundVariables, resultVariable)
 	}
+	
+	override acceptConstantValueCheck(PVariable variable, Object value) {
+		searchOperations += new CheckConstantValueDescriptor(matchingFrame, variable, value)
+	}
+	
+	override acceptConstantValueExtend(PVariable variable, Object value) {
+		searchOperations += new ExtendConstantValueDescriptor(matchingFrame, variable, value)
+				
+	}
 
 
 	def getPatternBodyStub() {
@@ -170,5 +181,4 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 			return frame
 		]
 	}
-
 }

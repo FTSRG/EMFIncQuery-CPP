@@ -37,6 +37,7 @@ import org.eclipse.viatra.query.runtime.matchers.tuple.FlatTuple
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
 
 /**
  * @author Robert Doczi
@@ -65,26 +66,25 @@ class POperationCompiler {
 
 	
 	def reAssemblePlan(List<POperation> operations, PBody pBody) {
-		val reversedOperationList = operations //Lists::reverse(operations)
 		var i = 0
 		val subPlanFactory = new SubPlanFactory(pBody)
-		var op = reversedOperationList.get(i) 
+		var op = operations.get(i) 
 		var plan = subPlanFactory.createSubPlan(op)
 		var allConstraints = newArrayList
 		i++
-		while(i < reversedOperationList.size){
-			op = reversedOperationList.get(i)
+		while(i < operations.size){
+			op = operations.get(i)
 			switch (op) {
 				PStart: {
-					plan = subPlanFactory.createSubPlan(reversedOperationList.get(i))
+					plan = subPlanFactory.createSubPlan(operations.get(i))
 				}
 				PProject: {
-					plan = subPlanFactory.createSubPlan(reversedOperationList.get(i), plan)
+					plan = subPlanFactory.createSubPlan(operations.get(i), plan)
 				}
 				PApply: {
 					if(!allConstraints.contains(op.PConstraint)){
 						allConstraints.add(op.PConstraint) 
-						plan = subPlanFactory.createSubPlan(reversedOperationList.get(i), plan)
+						plan = subPlanFactory.createSubPlan(operations.get(i), plan)
 					}
 			
 				}
@@ -109,7 +109,6 @@ class POperationCompiler {
 							var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,new FlatTuple(pConstraint.resultVariable), supplierKey)
 							//The operationList.size - 1 is the position of last PConstraint: PProject, it has to be the last.
 							operationList.add(operationList.size-1,new PApply(supTypeConst))
-							i++
 						}
 					}
 				}
@@ -163,76 +162,83 @@ class POperationCompiler {
 		//nop
 	}
 
-	def dispatch createCheck(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {
-		val bindings = variableBindings.get(negativePatternCall)
-		val adornment = negativePatternCall.actualParametersTuple.elements.filter(PVariable).filter[
+	def dispatch createCheck(NegativePatternCall constraint, ISearchOperationAcceptor acceptor) {
+		val bindings = variableBindings.get(constraint)
+		val adornment = constraint.actualParametersTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
 		].toSet
 
-		val keySize = negativePatternCall.actualParametersTuple.size
+		val keySize = constraint.actualParametersTuple.size
 
-		val params = negativePatternCall.referredQuery.parameters
+		val params = constraint.referredQuery.parameters
 		val boundParams = newHashSet
 
 		for(i : 0..<keySize) {
-			val pVariable = negativePatternCall.actualParametersTuple.get(i) as PVariable
+			val pVariable = constraint.actualParametersTuple.get(i) as PVariable
 			if(bindings.contains(variableMapping.get(pVariable))) {
 				boundParams += params.get(i)
 			}
 		}
 
-		acceptor.acceptNACOperation(negativePatternCall.referredQuery, adornment, boundParams)
+		acceptor.acceptNACOperation(constraint.referredQuery, adornment, boundParams)
 	}
 
-	def dispatch createCheck(BinaryTransitiveClosure transitiveClosure, ISearchOperationAcceptor acceptor){
+	def dispatch createCheck(BinaryTransitiveClosure constraint, ISearchOperationAcceptor acceptor){
 
-		val bindings = variableBindings.get(transitiveClosure)
-		val adornment = transitiveClosure.variablesTuple.elements.filter(PVariable).filter[
+		val bindings = variableBindings.get(constraint)
+		val adornment = constraint.variablesTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
 		].toSet
 
-		val keySize = transitiveClosure.variablesTuple.size
+		val keySize = constraint.variablesTuple.size
 
-		val params = transitiveClosure.referredQuery.parameters
+		val params = constraint.referredQuery.parameters
 		val boundParams = newHashSet
 
 		for(i : 0..<keySize) {
-			val pVariable = transitiveClosure.variablesTuple.get(i) as PVariable
+			val pVariable = constraint.variablesTuple.get(i) as PVariable
 			if(bindings.contains(variableMapping.get(pVariable))) {
 				boundParams += params.get(i)
 			}
 		}
 		//Is it necessary or enough with boundParams
-		val inputParams = transitiveClosure.variablesTuple.elements.filter(PVariable).toList
+		val inputParams = constraint.variablesTuple.elements.filter(PVariable).toList
 		val source = inputParams.get(0) as PVariable
 		val target = inputParams.get(1) as PVariable
-		acceptor.acceptBinaryTransitiveClosureOperation(transitiveClosure.referredQuery, adornment, boundParams, source, target)
+		acceptor.acceptBinaryTransitiveClosureOperation(constraint.referredQuery, adornment, boundParams, source, target)
 		acceptor.hashCode
 	}
 
-	def dispatch createCheck(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor){
-		val bindings = variableBindings.get(patternmatch)
-		val adornment = patternmatch.actualParametersTuple.elements.filter(PVariable).filter[
+	def dispatch createCheck(PatternMatchCounter constraint, ISearchOperationAcceptor acceptor){
+		val bindings = variableBindings.get(constraint)
+		val adornment = constraint.actualParametersTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
 		].toSet
 		
-		val keySize = patternmatch.actualParametersTuple.size
+		val keySize = constraint.actualParametersTuple.size
 		
-		val params = patternmatch.referredQuery.parameters
+		val params = constraint.referredQuery.parameters
 		val boundParams = newHashSet
 		
 		for(i : 0..<keySize) {
-			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable
+			val pVariable = constraint.actualParametersTuple.get(i) as PVariable
 		if(bindings.contains(variableMapping.get(pVariable))) {
 				boundParams += params.get(i)
 			}
 		}
-		val resultVar = patternmatch.resultVariable
-		acceptor.acceptPatternMatchCounterCheck(patternmatch.referredQuery, adornment, boundParams, resultVar)
+		val resultVar = constraint.resultVariable
+		acceptor.acceptPatternMatchCounterCheck(constraint.referredQuery, adornment, boundParams, resultVar)
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop
+	}
+	
+	def dispatch createCheck(ConstantValue constraint, ISearchOperationAcceptor acceptor){
+		val variable = constraint.affectedVariables.get(0)
+		val value = constraint.supplierKey
+		
+		acceptor.acceptConstantValueExtend(variable, value);
 	}
 
 	def dispatch createCheck(PConstraint constraint, ISearchOperationAcceptor acceptor) {
@@ -279,35 +285,41 @@ class POperationCompiler {
 		//nop
 	}
 
-	def dispatch createExtend(NegativePatternCall negativePatternCall, ISearchOperationAcceptor acceptor) {
+	def dispatch createExtend(NegativePatternCall constraint, ISearchOperationAcceptor acceptor) {
 		throw new UnsupportedOperationException("Cannot extend through a negative pattern call");
 	}
 
-	def dispatch createExtend(PatternMatchCounter patternmatch, ISearchOperationAcceptor acceptor) {
-		val bindings = variableBindings.get(patternmatch)
-		val adornment = patternmatch.actualParametersTuple.elements.filter(PVariable).filter[
+	def dispatch createExtend(PatternMatchCounter constraint, ISearchOperationAcceptor acceptor) {
+		val bindings = variableBindings.get(constraint)
+		val adornment = constraint.actualParametersTuple.elements.filter(PVariable).filter[
 			bindings.contains(variableMapping.get(it))
 		].toSet
 		
-		val keySize = patternmatch.actualParametersTuple.size
+		val keySize = constraint.actualParametersTuple.size
 		
-		val params = patternmatch.referredQuery.parameters
+		val params = constraint.referredQuery.parameters
 		val boundParams = newHashSet
 		
-		//patternmatch.actualParametersTuple.elements.filter[pVar | bindings.contains(variableMapping.get())]
-		
+		//TODO: ugly, i is used to indexed two different array
 		for(i : 0..<keySize) {
-			val pVariable = patternmatch.actualParametersTuple.get(i) as PVariable
+			val pVariable = constraint.actualParametersTuple.get(i) as PVariable
 		if(bindings.contains(variableMapping.get(pVariable))) {
 				boundParams += params.get(i)
 			}
 		}
-		val resultVar = patternmatch.resultVariable
-		acceptor.acceptPatternMatchCounterExtend(patternmatch.referredQuery, adornment, boundParams, resultVar)
+		val resultVar = constraint.resultVariable
+		acceptor.acceptPatternMatchCounterExtend(constraint.referredQuery, adornment, boundParams, resultVar)
 	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop
+	}
+	
+	def dispatch createExtend(ConstantValue constraint, ISearchOperationAcceptor acceptor) {
+		val variable = constraint.affectedVariables.get(0)
+		val value = constraint.supplierKey
+		
+		acceptor.acceptConstantValueExtend(variable, value);
 	}
 
 	def dispatch createExtend(PConstraint constraint, ISearchOperationAcceptor acceptor) {
@@ -316,6 +328,7 @@ class POperationCompiler {
 
 	private def allBound(PConstraint pConstraint) {
 		switch (pConstraint) {
+			//TODO revision if it's necessary
 			NegativePatternCall: return true
 			BinaryTransitiveClosure: return true
 			PatternMatchCounter: return variableBindings.get(pConstraint).contains(variableMapping.get(pConstraint.resultVariable))

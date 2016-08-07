@@ -24,8 +24,10 @@
 #include "Check/NACOperation.h"
 #include "Check/TransitiveClosureCheck.h"
 #include "Check/PatternMatchCounterCheck.h"
+#include "Check/ConstantValueCheck.h"
 
 //extend
 #include "Extend/IterateOverInstances.h"
 #include "Extend/NavigateAssociation.h"
 #include "Extend/PatternMatchCounterExtend.h"
+#include "Extend/ConstantValueExtend.h"

@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeWrapper
 
 /**
  * @author Robert Doczi
@@ -64,12 +66,25 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	public static val String NAME = "InstanceOfCheck"
 
+
 }
 
 @Data class CheckSingleNavigationDescriptor extends SingleNavigationDescriptor {
 
 	public static val String NAME = "SingleAssociationCheck"
 
+}
+
+@Data class CheckConstantValueDescriptor extends AbstractSearchOperationDescriptor{
+	public static val String NAME = "ConstantValueCheck"
+	val PVariable variable
+	val Object value
+}
+
+@Data class ExtendConstantValueDescriptor extends AbstractSearchOperationDescriptor{
+	public static val String NAME = "ConstantValueExtend"
+	val PVariable variable
+	val Object value
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

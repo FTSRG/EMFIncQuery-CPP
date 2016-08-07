@@ -26,7 +26,7 @@ namespace Check {
  * @brief Association check for [0, 1] multiplicity.
  *
  * Checks whether the two end of the association are those that are defined in the frame.
- * This is only usable, iff the multiplicity of the association end is [0, 1], since this check
+ * This is only usable, if the multiplicity of the association end is [0, 1], since this check
  * presumes the target is single value.
  *
  * @tparam SrcType The type of the source object.

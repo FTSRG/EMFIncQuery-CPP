@@ -28,6 +28,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 
 /**
  * @author Robert Doczi
@@ -89,7 +91,19 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
 		return '''create_«PatternMatchCounterExtendDescription::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.resultVariable.toGetter», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
+	
+	private dispatch def compileOperation(CheckConstantValueDescriptor operation, StringBuilder setupCode) {
+		var valueString = operation.value
+		if (valueString instanceof String) valueString = '''"«valueString»"'''
+		return '''create_«CheckConstantValueDescriptor::NAME»(«operation.variable.toGetter», «valueString»)'''
+	}
 
+	private dispatch def compileOperation(ExtendConstantValueDescriptor operation, StringBuilder setupCode) {
+		var valueString = operation.value
+		if (valueString instanceof String) valueString = '''"«valueString»"'''
+		return '''create_«ExtendConstantValueDescriptor::NAME»(«operation.variable.toGetter», «valueString»)'''
+	}
+	
 	private dispatch def compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
 		return '''create_«ExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
 	}
