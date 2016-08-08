@@ -64,7 +64,6 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	public static val String NAME = "InstanceOfCheck"
 
-
 }
 
 @Data class CheckSingleNavigationDescriptor extends SingleNavigationDescriptor {
@@ -83,6 +82,12 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	public static val String NAME = "ConstantValueExtend"
 	val PVariable variable
 	val Object value
+}
+
+@Data class CheckInequalityDescriptor extends AbstractSearchOperationDescriptor{
+	public static val String NAME = "InequalityCheck"
+	val PVariable who
+	val PVariable withWhom
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

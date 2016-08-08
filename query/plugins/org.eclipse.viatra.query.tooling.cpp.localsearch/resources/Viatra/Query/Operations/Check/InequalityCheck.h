@@ -40,14 +40,11 @@ private:
 	T2 MatchingFrame::*_var2mp;
 public:
     InequalityCheck(T1 MatchingFrame::*var1mp, T2 MatchingFrame::*var2mp)
-		: _var1mp(var1mp)
-		, _var2mp(var2mp)
-	{}
+		: _var1mp(var1mp), _var2mp(var2mp){}
 
 protected:
-    bool check(MatchingFrame& frame, const Matcher::ISearchContext& context)
-	{
-		return frame.*_var1mp == frame.*_var2mp;
+  bool check(MatchingFrame& frame, const Matcher::ISearchContext& context){
+		return frame.*_var1mp != frame.*_var2mp;
 	}
 
 };

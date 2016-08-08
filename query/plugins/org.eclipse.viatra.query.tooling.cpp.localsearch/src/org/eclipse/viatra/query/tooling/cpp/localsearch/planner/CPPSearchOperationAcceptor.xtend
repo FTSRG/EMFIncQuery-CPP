@@ -44,6 +44,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 
 /**
  * @author Robert Doczi
@@ -156,6 +157,10 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		searchOperations += new ExtendConstantValueDescriptor(matchingFrame, variable, value)
 				
 	}
+	
+	override acceptInequalityCheck(PVariable who, PVariable withWhom) {
+		searchOperations += new CheckInequalityDescriptor(matchingFrame, who, withWhom)
+	}
 
 
 	def getPatternBodyStub() {
@@ -181,4 +186,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 			return frame
 		]
 	}
+	
+
+	
 }
