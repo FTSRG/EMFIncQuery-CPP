@@ -29,12 +29,10 @@ public interface ISearchOperationAcceptor {
 
 	public void acceptContainmentCheck(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);
 	public void acceptInstanceOfClassCheck(PVariable checkedVariable, IInputKey inputKey);
-	
 	public void acceptConstantValueCheck(PVariable variable, Object valueStr);
+	public void acceptInequalityCheck(PVariable who, PVariable withWhom);
+
 	public void acceptConstantValueExtend(PVariable variable, Object valueStr);
-	
-	public void acceptInequalityCheck(PVariable sourceVariable, PVariable targetVariable);
-	
 	public void acceptIterateOverClassInstances(PVariable location, IInputKey inputKey);
 	public void acceptExtendToAssociationSource(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);
 	public void acceptExtendToAssociationTarget(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);

@@ -14,7 +14,6 @@ import java.util.List
 import java.util.Map
 import java.util.Set
 import javax.activation.UnsupportedDataTypeException
-import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey
@@ -28,17 +27,18 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.BinaryTransitiveClosure
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery.PQueryStatus
 import org.eclipse.viatra.query.runtime.matchers.tuple.FlatTuple
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 
 /**
  * @author Robert Doczi
@@ -105,11 +105,22 @@ class POperationCompiler {
 					val pConstraint = pOperation.getPConstraint
 					switch(pConstraint){
 						PatternMatchCounter: {
-							var supplierKey = new EDataTypeInSlotsKey(EcorePackage.Literals.EINT)
-							pConstraint.PSystem.setStatus(PQueryStatus.UNINITIALIZED);
-							var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,new FlatTuple(pConstraint.resultVariable), supplierKey)
+							var dataType = TypeUtil::EIntDataType
+							pConstraint.PSystem.status = PQueryStatus.UNINITIALIZED
+							var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,new FlatTuple(pConstraint.resultVariable), dataType)
 							//The operationList.size - 1 is the position of last PConstraint: PProject, it has to be the last.
 							operationList.add(operationList.size-1,new PApply(supTypeConst))
+						}
+						ConstantValue: {
+							val constraints = pConstraint.affectedVariables.get(0).referringConstraints
+							val isTypeConst = constraints.map[it instanceof TypeConstraint].toSet
+							if(!isTypeConst.contains(Boolean.TRUE)){
+								val dataType = TypeUtil::getDataType(pConstraint.supplierKey)
+								pConstraint.PSystem.status = PQueryStatus.UNINITIALIZED
+								var supTypeConst = new SupplementTypeConstraint(pConstraint.PSystem,pConstraint.variablesTuple, dataType)
+								//The operationList.size - 1 is the position of last PConstraint: PProject, it has to be the last.
+								operationList.add(operationList.size-1,new PApply(supTypeConst))
+							}
 						}
 					}
 				}
@@ -242,11 +253,10 @@ class POperationCompiler {
 		acceptor.acceptConstantValueExtend(variable, value);
 	}
 	
-	def dispatch createCheck(Inequality constraint, ISearchOperationAcceptor acceptor){
-		val who = constraint.getWho
-		val withWhom = constraint.getWithWhom
-		
-		acceptor.acceptInequalityCheck(who, withWhom);
+	def dispatch createCheck(Inequality constraint, ISearchOperationAcceptor acceptor) {
+		val who = constraint.who
+		val withWhom = constraint.withWhom
+		acceptor.acceptInequalityCheck(who, withWhom)
 	}
 
 	def dispatch createCheck(PConstraint constraint, ISearchOperationAcceptor acceptor) {

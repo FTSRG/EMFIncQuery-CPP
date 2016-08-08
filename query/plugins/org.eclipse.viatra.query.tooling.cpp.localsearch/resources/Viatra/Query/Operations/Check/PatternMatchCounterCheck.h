@@ -7,8 +7,8 @@
  *
  * Contributors:
  *     Robert Doczi - initial API and implementation
- *     Szilagyi Gabor - Implementation
- *     Toth Krisztian David - Implementation
+ *     Gabor Szilagyi - Additional features implementation
+ *     Krisztian Toth - Additional features implementation
  *******************************************************************************/
 #pragma once
 

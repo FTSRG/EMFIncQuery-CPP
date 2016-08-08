@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
 
@@ -64,7 +64,6 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	public static val String NAME = "InstanceOfCheck"
 
-
 }
 
 @Data class CheckSingleNavigationDescriptor extends SingleNavigationDescriptor {
@@ -85,11 +84,10 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val Object value
 }
 
-
-@Data class CheckInequalityDescriptor extends AbstractSearchOperationDescriptor {
+@Data class CheckInequalityDescriptor extends AbstractSearchOperationDescriptor{
 	public static val String NAME = "InequalityCheck"
-	val PVariable var1
-	val PVariable var2
+	val PVariable who
+	val PVariable withWhom
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

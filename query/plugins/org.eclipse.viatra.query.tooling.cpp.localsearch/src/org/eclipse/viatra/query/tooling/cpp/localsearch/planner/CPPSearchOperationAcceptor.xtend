@@ -41,10 +41,10 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescri
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 
 /**
  * @author Robert Doczi
@@ -158,9 +158,8 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 				
 	}
 	
-	
-	override acceptInequalityCheck(PVariable a, PVariable b){
-		searchOperations += new CheckInequalityDescriptor(matchingFrame, a, b)			
+	override acceptInequalityCheck(PVariable who, PVariable withWhom) {
+		searchOperations += new CheckInequalityDescriptor(matchingFrame, who, withWhom)
 	}
 
 
@@ -187,4 +186,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 			return frame
 		]
 	}
+	
+
+	
 }
