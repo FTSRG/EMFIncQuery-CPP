@@ -2,13 +2,51 @@ package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 
 import "http://arch.ecore/model"
 
-pattern countlinks(C1, numOfSN, numOfCL){
+pattern countLinks(C1, numOfSN, numOfCL){
 	CL.cnn(C1,S1);
 	numOfSN == count find linked(S1,_S2);
 	numOfCL == count find pconnected(C1, _C2);
 }
 
-@Bind(parameters={S1})
+pattern ringMembers(C1){
+	CL.cnn(C1,S1);
+	2 == count find linked(S1,_S2);
+	4 == count find pconnected(C1, _C2);
+}
+
+pattern greaterThanOneSNConnection(C1){
+	CL.cnn(C1,S1);
+	0 != count find linked(S1,_S2);
+	1 != count find linked(S1,_S3);
+}
+
+pattern notInRing(C1){
+	CL(C1);
+	count find pconnected(C1,_C2) != 4;
+}
+
+pattern numEqualityWithMember(C1){
+	CL.intMember(C1,N);
+	CL.cnn(C1,S1);
+	count find linked(S1,_S2) == N;
+}
+
+pattern numInEqualityWithMember(C1){
+	CL.intMember(C1,N);
+	CL.cnn(C1,S1);
+	count find linked(S1,_S2) != N;
+}
+
+pattern isolatedSN(C1){
+	CL.cnn(C1,S1);
+	neg find linked(S1,_S2);
+}
+
+pattern isolatedCL(C1){
+	CL(C1);
+	neg find pconnected(C1,_C2);
+}
+
 pattern linked(S1,S2){
 	SN(S2);
 	SN.link(S1,S2);
@@ -26,9 +64,3 @@ pattern pconnected(C1,C2){
 	CL.cnn(C2,S2);
 	find linked+(S1,S2);
 }
-
-/*
-@Bind(parameters={C1})
-pattern isolated(C1 : CL, C2 :CL){
-	neg find pconnected(C1,C2);
-}*/
