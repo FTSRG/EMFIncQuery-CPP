@@ -7,7 +7,8 @@
  *
  * Contributors:
  *     Robert Doczi - initial API and implementation
- *     Krisztian Toth - implementation
+ *     Gabor Szilagyi - Additional features implementation
+ *     Krisztian Toth - Additional features implementation
  *******************************************************************************/
  #pragma once
 
@@ -23,15 +24,12 @@
  namespace Extend {
 
  /**
-  * @brief Association navigation for [0, 1] multiplicity.
+  * @brief Constant value bounding to frame member.
   *
-  * This extend operation navigates to the end of an association from the source already bound in the
-  * frame and binds the value found there. This is only usable, iff the multiplicity of the association
-  * end is [0, 1], since this check presumes the target is single value.
+  * This extend operation bounds an attribute in the frame. This is used when the result or the
+  * value is predefined in query pattern.
   *
-  * @tparam SrcType The type of the source object.
-  * @tparam TrgType The type of the target object.
-  * @tparam Member The type the src has to be so the navigation can happen.
+  * @tparam TrgType The type of the attribute
   * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
   */
   template<class TrgType, class MatchingFrame>

@@ -7,6 +7,8 @@
  *
  * Contributors:
  *     Robert Doczi - initial API and implementation
+ *     Gabor Szilagyi - Additional features implementation
+ *     Krisztian Toth - Additional features implementation
  *******************************************************************************/
 #pragma once
 
@@ -25,7 +27,7 @@ namespace Check {
 /**
  * @brief Inequality check for two variable in a matching frame
  *
- * Checks whether the two variable in the frame are inequal 
+ * Checks whether the two variable in the frame are inequal
  *
  * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
  * @tparam T1 The type of the first variable
@@ -41,7 +43,7 @@ public:
 		: _var1mp(var1mp)
 		, _var2mp(var2mp)
 	{}
-	
+
 protected:
     bool check(MatchingFrame& frame, const Matcher::ISearchContext& context)
 	{

@@ -10,15 +10,13 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
-import org.eclipse.emf.ecore.EDataType
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeWrapper
 
 /**
  * @author Robert Doczi
