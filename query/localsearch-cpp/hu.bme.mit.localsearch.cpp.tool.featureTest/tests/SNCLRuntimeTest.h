@@ -17,9 +17,16 @@
 
 #include "ITestSNCL.h"
 #include "Viatra/Query/QueryEngine.h"
+#include "Viatra/Query/Sncl_runtime/CountLinksMatcher.h"
+#include "Viatra/Query/Sncl_runtime/GreaterThanOneSNConnectionMatcher.h"
+#include "Viatra/Query/Sncl_runtime/IsolatedCLMatcher.h"
+#include "Viatra/Query/Sncl_runtime/IsolatedSNMatcher.h"
 #include "Viatra/Query/Sncl_runtime/LinkedMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NotInRingMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NumEqualityWithMemberMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NumInEqualityWithMemberMatcher.h"
 #include "Viatra/Query/Sncl_runtime/PconnectedMatcher.h"
-//#include "Viatra/Query/Sncl_runtime/IsolatedMatcher.h"
+#include "Viatra/Query/Sncl_runtime/RingMembersMatcher.h"
 
 using namespace ::Viatra::Query;
 using namespace ::arch;
@@ -125,9 +132,15 @@ protected:
   }
 
   QueryEngine<SN> engine = QueryEngine<SN>::empty();
-  Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher = engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
-  Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher = engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
-  //IsolatedQuerySpecification<SN>::Matcher isolatedMatcher = engine.matcher<IsolatedQuerySpecification>();
+  Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
+  Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+  Sncl_runtime::IsolatedCLQuerySpecification<SN>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
+  Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<SN>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
+  Sncl_runtime::IsolatedSNQuerySpecification<SN>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
+  Sncl_runtime::NotInRingQuerySpecification<SN>::Matcher notInRingMatcher =                         engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
+  Sncl_runtime::NumEqualityWithMemberQuerySpecification<SN>::Matcher numEqualWithMemberMatcher =    engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::NumInEqualityWithMemberQuerySpecification<SN>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::RingMembersQuerySpecification<SN>::Matcher ringMemberMatcher =                      engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
 
   std::unordered_set<Sncl_runtime::PconnectedMatch> notConnectedSet;
 

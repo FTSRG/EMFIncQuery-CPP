@@ -32,25 +32,22 @@ namespace Iterator {
     auto pconnectedMatches = pconnectedMatcher.matches();
     ASSERT_EQ(pconnectedMatches.size(), 0);
   }
-
- /*
-  *
-
-  TEST_F(SNCLIteratorTest, isolatedUnboundTest){
-    auto matches = isolatedMatcher.matches();
+  /*
+  TEST_F(SNCLIteratorTest, isolatedCLUnboundTest){
+    auto matches = isolatedCLMatcher.matches();
     if(matches.size() != 0) FAIL() << "Isolated matcher found invalid match: " << matches.begin()->C1->name;
     ::arch::CL* forDelete = nullptr;
     for(auto cl : clStore){
       if(cl->name == "C5") forDelete = cl;
     }
     clStore.remove(forDelete);
-    delete deletableCL;
-    matches = isolatedMatcher.matches();
+    delete forDelete;
+    matches = isolatedCLMatcher.matches();
     if(matches.size() == 0) FAIL() << "Isolated match didn't found the C5 Node.";
     if(matches.size() > 1) FAIL() << "Isolated matcher found more matches than expceted";
     ASSERT_EQ(matches.begin()->C1->name, "C6");
   }
-*/
+  */
  /* Test that the LinkedMatcher found all matches and checks that really linked one to the other.
   * First checks that the number of matches is correct.
   * Secondly checks the validity of matches.
@@ -88,13 +85,13 @@ namespace Iterator {
       }
     }
   }
- /*
-  * Testing matcher function with two parameter, signature matches(::arch::SN* S1, ::arch::SN* S2).
-  * It checks every SN with every SN (cartesian product).
-  * If the matcher finds connection, then checks it.
-  * If the matcher finds no connection, then checks it.
-  */
-TEST_F(SNCLIteratorTest, linkedQueryDoubleBoundTest) {
+   /*
+    * Testing matcher function with two parameter, signature matches(::arch::SN* S1, ::arch::SN* S2).
+    * It checks every SN with every SN (cartesian product).
+    * If the matcher finds connection, then checks it.
+    * If the matcher finds no connection, then checks it.
+    */
+  TEST_F(SNCLIteratorTest, linkedQueryDoubleBoundTest) {
     for(auto s1 : snStore){
       for(auto s2 : snStore){
         auto matches = linkedMatcher.matches(s1,s2);
@@ -186,14 +183,6 @@ TEST_F(SNCLIteratorTest, linkedQueryDoubleBoundTest) {
       FAIL() << "Unhandled exception";
     }
   }
- /*
-  * neg find test
-  * CL not connected to any SN
-
-  TEST_F(SNCLIteratorTest,runtimeCnnChangeToNullPTR){
-    //deletableCL
-  }
-*/
 }
 
 namespace Runtime {
@@ -209,24 +198,20 @@ namespace Runtime {
     ASSERT_EQ(pconnectedMatches.size(), 0);
   }
 
- /*
-  *
-
-  TEST_F(SNCLRuntimeTest, isolatedUnboundTest){
-    auto matches = isolatedMatcher.matches();
+  TEST_F(SNCLRuntimeTest, isolatedCLUnboundTest){
+    auto matches = isolatedCLMatcher.matches();
     if(matches.size() != 0) FAIL() << "Isolated matcher found invalid match: " << matches.begin()->C1->name;
     ::arch::CL* forDelete = nullptr;
     for(auto cl : clStore){
       if(cl->name == "C5") forDelete = cl;
     }
     clStore.remove(forDelete);
-    delete deletableCL;
-    matches = isolatedMatcher.matches();
-    if(matches.size() == 0) FAIL() << "Isolated match didn't found the C5 Node.";
-    if(matches.size() > 1) FAIL() << "Isolated matcher found more matches than expceted";
-    ASSERT_EQ(matches.begin()->C1->name, "C6");
+    delete forDelete;
+    matches = isolatedCLMatcher.matches();
+    if(matches.size() == 0) FAIL() << "Isolated match didn't found the C6 Node.";
+      else if(matches.size() > 1) FAIL() << "Isolated matcher found more matches than expceted";
+             else ASSERT_EQ(matches.begin()->C1->name, "C6");
   }
-*/
  /* Test that the LinkedMatcher found all matches and checks that really linked one to the other.
   * First checks that the number of matches is correct.
   * Secondly checks the validity of matches.

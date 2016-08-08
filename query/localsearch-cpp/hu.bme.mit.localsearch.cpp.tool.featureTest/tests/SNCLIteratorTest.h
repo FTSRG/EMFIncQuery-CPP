@@ -19,7 +19,6 @@
 #include "Viatra/Query/QueryEngine.h"
 #include "Viatra/Query/Sncl_iterator/LinkedMatcher.h"
 #include "Viatra/Query/Sncl_iterator/PconnectedMatcher.h"
-//#include "Viatra/Query/Sncl_iterator/IsolatedMatcher.h"
 
 using namespace ::Viatra::Query;
 using namespace ::arch;
@@ -127,7 +126,13 @@ protected:
   QueryEngine<SN> engine = QueryEngine<SN>::empty();
   Sncl_iterator::LinkedQuerySpecification<SN>::Matcher linkedMatcher = engine.matcher<Sncl_iterator::LinkedQuerySpecification>();
   Sncl_iterator::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher = engine.matcher<Sncl_iterator::PconnectedQuerySpecification>();
-  //IsolatedQuerySpecification<SN>::Matcher isolatedMatcher = engine.matcher<IsolatedQuerySpecification>();
+  //Sncl_iterator::IsolatedCLQuerySpecification<SN>::Matcher isolatedCLMatcher = engine.matcher<IsolatedCLQuerySpecification>();
+  //Sncl_iterator::GreaterThanOneSNConnectionQuerySpecification<SN>::Matcher greaterMatcher = engine.matcher<Sncl_iterator::GreaterThanOneSNConnectionQuerySpecification>();
+  //Sncl_iterator::IsolatedSNQuerySpecification<SN>::Matcher isolatedSNMatcher = engine.matcher<Sncl_iterator::IsolatedSNQuerySpecification>();
+  //Sncl_iterator::NotInRingQuerySpecification<SN>::Matcher notInRingMatcher = engine.matcher<Sncl_iterator::NotInRingQuerySpecification>();
+  //Sncl_iterator::NumEqualityWithMemberQuerySpecification<SN>::Matcher numEqualWithMemberMatcher = engine.matcher<Sncl_iterator::NumEqualityWithMemberQuerySpecification>();
+  //Sncl_iterator::NumInEqualityWithMemberQuerySpecification<SN>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_iterator::NumInEqualityWithMemberQuerySpecification>();
+  //Sncl_iterator::RingMembersQuerySpecification<SN>::Matcher ringMemberMatcher = engine.matcher<Sncl_iterator::RingMembersQuerySpecification>();
 
   std::unordered_set<Sncl_iterator::PconnectedMatch> notConnectedSet;
 

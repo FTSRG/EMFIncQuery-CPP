@@ -1,7 +1,16 @@
 #include "Viatra/Query/QueryEngine.h"
-#include "Viatra/Query/Matcher/ModelIndex.h"
+#include "ArchIndex.h"
 #include "Arch/arch_def.h"
-#include "Viatra/Query/Sncl_runtime/CountlinksMatcher.h"
+#include "Viatra/Query/Sncl_runtime/CountLinksMatcher.h"
+#include "Viatra/Query/Sncl_runtime/GreaterThanOneSNConnectionMatcher.h"
+#include "Viatra/Query/Sncl_runtime/IsolatedCLMatcher.h"
+#include "Viatra/Query/Sncl_runtime/IsolatedSNMatcher.h"
+#include "Viatra/Query/Sncl_runtime/LinkedMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NotInRingMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NumEqualityWithMemberMatcher.h"
+#include "Viatra/Query/Sncl_runtime/NumInEqualityWithMemberMatcher.h"
+#include "Viatra/Query/Sncl_runtime/PconnectedMatcher.h"
+#include "Viatra/Query/Sncl_runtime/RingMembersMatcher.h"
 
 #include <cmath>
 #include <chrono>
@@ -12,36 +21,6 @@
 
 using namespace ::arch;
 using namespace ::Viatra::Query;
-
-namespace Viatra {
-	namespace Query {
-
-		template<>
-		struct ModelIndex<::arch::Node, ::arch::SN> {
-			static const std::list<::arch::Node*>& instances(const ::arch::SN* modelroot) {
-				//std::cout << "OK1" << std::endl;
-				return ::arch::Node::_instances;
-			}
-		};
-
-		template<>
-		struct ModelIndex<::arch::CL, ::arch::SN> {
-			static const std::list<::arch::CL*>& instances(const ::arch::SN* modelroot) {
-				//std::cout << "OK2" << std::endl;
-				return ::arch::CL::_instances;
-			}
-		};
-
-		template<>
-		struct ModelIndex<::arch::SN, ::arch::SN> {
-			static const std::list<::arch::SN*>& instances(const ::arch::SN* modelroot) {
-				//std::cout << "OK3" << std::endl;
-				return ::arch::SN::_instances;
-			}
-		};
-
-	}
-}
 
 std::vector<SN*> sns;
 
@@ -105,22 +84,101 @@ int main(){
 		find linked+(S1,S2);
 	}
 	*/
-
-
-
   auto engine = QueryEngine<::arch::SN>::of(s1);
-  auto mat = engine.matcher<Sncl_runtime::CountlinksQuerySpecification>();
-	::arch::CL* C1;
-	int numOfSN;
-	int numOfCL;
+  auto matcher1 = engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
 
-	auto matches = mat.matches();
+	auto matches1 = matcher1.matches();
   int i = 0;
-	std::cout << "Matches queried, Size:"<< matches.size() << std::endl;
+	std::cout << "CountLinks Matches queried, Size:"<< matches1.size() << std::endl;
 
-  for (auto&& m : matches){
-    std::cout << "Match cathed " << ++i << ": " << m.C1->name << " -- numOfSN: " << m.numOfSN << "-- numOfCL: " << m.numOfCL << std::endl;
+  for (auto&& m : matches1){
+    std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn = " << m.C1->cnn->name << "(numOfSN,numOfCL) - ( " << m.numOfSN << ", " << m.numOfCL << ")" << std::endl;
   }
+
+	auto matcher2 = engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
+
+	auto matches2 = matcher2.matches();
+	 i = 0;
+	std::cout << "GreaterThanOneSNConnection Matches queried, Size:"<< matches2.size() << std::endl;
+
+	for (auto&& m : matches2){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+
+	auto matcher3 = engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
+
+	auto matches3 = matcher3.matches();
+	 i = 0;
+	std::cout << "IsolatedCL Matches queried, Size:"<< matches3.size() << std::endl;
+
+	for (auto&& m : matches3){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+	auto matcher4 = engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
+
+	auto matches4 = matcher4.matches();
+	 i = 0;
+	std::cout << "IsolatedSN Matches queried, Size:"<< matches4.size() << std::endl;
+
+	for (auto&& m : matches4){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+	auto matcher5 = engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
+
+	auto matches5 = matcher5.matches();
+	 i = 0;
+	std::cout << "Linked Matches queried, Size:"<< matches5.size() << std::endl;
+
+	for (auto&& m : matches5){
+		std::cout << "Match cathed " << ++i << ": (" << m.S1->name << " <=> " << m.S2->name << ")" << std::endl;
+	}
+
+	auto matcher6 = engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
+
+	auto matches6 = matcher6.matches();
+	 i = 0;
+	std::cout << "NotInRing Matches queried, Size:"<< matches6.size() << std::endl;
+
+	for (auto&& m : matches6){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+
+	auto matcher7 = engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
+
+	auto matches7 = matcher7.matches();
+	 i = 0;
+	std::cout << "NumEqualityWithMember Matches queried, Size:"<< matches7.size() << std::endl;
+
+	for (auto&& m : matches7){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+	auto matcher8 = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
+
+	auto matches8 = matcher8.matches();
+	 i = 0;
+	std::cout << "NumInEqualityWithMember Matches queried, Size:"<< matches8.size() << std::endl;
+
+	for (auto&& m : matches8){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
+	auto matcher9 = engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+
+	auto matches9 = matcher9.matches();
+	 i = 0;
+	std::cout << "Pconnected Matches queried, Size:"<< matches9.size() << std::endl;
+
+	for (auto&& m : matches9){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << "\t" << m.C2->name << "->cnn <=> " << m.C2->cnn->name << std::endl;
+	}
+	auto matcher10 = engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
+
+	auto matches10 = matcher10.matches();
+	 i = 0;
+	std::cout << "RingMembers Matches queried, Size:"<< matches10.size() << std::endl;
+
+	for (auto&& m : matches10){
+		std::cout << "Match cathed " << ++i << ": " << m.C1->name << "->cnn <=> " << m.C1->cnn->name << std::endl;
+	}
 
 	//std::cout << "Ended" << std::endl;
 	delete c1; delete c2; delete c3; delete c4; delete c5; delete c6;
