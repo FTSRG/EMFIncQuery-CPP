@@ -1,13 +1,12 @@
 package hu.bme.mit.localsearch.cpp.tool.featuretest.query
-/*
-import "http://unfinished.ecore/model"
-import "http://robot.ecore/model/uri"
 
-@Bind(parameters={robot})
-pattern partsOfRobot(robot, robotpart){
-	Robot.parts(robot,robotpart);
+import "http://unfinished.ecore/model"
+
+pattern enumInside(I1){
+	Item.status(I1, Status::UNFINISHED);
 }
 
-pattern equalityInt(robot : Robot, N){
-	N == count find partsOfRobot(robot, _part);
-}*/
+pattern enumInEquality(I1, Stat1){
+	Item.status(I1, Stat1);
+	Stat1 != Status::UNFINISHED;
+}
