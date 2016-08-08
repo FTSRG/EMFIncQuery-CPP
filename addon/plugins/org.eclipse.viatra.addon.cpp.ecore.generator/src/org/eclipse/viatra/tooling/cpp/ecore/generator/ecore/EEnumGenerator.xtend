@@ -11,13 +11,13 @@
 package org.eclipse.viatra.tooling.cpp.ecore.generator.ecore
 
 import com.google.common.base.Joiner
-import java.util.List
 import org.eclipse.emf.ecore.EEnum
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.FileSystemAccess
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.NamespaceHelper
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
+import org.eclipse.emf.ecore.EEnumLiteral
 
 /**
  * @author Robert Doczi
@@ -37,11 +37,9 @@ class EEnumGenerator {
 			namespace «namespaceFragment» {
 		«ENDFOR»	
 			
-			enum class «eenum.name» : int {
-				«FOR literal : eenum.getELiterals()»
-					«literal.name» = «literal.value»,
-				«ENDFOR»
-			}
+			enum «eenum.name» : int {
+				«eenum.getELiterals().map[toLiteralValueForm].join(",\n")»				
+			};
 			
 		«FOR namespaceFragment : ns»
 			} /* namespace «namespaceFragment» */
@@ -49,4 +47,7 @@ class EEnumGenerator {
 		
 		«guard.end»
 		'''
+	private static def toLiteralValueForm(EEnumLiteral literal){
+		'''«literal.name» = «literal.value»'''
+	}
 }
