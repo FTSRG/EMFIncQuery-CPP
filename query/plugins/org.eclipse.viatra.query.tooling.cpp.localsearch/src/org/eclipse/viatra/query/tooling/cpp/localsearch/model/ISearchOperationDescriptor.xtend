@@ -20,6 +20,7 @@ import org.eclipse.xtend.lib.annotations.Data
 
 /**
  * @author Robert Doczi
+ * 
  */
 interface ISearchOperationDescriptor {
 }
@@ -74,12 +75,6 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 @Data class CheckConstantValueDescriptor extends AbstractSearchOperationDescriptor{
 	public static val String NAME = "ConstantValueCheck"
-	val PVariable variable
-	val Object value
-}
-
-@Data class ExtendConstantValueDescriptor extends AbstractSearchOperationDescriptor{
-	public static val String NAME = "ConstantValueExtend"
 	val PVariable variable
 	val Object value
 }
@@ -154,6 +149,12 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	public static val String NAME = "NavigateMultiAssociation"
 
+}
+
+@Data class ExtendConstantValueDescriptor extends AbstractSearchOperationDescriptor{
+	public static val String NAME = "ConstantValueExtend"
+	val PVariable variable
+	val Object value
 }
 
 @Data class ExtendExpressionDescriptor extends ExpressionDescriptor {

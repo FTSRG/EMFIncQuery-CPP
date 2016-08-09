@@ -18,22 +18,28 @@ import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.AbstractSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
-import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 
 /**
  * @author Robert Doczi
@@ -116,7 +122,38 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
+	
+	def dispatch compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) '''
+		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == «operation.resultVariable.cppName») {
+			«compileNext(setupCode)»
+		}
+	'''
+	
+	def dispatch compileOperation(PatternMatchCounterExtendDescription operation, StringBuilder setupCode) '''
+		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»	
+		«operation.resultVariable.cppName» = «matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size();
+		«compileNext(setupCode)»
+	'''
 
+	def dispatch compileOperation(CheckConstantValueDescriptor operation, StringBuilder setupCode) '''
+		if(«operation.variable.cppName» == «TypeUtil::getCppValue(operation.value)»){
+			«compileNext(setupCode)»
+		}
+	'''
+
+	def dispatch compileOperation(CheckInequalityDescriptor operation, StringBuilder setupCode) '''
+		if(«operation.who.cppName» != «operation.withWhom.cppName»){
+			«compileNext(setupCode)»
+		}
+	'''
+	
+	def dispatch compileOperation(ExtendConstantValueDescriptor operation, StringBuilder setupCode) '''
+		«operation.variable.cppName» = «TypeUtil::getCppValue(operation.value)»;
+		«compileNext(setupCode)»
+	'''
 
 	def replaceVars(CharSequence expression) {
 		var expressionString = expression.toString
