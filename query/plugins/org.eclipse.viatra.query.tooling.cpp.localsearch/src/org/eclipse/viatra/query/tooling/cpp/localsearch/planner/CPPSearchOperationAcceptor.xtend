@@ -45,6 +45,9 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
+import org.eclipse.emf.ecore.EClassifier
+import java.util.HashMap
 
 /**
  * @author Robert Doczi
@@ -161,6 +164,16 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	override acceptInequalityCheck(PVariable who, PVariable withWhom) {
 		searchOperations += new CheckInequalityDescriptor(matchingFrame, who, withWhom)
 	}
+	
+	
+	override acceptCheckExpression(Set<PVariable> variables, CharSequence expressionAsStr) {
+		var map = new HashMap<PVariable, EClassifier>();
+		for( v : variables )
+			map.put(v, typeMapping.get(v).looseType)
+			
+		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, expressionAsStr);
+	}	
+	
 
 
 	def getPatternBodyStub() {

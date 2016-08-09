@@ -39,6 +39,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation
 
 /**
  * @author Robert Doczi
@@ -243,6 +244,13 @@ class POperationCompiler {
 		}
 		val resultVar = constraint.resultVariable
 		acceptor.acceptPatternMatchCounterCheck(constraint.referredQuery, adornment, boundParams, resultVar)
+	}
+	
+	def dispatch createCheck(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
+		val variables = constraint.getAffectedVariables();
+		val expressionAsStr = constraint.evaluator.shortDescription
+		
+		acceptor.acceptCheckExpression(variables, expressionAsStr);
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
