@@ -32,6 +32,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValue
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
+import java.util.Map
 
 /**
  * @author Robert Doczi
@@ -41,6 +43,9 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	val String queryName
 	@Accessors(PUBLIC_GETTER) val ISearchOperationDescriptor operation;
 	val MatchingFrameGenerator frameGenerator
+	
+	// For CheckExpression
+	var Map<PVariable, EClassifier> typeMap
 	
 
 	
@@ -76,6 +81,22 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
 		return '''create_«NACOperationDescriptor::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
+	
+	private dispatch def compileOperation(CheckExpressionDescriptor operation, StringBuilder setupCode){
+		typeMap = operation.types
+		return '''
+			create_«CheckExpressionDescriptor::NAME»<«frameGenerator.frameName»>(
+				[](«operation.variables.map[toForwardDef].join(", ")»){
+					// Please implement the following 
+					// «operation.expressionAsStr»
+					//
+					
+					static_assert(false, "Please implement the Check expression");	
+				},
+				«operation.variables.map[toGetter].join(", ")»
+			)
+		''';
+	} 
 
 	private dispatch def compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
@@ -141,6 +162,18 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	private def toGetter(PVariable variable) {
 		'''&«frameGenerator.frameName»::«frameGenerator.getVariableName(variable)»'''
 	}
+	
+	private def toForwardDef(PVariable variable) {
+		
+		val type = typeMap.get(variable);
+		var typeStr = type.toCppName;
+		if( type instanceof EClass )
+			typeStr = '''const «typeStr»*''' 
+			
+		return '''«typeStr» «variable.name»'''
+	}
+	
+	
 	
 	private def toSetter(PVariable variable) {
 		'''&«frameGenerator.frameName»::«frameGenerator.getVariableName(variable)»'''

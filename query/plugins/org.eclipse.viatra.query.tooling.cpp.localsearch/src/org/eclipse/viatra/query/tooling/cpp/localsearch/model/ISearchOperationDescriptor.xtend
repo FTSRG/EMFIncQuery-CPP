@@ -17,6 +17,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
+import java.util.Map
 
 /**
  * @author Robert Doczi
@@ -88,6 +89,13 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	public static val String NAME = "InequalityCheck"
 	val PVariable who
 	val PVariable withWhom
+}
+
+@Data class CheckExpressionDescriptor extends AbstractSearchOperationDescriptor{
+	public static val String NAME = "CheckExpression"
+	val Set<PVariable> variables
+	val Map<PVariable, EClassifier> types 
+	val CharSequence expressionAsStr
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

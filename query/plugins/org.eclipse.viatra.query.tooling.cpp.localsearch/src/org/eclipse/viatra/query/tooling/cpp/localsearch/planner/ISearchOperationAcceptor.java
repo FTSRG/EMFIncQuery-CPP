@@ -31,7 +31,7 @@ public interface ISearchOperationAcceptor {
 	public void acceptInstanceOfClassCheck(PVariable checkedVariable, IInputKey inputKey);
 	public void acceptConstantValueCheck(PVariable variable, Object valueStr);
 	public void acceptInequalityCheck(PVariable who, PVariable withWhom);
-
+	public void acceptCheckExpression(Set<PVariable> variables, CharSequence expressionAsStr);
 	public void acceptConstantValueExtend(PVariable variable, Object valueStr);
 	public void acceptIterateOverClassInstances(PVariable location, IInputKey inputKey);
 	public void acceptExtendToAssociationSource(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);

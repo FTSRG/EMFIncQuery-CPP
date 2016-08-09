@@ -20,25 +20,20 @@ namespace Viatra {
 namespace Query {
 namespace Operations {
 namespace Check {
-
+	
 /**
  * @brief This CheckOperation describes a custom check
  *
  * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
  * @tparam T The arbitrary list of member pointers to access the proper field of the frame (to pass them to the matcher).
 */
-template<class MatchingFrame, class ...T>
+template<class MatchingFrame, class FUNCTION,  class ...MP>
 class CheckExpression : public CheckOperation<MatchingFrame> {
 private:
-	// Helper struct, so simple variadic type can be expanded into member pointer list
-	template<typename CLASS, typename FIELD> 
-	struct ToMemberPointer {
-		using type = FIELD CLASS::*;		
-	};
 	
 
-	std::tuple<typename ToMemberPointer<MatchingFrame, T>...> _memberPointers;
-	std::function<bool(T...)> _checkerFunction;
+	std::tuple<MP...> _memberPointers;
+	FUNCTION _checkerFunction;
 	
 	// Helper method for tuple
 	template<size_t... index>
@@ -47,7 +42,7 @@ private:
 	
 public:
 
-	CheckExpression(std::function<bool(T...)> checkerFunction, typename ToMemberPointer<MatchingFrame, T>... memberPointers )
+	CheckExpression(FUNCTION checkerFunction, MP... memberPointers )
 		: _memberPointers(memberPointers...)
 		, _checkerFunction(checkerFunction)
 	{}
@@ -59,22 +54,25 @@ private:
 
 };
 
-template<class MatchingFrame, class ...T>
-inline bool CheckExpression<MatchingFrame, T...>::check(MatchingFrame & frame, const Matcher::ISearchContext & context) {
-	constexpr auto Size = std::tuple_size<typename std::decay<std::tuple<T...>>::type>::value;
+template<class MatchingFrame, class FUNCTION, class ...MP>
+inline bool CheckExpression<MatchingFrame, FUNCTION, MP...>::check(MatchingFrame & frame, const Matcher::ISearchContext & context)
+{
+	constexpr auto Size = std::tuple_size<typename std::decay<std::tuple<MP...>>::type>::value;
 	return invoke_helper(frame, std::make_index_sequence<Size>{});
 }
 
-template<class MatchingFrame, class ...T>
-CheckExpression<MatchingFrame, T...>* create_CheckExpression( std::function<bool(T...)> checkerFunction, typename ToMemberPointer<MatchingFrame, T>... memberPointers) {
-	return new CheckExpression<MatchingFrame, T...>(checkerFunction, memberPointers...);
+template<class MatchingFrame, class FUNCTION, class ...MP>
+CheckExpression<MatchingFrame, FUNCTION, MP...>* create_CheckExpression(
+		FUNCTION checkerFunction, MP... memberPointers) 
+{
+	return new CheckExpression<MatchingFrame, FUNCTION, MP...>(checkerFunction, memberPointers...);
 }
 
-template<class MatchingFrame, class ...T>
+template<class MatchingFrame, class FUNCTION, class ...MP>
 template<size_t ...index>
-inline bool CheckExpression<MatchingFrame, T...>::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) {
-	return _checkerFunction((frame.*std::get<index>(std::forward<std::tuple<typename ToMemberPointer<MatchingFrame, T>...>>(_memberPointers)))... );
-
+inline bool CheckExpression<MatchingFrame, FUNCTION, MP...>::invoke_helper(MatchingFrame& frame, std::index_sequence<index...>) 
+{
+	return _checkerFunction((frame.*std::get<index>(std::forward<std::tuple<MP...>>(_memberPointers)))... );
 }
 
 }  /* namespace Check */
