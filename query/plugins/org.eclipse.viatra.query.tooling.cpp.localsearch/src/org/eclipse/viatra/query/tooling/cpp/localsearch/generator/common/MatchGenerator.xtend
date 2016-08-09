@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
+import org.eclipse.emf.ecore.impl.EEnumImpl
 
 /**
  * @author Robert Doczi
@@ -105,8 +107,10 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		'''
 	}
 	
-	private def toHash(PParameter variable) {
-		'''std::hash<decltype(match.«variable.name»)>()(match.«variable.name»)'''
+	private def toHash(PParameter parameter) {
+		'''«val looseType = matchingFrame.getVariableLooseType(matchingFrame.getVariableFromParameter(parameter))»
+		«IF looseType instanceof EEnumImpl»match.«parameter.name»
+		«ELSE»std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)«ENDIF»'''
 	}
 
 }

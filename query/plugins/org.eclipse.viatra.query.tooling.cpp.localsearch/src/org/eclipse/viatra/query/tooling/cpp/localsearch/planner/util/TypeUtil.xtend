@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.emf.ecore.impl.EEnumLiteralImpl
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
+import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 
 class TypeUtil {
 	static def getCppValue(Object o){
@@ -24,8 +25,8 @@ class TypeUtil {
 				return o.toString
 			}
 			EEnumLiteralImpl: {
-				val eenumImpl = o.eContainer as EEnumImpl
-				return '''«eenumImpl.name»::«o.toString»'''
+				val eEnumImpl = o.eContainer as EEnumImpl
+				return '''«CppHelper::getTypeHelper(eEnumImpl).FQN»::«o.toString»'''
 			}
 			default:{
 				println("Unidentified constant value's type of " + o.toString)
@@ -51,9 +52,9 @@ class TypeUtil {
 			Float:{
 				return new EDataTypeInSlotsKey(EcorePackage.Literals.EFLOAT)
 			}
-//			EEnumLiteralImpl: {
-//				return new EDataTypeInSlotsKey((o.eContainer as EEnumImpl).getEEnumLiteral(o.toString))
-//			}
+			EEnumLiteralImpl: {
+				return new EDataTypeInSlotsKey((o.eContainer as EEnumImpl))
+			}
 			default:{
 				println("Unidentified constant value's type: " + o.toString)
 				return new EDataTypeInSlotsKey(EcorePackage.Literals.EINT)
