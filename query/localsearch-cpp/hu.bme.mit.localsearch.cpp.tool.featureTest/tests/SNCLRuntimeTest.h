@@ -134,6 +134,7 @@ protected:
   QueryEngine<SN> engine = QueryEngine<SN>::empty();
   Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
   Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+  Sncl_runtime::CountLinksQuerySpecification<SN>::Matcher countLinksMatcher =                       engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
   Sncl_runtime::IsolatedCLQuerySpecification<SN>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
   Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<SN>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
   Sncl_runtime::IsolatedSNQuerySpecification<SN>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
