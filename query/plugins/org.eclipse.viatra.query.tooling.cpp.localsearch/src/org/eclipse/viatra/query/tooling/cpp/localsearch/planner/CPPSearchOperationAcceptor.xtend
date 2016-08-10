@@ -134,7 +134,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		val dependency = new MatcherReference(calledPQuery, boundParameters)
 		dependencies += dependency
 		searchOperations += new BinaryTransitiveClosureDescriptor(matchingFrame, #{dependency}, matcherName, matchName, boundVariables, source, target)
-		println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
+		//println('''WARNING: You must ensure defined a binded version of called pattern: @Bind(parameters={source})pattern «calledPQuery.fullyQualifiedName»(source, target){...}''')
 
 	}
 

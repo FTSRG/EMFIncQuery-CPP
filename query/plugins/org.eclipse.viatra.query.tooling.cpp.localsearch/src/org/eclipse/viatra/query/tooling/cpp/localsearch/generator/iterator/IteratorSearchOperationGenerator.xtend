@@ -122,7 +122,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
-	
+
 	def dispatch compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
 		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
@@ -130,11 +130,11 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
-	
+
 	def dispatch compileOperation(PatternMatchCounterExtendDescription operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»	
-		«operation.resultVariable.cppName» = «matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size();
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		auto «operation.resultVariable.cppName» = «matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size();
 		«compileNext(setupCode)»
 	'''
 
@@ -149,9 +149,9 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			«compileNext(setupCode)»
 		}
 	'''
-	
+
 	def dispatch compileOperation(ExtendConstantValueDescriptor operation, StringBuilder setupCode) '''
-		«operation.variable.cppName» = «TypeUtil::getCppValue(operation.value)»;
+		auto «operation.variable.cppName» = «TypeUtil::getCppValue(operation.value)»;
 		«compileNext(setupCode)»
 	'''
 
