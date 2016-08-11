@@ -55,9 +55,12 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			«unitName»(const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context) 
 				: _model(model), _context(context) {
 			}
-		
+		«val generatedParamLists = newArrayList»
 			«FOR pattern : patternGroup»
-				«compileGetter(pattern)»
+				«IF !generatedParamLists.contains(getParamList(pattern))»
+					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
+					«compileGetter(pattern)»
+				«ENDIF»
 			«ENDFOR»
 			
 		private:
@@ -96,7 +99,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 		«ENDFOR»
 	'''
 	
-	private def getParamList(PatternDescriptor pattern) {
+	protected def getParamList(PatternDescriptor pattern) {
 		val matchingFrame = pattern.patternBodies.head.matchingFrame
 		pattern.boundParameters.map[
 			val variable = it.toPVariable(matchingFrame);

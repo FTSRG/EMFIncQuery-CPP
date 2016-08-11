@@ -92,8 +92,12 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 				: _model(model), _context(context) {
 			}
 		
+		«val generatedParamLists = newArrayList»
 			«FOR pattern : patternGroup»
-				«compileGetter(pattern)»
+				«IF !generatedParamLists.contains(getParamList(pattern))»
+					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
+					«compileGetter(pattern)»
+				«ENDIF»
 			«ENDFOR»
 			
 		private:
@@ -118,15 +122,20 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 	
 	private dispatch def compileAdditionalFields(ISearchOperationDescriptor descriptor)''''''
 	
+	var Boolean BTCFieldGenerated = false
+		
 	private dispatch def compileAdditionalFields(BinaryTransitiveClosureDescriptor descriptor)'''
+		«IF !BTCFieldGenerated» «val youShallNotPrint = BTCFieldGenerated = true»
 		template<class NavigationMatcher, class SrcType>
 		bool transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const;
-		
+		«ENDIF»
 	'''
 	private dispatch def compileAdditionFunctions(ISearchOperationDescriptor descriptor) ''''''
 	
-	private dispatch def compileAdditionFunctions(BinaryTransitiveClosureDescriptor descriptor) '''
+	var Boolean BTCFuncGenerated = false
 	
+	private dispatch def compileAdditionFunctions(BinaryTransitiveClosureDescriptor descriptor) '''
+	«IF !BTCFuncGenerated» «val youShallNotPrint = BTCFuncGenerated = true»
 	template<class ModelRoot>
 	template<class NavigationMatcher, class SrcType>
 	inline bool «unitName»<ModelRoot>::transitive_closure_check(NavigationMatcher matcher, SrcType src, SrcType trg) const {
@@ -152,6 +161,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		} while(!sourcesToEvaluate.empty());
 		return false;
 	}
+	«ENDIF»
 	'''
 	
 	

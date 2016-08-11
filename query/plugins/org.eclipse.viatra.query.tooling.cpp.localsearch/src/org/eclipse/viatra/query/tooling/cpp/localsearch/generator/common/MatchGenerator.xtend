@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType
-import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue
 import org.eclipse.emf.ecore.impl.EEnumImpl
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * @author Robert Doczi

@@ -107,7 +107,8 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 
 	def dispatch compileOperation(NACOperationDescriptor operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);
+		''')»
 		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == 0) {
 			«compileNext(setupCode)»
 		}
@@ -117,7 +118,8 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		«val trgName = operation.target.cppName»
 		«val srcName = operation.source.cppName»
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(_model,  _context);''')»
+		«val youShallNotPrint = setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(_model,  _context);
+		''')»
 		if(transitive_closure_check(«matcherName», «srcName», «trgName»)) {
 			«compileNext(setupCode)»
 		}
@@ -125,7 +127,8 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 
 	def dispatch compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);
+		''')»
 		if(«matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size() == «operation.resultVariable.cppName») {
 			«compileNext(setupCode)»
 		}
@@ -133,7 +136,8 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 
 	def dispatch compileOperation(PatternMatchCounterExtendDescription operation, StringBuilder setupCode) '''
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
-		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);''')»
+		«val youShallNotPrint = setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(_model,  _context);
+		''')»
 		auto «operation.resultVariable.cppName» = «matcherName».matches(«operation.bindings.map[cppName].join(", ")»).size();
 		«compileNext(setupCode)»
 	'''
