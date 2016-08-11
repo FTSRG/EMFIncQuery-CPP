@@ -1,0 +1,29 @@
+﻿Build started 2016.07.30. 16:41:45.
+     1>Project "D:\ws\GTestProba2\GTestProba2\GTestProba2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ID:\ws\GTestProba2\GTestProba2\model /I"D:\ws\googletest-master\googletest" /I"D:\ws\googletest-master\googletest\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>d:\ws\gtestproba2\gtestproba2\viatra\query\matcher\classhelper.h(130): warning C4267: 'argument': conversion from 'size_t' to 'const short', possible loss of data
+     1>d:\ws\gtestproba2\gtestproba2\viatra\query\matcher\classhelper.h(133): warning C4267: 'argument': conversion from 'size_t' to 'const short', possible loss of data
+     1>d:\ws\gtestproba2\gtestproba2\viatra\query\matcher\classhelper.h(134): warning C4267: 'argument': conversion from 'size_t' to 'const short', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\ws\GTestProba2\Debug\GTestProba2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\ws\GTestProba2\Debug\GTestProba2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\ws\GTestProba2\Debug\GTestProba2.lib" /MACHINE:X86 Debug\main.obj
+         Debug\ApplicationInstance.obj
+         Debug\ApplicationType.obj
+         Debug\CyberPhysicalSystem.obj
+         Debug\HostInstance.obj
+         Debug\HostType.obj
+         Debug\Identifiable.obj
+         Debug\Request.obj
+         Debug\Requirement.obj
+         Debug\ResourceRequirement.obj
+         Debug\State.obj
+         Debug\StateMachine.obj
+         Debug\Transition.obj
+         Debug\stdafx.obj
+         GTestProba2.vcxproj -> D:\ws\GTestProba2\Debug\GTestProba2.exe
+     1>Done Building Project "D:\ws\GTestProba2\GTestProba2\GTestProba2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.18
