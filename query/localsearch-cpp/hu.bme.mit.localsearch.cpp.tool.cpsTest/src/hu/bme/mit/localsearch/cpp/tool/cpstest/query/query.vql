@@ -1,0 +1,124 @@
+package hu.bme.mit.localsearch.cpp.tool.cpstest.query
+
+import "http://org.eclipse.viatra/model/cps"
+
+// Important for enum, check:
+
+pattern notAllocatedButRunning(app : ApplicationInstance) {
+	ApplicationInstance.state(app, ::Running);
+	neg find allocatedApplication(app);
+}
+
+private pattern allocatedApplication(app : ApplicationInstance) {
+	ApplicationInstance.allocatedTo(app, _);
+}
+
+pattern availableGreaterThanTotalCpu(host : HostInstance) {
+	HostInstance.availableCpu(host, aCpu);
+	HostInstance.totalCpu(host, tCpu);
+
+	check(aCpu > tCpu);
+}
+
+pattern availableGreaterThanTotalHdd(host : HostInstance) {
+	HostInstance.availableHdd(host, aHdd);
+	HostInstance.totalHdd(host, tHdd);
+
+	check(aHdd > tHdd);
+}
+
+pattern availableGreaterThanTotalRam(host : HostInstance) {
+	HostInstance.availableRam(host, aRam);
+	HostInstance.totalRam(host, tRam);
+
+	check(aRam > tRam);
+}
+
+pattern nodeIpIsNotUnique(host){
+	find nodeIpOfHost(host, ip);
+	find nodeIpOfHost(otherHost, ip);
+	host != otherHost;
+}
+
+private pattern nodeIpOfHost(host, ip){
+	HostInstance.nodeIp(host, ip);
+}
+
+pattern idIsNotUnique(identifiable) {
+	find identifiableId(identifiable, id);
+	find identifiableId(otherIdentifiable, id);
+	identifiable != otherIdentifiable; 
+}
+
+private pattern identifiableId(identifiable, id) {
+	Identifiable.identifier(identifiable, id);
+}
+
+pattern initialStateNotContainedByStateMachine(statemachine, state) {
+	StateMachine.initial(statemachine, state);
+	neg find statemachineState(statemachine, state);
+}
+
+private pattern statemachineState(statemachine, state) {
+	StateMachine.states(statemachine, state);
+}
+
+pattern transitionWithoutTargetState(transition) {
+	State.outgoingTransitions(source, transition);
+	neg find stateTransition(source, transition, _);
+}
+
+private pattern stateTransition(source, transition, target) {
+	State.outgoingTransitions(source, transition);
+	Transition.targetState(transition, target);
+}
+
+pattern targetStateNotContainedBySameStateMachine(transition, target) {
+	find stateTransition(source, transition, target);
+	find statemachineState(statemachine, source);
+	neg find statemachineState(statemachine, target);
+}
+
+
+pattern multipleTransitionsWithSameAction(state, action) {
+	State.outgoingTransitions(state, transition);
+	State.outgoingTransitions(state, otherTransition);
+	find actionOfTransition(transition, action);
+	find actionOfTransition(otherTransition, action);
+	transition != otherTransition;
+}
+
+private pattern actionOfTransition(transition, action) {
+	Transition.action(transition, action);
+}
+
+pattern multipleApplicationInstanceInCommunicationGroup(sourceHostInstance, app) {
+	find reachableAppInstance(sourceHostInstance, app, appInstance);
+	find reachableAppInstance(sourceHostInstance, app, otherAppInstance);
+	appInstance != otherAppInstance;
+}
+
+pattern appTypeInstanceAndHost(app, appInstance, hostInstance) {
+	ApplicationInstance.type(appInstance, app);
+	ApplicationInstance.allocatedTo(appInstance, hostInstance);
+}
+
+pattern hostCommunication(fromHost, toHost) {
+	HostInstance.communicateWith(fromHost, toHost);
+}
+
+pattern reachableHosts(source, target) {
+	find hostCommunication+(source, target);
+} or {
+	HostInstance(source);
+	HostInstance(target);
+	source == target;
+}
+
+pattern reachableAppInstance(sourceHostInstance, app, appInstance) {
+	find appTypeInstanceAndHost(app, appInstance, targetHostInstance);
+	// there is a source hostInstance that could communicate with either hostInstance
+	find reachableHosts(sourceHostInstance, targetHostInstance);
+}
+
+
