@@ -1,0 +1,9 @@
+/bin/
+/emf-gen/
+/src-gen/
+/cpp-gen/
+*.o
+*.class
+*.jpg
+*.aird
+*._trace
