@@ -59,6 +59,8 @@ class EcoreGenerator {
 	def dispatch void generate(EPackage pack, FileSystemAccess fsa) {
 		PackageGenerator::generatePackage(pack, fsa)
 		pack.eContents.forEach[generate(fsa.createInSubfolder(pack.name))]
+		
+		EEnumGenerator::generateEnumHelper(pack.eContents.filter(EEnum), fsa.createInSubfolder(pack.name));
 	}
 
 	def dispatch void generate(EClass clazz, FileSystemAccess fsa) {

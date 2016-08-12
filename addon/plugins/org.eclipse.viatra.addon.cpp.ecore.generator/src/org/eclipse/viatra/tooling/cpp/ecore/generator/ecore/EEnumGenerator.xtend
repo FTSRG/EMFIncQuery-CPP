@@ -47,7 +47,54 @@ class EEnumGenerator {
 		
 		«guard.end»
 		'''
+		
 	private static def toLiteralValueForm(EEnumLiteral literal){
 		'''«literal.name» = «literal.value»'''
 	}
+	
+	def static generateEnumHelper(Iterable<EEnum> enums, FileSystemAccess fsa) {
+		
+		if(enums.size > 0)
+			fsa.generateFile("EnumHelper.h", enums.compileEnumHelperHeader)
+	}
+	
+	static def compileEnumHelperHeader(Iterable<org.eclipse.emf.ecore.EEnum> enums) '''
+		«val guard = CppHelper::getGuardHelper(Joiner.on('_').join(NamespaceHelper::getNamespaceHelper(enums.head)) + '_' + "ENUMHELPER")»
+		«guard.start»
+		
+		#include<string>
+		
+		template<typename T>
+		struct EnumHelper{
+			static std::string ToString(T t)
+			{
+				throw "To String method undefined for type";
+			}
+		};
+		
+		«enums.map[compileEnumHelperEnum].join(",\n")»
+		
+		«guard.end»
+		'''
+	
+	static def compileEnumHelperEnum(EEnum eenum) '''
+		«val fqn = CppHelper::getTypeHelper(eenum).FQN»
+		#include "«eenum.name».h"
+		template<>
+		struct EnumHelper< «fqn»> {
+			static std::string ToString(«fqn» x)
+			{
+				switch (x)
+				{
+					«FOR literal : eenum.ELiterals»
+						case «fqn»::«literal.name»: return "«literal.name»";
+					«ENDFOR»
+					
+					default:
+						throw "To String method undefined for enum";
+				}
+			}
+		};
+	'''
+	
 }
