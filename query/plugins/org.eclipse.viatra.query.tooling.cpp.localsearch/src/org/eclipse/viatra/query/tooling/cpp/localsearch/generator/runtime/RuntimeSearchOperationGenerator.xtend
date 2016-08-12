@@ -78,7 +78,8 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	
 	private dispatch def compileOperation(NACOperationDescriptor operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());
+		''')
 		return '''create_«NACOperationDescriptor::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
 	
@@ -100,18 +101,21 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 
 	private dispatch def compileOperation(BinaryTransitiveClosureDescriptor operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());
+		''')
 		return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
 	}
 	private dispatch def compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());
+		''')
 		return '''create_«PatternMatchCounterCheckDescription::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.resultVariable.toGetter», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
 	
 	private dispatch def compileOperation(PatternMatchCounterExtendDescription operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
-		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());''')
+		setupCode.append('''«operation.matcher»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());
+		''')
 		return '''create_«PatternMatchCounterExtendDescription::NAME»<«frameGenerator.frameName»>(«matcherName», «operation.resultVariable.toGetter», «operation.bindings.map[toGetter].join(", ")»)'''
 	}
 	

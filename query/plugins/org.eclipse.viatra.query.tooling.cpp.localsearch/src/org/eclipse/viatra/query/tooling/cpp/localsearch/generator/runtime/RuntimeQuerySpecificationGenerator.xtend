@@ -60,7 +60,12 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 			]
 	}
 	
+	var generatedPlanList = newArrayList
+	
 	override generatePlan(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+		«val uniqueName = NameUtils::getPlanName(pattern) + patternBody.index»
+		«IF !generatedPlanList.contains(uniqueName)»
+		«val youShallNotPrint = generatedPlanList.add(uniqueName)»
 		«val bodyNum = patternBody.index»
 		«val frame = frameGenerators.get(patternBody)»
 		static ::Viatra::Query::Plan::SearchPlan<«frame.frameName»> get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(const ModelRoot* model) {
@@ -80,8 +85,8 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 			«ENDFOR»
 			
 			return sp;
-		}
-	'''
+		}«ENDIF»
+		'''
 	
 		
 }

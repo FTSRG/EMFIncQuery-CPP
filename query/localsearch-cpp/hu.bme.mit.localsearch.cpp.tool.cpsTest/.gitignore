@@ -4,8 +4,8 @@
 /cpp-gen/
 /src/UnitTestCpp/Debug/
 *.o
-*.obj
-*.class
 *.jpg
 *.aird
 *._trace
+*.obj
+*.class
