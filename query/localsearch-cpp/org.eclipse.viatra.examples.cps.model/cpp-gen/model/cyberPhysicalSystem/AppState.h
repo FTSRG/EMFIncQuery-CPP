@@ -5,7 +5,7 @@ namespace cyberPhysicalSystem {
 	
 	enum AppState : int {
 		Running = 0,
-		Stopped = 0				
+		Stopped = 1				
 	};
 	
 } /* namespace cyberPhysicalSystem */

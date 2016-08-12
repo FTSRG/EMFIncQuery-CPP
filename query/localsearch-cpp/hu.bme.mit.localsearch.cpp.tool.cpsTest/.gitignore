@@ -2,7 +2,9 @@
 /emf-gen/
 /src-gen/
 /cpp-gen/
+/src/UnitTestCpp/Debug/
 *.o
+*.obj
 *.class
 *.jpg
 *.aird
