@@ -72,7 +72,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AppState">
     <eLiterals name="Running"/>
-    <eLiterals name="Stopped"/>
+    <eLiterals name="Stopped" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Request" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" upperBound="-1"
