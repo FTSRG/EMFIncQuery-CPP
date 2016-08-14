@@ -31,8 +31,6 @@ import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBa
 import org.eclipse.viatra.query.runtime.localsearch.planner.cost.impl.VariableBindingBasedCostFunction
 import org.eclipse.viatra.query.runtime.localsearch.plan.PlannerConfiguration
 import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHintKeys
-import java.util.LinkedList
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 
 /**
  * @author Robert Doczi
@@ -119,10 +117,7 @@ class PlanCompiler {
 
 		// no need for atomic, required a simple counter with final reference in closure
 		val AtomicInteger counter = new AtomicInteger(0)
-		
-		var patternBodyStubs = new LinkedList<PatternBodyDescriptor>()
-		
-		for(pBody : normalizedBodies){
+		val patternBodyStubs = normalizedBodies.map[pBody |
 			val boundPVariables = boundParameters.map[pBody.getVariableByNameChecked(name)]
 												 .toSet
 
@@ -130,9 +125,9 @@ class PlanCompiler {
 			pBody.plan(Logger::getLogger(PlanCompiler), boundPVariables, EMFQueryMetaContext.INSTANCE, null, configuration)
 				 .compile(pBody, boundPVariables, acceptor)
 			dependencies += acceptor.dependencies
-			patternBodyStubs.add( acceptor.patternBodyStub)
-		}
+			return acceptor.patternBodyStub
+		].toSet
 		
-		return patternBodyStubs.toSet
+		return patternBodyStubs
 	}
 }
