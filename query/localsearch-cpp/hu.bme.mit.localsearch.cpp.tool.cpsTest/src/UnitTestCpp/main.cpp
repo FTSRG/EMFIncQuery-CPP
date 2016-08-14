@@ -16,6 +16,12 @@
 
 #include "Viatra\Query\CpsQuery\NotAllocatedButRunningMatcher.h"
 #include "Viatra\Query\CpsQuery\NotAllocatedButRunningQuerySpecification.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalCpuMatcher.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalCpuQuerySpecification.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalRamMatcher.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalRamQuerySpecification.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddMatcher.h"
+#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddQuerySpecification.h"
 
 #include<unordered_set>
 
@@ -24,19 +30,26 @@ using namespace cyberPhysicalSystem;
 using namespace Viatra::Query;
 using namespace Viatra::Query::Cpsquery;
 
-auto CreateHostInstance = CreateBuilderFunction<cyberPhysicalSystem::HostInstance, int, int, int>(
+auto CreateHostInstance = CreateBuilderFunction<cyberPhysicalSystem::HostInstance, int, int, int, int, int, int>(
 	&cyberPhysicalSystem::HostInstance::availableCpu,
 	&cyberPhysicalSystem::HostInstance::availableRam,
-	&cyberPhysicalSystem::HostInstance::availableHdd
+	&cyberPhysicalSystem::HostInstance::availableHdd,
+	&cyberPhysicalSystem::HostInstance::totalCpu,
+	&cyberPhysicalSystem::HostInstance::totalRam,
+	&cyberPhysicalSystem::HostInstance::totalHdd
 	);
 
 
 std::ostream& operator<<(std::ostream& out, const cyberPhysicalSystem::HostInstance& hi)
 {
-	return out << "HostInstance("
+	return out << "HostInstance - CPU/RAM/HDD:\n \tavailable("
 		<< hi.availableCpu << ", "
 		<< hi.availableRam << ", "
-		<< hi.availableHdd << ")";
+		<< hi.availableHdd << "),\n \ttotal:("
+
+		<< hi.totalCpu << ", "
+		<< hi.totalRam << ", "
+		<< hi.totalHdd << ")";
 }
 
 auto CreateApplicationInstance = CreateBuilderFunction<ApplicationInstance, std::string, std::string, HostInstance*, AppState>(
@@ -68,9 +81,23 @@ struct ModelRoot
 	ModelRoot()
 	{
 
-		auto h1 = CreateHostInstance(3, 4, 1000);
-		auto h2 = CreateHostInstance(3, 4, 500);
-		auto h3 = CreateHostInstance(4, 8, 240);
+		auto h1 = CreateHostInstance(
+				3, 4, 1000,	// Available
+				4, 8, 999	// Total
+			);
+		auto h2 = CreateHostInstance(
+			3, 5, 500,
+			3, 4, 500
+			);
+		auto h3 = CreateHostInstance(
+			4, 8, 240,
+			3, 16, 560
+			);
+
+		auto h4 = CreateHostInstance(
+			4, 16, 240,
+			3, 16, 560
+			);
 
 		auto a1 = CreateApplicationInstance("User1", "password", h1,	 AppState::Running);
 		auto a2 = CreateApplicationInstance("User2", "xyz123", nullptr,  AppState::Running);
@@ -79,13 +106,19 @@ struct ModelRoot
 		auto a5 = CreateApplicationInstance("User5", "pass2", h3,		 AppState::Stopped);
 		
 	}
+
+	template<typename T> 
+	void DeleteInstances()
+	{	
+		while (T::_instances.size() != 0)
+			delete (*(T::_instances.begin()));
+	}
+
+
 	~ModelRoot()
 	{
-		for (auto & x : ApplicationInstance::_instances)
-			delete x;
-
-		for (auto & x : HostInstance::_instances)
-			delete x;
+		DeleteInstances<ApplicationInstance>(); 
+		DeleteInstances<HostInstance>();
 	}
 };
 
@@ -129,47 +162,90 @@ TEST(CPS, NotAllocatedButRunningTest) {
 
 }
 
-/*
-TEST(CPS, ApplicationInstanceWithAllocation) {
+TEST(CPS, availableGreaterThanTotalCpu) {
 	ModelRoot modelRoot;
 
 	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
 
+	AvailableGreaterThanTotalCpuQuerySpecification<ModelRoot>::Matcher matcher = engine.matcher<AvailableGreaterThanTotalCpuQuerySpecification>();
 
-	auto matcher = engine.matcher<AppInstancesWithAllocationQuerySpecification>();
 	auto matches = matcher.matches();
+
+	// Create copy of all instance
+	auto allHostInstance = HostInstance::_instances;
 
 	for (auto & m : matches)
 	{
-	
-		std::cout << "match found: " << *(m.app) << std::endl;
-		ASSERT_NE(modelRoot.appInstances.count(m.app), 0);
-		modelRoot.appInstances.erase(m.app);
+		std::cout << "matching hostinstance: " << *(m.host) << std::endl;
+		ASSERT_GT(m.host->availableCpu , m.host->totalCpu);
+		allHostInstance.remove(m.host);
 	}
-	ASSERT_EQ(modelRoot.appInstances.size(), 2);
+
+	for (auto & host : allHostInstance)
+	{
+		std::cout << "not matching hostinstance:" << *(host) << std::endl;
+		ASSERT_LE(host->availableCpu, host->totalCpu);
+	}
 
 }
 
 
-TEST(CPS, ApplicationInstanceWithNoAllocation) {
+TEST(CPS, availableGreaterThanTotalHdd) {
 	ModelRoot modelRoot;
 
 	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
-	
-	auto matcher = engine.matcher<AppInstancesNoAllocationQuerySpecification>();
+
+	AvailableGreaterThanTotalHddQuerySpecification<ModelRoot>::Matcher matcher = engine.matcher<AvailableGreaterThanTotalHddQuerySpecification>();
+
 	auto matches = matcher.matches();
+
+	// Create copy of all instance
+	auto allHostInstance = HostInstance::_instances;
 
 	for (auto & m : matches)
 	{
-
-		std::cout << "match found: " << *(m.app) << std::endl;
-		ASSERT_NE(modelRoot.appInstances.count(m.app), 0);
-		modelRoot.appInstances.erase(m.app);
+		std::cout << "matching hostinstance: " << *(m.host) << std::endl;
+		ASSERT_GT(m.host->availableHdd, m.host->totalHdd);
+		allHostInstance.remove(m.host);
 	}
-	ASSERT_EQ(modelRoot.appInstances.size(), 2);
+
+	for (auto & host : allHostInstance)
+	{
+		std::cout << "not matching hostinstance:" << *(host) << std::endl;
+		ASSERT_LE(host->availableHdd, host->totalHdd);
+	}
 
 }
-*/
+
+
+TEST(CPS, availableGreaterThanTotalRam) {
+	ModelRoot modelRoot;
+
+	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
+
+	AvailableGreaterThanTotalRamQuerySpecification<ModelRoot>::Matcher matcher = engine.matcher<AvailableGreaterThanTotalRamQuerySpecification>();
+
+	auto matches = matcher.matches();
+
+	// Create copy of all instance
+	auto allHostInstance = HostInstance::_instances;
+
+	for (auto & m : matches)
+	{
+		std::cout << "matching hostinstance: " << *(m.host) << std::endl;
+		ASSERT_GT(m.host->availableRam, m.host->totalRam);
+		allHostInstance.remove(m.host);
+	}
+
+	for (auto & host : allHostInstance)
+	{
+		std::cout << "not matching hostinstance:" << *(host) << std::endl;
+		ASSERT_LE(host->availableRam, host->totalRam);
+	}
+
+}
+
+
 
 
 int main(int argc, char **argv) {

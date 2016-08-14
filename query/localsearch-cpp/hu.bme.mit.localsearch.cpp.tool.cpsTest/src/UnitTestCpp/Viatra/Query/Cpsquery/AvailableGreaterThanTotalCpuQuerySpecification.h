@@ -36,11 +36,7 @@ public:
 		sp.add_operation(create_NavigateSingleAssociation(&AvailableGreaterThanTotalCpuFrame_0::_0, &AvailableGreaterThanTotalCpuFrame_0::_2, &::cyberPhysicalSystem::HostInstance::totalCpu));
 		sp.add_operation(create_CheckExpression<AvailableGreaterThanTotalCpuFrame_0>(
 			[](int aCpu, int tCpu){
-				// Please implement the following 
-				// <XFeatureCallImplCustom> > <XFeatureCallImplCustom>
-				//
-				
-				static_assert(false, "Please implement the Check expression");	
+				return aCpu > tCpu;
 			},
 			&AvailableGreaterThanTotalCpuFrame_0::_1, &AvailableGreaterThanTotalCpuFrame_0::_2
 		)
