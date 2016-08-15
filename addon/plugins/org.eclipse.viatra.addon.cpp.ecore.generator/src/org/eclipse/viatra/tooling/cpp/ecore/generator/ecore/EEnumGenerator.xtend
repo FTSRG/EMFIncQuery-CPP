@@ -58,7 +58,7 @@ class EEnumGenerator {
 			fsa.generateFile("EnumHelper.h", enums.compileEnumHelperHeader)
 	}
 	
-	static def compileEnumHelperHeader(Iterable<org.eclipse.emf.ecore.EEnum> enums) '''
+	static def compileEnumHelperHeader(Iterable<EEnum> enums) '''
 		«val guard = CppHelper::getGuardHelper(Joiner.on('_').join(NamespaceHelper::getNamespaceHelper(enums.head)) + '_' + "ENUMHELPER")»
 		«guard.start»
 		
