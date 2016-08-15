@@ -22,6 +22,8 @@
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalRamQuerySpecification.h"
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddMatcher.h"
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddQuerySpecification.h"
+#include "Viatra\Query\CpsQuery\ReachableHostsMatcher.h"
+#include "Viatra\Query\CpsQuery\ReachableHostsQuerySpecification.h"
 
 #include<unordered_set>
 
@@ -37,6 +39,11 @@ auto CreateHostInstance = CreateBuilderFunction<cyberPhysicalSystem::HostInstanc
 	&cyberPhysicalSystem::HostInstance::totalCpu,
 	&cyberPhysicalSystem::HostInstance::totalRam,
 	&cyberPhysicalSystem::HostInstance::totalHdd
+	);
+
+auto CreateHostInstanceByComm = CreateBuilderFunction<cyberPhysicalSystem::HostInstance, int, std::vector<HostInstance*>>(
+	&cyberPhysicalSystem::HostInstance::availableCpu,
+	&cyberPhysicalSystem::HostInstance::communicateWith
 	);
 
 
@@ -76,6 +83,23 @@ auto CreateHostType = CreateBuilderFunction<cyberPhysicalSystem::HostType, int, 
 	&cyberPhysicalSystem::HostType::defaultHdd);
 
 
+std::map<void*, std::string>& nameMap()
+{
+	static std::map<void*, std::string> map; return map;
+}
+
+void Name(void * ptr, std::string name)
+{
+	nameMap()[ptr] = name;
+}
+
+std::string& Name(void * ptr)
+{
+	return nameMap()[ptr];
+}
+
+
+
 struct ModelRoot
 {
 	ModelRoot()
@@ -98,6 +122,30 @@ struct ModelRoot
 			4, 16, 240,
 			3, 16, 560
 			);
+
+		auto h5 = CreateHostInstance(105, 1, 1, 1, 1, 1);
+		auto h6 = CreateHostInstance(106, 1, 1, 1, 1, 1);
+		auto h7 = CreateHostInstance(107, 1, 1, 1, 1, 1);
+		auto h8 = CreateHostInstance(108, 1, 1, 1, 1, 1);
+		auto h9 = CreateHostInstance(109, 1, 1, 1, 1, 1);
+		auto h10 = CreateHostInstance(110, 1, 1, 1, 1, 1);
+
+		Name(h1, "h1");
+		Name(h2, "h2");
+		Name(h3, "h3");
+		Name(h4, "h4");
+		Name(h5, "h5");
+		Name(h6, "h6");
+		Name(h7, "h7");
+		Name(h8, "h8");
+		Name(h9, "h9");
+		Name(h10, "h10");
+
+
+		h5->communicateWith = { h6, h7 };
+		h7->communicateWith = { h8 };
+		h9->communicateWith = { h5 };
+
 
 		auto a1 = CreateApplicationInstance("User1", "password", h1,	 AppState::Running);
 		auto a2 = CreateApplicationInstance("User2", "xyz123", nullptr,  AppState::Running);
@@ -246,6 +294,19 @@ TEST(CPS, availableGreaterThanTotalRam) {
 }
 
 
+TEST(CPS, HostCommunication) {
+	ModelRoot modelRoot;
+
+	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
+
+	ReachableHostsQuerySpecification<ModelRoot>::Matcher matcher = engine.matcher<ReachableHostsQuerySpecification>();
+
+	auto matches = matcher.matches();
+
+	for (auto & m : matches)
+		std::cout << "match: " << Name(m.source) << ", " << Name(m.target) << std::endl;
+
+}
 
 
 int main(int argc, char **argv) {
