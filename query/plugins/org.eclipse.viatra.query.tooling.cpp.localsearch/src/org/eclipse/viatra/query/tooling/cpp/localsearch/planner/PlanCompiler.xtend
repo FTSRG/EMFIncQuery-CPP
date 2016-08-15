@@ -88,7 +88,7 @@ class PlanCompiler {
 			val dependentNormalizedBodies = it.referredQuery.flattenAndNormalize
 			val dependentBodies = dependentNormalizedBodies.compile(it.adornment, frameRegistry)
 			return new PatternDescriptor(it.referredQuery, dependentBodies, it.adornment)
-		].toSet
+		]
 				
 		// copy to prevent lazy evaluation
 		return ImmutableSet::copyOf(Iterables::concat(#[unboundPatternStub], boundPatternStubs, dependentPatternStubs))

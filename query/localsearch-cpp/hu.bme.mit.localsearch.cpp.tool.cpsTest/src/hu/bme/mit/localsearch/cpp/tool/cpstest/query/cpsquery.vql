@@ -98,29 +98,28 @@ pattern multipleApplicationInstanceInCommunicationGroup(sourceHostInstance, app)
 	find reachableAppInstance(sourceHostInstance, app, otherAppInstance);
 	appInstance != otherAppInstance;
 }
-
+*/
 pattern appTypeInstanceAndHost(app, appInstance, hostInstance) {
 	ApplicationInstance.type(appInstance, app);
 	ApplicationInstance.allocatedTo(appInstance, hostInstance);
 }
-*/
+
 @Bind(parameters={fromHost})
+@Bind(parameters={toHost})
 pattern hostCommunication(fromHost, toHost) {
 	HostInstance.communicateWith(fromHost, toHost);
 }
 
-pattern reachableHosts(source, target) {
+pattern reachableHosts(source : HostInstance, target : HostInstance) {
 	find hostCommunication+(source, target);
-}/*  or {
-	HostInstance(source);
-	HostInstance(target);
+}/* or {
 	source == target;
 }*/
-/*
-pattern reachableAppInstance(sourceHostInstance, app, appInstance) {
+
+pattern reachableAppInstance(sourceHostInstance : HostInstance, app : ApplicationType, appInstance : ApplicationInstance) {
 	find appTypeInstanceAndHost(app, appInstance, targetHostInstance);
 	// there is a source hostInstance that could communicate with either hostInstance
 	find reachableHosts(sourceHostInstance, targetHostInstance);
 }
-*/
+
 
