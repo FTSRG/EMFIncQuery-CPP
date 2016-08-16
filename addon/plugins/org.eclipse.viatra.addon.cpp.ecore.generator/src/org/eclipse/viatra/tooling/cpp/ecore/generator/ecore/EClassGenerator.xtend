@@ -70,6 +70,7 @@ class EClassGenerator {
 				«ah.declaration»
 			«ENDFOR»
 			««« TODO this does not work with if there are multiple Ecore files referenced in model
+			
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				«ah.declaration»
