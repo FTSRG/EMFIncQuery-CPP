@@ -36,7 +36,11 @@ public:
 		sp.add_operation(create_NavigateSingleAssociation(&AvailableGreaterThanTotalRamFrame_0::_0, &AvailableGreaterThanTotalRamFrame_0::_1, &::cyberPhysicalSystem::HostInstance::totalRam));
 		sp.add_operation(create_CheckExpression<AvailableGreaterThanTotalRamFrame_0>(
 			[](int tRam, int aRam){
-			return aRam > tRam;
+				// Please implement the following 
+				// <XFeatureCallImplCustom> > <XFeatureCallImplCustom>
+				//
+				
+				static_assert(false, "Please implement the Check expression");	
 			},
 			&AvailableGreaterThanTotalRamFrame_0::_1, &AvailableGreaterThanTotalRamFrame_0::_2
 		)

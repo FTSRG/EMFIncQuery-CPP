@@ -48,6 +48,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
 import org.eclipse.emf.ecore.EClassifier
 import java.util.HashMap
+import com.google.common.collect.Multimap
+import com.google.common.collect.Multimaps
 
 /**
  * @author Robert Doczi
@@ -185,13 +187,13 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 
 	private def getMatchingFrame(PBody pBody) {
 		matchingFrameRegistry.getMatchingFrame(pBody).or[
-			val variableToParameterMap = Maps::uniqueIndex(pBody.pattern.parameters) [pBody.getVariableByNameChecked(it.name)]
+			val variableToParameterMap = Multimaps::index(pBody.pattern.parameters) [pBody.getVariableByNameChecked(it.name)]
 			// don't pass this to anything else or evaluate it! (Lazy evaluation!!)
 			val variableInfos = pBody.uniqueVariables.map[
 				val type = typeMapping.get(it)
 				if(type == null)
 					return null
-				return new VariableInfo(Optional::fromNullable(variableToParameterMap.get(it)), it, type, variableMapping.get(it))
+				return new VariableInfo(variableToParameterMap.get(it), it, type, variableMapping.get(it))
 			].filterNull.toList
 			val frame = new MatchingFrameDescriptor(variableInfos)
 			matchingFrameRegistry.putMatchingFrame(pBody, frame)

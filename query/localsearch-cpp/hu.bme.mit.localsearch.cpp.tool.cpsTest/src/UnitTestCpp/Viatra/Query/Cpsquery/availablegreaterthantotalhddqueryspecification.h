@@ -36,7 +36,11 @@ public:
 		sp.add_operation(create_NavigateSingleAssociation(&AvailableGreaterThanTotalHddFrame_0::_0, &AvailableGreaterThanTotalHddFrame_0::_2, &::cyberPhysicalSystem::HostInstance::totalHdd));
 		sp.add_operation(create_CheckExpression<AvailableGreaterThanTotalHddFrame_0>(
 			[](int aHdd, int tHdd){
-			return aHdd > tHdd;
+				// Please implement the following 
+				// <XFeatureCallImplCustom> > <XFeatureCallImplCustom>
+				//
+				
+				static_assert(false, "Please implement the Check expression");	
 			},
 			&AvailableGreaterThanTotalHddFrame_0::_1, &AvailableGreaterThanTotalHddFrame_0::_2
 		)

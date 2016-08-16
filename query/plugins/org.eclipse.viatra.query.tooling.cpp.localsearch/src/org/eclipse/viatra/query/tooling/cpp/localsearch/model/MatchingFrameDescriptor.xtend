@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
-import com.google.common.base.Optional
 import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.EClassifier
@@ -21,6 +20,7 @@ import org.eclipse.xtend.lib.annotations.Data
 import static com.google.common.base.Preconditions.*
 import com.google.common.collect.Maps
 import com.google.common.collect.ImmutableList
+import java.util.ArrayList
 
 /**
  * @author Robert Doczi
@@ -33,7 +33,9 @@ class MatchingFrameDescriptor {
 	new(List<VariableInfo> paramTypes) {
 		variableInfoMap = Maps::uniqueIndex(paramTypes) [variable]
 		parameterNameToVariableMap = Maps::newHashMap
-		paramTypes.filter[parameter.present].forEach[parameterNameToVariableMap.put(parameter.get.name, variable)]
+		// Changed for multiple parameter mapped to one variable
+		// paramTypes.filter[parameter.present].forEach[parameterNameToVariableMap.put(parameter.get.name, variable)]
+		paramTypes.forEach[paramType | paramType.parameter.forEach[parameterNameToVariableMap.put(it.name, paramType.variable)]]
 	}
 
 	def getVariableStrictType(PVariable variable) {
@@ -68,7 +70,13 @@ class MatchingFrameDescriptor {
 	
 	def getParameters() {
 		// copy it to evaluate
-		ImmutableList::copyOf(variableInfoMap.values.filter[parameter.present].map[parameter.get])
+		// ImmutableList::copyOf(variableInfoMap.values.filter[parameter.present].map[parameter.get])
+		
+		var copyList = new ArrayList<PParameter>()
+		for( variableInfo: variableInfoMap.values)
+			for( param : variableInfo.parameter )
+				copyList.add(param)
+		return ImmutableList::copyOf(copyList)
 	}
 	
 	def getAllTypes() {
@@ -78,13 +86,13 @@ class MatchingFrameDescriptor {
 
 @Data
 class VariableInfo {
-	Optional<PParameter> parameter
+	ImmutableList<PParameter> parameter
 	PVariable variable
 	TypeInfo type
 	int position
 	
 	def isKey() {
-		parameter.present
+		!parameter.empty
 	}
 }
 
