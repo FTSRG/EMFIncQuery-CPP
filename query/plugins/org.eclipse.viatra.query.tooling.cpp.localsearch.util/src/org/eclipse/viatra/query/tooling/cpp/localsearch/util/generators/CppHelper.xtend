@@ -140,7 +140,7 @@ class AssociationHelper {
 	}
 
 	def declaration() '''
-		«IF multiple»std::vector< «typeHelper.getFQN»*>«ELSE»«typeHelper.getFQN»*«ENDIF» «association.name»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
+		«IF multiple»std::vector< «typeHelper.getFQN»* >«ELSE»«typeHelper.getFQN»*«ENDIF» «association.name»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
 	'''
 
 	def get() '''«association.name»'''
