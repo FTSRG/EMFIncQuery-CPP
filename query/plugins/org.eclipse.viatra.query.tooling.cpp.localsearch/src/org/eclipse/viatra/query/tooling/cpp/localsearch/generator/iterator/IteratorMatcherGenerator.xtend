@@ -152,7 +152,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			auto matches = matcher.matches(currentSrc);
 			for(auto& match : matches)
 			{
-				auto foundTarget = match.«descriptor.target.name»;
+				auto foundTarget = match.«descriptor.refferedQueryMatchTargetMemberName»;
 	
 				if(trg == foundTarget) return true;
 				else if( sourceEvaluated.count(foundTarget) == 0)

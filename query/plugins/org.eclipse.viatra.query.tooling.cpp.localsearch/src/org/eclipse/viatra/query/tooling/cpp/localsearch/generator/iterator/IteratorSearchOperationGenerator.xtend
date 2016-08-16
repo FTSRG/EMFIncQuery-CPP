@@ -25,6 +25,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUti
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.AbstractSearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
@@ -158,6 +159,33 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		auto «operation.variable.cppName» = «TypeUtil::getCppValue(operation.value)»;
 		«compileNext(setupCode)»
 	'''
+	
+	def dispatch compileOperation(CheckExpressionDescriptor operation, StringBuilder setupCode)'''
+		if([](«operation.variables.map[toForwardDef(operation)].join(", ")»){
+							// Please implement the following 
+							// «operation.expressionAsStr»
+							//
+							
+							static_assert(false, "Please implement the Check expression");	
+						}
+					){
+						«compileNext(setupCode)»
+					}
+	'''
+	
+	private def toForwardDef(PVariable variable, CheckExpressionDescriptor operation) {
+		val typeMap = operation.types
+		val type = typeMap.get(variable);
+		var typeStr = type.toCppName;
+		if( type instanceof EClass )
+			typeStr = '''const «typeStr»*''' 
+			
+		return '''«typeStr» «variable.name»'''
+	}
+	
+	private def toCppName(EClassifier type) {
+		CppHelper::getTypeHelper(type).FQN
+	}
 
 	def replaceVars(CharSequence expression) {
 		var expressionString = expression.toString
