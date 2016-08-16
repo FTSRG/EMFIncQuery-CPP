@@ -16,24 +16,23 @@ import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
-import java.util.Map
 
 /**
  * @author Robert Doczi
@@ -43,11 +42,6 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	val String queryName
 	@Accessors(PUBLIC_GETTER) val ISearchOperationDescriptor operation;
 	val MatchingFrameGenerator frameGenerator
-	
-	// For CheckExpression
-	var Map<PVariable, EClassifier> typeMap
-	
-
 	
 	new(String queryName, ISearchOperationDescriptor operation, MatchingFrameGenerator frameGenerator) {
 		this.queryName = queryName
@@ -84,10 +78,9 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 	
 	private dispatch def compileOperation(CheckExpressionDescriptor operation, StringBuilder setupCode){
-		typeMap = operation.types
 		return '''
 			create_«CheckExpressionDescriptor::NAME»<«frameGenerator.frameName»>(
-				[](«operation.variables.map[toForwardDef].join(", ")»){
+				[](«operation.variables.map[toForwardDef(operation)].join(", ")»){
 					// Please implement the following 
 					// «operation.expressionAsStr»
 					//
@@ -167,8 +160,8 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		'''&«frameGenerator.frameName»::«frameGenerator.getVariableName(variable)»'''
 	}
 	
-	private def toForwardDef(PVariable variable) {
-		
+	private def toForwardDef(PVariable variable, CheckExpressionDescriptor operation) {
+		val typeMap = operation.types
 		val type = typeMap.get(variable);
 		var typeStr = type.toCppName;
 		if( type instanceof EClass )
