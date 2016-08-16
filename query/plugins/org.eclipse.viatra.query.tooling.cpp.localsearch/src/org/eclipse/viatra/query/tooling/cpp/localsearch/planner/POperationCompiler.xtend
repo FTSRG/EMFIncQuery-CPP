@@ -208,6 +208,7 @@ class POperationCompiler {
 
 		val keySize = constraint.variablesTuple.size
 
+		//It has two elements, because its a binary trans. closure.
 		val params = constraint.referredQuery.parameters
 		val boundParams = newHashSet
 
@@ -217,11 +218,10 @@ class POperationCompiler {
 				boundParams += params.get(i)
 			}
 		}
-		//Is it necessary or enough with boundParams
-		val inputParams = constraint.variablesTuple.elements.filter(PVariable).toList
-		val source = inputParams.get(0) as PVariable
-		val target = inputParams.get(1) as PVariable
-		acceptor.acceptBinaryTransitiveClosureOperation(constraint.referredQuery, adornment, boundParams, source, target)
+		val inputVariables = constraint.variablesTuple.elements.filter(PVariable).toList
+		val source = inputVariables.get(0)
+		val target = inputVariables.get(1)
+		acceptor.acceptBinaryTransitiveClosureOperation(constraint.referredQuery, adornment, boundParams, source, target, params.get(1).name)
 		acceptor.hashCode
 	}
 

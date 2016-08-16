@@ -103,7 +103,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
 		setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(model,  «queryName.toFirstUpper»QueryGroup::instance()->context());
 		''')
-		return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.target.toGetterTarget(operation)»)'''
+		return '''create_«BinaryTransitiveClosureDescriptor::NAME»(«matcherName», «operation.bindings.map[toGetter].join(", ")», «operation.refferedQueryMatchTargetMemberName.toGetterTarget(operation)»)'''
 	}
 	private dispatch def compileOperation(PatternMatchCounterCheckDescription operation, StringBuilder setupCode) {
 		val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''
@@ -159,8 +159,8 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		'''&«type.toCppName»::«name»'''		
 	}
 
-	private def toGetterTarget(PVariable variable, BinaryTransitiveClosureDescriptor operation){
-		'''&«operation.matchName»::«variable.name»'''
+	private def toGetterTarget(CharSequence variableName, BinaryTransitiveClosureDescriptor operation){
+		'''&«operation.matchName»::«variableName»'''
 	}
 	
 	private def toGetter(PVariable variable) {

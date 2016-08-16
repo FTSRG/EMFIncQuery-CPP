@@ -18,6 +18,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
 import java.util.Map
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 
 /**
  * @author Robert Doczi
@@ -122,8 +123,9 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val CharSequence matcherName
 	val CharSequence matchName
 	val Set<PVariable> bindings
-	val PVariable source
-	val PVariable target
+	val PVariable source //For iterator based approach
+	val PVariable target //For iterator based approach
+	val CharSequence refferedQueryMatchTargetMemberName
 }
 
 @Data class PatternMatchCounterCheckDescription extends DependentSearchOperationDescriptor{
