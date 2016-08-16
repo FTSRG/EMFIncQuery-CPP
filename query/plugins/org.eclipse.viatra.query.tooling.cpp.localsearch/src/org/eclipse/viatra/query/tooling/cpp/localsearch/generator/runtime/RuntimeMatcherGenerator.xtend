@@ -10,15 +10,15 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
+import java.util.Map
+import java.util.Set
+import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
-import java.util.Map
-import java.util.Set
-import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 
 /**
  * @author Robert Doczi
@@ -46,7 +46,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		«val bodyNum = frame.index»
 		auto sp = «name»QuerySpecification<ModelRoot>::get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(_model);
 		«IF pattern.bound»
-			«initializeFrame(frameGenerators.get(patternBody), pattern.boundParameters.map[toPVariable(patternBody.matchingFrame)].toSet, bodyNum)»
+			«initializeFrame(patternBody, pattern.boundParameters, bodyNum)»
 			
 			auto exec = SearchPlanExecutor<«frame.frameName»>(sp, *_context).prepare(frame);
 		«ELSE»							
@@ -63,11 +63,15 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		}
 	'''
 	
-	private def initializeFrame(MatchingFrameGenerator matchingFrameGen, Set<PVariable> boundVariables, int bodyNum) '''
+	private def initializeFrame(PatternBodyDescriptor patternBody, Set<PParameter> boundParameters, int bodyNum) '''
+		«val matchingFrameGen = frameGenerators.get(patternBody)»
+		«val boundVariables = boundParameters.map[toPVariable(patternBody.matchingFrame)].toSet»
+		«val boundParamNames = boundParameters.map[it.name].toSet»
 		«name»Frame_«bodyNum» frame;
 		«FOR boundVar : boundVariables»
 			«FOR exportedParameter: matchingFrameGen.matchingFrame.getParameterFromVariable(boundVar)»
-				frame.«matchingFrameGen.getVariableName(boundVar)» = «exportedParameter.name»;
+				«««TODO Incredible Hack, a bit ugly.
+				«IF boundParamNames.contains(exportedParameter.name)»frame.«matchingFrameGen.getVariableName(boundVar)» = «exportedParameter.name»;«ENDIF»
 			«ENDFOR»
 		«ENDFOR»
 	'''

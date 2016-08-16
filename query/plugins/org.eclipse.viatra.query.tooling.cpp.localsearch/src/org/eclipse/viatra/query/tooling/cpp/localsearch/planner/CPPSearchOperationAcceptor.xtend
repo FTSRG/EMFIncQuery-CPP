@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 
-import com.google.common.base.Optional
-import com.google.common.collect.Maps
+import com.google.common.collect.Multimaps
+import java.util.HashMap
 import java.util.List
 import java.util.Map
 import java.util.Set
+import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
@@ -28,6 +29,8 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckConstantValueDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
@@ -44,12 +47,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckExpressionDescriptor
-import org.eclipse.emf.ecore.EClassifier
-import java.util.HashMap
-import com.google.common.collect.Multimap
-import com.google.common.collect.Multimaps
 
 /**
  * @author Robert Doczi
