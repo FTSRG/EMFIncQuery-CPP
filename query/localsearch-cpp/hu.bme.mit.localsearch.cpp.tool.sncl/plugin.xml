@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated Arch -->
+    <package class="arch.ArchPackage" genModel="model/Arch.genmodel" uri="http://arch.ecore/model"/>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.sncl.query.Sncl_runtime" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.sncl.query.Sncl_runtime" id="hu.bme.mit.localsearch.cpp.tool.sncl.query.Sncl_runtime">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.countLinks"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.ringMembers"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.greaterThanOneSNConnection"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.notInRing"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.numEqualityWithMember"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.numInEqualityWithMember"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.isolatedSN"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.isolatedCL"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.linked"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.sncl.query.pconnected"/>
+    </group>
+  </extension>
+</plugin>

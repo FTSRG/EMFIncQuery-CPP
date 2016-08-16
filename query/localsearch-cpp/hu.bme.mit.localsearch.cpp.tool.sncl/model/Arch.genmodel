@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hu.bme.mit.localsearch.cpp.tool.featureTest/emf-gen"
-    modelPluginID="hu.bme.mit.localsearch.cpp.tool.featureTest" modelName="Arch" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hu.bme.mit.localsearch.cpp.tool.sncl/emf-gen"
+    modelPluginID="hu.bme.mit.localsearch.cpp.tool.sncl" modelName="Arch" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Arch.ecore</foreignModel>
   <genPackages prefix="Arch" disposableProviderFactory="true" ecorePackage="Arch.ecore#/">
-    <genClasses ecoreClass="Arch.ecore#//Node"/>
+    <genClasses ecoreClass="Arch.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Arch.ecore#//Node/name"/>
+    </genClasses>
     <genClasses ecoreClass="Arch.ecore#//SN">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Arch.ecore#//SN/link"/>
     </genClasses>
     <genClasses ecoreClass="Arch.ecore#//CL">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Arch.ecore#//CL/cnn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Arch.ecore#//CL/countReachableSN"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -4,7 +4,7 @@ import "http://org.eclipse.viatra/model/cps"
 
 // Important for enum, check:
 
-/*
+
 pattern notAllocatedButRunning(app : ApplicationInstance) {
 	ApplicationInstance.state(app, ::Running);
 	neg find allocatedApplication(app);
@@ -92,29 +92,30 @@ pattern multipleTransitionsWithSameAction(state, action) {
 private pattern actionOfTransition(transition, action) {
 	Transition.action(transition, action);
 }
-/*
+
 pattern multipleApplicationInstanceInCommunicationGroup(sourceHostInstance, app) {
 	find reachableAppInstance(sourceHostInstance, app, appInstance);
 	find reachableAppInstance(sourceHostInstance, app, otherAppInstance);
 	appInstance != otherAppInstance;
 }
-*/
+
 pattern appTypeInstanceAndHost(app, appInstance, hostInstance) {
 	ApplicationInstance.type(appInstance, app);
 	ApplicationInstance.allocatedTo(appInstance, hostInstance);
 }
 
+//@Bind(parameters={toHost})
 @Bind(parameters={fromHost})
-@Bind(parameters={toHost})
 pattern hostCommunication(fromHost, toHost) {
 	HostInstance.communicateWith(fromHost, toHost);
 }
 
+@Bind(parameters={source})
 pattern reachableHosts(source : HostInstance, target : HostInstance) {
 	find hostCommunication+(source, target);
-}/* or {
+} or {
 	source == target;
-}*/
+}
 
 pattern reachableAppInstance(sourceHostInstance : HostInstance, app : ApplicationType, appInstance : ApplicationInstance) {
 	find appTypeInstanceAndHost(app, appInstance, targetHostInstance);

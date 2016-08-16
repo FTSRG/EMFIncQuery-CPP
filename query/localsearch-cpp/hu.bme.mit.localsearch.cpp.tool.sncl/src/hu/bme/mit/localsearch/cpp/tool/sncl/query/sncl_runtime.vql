@@ -1,4 +1,4 @@
-package hu.bme.mit.localsearch.cpp.tool.featuretest.query
+package hu.bme.mit.localsearch.cpp.tool.sncl.query
 
 import "http://arch.ecore/model"
 

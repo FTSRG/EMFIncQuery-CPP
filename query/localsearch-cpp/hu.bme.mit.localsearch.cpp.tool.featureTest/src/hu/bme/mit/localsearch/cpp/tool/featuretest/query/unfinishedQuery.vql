@@ -2,11 +2,11 @@ package hu.bme.mit.localsearch.cpp.tool.featuretest.query
 
 import "http://unfinished.ecore/model"
 
-pattern enumInside(I1){
-	Item.status(I1, Status::UNFINISHED);
-}
-
-pattern enumInEquality(I1, Stat1){
-	Item.status(I1, Stat1);
-	Stat1 != Status::UNFINISHED;
-}
+//pattern enumInside(I1){
+//	Item.status(I1, Status::UNFINISHED);
+//}
+//
+//pattern enumInEquality(I1, Stat1){
+//	Item.status(I1, Stat1);
+//	Stat1 != Status::UNFINISHED;
+//}
