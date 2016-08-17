@@ -80,7 +80,7 @@
         <repository
             url="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/mars"/>
         <repository
-            url="http://download.eclipse.org/viatra/updates/release"/>
+            url="https://hudson.eclipse.org/viatra/job/viatra-master/lastSuccessfulBuild/artifact/releng/org.eclipse.viatra.update/target/repository/"/>
         <repository
             url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
         <repository
@@ -93,7 +93,7 @@
         <repository
             url="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/mars"/>
         <repository
-            url="http://download.eclipse.org/viatra/updates/release"/>
+            url="https://hudson.eclipse.org/viatra/job/viatra-master/lastSuccessfulBuild/artifact/releng/org.eclipse.viatra.update/target/repository/"/>
         <repository
             url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
         <repository
@@ -114,7 +114,7 @@
     <repository
         url="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/mars"/>
     <repository
-        url="http://download.eclipse.org/viatra/updates/release"/>
+        url="https://hudson.eclipse.org/viatra/job/viatra-master/lastSuccessfulBuild/artifact/releng/org.eclipse.viatra.update/target/repository/"/>
     <repository
         url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
   </setupTask>
