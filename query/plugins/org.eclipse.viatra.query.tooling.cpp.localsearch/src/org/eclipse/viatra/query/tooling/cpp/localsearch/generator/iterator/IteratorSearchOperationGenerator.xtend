@@ -121,7 +121,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		«val matcherName = '''matcher_«Math.abs(operation.hashCode)»'''»
 		«val youShallNotPrint = setupCode.append('''«operation.matcherName»<ModelRoot> «matcherName»(_model,  _context);
 		''')»
-		if(transitive_closure_check(«matcherName», «srcName», «trgName»)) {
+		if(transitive_closure_check(«matcherName», &«operation.matchName»::«operation.refferedQueryMatchTargetMemberName», «srcName», «trgName»)) {
 			«compileNext(setupCode)»
 		}
 	'''
@@ -186,7 +186,8 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 	private def toCppName(EClassifier type) {
 		CppHelper::getTypeHelper(type).FQN
 	}
-
+	
+	@Deprecated
 	def replaceVars(CharSequence expression) {
 		var expressionString = expression.toString
 		val p = Pattern.compile("\\$([\\w-]*)\\$");
