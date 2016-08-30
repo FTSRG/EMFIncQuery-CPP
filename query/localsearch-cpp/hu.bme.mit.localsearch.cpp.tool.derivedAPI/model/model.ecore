@@ -33,7 +33,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Segment" eSuperTypes="#//RailRoadElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isEnabled" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectedTo" lowerBound="1"
         upperBound="2" eType="#//RailRoadElement"/>
   </eClassifiers>
@@ -48,7 +48,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotPart" eSuperTypes="#//RobotElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nearBy" upperBound="-1"
-        eType="#//RailRoadElement" volatile="true" transient="true" derived="true"/>
+        eType="#//RailRoadElement" volatile="true" transient="true" derived="true">
+      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.derivedapi.nearBy"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOperational" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotModel">

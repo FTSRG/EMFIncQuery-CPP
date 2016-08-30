@@ -5,7 +5,7 @@ import "http://www.eclipse.org/emf/2002/Ecore"
 
 @Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
 @QueryBasedFeature(feature = "nearBy")
-pattern nearBy(robotPart, train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
+pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
 	RobotPart.id(robotPart, robotPartID);
 	Train.id(train,trainID);
 	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
