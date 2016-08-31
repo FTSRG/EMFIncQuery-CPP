@@ -1,0 +1,7 @@
+*.exe
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/x64/Debug/UnitTestCpp.ilk
+*.log
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/x64/Debug/UnitTestCpp.pdb
+*.tlog
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/x64/Debug/vc140.idb
+*.pdb
