@@ -18,14 +18,14 @@ public:
 	virtual ~RobotPart();
 	static std::list<RobotPart*> _instances;
 	static const unsigned short type_id = 7;
-	
+
 	virtual unsigned short get_type_id() const {
 		return type_id;
 	}
 
 	bool isOperational = false;
-				
-	std::vector< ::RailRoadModel::RailRoadElement* > nearBy;
+
+	std::vector< ::RailRoadModel::Train* > nearBy;
 };
 
 } /* namespace RailRoadModel */

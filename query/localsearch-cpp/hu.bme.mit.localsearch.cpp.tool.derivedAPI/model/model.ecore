@@ -48,7 +48,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotPart" eSuperTypes="#//RobotElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nearBy" upperBound="-1"
-        eType="#//RailRoadElement" volatile="true" transient="true" derived="true">
+        eType="#//Train" volatile="true" transient="true" derived="true">
       <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
         <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.derivedapi.nearBy"/>
       </eAnnotations>
