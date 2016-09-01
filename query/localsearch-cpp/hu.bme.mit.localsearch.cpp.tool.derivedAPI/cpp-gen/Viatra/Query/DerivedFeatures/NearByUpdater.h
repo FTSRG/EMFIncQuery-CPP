@@ -7,6 +7,9 @@
 #include "RailRoadModel/RobotPart.h"
 #include "RailRoadModel/Train.h"
 
+#include "Viatra/Query/DerivedFeatures/NearByFrame_0.h"
+#include "Viatra/Query/DerivedFeatures/NearByMatch.h"
+#include "Viatra/Query/DerivedFeatures/NearByQuerySpecification.h"
 #include "Viatra/Query/DerivedFeatures/NearByMatcher.h"
 
 namespace Viatra {
@@ -56,10 +59,9 @@ static void update(int robotPartID, int trainID, double robX, double robY, doubl
 		derivedKnowledge[src];
 	}
 
-	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
-	auto matcher = engine.matcher<Viatra::Query::DerivedFeatures::NearByQuerySpecification>();
-	//auto matcher = engine.matcher<::Viatra::Query::Cps::CommunicatingTypesQuerySpecification>();
-	auto matches = matcher.matches(robotPartID, trainID, robX, robY, robZ, trX, trY, trZ);
+	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::empty();
+	DerivedFeatures::NearByMatcher<ModelRoot> nearByMatcher = engine.matcher<DerivedFeatures::NearByQuerySpecification>();
+	auto matches = nearByMatcher.matches(robotPartID, trainID, robX, robY, robZ, trX, trY, trZ);
 
 	for(auto match : matches) derivedKnowledge[match.robotPart].push_back(match.train);
 	for(auto& src : instanceList){
