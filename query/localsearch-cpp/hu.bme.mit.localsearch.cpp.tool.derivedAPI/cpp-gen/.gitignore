@@ -1,2 +1,7 @@
 *.o
 *.out
+/.codelite/
+/.clang/
+*.tags
+*.workspace
+*.project
