@@ -93,7 +93,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		namespace std {
 		
 		template<> struct hash<«qualifiedName»> {
-			unsigned operator()(const «qualifiedName»& match) const {
+			size_t operator()(const «qualifiedName»& match) const {
 				return 
 					«FOR parameter : parameters SEPARATOR '^'»
 						«parameter.toHash»
