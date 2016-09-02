@@ -4,12 +4,13 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 #include "Viatra/Query/QueryEngine.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
 
 #include "model/RailRoadModel_def.h"
-#include "Ecore/ecore_def.h"
+#include "ecore_def.h"
 #include "Viatra/Query/DerivedFeatures/NearByMatcher.h"
 #include "Viatra/Query/DerivedFeatures/NearByUpdater.h"
 
@@ -58,4 +59,17 @@ int main(){
     robX--; //robY--; robZ--;
     trX++; //trY++; trZ++;
   }
+  
+  cout << endl << endl << "Testing" << endl;
+  try{
+	  NearByUpdate<ModelRoot>::update(modelRoot,4, 10, robX, robY, robZ, trX, trY, trZ);
+  }catch(invalid_argument* ex){
+	  cout << "Exception occured: " << ex->what() << endl;
+  }
+  try{
+	  NearByUpdate<ModelRoot>::update(modelRoot, 10, 1, robX, robY, robZ, trX, trY, trZ);
+  }catch(invalid_argument* ex){
+	  cout << "Exception occured: " << ex->what() << endl;
+  }
+  
 }

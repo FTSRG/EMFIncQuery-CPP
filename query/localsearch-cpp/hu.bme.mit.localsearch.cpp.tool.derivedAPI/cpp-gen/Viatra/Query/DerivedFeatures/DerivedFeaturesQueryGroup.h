@@ -1,7 +1,7 @@
 #ifndef VIATRA__QUERY__DERIVED_FEATURES__DERIVED_FEATURES_QUERY_GROUP_H_
 #define VIATRA__QUERY__DERIVED_FEATURES__DERIVED_FEATURES_QUERY_GROUP_H_
 
-
+		
 #include "RailRoadModel/Point.h"
 #include "RailRoadModel/RailRoadElement.h"
 #include "RailRoadModel/RailRoadModel.h"
@@ -13,26 +13,27 @@
 #include "RailRoadModel/Train.h"
 #include "Viatra/Query/Matcher/ClassHelper.h"
 #include "Viatra/Query/Matcher/ISearchContext.h"
-#include "Ecore/ecore/EAnnotation.h"
-#include "Ecore/ecore/EAttribute.h"
-#include "Ecore/ecore/EClass.h"
-#include "Ecore/ecore/EClassifier.h"
-#include "Ecore/ecore/EDataType.h"
-#include "Ecore/ecore/EEnum.h"
-#include "Ecore/ecore/EEnumLiteral.h"
-#include "Ecore/ecore/EFactory.h"
-#include "Ecore/ecore/EGenericType.h"
-#include "Ecore/ecore/EModelElement.h"
-#include "Ecore/ecore/ENamedElement.h"
-#include "Ecore/ecore/EObject.h"
-#include "Ecore/ecore/EOperation.h"
-#include "Ecore/ecore/EPackage.h"
-#include "Ecore/ecore/EParameter.h"
-#include "Ecore/ecore/EReference.h"
-#include "Ecore/ecore/EStringToStringMapEntry.h"
-#include "Ecore/ecore/EStructuralFeature.h"
-#include "Ecore/ecore/ETypeParameter.h"
-#include "Ecore/ecore/ETypedElement.h"
+#include "Viatra/Query/Matcher/ModelIndex.h"
+#include "ecore/EAnnotation.h"
+#include "ecore/EAttribute.h"
+#include "ecore/EClass.h"
+#include "ecore/EClassifier.h"
+#include "ecore/EDataType.h"
+#include "ecore/EEnum.h"
+#include "ecore/EEnumLiteral.h"
+#include "ecore/EFactory.h"
+#include "ecore/EGenericType.h"
+#include "ecore/EModelElement.h"
+#include "ecore/ENamedElement.h"
+#include "ecore/EObject.h"
+#include "ecore/EOperation.h"
+#include "ecore/EPackage.h"
+#include "ecore/EParameter.h"
+#include "ecore/EReference.h"
+#include "ecore/EStringToStringMapEntry.h"
+#include "ecore/EStructuralFeature.h"
+#include "ecore/ETypeParameter.h"
+#include "ecore/ETypedElement.h"
 
 namespace Viatra {
 namespace Query {
@@ -91,5 +92,24 @@ private:
 } /* namespace Query */
 } /* namespace Viatra */
 
+namespace Viatra {
+	namespace Query {
+
+    struct ModelRoot
+  	{
+  		ModelRoot(){}
+
+  		~ModelRoot(){}
+  	};
+
+	template<typename T>
+	struct ModelIndex<T, ModelRoot> {
+		static const std::list<T*>& instances(const ModelRoot* modelRoot)
+		{
+			return T::_instances;
+		}
+	};
+	}
+}
 
 #endif /*  VIATRA__QUERY__DERIVED_FEATURES__DERIVED_FEATURES_QUERY_GROUP_H_ */
