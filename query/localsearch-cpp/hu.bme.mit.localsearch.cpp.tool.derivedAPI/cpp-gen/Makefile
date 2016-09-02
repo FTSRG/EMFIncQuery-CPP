@@ -6,7 +6,7 @@
 ##############################################################################
 
 CXX=clang++
-CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
+CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 LFLAGS=
 MAKE=make
 LIBS=-lgtest
