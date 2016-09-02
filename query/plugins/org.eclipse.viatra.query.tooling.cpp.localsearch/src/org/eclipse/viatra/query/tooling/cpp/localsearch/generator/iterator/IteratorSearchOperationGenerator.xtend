@@ -161,16 +161,22 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 	'''
 	
 	def dispatch compileOperation(CheckExpressionDescriptor operation, StringBuilder setupCode)'''
-		if([](«operation.variables.map[toForwardDef(operation)].join(", ")»){
-							// Please implement the following 
-							// «operation.expressionAsStr»
-							//
-							
-							static_assert(false, "Please implement the Check expression");	
-						}
-					){
-						«compileNext(setupCode)»
-					}
+		if(
+			//
+			//  *****************  CHECK EXPRESSION IMPLEMENTATION
+			//		
+			[](«operation.variables.map[toForwardDef(operation)].join(", ")»){
+				// Please implement the following 
+				// «operation.expressionAsStr»
+				//
+				
+				static_assert(false, "Please implement the Check expression");	
+			}
+			//	***************************************************
+			
+			  («operation.variables.map[it.cppName].join(", ")»)){
+				«compileNext(setupCode)»
+			}
 	'''
 	
 	private def toForwardDef(PVariable variable, CheckExpressionDescriptor operation) {

@@ -126,9 +126,8 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		
 	private dispatch def compileAdditionalFields(BinaryTransitiveClosureDescriptor descriptor)'''
 		«IF !BTCFieldGenerated» «val youShallNotPrint = BTCFieldGenerated = true»
-		//NYI
-		//template<class NavigationMatcher, class SrcType, class TrgType, class NavigationMatch, class NavigationTrgType>
-		//bool transitive_closure_check(NavigationMatcher matcher, NavigationTrgType NavigationMatch::* trgMember, SrcType src, TrgType trg) const;
+		template<class NavigationMatcher, class SrcType, class TrgType, class NavigationMatch, class NavigationTrgType>
+		bool transitive_closure_check(NavigationMatcher matcher, NavigationTrgType NavigationMatch::* trgMember, SrcType src, TrgType trg) const;
 		«ENDIF»
 	'''
 	private dispatch def compileAdditionFunctions(ISearchOperationDescriptor descriptor) ''''''
@@ -137,8 +136,8 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 	
 	private dispatch def compileAdditionFunctions(BinaryTransitiveClosureDescriptor descriptor) '''
 	«IF !BTCFuncGenerated» «val youShallNotPrint = BTCFuncGenerated = true»
-	//Not implemented yet
-	/*template<class ModelRoot>
+
+	template<class ModelRoot>
 	template<class NavigationMatcher, class SrcType, class TrgType, class NavigationMatch, class NavigationTrgType>
 	inline bool «unitName»<ModelRoot>::transitive_closure_check(NavigationMatcher matcher, NavigationTrgType NavigationMatch::* trgMember, SrcType src, TrgType trg) const {
 		std::unordered_set<SrcType> sourcesToEvaluate; 
@@ -162,7 +161,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			}
 		} while(!sourcesToEvaluate.empty());
 		return false;
-	}*/
+	}
 	«ENDIF»
 	'''
 	
