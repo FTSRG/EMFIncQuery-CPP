@@ -1,4 +1,6 @@
 /googletest/
 /debug/
+/iterator/
+/runtime/
 /Viatra/
 /.vs/
