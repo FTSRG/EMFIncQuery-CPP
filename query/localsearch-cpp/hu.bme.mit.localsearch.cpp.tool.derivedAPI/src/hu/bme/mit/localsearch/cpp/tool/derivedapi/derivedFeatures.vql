@@ -10,3 +10,12 @@ pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX 
 	Train.id(train,trainID);
 	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
 }
+
+//@Bind(parameters={robotPartID, robX, robY, robZ})
+//@QueryBasedFeature(feature = "refSegment")
+//pattern refSeg(robotPart : RobotPart, robotPartID, segment : Segment, segmentID, robX : EDouble, robY : EDouble, robZ : EDouble){
+//	RobotPart.id(robotPart, robotPartID);
+//	Segment.id(segment, segmentID);
+//	Segment.points(segment, point);
+//	check(robX > 10.0 && robY > 10.0 && robZ > 10.0);
+//}
