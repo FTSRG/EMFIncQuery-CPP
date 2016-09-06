@@ -33,7 +33,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchingFrameGenerator
 
 /**
  * @author Robert Doczi

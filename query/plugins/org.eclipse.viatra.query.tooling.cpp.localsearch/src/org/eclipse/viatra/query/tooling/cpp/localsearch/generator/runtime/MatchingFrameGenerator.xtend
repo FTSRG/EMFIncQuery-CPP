@@ -8,7 +8,7 @@
  * Contributors:
  *     Robert Doczi - initial API and implementation
  *******************************************************************************/
-package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
+package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType

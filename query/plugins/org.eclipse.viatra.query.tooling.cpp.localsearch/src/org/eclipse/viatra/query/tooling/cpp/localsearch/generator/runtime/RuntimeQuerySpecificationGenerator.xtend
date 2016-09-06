@@ -11,16 +11,15 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import com.google.common.collect.Maps
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import java.util.List
 import java.util.Map
 import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchingFrameGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
 
 /**
  * @author Robert Doczi
