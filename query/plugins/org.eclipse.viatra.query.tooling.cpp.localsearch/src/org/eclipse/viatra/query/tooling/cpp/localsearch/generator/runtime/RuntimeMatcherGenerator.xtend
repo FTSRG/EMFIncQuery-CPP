@@ -19,6 +19,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Matcher
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchingFrameGenerator
 
 /**
  * @author Robert Doczi

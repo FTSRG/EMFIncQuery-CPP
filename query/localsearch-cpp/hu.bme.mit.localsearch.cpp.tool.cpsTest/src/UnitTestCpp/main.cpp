@@ -99,6 +99,12 @@ std::string& Name(void * ptr)
 }
 
 
+inline bool implies(bool a, bool b)
+{
+	return !a || b;
+}
+
+
 
 struct ModelRoot
 {
@@ -302,6 +308,13 @@ TEST(CPS, HostCommunication) {
 	ReachableHostsQuerySpecification<ModelRoot>::Matcher matcher = engine.matcher<ReachableHostsQuerySpecification>();
 
 	auto matches = matcher.matches();
+
+	for(auto && h1 : HostInstance::_instances)
+		for (auto && h2 : HostInstance::_instances)
+			for (auto && h3 : HostInstance::_instances)
+				implies(
+						matches.count(ReachableHostsMatch())
+					)
 
 	for (auto & m : matches)
 		std::cout << "match: " << Name(m.source) << ", " << Name(m.target) << std::endl;
