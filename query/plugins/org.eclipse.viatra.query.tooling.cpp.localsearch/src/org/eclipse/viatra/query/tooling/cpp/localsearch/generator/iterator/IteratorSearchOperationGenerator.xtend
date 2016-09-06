@@ -41,6 +41,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 
 /**
  * @author Robert Doczi
@@ -57,10 +58,13 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 	val Map<String, String> variablePurgedNameCache
 	val Map<String, String> variableNameCache
 	val Map<String, Integer> variableNameCounter
+	
+	val MatchingFrameDescriptor matchingFrame
 
-	new(Collection<ISearchOperationDescriptor> operations, MatchGenerator matchGenerator) {
+	new(Collection<ISearchOperationDescriptor> operations, MatchGenerator matchGenerator, MatchingFrameDescriptor matchingFrame) {
 		this.operations = operations;
 		this.matchGenerator = matchGenerator
+		this.matchingFrame = matchingFrame
 
 		this.operationsQueue = newLinkedList
 		this.variablePurgedNameCache = newHashMap
@@ -241,9 +245,9 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 
 	def createMatch() '''
 		«matchGenerator.qualifiedName» match;
-		«FOR parameter : matchGenerator.matchingFrame.parameters»
-			«val keyVariable = matchGenerator.matchingFrame.getVariableFromParameter(parameter)»
-			«val variableType = matchGenerator.matchingFrame.getVariableStrictType(keyVariable)»
+		«FOR parameter : matchingFrame.parameters»
+			«val keyVariable = matchingFrame.getVariableFromParameter(parameter)»
+			«val variableType = matchingFrame.getVariableStrictType(keyVariable)»
 			match.«parameter.name» = «keyVariable.cppName.castTo(variableType)»;
 		«ENDFOR»
 
