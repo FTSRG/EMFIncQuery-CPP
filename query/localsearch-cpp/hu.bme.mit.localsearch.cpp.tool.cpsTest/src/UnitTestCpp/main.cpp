@@ -15,15 +15,11 @@
 
 
 #include "Viatra\Query\CpsQuery\NotAllocatedButRunningMatcher.h"
-#include "Viatra\Query\CpsQuery\NotAllocatedButRunningQuerySpecification.h"
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalCpuMatcher.h"
-#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalCpuQuerySpecification.h"
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalRamMatcher.h"
-#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalRamQuerySpecification.h"
 #include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddMatcher.h"
-#include "Viatra\Query\CpsQuery\AvailableGreaterThanTotalHddQuerySpecification.h"
+#include "Viatra\Query\CpsQuery\TargetStateNotContainedBySameStateMachineMatcher.h"
 #include "Viatra\Query\CpsQuery\ReachableHostsMatcher.h"
-#include "Viatra\Query\CpsQuery\ReachableHostsQuerySpecification.h"
 
 #include<unordered_set>
 
@@ -46,6 +42,9 @@ auto CreateHostInstanceByComm = CreateBuilderFunction<cyberPhysicalSystem::HostI
 	&cyberPhysicalSystem::HostInstance::communicateWith
 	);
 
+auto CreateTransition = CreateBuilderFunction<Transition, State*>(
+	&Transition::targetState
+	);
 
 std::ostream& operator<<(std::ostream& out, const cyberPhysicalSystem::HostInstance& hi)
 {
@@ -153,6 +152,34 @@ struct ModelRoot
 		auto a4 = CreateApplicationInstance("User4", "krekken", nullptr, AppState::Stopped);
 		auto a5 = CreateApplicationInstance("User5", "pass2", h3,		 AppState::Stopped);
 		
+
+		auto s0 = new State();	Name(s0, "s0");
+		auto s1 = new State();	Name(s1, "s1");
+		auto s2 = new State();	Name(s2, "s2");
+		auto s3 = new State();	Name(s3, "s3");
+
+		auto s4 = new State();	Name(s4, "s4");
+		auto s5 = new State();	Name(s5, "s5");
+		auto s6 = new State();	Name(s6, "s6");
+		auto s7 = new State();	Name(s7, "s7");
+		
+		s0->outgoingTransitions.push_back(CreateTransition(s1));
+		s1->outgoingTransitions.push_back(CreateTransition(s2));
+		s2->outgoingTransitions.push_back(CreateTransition(s3));
+
+		s4->outgoingTransitions.push_back(CreateTransition(s5));
+		s5->outgoingTransitions.push_back(CreateTransition(s6));
+		s6->outgoingTransitions.push_back(CreateTransition(s7));
+
+
+		auto sm1 = new StateMachine();
+		sm1->states = { s0, s1, s2 };
+
+		auto sm2 = new StateMachine();
+		sm2->states = { s4, s5, s7 };
+
+
+
 	}
 
 	template<typename T> 
@@ -167,6 +194,9 @@ struct ModelRoot
 	{
 		DeleteInstances<ApplicationInstance>(); 
 		DeleteInstances<HostInstance>();
+		DeleteInstances<StateMachine>();
+		DeleteInstances<State>();
+		DeleteInstances<Transition>();
 	}
 };
 
@@ -294,7 +324,7 @@ TEST(CPS, availableGreaterThanTotalRam) {
 }
 
 
-TEST(CPS, HostCommunication) {
+TEST(CPS, ReachableHosts) {
 	ModelRoot modelRoot;
 
 	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
@@ -303,9 +333,31 @@ TEST(CPS, HostCommunication) {
 
 	auto matches = matcher.matches();
 
-	for (auto & m : matches)
+	for (auto & m : matches) {
 		std::cout << "match: " << Name(m.source) << ", " << Name(m.target) << std::endl;
+	}
+}
 
+TEST(CPS, TargetStateNotContainedBySameStateMachine)
+{
+	ModelRoot modelRoot;
+
+	QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::of(&modelRoot);
+
+	TargetStateNotContainedBySameStateMachineMatcher<ModelRoot>
+		matcher = engine.matcher<TargetStateNotContainedBySameStateMachineQuerySpecification>();
+
+	auto matches = matcher.matches();
+
+	std::unordered_set<std::string> set = { "s3", "s6" };
+
+	for (auto & m : matches) {
+		std::cout << "match: " << Name(m.target) << std::endl;
+		ASSERT_TRUE(set.count(Name(m.target))>0);
+		set.erase(Name(m.target));
+	}
+
+	ASSERT_EQ(set.size() , 0);
 }
 
 
