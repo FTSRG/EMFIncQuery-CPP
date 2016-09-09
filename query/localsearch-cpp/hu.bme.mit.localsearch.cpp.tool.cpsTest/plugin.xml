@@ -14,7 +14,6 @@
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.multipleApplicationInstanceInCommunicationGroup"/>
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.appTypeInstanceAndHost"/>
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.hostCommunication"/>
-      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.Ineq"/>
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.reachableHosts"/>
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.reachableAppInstance"/>
     </group>

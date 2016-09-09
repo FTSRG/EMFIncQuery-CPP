@@ -25,18 +25,21 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 
 	val String queryName
 	val String patternName
-	@Accessors(PUBLIC_GETTER) val MatchingFrameDescriptor matchingFrame
+	
+	// Accessing outside can be wrong because a pattern can have multiple matching frames
+	//@Accessors(PUBLIC_GETTER) 
+	val MatchingFrameDescriptor oneOfTheMatchingFrames
 
-	new(String queryName, String patternName, MatchingFrameDescriptor matchingFrame) {
+	new(String queryName, String patternName, MatchingFrameDescriptor oneOfTheMatchingFrames) {
 		super(#{queryName}, '''«patternName.toFirstUpper»Match''')
 		this.queryName = queryName
 		this.patternName = patternName
-		this.matchingFrame = matchingFrame
+		this.oneOfTheMatchingFrames = oneOfTheMatchingFrames
 
 	}
 
 	override initialize() {
-		includes += matchingFrame.allTypes.map[strictType].map[
+		includes += oneOfTheMatchingFrames.allTypes.map[strictType].map[
 			switch it {
 				EClass: Include::fromEClass(it)
 				EDataType: if(it.name.toLowerCase.contains("string")) new Include("string", true)
@@ -48,15 +51,15 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	override compileInner() '''		
 		struct «unitName» {
 			
-			«fields(matchingFrame.parameters)»
+			«fields(oneOfTheMatchingFrames.parameters)»
 			
-			«equals(matchingFrame.parameters)»
+			«equals(oneOfTheMatchingFrames.parameters)»
 			
 		};		
 	'''
 	
 	override compileOuter() '''
-		«hash(matchingFrame.parameters)»
+		«hash(oneOfTheMatchingFrames.parameters)»
 	'''
 	
 	def getMatchName() {
@@ -66,7 +69,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	private def fields(Iterable<PParameter> parameters) {
 		'''
 		«FOR parameter : parameters»
-			«val type = matchingFrame.getVariableStrictType(matchingFrame.getVariableFromParameter(parameter))»
+			«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(parameter))»
 			«NameUtils::toTypeName(type)» «parameter.name»;
 		«ENDFOR»
 		'''
@@ -107,7 +110,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	}
 	
 	private def toHash(PParameter parameter) {
-		'''«val looseType = matchingFrame.getVariableLooseType(matchingFrame.getVariableFromParameter(parameter))»
+		'''«val looseType = oneOfTheMatchingFrames.getVariableLooseType(oneOfTheMatchingFrames.getVariableFromParameter(parameter))»
 		«IF looseType instanceof EEnumImpl»match.«parameter.name»
 		«ELSE»std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)«ENDIF»'''
 	}

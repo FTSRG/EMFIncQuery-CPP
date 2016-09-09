@@ -109,16 +109,12 @@ pattern hostCommunication(fromHost, toHost) {
 	HostInstance.communicateWith(fromHost, toHost);
 }
 
-pattern Ineq(h : HostInstance, h2: HostInstance)
-{
-	h != h2;
-}
 
 @Bind(parameters={source})
 pattern reachableHosts(source : HostInstance, target : HostInstance) {
 	find hostCommunication+(source, target);
 } or {
-	neg find Ineq(source,target);
+	source == target;
 }
 
 pattern reachableAppInstance(sourceHostInstance : HostInstance, app : ApplicationType, appInstance : ApplicationInstance) {

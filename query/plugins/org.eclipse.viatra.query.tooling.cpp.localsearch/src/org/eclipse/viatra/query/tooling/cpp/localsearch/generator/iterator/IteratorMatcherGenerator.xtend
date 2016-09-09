@@ -35,7 +35,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		super(queryName, patternName, patternGroup, matchGenerator, querySpecification)
 		this.searchOperations = Maps::asMap(patternGroup)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
-				val sog = new IteratorSearchOperationGenerator(patternBody.searchOperations, matchGenerator)
+				val sog = new IteratorSearchOperationGenerator(patternBody.searchOperations, matchGenerator, patternBody.matchingFrame)
 				sog.initialize
 				return sog
 			]
