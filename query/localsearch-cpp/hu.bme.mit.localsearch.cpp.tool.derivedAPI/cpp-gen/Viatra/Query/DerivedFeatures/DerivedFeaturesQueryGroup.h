@@ -2,6 +2,7 @@
 #define VIATRA__QUERY__DERIVED_FEATURES__DERIVED_FEATURES_QUERY_GROUP_H_
 
 		
+#include "PlatformModel/Camera.h"
 #include "RailRoadModel/Point.h"
 #include "RailRoadModel/RailRoadElement.h"
 #include "RailRoadModel/RailRoadModel.h"
@@ -62,6 +63,7 @@ private:
 					.forClass(::RailRoadModel::Robot::type_id).setSuper(::RailRoadModel::RobotElement::type_id)
 					.forClass(::RailRoadModel::RobotPart::type_id).setSuper(::RailRoadModel::RobotElement::type_id)
 					.forClass(::RailRoadModel::RobotModel::type_id).noSuper()
+					.forClass(::PlatformModel::Camera::type_id).noSuper()
 					.forClass(::ecore::EAttribute::type_id).setSuper(::ecore::EModelElement::type_id).setSuper(::ecore::ENamedElement::type_id).setSuper(::ecore::ETypedElement::type_id).setSuper(::ecore::EStructuralFeature::type_id)
 					.forClass(::ecore::EAnnotation::type_id).setSuper(::ecore::EModelElement::type_id)
 					.forClass(::ecore::EClass::type_id).setSuper(::ecore::EModelElement::type_id).setSuper(::ecore::ENamedElement::type_id).setSuper(::ecore::EClassifier::type_id)

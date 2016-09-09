@@ -4,12 +4,22 @@
     <!-- @generated model -->
     <package class="RailRoadModel.RailRoadModelPackage" genModel="model/model.genmodel" uri="http://cpp/tool/derivedapi"/>
   </extension>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated Platform -->
+    <package class="PlatformModel.PlatformModelPackage" genModel="model/Platform.genmodel" uri="http://cpp/tool/platform"/>
+  </extension>
   <extension id="hu.bme.mit.localsearch.cpp.tool.derivedapi.DerivedFeatures" point="org.eclipse.viatra.query.runtime.queryspecification">
     <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.derivedapi.DerivedFeatures" id="hu.bme.mit.localsearch.cpp.tool.derivedapi.DerivedFeatures">
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.derivedapi.nearBy"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.derivedapi.refSeg"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.derivedapi.assignedToCamera"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.derivedapi.nearByTest"/>
     </group>
   </extension>
   <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.derivedapi.nearBy" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
     <wellbehaving-derived-feature classifier-name="RobotPart" feature-name="nearBy" package-nsUri="http://cpp/tool/derivedapi"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.derivedapi.refSeg" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="RobotPart" feature-name="refSegment" package-nsUri="http://cpp/tool/derivedapi"/>
   </extension>
 </plugin>

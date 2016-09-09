@@ -7,11 +7,8 @@ import "http://www.eclipse.org/emf/2002/Ecore"
 @Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
 @QueryBasedFeature(feature = "nearBy")
 pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
-	Segment.points(seg, point);
 	RobotPart.id(robotPart, robotPartID);
 	Train.id(train,trainID);
-	Point.x(point, px);
-	check(px > 10);
 	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
 }
 
@@ -32,8 +29,7 @@ pattern assignedToCamera(cam, seg){
 	Camera.responsibleFor(cam, seg);
 }
 
-pattern test(segment, camera){
-	RobotPart.refSegment(_rp, segment);	
-	find assignedToCamera(camera, segment);
+pattern nearByTest(robot, train){
+	RobotPart.nearBy(robot, train);	
 }
 

@@ -1,12 +1,12 @@
 ##############################################################################
 # M A K E F I L E
 #
-# NAME: model
+# NAME: Platform
 #
 ##############################################################################
 
-CXX=clang++
-CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
+CXX=g++
+CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./Platform/ -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 LFLAGS=
 MAKE=make
 LIBS=-lgtest
@@ -19,18 +19,21 @@ LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(SOURCES:%.cpp=%.o)
-BINARY := model.out
+BINARY := Platform.out
 
 d :=	.
+dir := 	$(d)/Platform
+include $(dir)/Rules.mk
+
 dir := 	$(d)/model
 include $(dir)/Rules.mk
 
 %.o:	%.cpp
 		$(COMPILE)
-
+		
 $(BINARY): $(OBJECTS)
 		$(LINK)
-
+		
 .PHONY: all
 all: $(SOURCES) $(OBJECTS) $(BINARY)
 
