@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "hu.bme.mit.localsearch.cpp.tool.derivedAPI";
+option java_outer_classname = "DerivedAPIProto";
+//option objc_class_prefix = "DAP";
+
+package derivedAPI;
+
+service NearBy{
+  // A client-to-server streaming RPC.
+  //
+  // Accepts a stream of robot-train location infos and sends to
+  // the server for processing.
+  rpc nearBy(stream NearInfo) returns (Reply) {}
+}
+
+message Vector{
+   double x = 1;
+   double y = 2;
+   double z = 3;
+}
+
+message LocationInfo{
+   int32 ID = 1;
+   Vector location = 2;
+}
+
+message NearInfo{
+   LocationInfo robot = 1;
+   LocationInfo train = 2;
+}
+
+message Reply{
+   int32 code = 1;
+}

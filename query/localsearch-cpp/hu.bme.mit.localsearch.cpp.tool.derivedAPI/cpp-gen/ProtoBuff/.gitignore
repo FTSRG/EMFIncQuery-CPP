@@ -1,0 +1,5 @@
+*.project
+/First/
+/.clang/
+/.codelite/
+*.workspace
