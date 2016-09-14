@@ -3,7 +3,7 @@
 
 namespace PlatformModel {
 
-	class Camera;
+	class Node;
 
 
 } /* namespace PlatformModel */

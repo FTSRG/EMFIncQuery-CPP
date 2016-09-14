@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PlatformModel" nsURI="http://cpp/tool/platform" nsPrefix="hu.bme.mit.localsearch.cpp.tool.derivedapi">
-  <eClassifiers xsi:type="ecore:EClass" name="Camera">
+  <eClassifiers xsi:type="ecore:EClass" name="Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="executes" upperBound="-1"
         eType="ecore:EClass model.ecore#//Segment"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inRange" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedExecutes" upperBound="-1"
         eType="ecore:EClass model.ecore#//Train" volatile="true" transient="true"
         derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="depRailElement" upperBound="-1"
-        eType="ecore:EClass model.ecore#//RailRoadElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="depRobElement" upperBound="-1"
-        eType="ecore:EClass model.ecore#//RobotElement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responsibleFor" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" volatile="true"
+        transient="true" derived="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,19 +1,20 @@
-#include "Camera.h"
+#include "Node.h"
 
 #include "RailRoadModel/Segment.h"
+#include "RailRoadModel/Train.h"
 
 #include <algorithm>
 
 namespace PlatformModel {
 
-std::list<Camera*> Camera::_instances;
+std::list<Node*> Node::_instances;
 
-Camera::Camera()
+Node::Node()
  {
 	_instances.push_back(this);
 }
 
-Camera::~Camera() {
+Node::~Node() {
 	_instances.remove(this);
 }
 
