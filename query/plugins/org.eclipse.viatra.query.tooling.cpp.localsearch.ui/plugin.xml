@@ -52,7 +52,22 @@
                     </iterate>
                  </with>
               </visibleWhen>
-           </command>       
+           </command>
+           <command
+                 commandId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generateDerivedRefs"
+                 style="push">
+              <visibleWhen>
+                 <with
+                       variable="selection">
+                    <iterate
+                          ifEmpty="false">
+                       <reference
+                             definitionId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.testVqlExtension">
+                       </reference>
+                    </iterate>
+                 </with>
+              </visibleWhen>
+           </command>
         </menu>
      </menuContribution>
   </extension>
@@ -83,8 +98,13 @@
      </command>
      <command
            defaultHandler="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.GeneratorExecutableExtensionFactory:org.eclipse.viatra.query.tooling.cpp.localsearch.ui.handler.DerivedInputGeneratorHandler"
-           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generateDerivedRefs"
+           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generateDerivedInput"
            name="Derived input - runtime based">
+     </command>
+     <command
+           defaultHandler="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.GeneratorExecutableExtensionFactory:org.eclipse.viatra.query.tooling.cpp.localsearch.ui.handler.DerivedRefGeneratorHandler"
+           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generateDerivedRefs"
+           name="Derived references updater - runtime based">
      </command>
   </extension>
 </plugin>
