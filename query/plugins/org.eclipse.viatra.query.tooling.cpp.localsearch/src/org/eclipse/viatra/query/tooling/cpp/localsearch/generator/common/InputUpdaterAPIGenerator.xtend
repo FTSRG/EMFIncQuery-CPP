@@ -5,7 +5,7 @@ import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 
-class DerivedUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
+class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val String name
 	protected val PatternDescriptor pattern
@@ -21,7 +21,7 @@ class DerivedUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 
 	new(String queryName, String patternName, CharSequence featureName, Set<PatternDescriptor> patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
-		super(#{queryName}, '''«patternName.toFirstUpper»Updater''')
+		super(#{queryName}, '''«patternName.toFirstUpper»InputUpdater''')
 		this.name = patternName.toFirstUpper
 		this.pattern = patternGroup.maxBy[it | it.boundParameters.size]
 		this.matchGenerator = matchGenerator
@@ -45,12 +45,17 @@ class DerivedUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	}
 	
 	override compileInner() '''
-	«val srcPointerType = matcherGenerator.type(src,matchGenerator.matchingFrame)»
+	«val srcPointerType = matcherGenerator.type(src,matchGenerator.oneOfTheMatchingFrames)»
 	«val srcType = srcPointerType.subSequence(0,srcPointerType.length-1)»
-	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.matchingFrame)»
+	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
 	template<class ModelRoot>
-	struct «name»Update{
+	struct «name»InputUpdate{
+		/*
+		 * It is generated for only sending vector coordinates into the model instance. 
+		 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
+		 * If that isn't guaranteed this code crashes in compile time.
+		 */
 		static void update(ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START

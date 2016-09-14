@@ -27,7 +27,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	val String patternName
 	
 	// Accessing outside can be wrong because a pattern can have multiple matching frames
-	//@Accessors(PUBLIC_GETTER) 
+	@Accessors(PUBLIC_GETTER) 
 	val MatchingFrameDescriptor oneOfTheMatchingFrames
 
 	new(String queryName, String patternName, MatchingFrameDescriptor oneOfTheMatchingFrames) {
