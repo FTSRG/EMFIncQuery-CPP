@@ -11,4 +11,18 @@
     <!-- @generated GeneratorUnfinishedFeatures -->
     <package class="unfinished.UnfinishedPackage" genModel="model/GeneratorUnfinishedFeatures.genmodel" uri="http://unfinished.ecore/model"/>
   </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.featuretest.query.Sncl_iterator" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.featuretest.query.Sncl_iterator" id="hu.bme.mit.localsearch.cpp.tool.featuretest.query.Sncl_iterator">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.countLinks"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.ringMembers"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.greaterThanOneSNConnection"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.notInRing"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.numEqualityWithMember"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.numInEqualityWithMember"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.isolatedSN"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.isolatedCL"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.linked"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.featuretest.query.pconnected"/>
+    </group>
+  </extension>
 </plugin>
