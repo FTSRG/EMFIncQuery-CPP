@@ -1,18 +1,18 @@
 
 {
-	"localnode" : "node1",
+	"localnode" : "nodeA",
 
 	"nodes" : [
 		{
 			"name" : "nodeA"
 			"ip" : "127.0.0.1" ,
-			"port" : "54321"
+			"port" : 54321
 		}
 		,
 		{
 			"name" : "nodeB"
 			"ip" : "127.0.0.1" ,
-			"port" : "54322"
+			"port" : 54322
 		}
 	]
 	
