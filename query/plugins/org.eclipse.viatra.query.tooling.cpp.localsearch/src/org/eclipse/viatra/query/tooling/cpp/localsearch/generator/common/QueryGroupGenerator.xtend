@@ -65,6 +65,47 @@ class QueryGroupGenerator extends ViatraQueryHeaderGenerator {
 	override compileOuter() '''
 		namespace Viatra {
 			namespace Query {
+				
+			class Any{
+			private:
+				class ContainerBase{
+				public:
+					virtual ~ContainerBase(){}
+				};
+				
+				template<typename T>
+				class Container : public ContainerBase{
+				public:
+					T data;
+					Container(T const &modelRoot) : data(modelRoot) {}
+					ContainerBase* clone() const { return new Container<T>(*this); }
+				};
+				
+				ContainerBase* pdata;
+			public:
+				Any() :pdata(nullptr){}
+				Any(Any const &to_copy) = delete;
+				Any& operator(Any const& to_copy) = delete;
+				~Any() { delete pdata; }
+				
+				//must implement T copy cstr properly
+				template <typename T>
+				void set(T const &modelRoot){
+					ContainerBase *newpdata = new Container<T>(modelRoot);
+					delete pdata;
+					pdata = newpdata;
+				}
+				
+				template <typename T>
+				T& get(){
+					return dynamic_cast<Container<T>&>(*pdata).data;
+				}
+				
+				template <typename T>
+				T const & get() const {
+					return dynamic_cast<Container<T>&>(*pdata).data;
+				}
+			};
 		
 		    struct ModelRoot
 		  	{
