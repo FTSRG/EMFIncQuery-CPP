@@ -1,7 +1,7 @@
 #ifndef VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_MATCH_H_
 #define VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_MATCH_H_
 
-
+		
 #include "RailRoadModel/RobotPart.h"
 #include "RailRoadModel/Train.h"
 
@@ -10,7 +10,7 @@ namespace Query {
 namespace DerivedFeatures {
 
 struct NearByMatch {
-
+	
 	::RailRoadModel::RobotPart* robotPart;
 	int robotPartID;
 	::RailRoadModel::Train* train;
@@ -21,9 +21,9 @@ struct NearByMatch {
 	double trX;
 	double trY;
 	double trZ;
-
+	
 	bool operator==(const NearByMatch& other) const {
-		return
+		return 
 			robotPart == other.robotPart&&
 			robotPartID == other.robotPartID&&
 			train == other.train&&
@@ -36,8 +36,8 @@ struct NearByMatch {
 			trZ == other.trZ
 		;
 	}
-
-};
+	
+};		
 
 } /* namespace DerivedFeatures */
 } /* namespace Query */
@@ -46,8 +46,8 @@ struct NearByMatch {
 namespace std {
 
 template<> struct hash<::Viatra::Query::DerivedFeatures::NearByMatch> {
-	unsigned operator()(const ::Viatra::Query::DerivedFeatures::NearByMatch& match) const {
-		return
+	size_t operator()(const ::Viatra::Query::DerivedFeatures::NearByMatch& match) const {
+		return 
 					std::hash<decltype(match.robotPart)>()(match.robotPart)^
 					std::hash<decltype(match.robotPartID)>()(match.robotPartID)^
 					std::hash<decltype(match.train)>()(match.train)^
@@ -61,7 +61,7 @@ template<> struct hash<::Viatra::Query::DerivedFeatures::NearByMatch> {
 		;
 	}
 };
-
+		
 }
 
 #endif /*  VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_MATCH_H_ */

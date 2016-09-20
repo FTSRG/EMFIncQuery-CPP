@@ -30,7 +30,7 @@ struct NearByTestMatch {
 namespace std {
 
 template<> struct hash<::Viatra::Query::DerivedFeatures::NearByTestMatch> {
-	unsigned operator()(const ::Viatra::Query::DerivedFeatures::NearByTestMatch& match) const {
+	size_t operator()(const ::Viatra::Query::DerivedFeatures::NearByTestMatch& match) const {
 		return 
 					std::hash<decltype(match.robot)>()(match.robot)^
 					std::hash<decltype(match.train)>()(match.train)

@@ -1,5 +1,5 @@
-#ifndef VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_UPDATER_H_
-#define VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_UPDATER_H_
+#ifndef VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_INPUT_UPDATER_H_
+#define VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_INPUT_UPDATER_H_
 
 #include <algorithm>
 #include <stdexcept>
@@ -13,7 +13,12 @@ namespace Query {
 namespace DerivedFeatures {
 
 template<class ModelRoot>
-struct NearByUpdate{
+struct NearByInputUpdate{
+	/*
+	 * It is generated for only sending vector coordinates into the model instance. 
+	 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
+	 * If that isn't guaranteed this code crashes in compile time.
+	 */
 	static void update(ModelRoot modelRoot,int robotPartID, int trainID, double robX, double robY, double robZ, double trX, double trY, double trZ){
 		/*
 		 * Critical Section START
@@ -59,4 +64,4 @@ struct NearByUpdate{
 
 	
 
-#endif /*  VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_UPDATER_H_ */
+#endif /*  VIATRA__QUERY__DERIVED_FEATURES__NEAR_BY_INPUT_UPDATER_H_ */

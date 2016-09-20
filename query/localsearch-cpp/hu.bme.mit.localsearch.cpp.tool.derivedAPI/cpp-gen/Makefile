@@ -1,12 +1,12 @@
 ##############################################################################
 # M A K E F I L E
 #
-# NAME: Platform
+# NAME: model
 #
 ##############################################################################
 
 CXX=g++
-CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./Platform/ -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
+CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 LFLAGS=
 MAKE=make
 LIBS=-lgtest
@@ -19,12 +19,9 @@ LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(SOURCES:%.cpp=%.o)
-BINARY := Platform.out
+BINARY := model.out
 
 d :=	.
-dir := 	$(d)/Platform
-include $(dir)/Rules.mk
-
 dir := 	$(d)/model
 include $(dir)/Rules.mk
 

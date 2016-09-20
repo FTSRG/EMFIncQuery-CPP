@@ -4,7 +4,6 @@
 		
 #include "PlatformModel/Node.h"
 #include "RailRoadModel/RailRoadElement.h"
-#include "RailRoadModel/Segment.h"
 #include "RailRoadModel/Train.h"
 
 namespace Viatra {
@@ -27,9 +26,6 @@ struct IDerivedExecutesFrame_1 {
 	
 	
 	::RailRoadModel::RailRoadElement* _4;
-	
-	
-	::RailRoadModel::Segment* _5;
 	
 };
 

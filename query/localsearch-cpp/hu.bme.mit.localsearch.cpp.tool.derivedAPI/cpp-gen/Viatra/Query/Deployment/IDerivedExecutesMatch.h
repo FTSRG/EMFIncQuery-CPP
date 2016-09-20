@@ -3,6 +3,7 @@
 
 		
 #include "PlatformModel/Node.h"
+#include "RailRoadModel/RailRoadElement.h"
 #include "RailRoadModel/Segment.h"
 #include "RailRoadModel/Train.h"
 

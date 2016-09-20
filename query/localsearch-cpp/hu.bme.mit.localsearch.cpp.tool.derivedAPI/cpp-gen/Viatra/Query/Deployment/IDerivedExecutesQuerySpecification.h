@@ -33,12 +33,15 @@ public:
 		
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_0, ::PlatformModel::Node::type_id, model));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_0, ::PlatformModel::Node::type_id));
-		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_4, &::PlatformModel::Node::executes));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_1, &::PlatformModel::Node::id));
+		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_4, ::RailRoadModel::Segment::type_id, model));
+		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_0::_4, &IDerivedExecutesFrame_0::_5, &::RailRoadModel::Segment::connectedTo));
+		sp.add_operation(create_MultiAssociationCheck(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_4, &::PlatformModel::Node::executes));
+		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_4, ::RailRoadModel::Segment::type_id));
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id, model));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_3, &::RailRoadModel::Train::id));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id));
-		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_4, &::RailRoadModel::Train::currentlyOn));
+		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_5, &::RailRoadModel::Train::currentlyOn));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id));
 		
 		return sp;
@@ -52,11 +55,8 @@ public:
 		
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_0, ::PlatformModel::Node::type_id, model));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_0, ::PlatformModel::Node::type_id));
+		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_4, &::PlatformModel::Node::executes));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_1, &::PlatformModel::Node::id));
-		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_5, ::RailRoadModel::Segment::type_id, model));
-		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_1::_5, &IDerivedExecutesFrame_1::_4, &::RailRoadModel::Segment::connectedTo));
-		sp.add_operation(create_MultiAssociationCheck(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_5, &::PlatformModel::Node::executes));
-		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_5, ::RailRoadModel::Segment::type_id));
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_2, ::RailRoadModel::Train::type_id, model));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_1::_2, &IDerivedExecutesFrame_1::_3, &::RailRoadModel::Train::id));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_2, ::RailRoadModel::Train::type_id));
@@ -75,11 +75,14 @@ public:
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_0, ::PlatformModel::Node::type_id, model));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_0, ::PlatformModel::Node::type_id));
 		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_1, &::PlatformModel::Node::id));
-		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_4, &::PlatformModel::Node::executes));
+		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_4, ::RailRoadModel::Segment::type_id, model));
+		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_0::_4, &IDerivedExecutesFrame_0::_5, &::RailRoadModel::Segment::connectedTo));
+		sp.add_operation(create_MultiAssociationCheck(&IDerivedExecutesFrame_0::_0, &IDerivedExecutesFrame_0::_4, &::PlatformModel::Node::executes));
+		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_4, ::RailRoadModel::Segment::type_id));
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id, model));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_3, &::RailRoadModel::Train::id));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id));
-		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_4, &::RailRoadModel::Train::currentlyOn));
+		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_0::_2, &IDerivedExecutesFrame_0::_5, &::RailRoadModel::Train::currentlyOn));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_0::_2, ::RailRoadModel::Train::type_id));
 		
 		return sp;
@@ -94,10 +97,7 @@ public:
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_0, ::PlatformModel::Node::type_id, model));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_0, ::PlatformModel::Node::type_id));
 		sp.add_operation(create_SingleAssociationCheck(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_1, &::PlatformModel::Node::id));
-		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_5, ::RailRoadModel::Segment::type_id, model));
-		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_1::_5, &IDerivedExecutesFrame_1::_4, &::RailRoadModel::Segment::connectedTo));
-		sp.add_operation(create_MultiAssociationCheck(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_5, &::PlatformModel::Node::executes));
-		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_5, ::RailRoadModel::Segment::type_id));
+		sp.add_operation(create_NavigateMultiAssociation(&IDerivedExecutesFrame_1::_0, &IDerivedExecutesFrame_1::_4, &::PlatformModel::Node::executes));
 		sp.add_operation(create_IterateOverInstances(&IDerivedExecutesFrame_1::_2, ::RailRoadModel::Train::type_id, model));
 		sp.add_operation(create_NavigateSingleAssociation(&IDerivedExecutesFrame_1::_2, &IDerivedExecutesFrame_1::_3, &::RailRoadModel::Train::id));
 		sp.add_operation(create_InstanceOfCheck(&IDerivedExecutesFrame_1::_2, ::RailRoadModel::Train::type_id));
