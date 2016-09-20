@@ -1,0 +1,15 @@
+package hu.bme.mit.localsearch.cpp.tool.cpstest.query
+
+import "http://org.eclipse.viatra/model/cps"
+
+pattern QueryA(h1 : HostInstance)
+{	
+	HostInstance.communicateWith(h1, h2);
+	ApplicationInstance.allocatedTo(a1, h1);
+	ApplicationInstance.allocatedTo(a2, h2);	
+}
+
+pattern QueryB(a1, h1)
+{
+	ApplicationInstance.allocatedTo(a1, h1);	
+}

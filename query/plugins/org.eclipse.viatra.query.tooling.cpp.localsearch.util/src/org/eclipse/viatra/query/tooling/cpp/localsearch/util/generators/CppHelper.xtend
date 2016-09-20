@@ -112,10 +112,19 @@ class AttributeHelper {
 		
 		typeHelper = CppHelper::getTypeHelper(attr.getEType)
 	}
+	
+	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»>«ELSE»«typeHelper.getFQN»«ENDIF»'''
 
 	def declaration() '''
-		«IF multiple»std::vector< «typeHelper.getFQN»>«ELSE»«typeHelper.getFQN»«ENDIF» «attr.name» = «typeHelper.defaultValue»;
+		 «cppType» «memberName» = «typeHelper.defaultValue»;
 	'''
+
+	def memberName() '''_«attr.name»'''
+
+	def getterName() '''«attr.name»'''
+	
+	def setterName() '''set_«attr.name»'''
+	
 
 	def get() '''«attr.name»'''
 
@@ -139,9 +148,17 @@ class AssociationHelper {
 		typeHelper = CppHelper::getTypeHelper(association.getEReferenceType)
 	}
 
+	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»* >«ELSE»«typeHelper.getFQN»*«ENDIF»'''
+
 	def declaration() '''
-		«IF multiple»std::vector< «typeHelper.getFQN»* >«ELSE»«typeHelper.getFQN»*«ENDIF» «association.name»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
+		 «cppType» «memberName»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
 	'''
+
+	def memberName() '''_«association.name»'''
+
+	def getterName() '''«association.name»'''
+	
+	def setterName() '''set_«association.name»'''
 
 	def get() '''«association.name»'''
 
