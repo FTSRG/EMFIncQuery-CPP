@@ -39,18 +39,6 @@ class IteratorGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			
 			val matcherGen = new IteratorMatcherGenerator(query.name, patternName, patterns.toSet, matchGen, querySpec)
 			generators += matcherGen
-			
-			if(patterns.exists[it | 
-				it.patternBodies.exists[it | 
-					it.PBody.pattern.allAnnotations.exists[it | it.name == "QueryBasedFeature"]
-				]
-				
-			]){
-				val annotations = patterns.map[patternBodies.map[PBody.pattern.allAnnotations].flatten.filter(it | it.name == "QueryBasedFeature")].flatten
-				val featureName = annotations.get(0).getFirstValue("feature") as CharSequence;
-				val updaterGen = new InputUpdaterAPIGenerator(query.name, patternName, featureName, patterns.toSet, matchGen, matcherGen, querySpec)
-				generators += updaterGen
-			}
 		]
 
 		val queryGroupGenerator = new QueryGroupGenerator(query)
