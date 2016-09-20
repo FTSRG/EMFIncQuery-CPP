@@ -25,6 +25,13 @@ struct NearByInputUpdate{
 		 * Atomicity is mandatory
 		 * Not supported parallel modifications and queries
 		 */
+		
+		int thId = modelRoot.getID();
+		modelRoot.getTicket(thID);
+		modelRoot.wait();
+		modelRoot.resourceMutex.lock();
+		modelRoot.criticalBegin();
+					
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::RobotPart >::type, ModelRoot>::instances(&modelRoot);
 		auto srcIDPredicate = [robotPartID](const ::RailRoadModel::RobotPart* src){
 			return src->id == robotPartID;
@@ -52,6 +59,8 @@ struct NearByInputUpdate{
 		if(matches.size() > 0){	if(tempTrg == (*srcObj)->nearBy.end()) (*srcObj)->nearBy.push_back(*trgObj);}
 		else if(tempTrg != (*srcObj)->nearBy.end()) (*srcObj)->nearBy.erase(tempTrg);
 		
+		modelRoot.criticalEnd();
+		resourceMutex.unlock();
 		/*
 		* Critical Section END
 		*/

@@ -62,6 +62,13 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
 			 */
+			
+			int thId = modelRoot.getID();
+			modelRoot.getTicket(thID);
+			modelRoot.wait();
+			modelRoot.resourceMutex.lock();
+			modelRoot.criticalBegin();
+						
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
 				return src->id == «srcID.name»;
@@ -89,6 +96,8 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			if(matches.size() > 0){	if(tempTrg == (*srcObj)->«featureName».end()) (*srcObj)->«featureName».push_back(*trgObj);}
 			else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
 			
+			modelRoot.criticalEnd();
+			resourceMutex.unlock();
 			/*
 			* Critical Section END
 			*/

@@ -6,10 +6,10 @@
 ##############################################################################
 
 CXX=g++
-CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
+CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./model/ -I./Platform/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 LFLAGS=
 MAKE=make
-LIBS=-lgtest
+LIBS=-lgtest -pthread
 
 COMPILE=$(CXX) $(CXXFLAGS) -c -o $@ $<
 LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
@@ -25,12 +25,15 @@ d :=	.
 dir := 	$(d)/model
 include $(dir)/Rules.mk
 
+dir := 	$(d)/Platform
+include $(dir)/Rules.mk
+
 %.o:	%.cpp
 		$(COMPILE)
-		
+
 $(BINARY): $(OBJECTS)
 		$(LINK)
-		
+
 .PHONY: all
 all: $(SOURCES) $(OBJECTS) $(BINARY)
 

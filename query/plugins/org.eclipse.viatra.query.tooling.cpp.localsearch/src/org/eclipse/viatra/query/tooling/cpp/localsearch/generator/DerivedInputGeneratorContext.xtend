@@ -51,7 +51,7 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			}
 		]
 		
-		val queryGroupGenerator = new QueryGroupGenerator(query)
+		val queryGroupGenerator = new QueryGroupGenerator(query, true)
 		generators += queryGroupGenerator
 
 		generators.forEach[initialize]
