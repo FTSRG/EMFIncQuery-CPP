@@ -133,7 +133,6 @@ class EClassGenerator {
 		public:
 			using RemoteImplementation = «clazz.genRemoteName»;
 			using LocalImplementation = «clazz.genLocalName»;
-		
 			«clazz.genInterfaceName»(Viatra::Query::Model::id_t id, bool present)
 				: ModelElement(id, present)
 				«FOR base : clazz.getESuperTypes»
@@ -152,9 +151,7 @@ class EClassGenerator {
 				«val ah = CppHelper::getAttributeHelper(a)»
 				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
 				virtual «ah.cppType» «ah.getterName»() = 0;
-
 			«ENDFOR»
-			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
@@ -162,18 +159,11 @@ class EClassGenerator {
 				virtual «ah.cppType» «ah.getterName»() = 0;
 			«ENDFOR»
 		};
-	
 	'''
 	
 	static def compileRemoteClassCode(EClass clazz) '''
 		
 		class «clazz.genRemoteName» : 
-		««« «FOR parent : clazz.getEGenericSuperTypes.map[getEClassifier] SEPARATOR ", "»
-		««« 	public «(parent as EClass).genInterfaceName»
-		««« «ENDFOR» 
-		««« «IF clazz.getEGenericSuperTypes.empty»
-		««« 	public virtual RemoteElement
-		««« «ENDIF»
 			public Viatra::Query::Model::RemoteElement, 
 			public «clazz.genInterfaceName»
 		{
@@ -188,25 +178,16 @@ class EClassGenerator {
 				«ah.cppType» «ah.getterName»() override;
 			«ENDFOR»
 			
-			««« TODO this does not work with if there are multiple Ecore files referenced in model
-			
 			«FOR a : clazz.getAllEReference»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				void «ah.setterName»(«ah.cppType» newVal) override;
 				«ah.cppType» «ah.getterName»() override;
 			«ENDFOR»
 		};
-	
 	'''
 	
 	static def compileLocalClassCode(EClass clazz) '''		
 		class «clazz.genLocalName» : 
-		««« «FOR parent : clazz.getEGenericSuperTypes.map[getEClassifier] SEPARATOR ", "»
-		««« 	public «(parent as EClass).genLocalName»
-		««« «ENDFOR» 
-		««« «IF clazz.getEGenericSuperTypes.empty»
-		««« 	public virtual LocalElement
-		««« «ENDIF»
 			public virtual Viatra::Query::Model::LocalElement, 
 			public «clazz.genInterfaceName»
 		{
@@ -217,7 +198,6 @@ class EClassGenerator {
 				«val ah = CppHelper::getAttributeHelper(a)»
 				«ah.declaration»
 			«ENDFOR»
-			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			
 			«FOR a : clazz.getAllEReference»
 				«val ah = CppHelper::getAssociationHelper(a)»
@@ -244,7 +224,6 @@ class EClassGenerator {
 				«ah.cppType» «ah.getterName»() override;
 
 			«ENDFOR»
-			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			
 			«FOR a : clazz.getAllEReference»
 				«val ah = CppHelper::getAssociationHelper(a)»
@@ -253,7 +232,6 @@ class EClassGenerator {
 				
 			«ENDFOR»
 		};
-	
 	'''
 	
 	static def compileSource(EClass clazz) '''
@@ -276,7 +254,7 @@ class EClassGenerator {
 		
 		
 		
-		««« Local Class implementation
+		«/* Local Class implementation */»
 		
 		«clazz.genLocalName»::«clazz.genLocalName»(Viatra::Query::Model::id_t id)
 			: Viatra::Query::Model::ModelElement(id, true)
@@ -315,8 +293,8 @@ class EClassGenerator {
 			
 		«ENDFOR»
 		
-		««« Remote Class implementation	
-		
+		«/* Remote Class implementation */»
+
 		«clazz.genRemoteName»::«clazz.genRemoteName»(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv)
 		: Viatra::Query::Model::ModelElement(id, false)
 		, Viatra::Query::Model::RemoteElement(id)
@@ -324,7 +302,7 @@ class EClassGenerator {
 			, «base.genInterfaceName»(id, false)
 		«ENDFOR»
 		, «clazz.genInterfaceName»(id, true)
-	{
+		{
 			//«instanceVariable».push_back(this);
 		}
 		
@@ -351,6 +329,7 @@ class EClassGenerator {
 			«ah.cppType» «clazz.genRemoteName»::«ah.getterName»() {
 				throw "Unimplemented feature of Remote Class";	
 			}
+			
 		«ENDFOR»		
 		
 		
