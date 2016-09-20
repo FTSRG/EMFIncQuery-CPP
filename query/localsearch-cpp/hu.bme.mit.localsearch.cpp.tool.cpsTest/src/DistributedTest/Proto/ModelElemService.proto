@@ -1,0 +1,127 @@
+
+syntax="proto3";
+
+
+enum DataType{
+	INTEGRAL,
+	REAL,
+	STRING,
+	REFERENCE,
+}
+
+message IntegralData
+{
+	bool neg;
+	uint64 data;
+}
+
+message RealData
+{
+	double data;
+}
+message StringData
+{
+	string data;
+}
+message Reference
+{
+	repeated int32 id;
+}
+
+message ReadRequest
+{
+	int32 elem_id;
+	int32 field_id;
+}
+
+
+message WriteRequest
+{
+	int32 elem_id;
+	int32 field_id;
+	Data data;
+}
+
+message AddRequest
+{
+	int32 elem_id;
+	int32 field_id;
+}
+
+
+
+
+/*
+// ID of a calculation fragment
+message FragmentID
+{
+	repeated int32 elements = 1;
+}
+
+
+
+message QueryDangerSectionMatchingFrame
+{
+	int32 SA = 1;
+	int32 TA = 2;
+	int32 SB = 3;
+	int32 TB = 4;
+}
+
+message QueryDangerSectionMatch
+{
+	int32 SA = 1;
+}
+
+message ContinueQueryDangerSectionRequest
+{
+	int64 query_session_id = 1;
+	int32 next_search_operation = 2;	
+	QueryDangerSectionMatchingFrame matching_frame = 3;
+	FragmentID fragment_id = 4;
+}
+
+message QueryDangerSectionResult
+{
+	int64 query_session_id = 1;
+	FragmentID fragment_id = 2;
+	repeated QueryDangerSectionMatch results = 3;
+}
+
+message TerminateQueryDangerSectionRequest
+{
+	int64 query_session_id = 1;
+}
+
+
+message ContinueQueryDangerSectionAnswer{}
+message ProvideQueryDangerSectionResultAnswer{}
+message TerminateQueryDangerSectionAnswer{}
+
+
+// The greeting service definition.
+service QueryNode 
+{
+
+	rpc ContinueQueryDangerSection( ContinueQueryDangerSectionRequest ) returns (ContinueQueryDangerSectionAnswer){}
+	rpc ProvideQueryDangerSectionResult( QueryDangerSectionResult ) returns (ProvideQueryDangerSectionResultAnswer){}
+	rpc TerminateQueryDangerSection(TerminateQueryDangerSectionRequest) returns (TerminateQueryDangerSectionAnswer){}
+	
+}
+
+
+message StrMessage
+{
+	string msg = 1;
+}
+
+
+service HelloWorld
+{
+	rpc SendMessage(StrMessage) returns (StrMessage) {}
+}
+
+*/
+
+
+

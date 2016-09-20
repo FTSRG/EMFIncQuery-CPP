@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9BBFDC88-BFF8-4119-BED2-84488F6E2C43}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DistributedTest</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="FactoryFunction.h" />
+    <ClInclude Include="ModelRoot.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\ApplicationInstance.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\ApplicationType.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\AppState.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\CyberPhysicalSystem.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\EnumHelper.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\HostInstance.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\HostType.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\Identifiable.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\Request.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\Requirement.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\ResourceRequirement.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\State.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\StateMachine.h" />
+    <ClInclude Include="model\cyberPhysicalSystem\Transition.h" />
+    <ClInclude Include="model\cyberPhysicalSystem_decl.h" />
+    <ClInclude Include="model\cyberPhysicalSystem_def.h" />
+    <ClInclude Include="Viatra\Query\Distributed\Node.h" />
+    <ClInclude Include="Viatra\Query\Distributed\QueryService.h" />
+    <ClInclude Include="Viatra\Query\Matcher\ClassHelper.h" />
+    <ClInclude Include="Viatra\Query\Matcher\IClassHelper.h" />
+    <ClInclude Include="Viatra\Query\Matcher\ISearchContext.h" />
+    <ClInclude Include="Viatra\Query\Matcher\ModelIndex.h" />
+    <ClInclude Include="Viatra\Query\Model\MetaData.h" />
+    <ClInclude Include="Viatra\Query\Model\ModelElement.h" />
+    <ClInclude Include="Viatra\Query\Model\IModelElemService.h" />
+    <ClInclude Include="Viatra\Query\Model\LocalElement.h" />
+    <ClInclude Include="Viatra\Query\Model\RemoteElement.h" />
+    <ClInclude Include="Viatra\Query\Operations\AllOperations.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\AssociationCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\CheckExpression.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\CheckOperation.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\ConstantValueCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\InequalityCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\InstanceOfCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\NACOperation.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\PatternMatchCounterCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Check\TransitiveClosureCheck.h" />
+    <ClInclude Include="Viatra\Query\Operations\Extend\ConstantValueExtend.h" />
+    <ClInclude Include="Viatra\Query\Operations\Extend\ExtendOperation.h" />
+    <ClInclude Include="Viatra\Query\Operations\Extend\IterateOverInstances.h" />
+    <ClInclude Include="Viatra\Query\Operations\Extend\NavigateAssociation.h" />
+    <ClInclude Include="Viatra\Query\Operations\Extend\PatternMatchCounterExtend.h" />
+    <ClInclude Include="Viatra\Query\Operations\ISearchOperation.h" />
+    <ClInclude Include="Viatra\Query\Plan\SearchPlan.h" />
+    <ClInclude Include="Viatra\Query\Plan\SearchPlanExecutor.h" />
+    <ClInclude Include="Viatra\Query\QueryEngine.h" />
+    <ClInclude Include="Viatra\Query\Util\Defs.h" />
+    <ClInclude Include="Viatra\Query\Util\IsNull.h" />
+    <ClInclude Include="Viatra\Query\Util\Optional.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelRoot.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\ApplicationInstance.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\ApplicationType.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\CyberPhysicalSystem.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\HostInstance.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\HostType.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\Identifiable.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\Request.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\Requirement.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\ResourceRequirement.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\State.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\StateMachine.cpp" />
+    <ClCompile Include="model\cyberPhysicalSystem\Transition.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nodeconfig.json" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
