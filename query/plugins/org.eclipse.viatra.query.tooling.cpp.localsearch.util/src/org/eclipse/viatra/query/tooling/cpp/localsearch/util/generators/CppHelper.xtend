@@ -212,12 +212,24 @@ class ClassHelper implements TypeHelper {
 		
 		val ns = NamespaceHelper::getNamespaceHelper(eClass)
 		this.name = eClass.name
-		this.fqn = '''::«ns.toString»::«name»'''
+		this.fqn = '''::«ns.toString»::«genInterfaceName»'''
 	}
 	
 	override getName() {
 		name
-	}	
+	}
+	
+	def genInterfaceName() {
+		"I"+getName
+	}
+	
+	def genRemoteName() {
+		"Remote"+getName
+	}
+	
+	def genLocalName() {
+		"Local"+getName
+	}
 	
 	override getFQN() {
 		fqn
