@@ -233,6 +233,9 @@
     <ClCompile Include="Viatra\Query\Model\ModelRoot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Viatra\Query\Distributedquery\proto_gen.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="nodeconfig.json" />

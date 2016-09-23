@@ -71,14 +71,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\libraries\protobuf-3.0.0\src;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest;$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\picojson;D:\libraries\protobuf-3.0.0\src;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.cpsTest\src\DistributedTest\model</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Viatra\Query\Distributedquery\proto_gen.pb.cc" />
     <ClCompile Include="Viatra\Query\Model\ModelRoot.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\ApplicationInstance.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\ApplicationType.cpp" />
