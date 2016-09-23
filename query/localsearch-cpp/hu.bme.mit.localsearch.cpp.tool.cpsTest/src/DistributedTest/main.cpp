@@ -5,17 +5,25 @@
 #include<iostream>
 #include<string>
 
+#include<Viatra/Query/Distributedquery/QueryAFrame_0.h>
+
 // Entry point
 int main(int argc, char **argv) {
+	Viatra::Query::Distributedquery::QueryAFrame_0 frame;
+	frame._0 = nullptr;
+	frame._1 = nullptr;
+	frame._2 = nullptr;
+	frame._3 = nullptr;
+
+	std::string s = frame.serialize();
+
+	frame._1++;
+
+	frame.deserialize();
+
 
 	try {
-
-		/*
-		if(argc < 2)
-			return 0;
-		auto arg = argv[1]
-		*/
-
+		
 		auto arg = "cfg1.json";
 
 		// Create a query service and run it on the main thread

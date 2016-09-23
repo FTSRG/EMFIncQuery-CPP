@@ -8,7 +8,7 @@ namespace Viatra {
 
 			class QueryServer
 			{
-				Network::
+				//Network::
 
 			};
 

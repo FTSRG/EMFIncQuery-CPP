@@ -4,6 +4,7 @@
 
 #include<map>
 #include"Viatra/Query/Model/ModelElement.h"
+#include"Viatra/Query/Matcher/ModelIndex.h"
 
 
 namespace Viatra {
@@ -27,8 +28,8 @@ namespace Viatra {
 		};
 
 		template<typename T>
-		struct ModelIndex<T, ModelRoot> {
-			static const std::list<T*>& instances(const ModelRoot* modelRoot)
+		struct ModelIndex<T, Viatra::Query::Model::ModelRoot> {
+			static const std::list<T*>& instances(const Viatra::Query::Model::ModelRoot* modelRoot)
 			{
 				return T::LocalImplementation::_instances__x__x__x__x__x__x__x;
 			}
