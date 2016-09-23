@@ -56,9 +56,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				«IF type instanceof EClass»
 					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
 					«val pos = matchingFrame.getVariablePosition(param)»
-					
 					«typeFQN»* «pos.variableName»;
-					
 «««					static «typeFQN»* «pos.getter»(«frameName»& frame) {
 «««						return frame.«pos.paramName»;
 «««					}
@@ -69,9 +67,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				«ELSEIF type instanceof EDataType»
 					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
 					«val pos = matchingFrame.getVariablePosition(param)»
-					
 					«typeFQN» «pos.variableName»;
-					
 «««					static «typeFQN»& «pos.getter»(«frameName»& frame) {
 «««						return frame.«pos.paramName»;
 «««					}

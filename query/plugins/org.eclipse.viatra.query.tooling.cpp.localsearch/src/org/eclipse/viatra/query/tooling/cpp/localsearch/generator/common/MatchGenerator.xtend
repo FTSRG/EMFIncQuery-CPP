@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
-import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * @author Robert Doczi
