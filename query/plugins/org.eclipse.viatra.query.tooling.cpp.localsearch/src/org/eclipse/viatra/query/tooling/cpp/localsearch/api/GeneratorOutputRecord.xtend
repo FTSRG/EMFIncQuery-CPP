@@ -11,6 +11,7 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.api
 
 import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.IGenerator
 
 /**
  * @author Robert Doczi
@@ -21,4 +22,5 @@ class GeneratorOutputRecord {
 	val String folderPath
 	val String fileName
 	val CharSequence content
+	IGenerator generator
 }

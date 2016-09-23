@@ -31,7 +31,7 @@ abstract class LocalsearchGeneratorOutputProvider implements ILocalsearchGenerat
 		val root = "Viatra/Query"
 
 		return generators.map[
-			new GeneratorOutputRecord('''«root»/«query.name.toFirstUpper»''', fileName, compile)
+			new GeneratorOutputRecord('''«root»/«query.name.toFirstUpper»''', fileName, compile, it)
 		].toList
 	}
 

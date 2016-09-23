@@ -13,6 +13,9 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.ui
 import org.eclipse.viatra.query.tooling.cpp.localsearch.serializer.IFileAccessor
 import java.io.File
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Path
 
 /**
  * @author Robert Doczi
@@ -36,6 +39,25 @@ class XTextFileAccessor implements IFileAccessor {
 	
 	override createFolder(String folderPath, String folderName) {
 		throw new UnsupportedOperationException("XText IFileSystemAccess does not support folder creation")
-	}	
+	}
+	
+	override localURI(String folder) {
+		if((fsa as EclipseResourceFileSystemAccess2) == null)
+			throw new UnsupportedOperationException(
+			"Only EclipseResourceFileSystemAccess2 can be used to determine");
+		
+		var str = ResourcesPlugin.workspace.root.getFile(
+			new Path((fsa as EclipseResourceFileSystemAccess2)
+				.getURI(folder)
+				.toPlatformString(true)
+			)
+		).locationURI.path
+		
+		// Windows -> no need for starting /
+		if(System.getProperty ("os.name").toLowerCase().contains("windows"))
+			str = str.substring(1);
+		
+		return str;
+	}
 	
 }

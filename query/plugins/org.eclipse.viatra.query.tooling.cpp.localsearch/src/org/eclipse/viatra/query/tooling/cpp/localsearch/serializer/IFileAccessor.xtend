@@ -20,5 +20,7 @@ interface IFileAccessor {
 	def void deleteFile(String folderPath, String fileName)
 
 	def void createFolder(String folderPath, String folderName)
+	
+	def String localURI(String string)
 
 }

@@ -37,6 +37,9 @@ class BaseGenerator implements IGenerator{
 	override getFileName() {
 	}
 	
+	override void postGenerationTask(String folderPath) {
+	}
+	
 }
 
 class ViatraQueryHeaderGenerator extends BaseGenerator {

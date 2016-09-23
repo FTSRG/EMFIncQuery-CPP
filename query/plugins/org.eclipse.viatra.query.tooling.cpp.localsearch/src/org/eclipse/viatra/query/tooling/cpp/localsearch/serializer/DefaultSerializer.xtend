@@ -20,7 +20,10 @@ class DefaultSerializer implements ISerializer {
 	
 	override serialize(String folderPath, IGeneratorOutputProvider provider, IFileAccessor fileAccessor) {
 		provider.output.forEach[
+			System.out.println('''Creating file "«folderPath»/«it.folderPath»/«fileName»""''')
 			fileAccessor.createFile('''«folderPath»«File.separator»«it.folderPath»''', fileName, content)
+			it.generator.postGenerationTask(fileAccessor.localURI(
+				'''«folderPath»/«it.folderPath»'''));
 		]
 	}
 	
