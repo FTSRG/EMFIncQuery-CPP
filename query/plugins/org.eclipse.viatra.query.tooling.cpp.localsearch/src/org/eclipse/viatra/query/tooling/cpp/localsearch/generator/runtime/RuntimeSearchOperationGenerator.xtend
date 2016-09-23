@@ -145,7 +145,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 
 	private def toTypeID(EClassifier key) {
-		'''«CppHelper::getTypeHelper(key).FQN»::type_id'''
+		'''«CppHelper::getTypeHelper(key).FQN»::get_type_id()'''
 	}
 	
 	private def toNavigator(EClass type, String name) {
