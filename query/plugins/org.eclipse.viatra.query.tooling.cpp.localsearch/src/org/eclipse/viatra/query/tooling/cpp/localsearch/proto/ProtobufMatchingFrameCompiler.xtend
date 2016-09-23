@@ -50,14 +50,9 @@ class ProtobufMatchingFrameCompiler implements ProtoCompiler {
 		message «unitName.MessageName» {
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»
-				«IF type instanceof EClass»
-					«val pos = matchingFrame.getVariablePosition(param)»
-					int32 «pos.variableName» = «FieldNum++»;
-				«ELSEIF type instanceof EDataType»
-					«val typeName = ProtoGenerator::protobufType(type)»
-					«val pos = matchingFrame.getVariablePosition(param)»
-					«typeName» «pos.variableName» = «FieldNum++»;
-				«ENDIF»
+				«val typeName = ProtoGenerator::protobufType(type)»
+				«val pos = matchingFrame.getVariablePosition(param)»
+				«typeName» «pos.variableName» = «FieldNum++»;
 			«ENDFOR»
 		};
 	'''

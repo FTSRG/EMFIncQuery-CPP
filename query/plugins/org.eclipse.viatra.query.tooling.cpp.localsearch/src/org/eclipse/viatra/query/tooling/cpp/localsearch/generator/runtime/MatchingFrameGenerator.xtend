@@ -18,6 +18,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescr
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.emf.ecore.EEnum
+import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.TypeHelper
 
 /**
  * @author Robert Doczi
@@ -46,6 +48,9 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				default: null
 			}
 		].filterNull
+		includes += new Include("stdint.h", true);
+		includes += new Include("Viatra/Query/Model/ModelRoot.h", true);
+		includes += new Include("proto_gen.pb.h", false);		
 	}
 
 	override compileInner() '''
@@ -77,6 +82,56 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 «««					}
 				«ENDIF»
 			«ENDFOR»
+		
+			// Serialization and deserialization
+			
+			std::string SerializeAsString()
+			{
+				PB_QueryAFrame_0 frame;
+				
+				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+					«val type = matchingFrame.getVariableLooseType(param)»
+					«IF type instanceof EClass»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						frame.set_«pos.variableName»(«pos.variableName» == nullptr ? -1 : «pos.variableName»->id());
+					«ELSEIF type instanceof EEnum»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						frame.set_«pos.variableName»((int32_t)«pos.variableName»);
+					«ELSEIF type instanceof EDataType»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						frame.set_«pos.variableName»(«pos.variableName»);
+					«ENDIF»
+				«ENDFOR»
+
+				return frame.SerializeAsString();
+			}
+		
+			void ParseFromString(std::string str, Viatra::Query::Model::ModelRoot *mr)
+			{
+				PB_QueryAFrame_0 pbf;
+				pbf.ParseFromString(str);
+		
+				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+					«val type = matchingFrame.getVariableLooseType(param)»
+					«IF type instanceof EClass»
+						«val typeFQN = CppHelper::getTypeHelper(type).FQN»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						«pos.variableName» = (pbf.«pos.variableName»() == -1) 
+							? nullptr 
+							: dynamic_cast<«typeFQN»*>(mr->findModelElementByID(pbf.«pos.variableName»()));
+						
+					«ELSEIF type instanceof EEnum»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						«val typeFQN = CppHelper::getTypeHelper(type).FQN»
+						«pos.variableName» = («typeFQN»)pbf.«pos.variableName»();
+						
+					«ELSEIF type instanceof EDataType»
+						«val pos = matchingFrame.getVariablePosition(param)»
+						«pos.variableName» = pbf.«pos.variableName»();
+						
+					«ENDIF»
+				«ENDFOR»
+			}
 		};
 	'''
 

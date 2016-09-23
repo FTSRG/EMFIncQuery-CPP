@@ -4,5 +4,6 @@
 /runtime/
 /model/
 /Viatra/Query/Distributedquery/
+/Viatra/Query/Cpsquery/
 /x64/
 /.vs/

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.proto
 
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EDataType
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 
@@ -48,11 +46,7 @@ class ProtobufMatchCompiler implements ProtoCompiler {
 			«FOR parameter : aMatchingFrame.parameters»
 				«val variable = aMatchingFrame.getVariableFromParameter(parameter)»
 				«val type = aMatchingFrame.getVariableLooseType(variable)»
-				«IF type instanceof EClass»
-					int32 «parameter.name» = «FieldNum++»;
-				«ELSEIF type instanceof EDataType»
-					«ProtoGenerator::protobufType(type)» «parameter.name» = «FieldNum++»;
-				«ENDIF»
+				«ProtoGenerator::protobufType(type)» «parameter.name» = «FieldNum++»;
 			«ENDFOR»
 		};
 	'''

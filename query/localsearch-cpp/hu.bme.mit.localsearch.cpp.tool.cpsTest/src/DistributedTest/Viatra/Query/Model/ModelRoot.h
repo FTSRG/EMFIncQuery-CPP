@@ -19,6 +19,11 @@ namespace Viatra {
 					FreeAllModelElement();
 				}
 
+				Viatra::Query::Model::ModelElement* findModelElementByID(int32_t id)
+				{
+					return modelElements.at(id);
+				}
+
 			private:
 				void FreeAllModelElement();
 				std::map<int, Viatra::Query::Model::ModelElement*> modelElements;

@@ -25,6 +25,9 @@ namespace Viatra {
 					, _present(present)
 				{}
 
+				virtual ~ModelElement()
+				{}
+
 			};
 		}
 	}
