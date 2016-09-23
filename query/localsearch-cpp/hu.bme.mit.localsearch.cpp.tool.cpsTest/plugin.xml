@@ -18,4 +18,10 @@
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.reachableAppInstance"/>
     </group>
   </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.cpstest.query.Distributedquery" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.cpstest.query.Distributedquery" id="hu.bme.mit.localsearch.cpp.tool.cpstest.query.Distributedquery">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.QueryA"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.cpstest.query.QueryB"/>
+    </group>
+  </extension>
 </plugin>

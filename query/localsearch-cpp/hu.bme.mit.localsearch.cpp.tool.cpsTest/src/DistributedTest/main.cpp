@@ -1,11 +1,11 @@
-// GTestProba2.cpp : Defines the entry point for the console application.
-//
 
-#include"ModelRoot.h"
+
+#include<Viatra/Query/Distributed/QueryService.h>
 
 #include<iostream>
 #include<string>
 
+// Entry point
 int main(int argc, char **argv) {
 
 	try {
@@ -15,12 +15,12 @@ int main(int argc, char **argv) {
 			return 0;
 		auto arg = argv[1]
 		*/
-	
+
 		auto arg = "cfg1.json";
 
-		ModelRoot modelRoot(arg);
-
-
+		// Create a query service and run it on the main thread
+		Viatra::Query::Distributed::QueryService service(arg);
+		service.run();
 	}
 	catch (std::exception ex)
 	{
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 	}
 	catch (...)
 	{
-		std::cout << "Something catched";
+		std::cout << "Something catched other than exception, string, or const char*";
 	}
 
 

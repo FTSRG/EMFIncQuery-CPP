@@ -1,0 +1,4 @@
+nodeconfig.json created for model and node configuration store
+picojson install
+ModelRoot class for reading information from json
+

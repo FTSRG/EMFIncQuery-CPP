@@ -145,7 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FactoryFunction.h" />
-    <ClInclude Include="ModelRoot.h" />
+    <ClInclude Include="Viatra\Query\Model\ModelRoot.h" />
     <ClInclude Include="model\cyberPhysicalSystem\ApplicationInstance.h" />
     <ClInclude Include="model\cyberPhysicalSystem\ApplicationType.h" />
     <ClInclude Include="model\cyberPhysicalSystem\AppState.h" />
@@ -162,7 +162,12 @@
     <ClInclude Include="model\cyberPhysicalSystem\Transition.h" />
     <ClInclude Include="model\cyberPhysicalSystem_decl.h" />
     <ClInclude Include="model\cyberPhysicalSystem_def.h" />
+    <ClInclude Include="network\network.h" />
     <ClInclude Include="Viatra\Query\Distributed\Node.h" />
+    <ClInclude Include="Viatra\Query\Distributed\NodeRegistry.h" />
+    <ClInclude Include="Viatra\Query\Distributed\QueryClient.h" />
+    <ClInclude Include="Viatra\Query\Distributed\QueryRunner.h" />
+    <ClInclude Include="Viatra\Query\Distributed\QueryServer.h" />
     <ClInclude Include="Viatra\Query\Distributed\QueryService.h" />
     <ClInclude Include="Viatra\Query\Matcher\ClassHelper.h" />
     <ClInclude Include="Viatra\Query\Matcher\IClassHelper.h" />
@@ -198,7 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelRoot.cpp" />
+    <ClCompile Include="Viatra\Query\Model\ModelRoot.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\ApplicationInstance.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\ApplicationType.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\CyberPhysicalSystem.cpp" />
@@ -211,6 +216,8 @@
     <ClCompile Include="model\cyberPhysicalSystem\State.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\StateMachine.cpp" />
     <ClCompile Include="model\cyberPhysicalSystem\Transition.cpp" />
+    <ClCompile Include="network\network.cpp" />
+    <ClCompile Include="Viatra\Query\Distributed\QueryService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nodeconfig.json" />
