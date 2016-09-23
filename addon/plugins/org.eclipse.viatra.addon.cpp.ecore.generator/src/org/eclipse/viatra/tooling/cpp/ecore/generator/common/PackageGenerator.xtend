@@ -19,6 +19,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.Namespac
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
 import org.eclipse.emf.ecore.EEnum
+import org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EClassGenerator
 
 /**
  * @author Robert Doczi
@@ -58,7 +59,7 @@ class PackageGenerator {
 		namespace «pack.name» {
 		
 			«FOR clazz : pack.eContents.filter(EClass)»
-				class «clazz.name»;
+				class «EClassGenerator::genInterfaceName(clazz)»;
 			«ENDFOR»
 		
 		

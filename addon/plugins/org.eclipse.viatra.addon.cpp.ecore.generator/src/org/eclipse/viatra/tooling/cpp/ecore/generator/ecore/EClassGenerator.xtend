@@ -143,7 +143,7 @@ class EClassGenerator {
 			virtual ~«clazz.genInterfaceName»() {}
 			static constexpr unsigned short type_id = «id++»;
 			
-			virtual unsigned short get_type_id() const {
+			static constexpr unsigned short get_type_id(){
 				return type_id;
 			}
 		
@@ -207,12 +207,6 @@ class EClassGenerator {
 		public:
 			«clazz.genLocalName»(Viatra::Query::Model::id_t id);
 			virtual ~«clazz.genLocalName»();
-			static const unsigned short type_id = «id++»;
-			
-			virtual unsigned short get_type_id() const {
-				return type_id;
-			}
-			
 			inline static std::list<«clazz.genInterfaceName»*> Instances()
 			{
 				return «instanceVariable»;				
