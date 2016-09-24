@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
+import com.google.common.collect.ImmutableList
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
 
 /**
  * @author Robert Doczi
@@ -45,6 +47,9 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				default: null
 			}
 		].filterNull
+		includes += new Include("stdint.h", true);
+		includes += new Include("Viatra/Query/Model/ModelRoot.h", true);
+		includes += new Include("proto_gen.pb.h", false);
 	}
 
 	override compileInner() '''		
@@ -54,7 +59,37 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			
 			«equals(oneOfTheMatchingFrames.parameters)»
 			
+			«serialization(oneOfTheMatchingFrames.parameters)»
 		};		
+	'''
+	
+	def serialization(ImmutableList<PParameter> paramlist) '''
+		// Serialization and deserialization
+				
+		std::string SerializeAsString()
+		{
+			PB_«unitName» pbframe;
+			
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val varName = param.name»
+				«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
+			«ENDFOR»
+
+			return pbframe.SerializeAsString();
+		}
+	
+		void ParseFromString(std::string str, Viatra::Query::Model::ModelRoot *mr)
+		{
+			PB_«unitName» pbframe;
+			pbframe.ParseFromString(str);
+	
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val varName = param.name»
+				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbframe", "mr")»
+			«ENDFOR»
+		}
 	'''
 	
 	override compileOuter() '''

@@ -46,7 +46,7 @@ class ProtobufMatchCompiler implements ProtoCompiler {
 			«FOR parameter : aMatchingFrame.parameters»
 				«val variable = aMatchingFrame.getVariableFromParameter(parameter)»
 				«val type = aMatchingFrame.getVariableLooseType(variable)»
-				«ProtoGenerator::protobufType(type)» «parameter.name» = «FieldNum++»;
+				«ProtobufHelper::protobufType(type)» «parameter.name» = «FieldNum++»;
 			«ENDFOR»
 		};
 	'''

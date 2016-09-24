@@ -12,14 +12,14 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EEnum
+import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
-import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.emf.ecore.EEnum
-import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.TypeHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
 
 /**
  * @author Robert Doczi
@@ -87,49 +87,26 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			
 			std::string SerializeAsString()
 			{
-				PB_QueryAFrame_0 frame;
+				PB_«unitName» pbframe;
 				
 				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 					«val type = matchingFrame.getVariableLooseType(param)»
-					«IF type instanceof EClass»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						frame.set_«pos.variableName»(«pos.variableName» == nullptr ? -1 : «pos.variableName»->id());
-					«ELSEIF type instanceof EEnum»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						frame.set_«pos.variableName»((int32_t)«pos.variableName»);
-					«ELSEIF type instanceof EDataType»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						frame.set_«pos.variableName»(«pos.variableName»);
-					«ENDIF»
+					«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
+					«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
 				«ENDFOR»
 
-				return frame.SerializeAsString();
+				return pbframe.SerializeAsString();
 			}
 		
 			void ParseFromString(std::string str, Viatra::Query::Model::ModelRoot *mr)
 			{
-				PB_QueryAFrame_0 pbf;
-				pbf.ParseFromString(str);
+				PB_«unitName» pbframe;
+				pbframe.ParseFromString(str);
 		
 				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 					«val type = matchingFrame.getVariableLooseType(param)»
-					«IF type instanceof EClass»
-						«val typeFQN = CppHelper::getTypeHelper(type).FQN»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						«pos.variableName» = (pbf.«pos.variableName»() == -1) 
-							? nullptr 
-							: dynamic_cast<«typeFQN»*>(mr->findModelElementByID(pbf.«pos.variableName»()));
-						
-					«ELSEIF type instanceof EEnum»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						«val typeFQN = CppHelper::getTypeHelper(type).FQN»
-						«pos.variableName» = («typeFQN»)pbf.«pos.variableName»();
-						
-					«ELSEIF type instanceof EDataType»
-						«val pos = matchingFrame.getVariablePosition(param)»
-						«pos.variableName» = pbf.«pos.variableName»();
-						
-					«ENDIF»
+					«val name = param.variableName.toString»
+					«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
 				«ENDFOR»
 			}
 		};

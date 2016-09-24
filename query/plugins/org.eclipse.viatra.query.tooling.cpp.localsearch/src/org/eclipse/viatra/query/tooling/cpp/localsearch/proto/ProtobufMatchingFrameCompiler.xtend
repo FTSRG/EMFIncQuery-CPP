@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.proto
 
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EDataType
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 
@@ -50,7 +48,7 @@ class ProtobufMatchingFrameCompiler implements ProtoCompiler {
 		message «unitName.MessageName» {
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»
-				«val typeName = ProtoGenerator::protobufType(type)»
+				«val typeName = ProtobufHelper::protobufType(type)»
 				«val pos = matchingFrame.getVariablePosition(param)»
 				«typeName» «pos.variableName» = «FieldNum++»;
 			«ENDFOR»

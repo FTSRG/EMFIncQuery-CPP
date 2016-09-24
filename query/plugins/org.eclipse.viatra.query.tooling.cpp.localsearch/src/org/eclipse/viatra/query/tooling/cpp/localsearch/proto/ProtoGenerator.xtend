@@ -3,9 +3,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.proto
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.List
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EClassifier
-import org.eclipse.emf.ecore.EEnum
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
 
 class ProtoGenerator extends BaseGenerator {
@@ -57,22 +54,4 @@ class ProtoGenerator extends BaseGenerator {
 		System.out.println("-- done -- ");		
 	}
 	
-	
-	static val TYPE_MAPPINGS = #{
-		"EString" -> "string",
-		"EInt" -> "int32",
-		"ELong" -> "int64",
-		"EDouble" -> "double",
-		"EFloat" -> "float",
-		"EShort" -> "int16",
-		"EChar" -> "char",
-		"EBoolean" -> "bool"
-	}
-	
-	static def protobufType(EClassifier type)
-	{
-		if(type instanceof EEnum || type instanceof EClass)
-			return "int32"
-		return TYPE_MAPPINGS.get(type.name);
-	}
 }
