@@ -7,3 +7,8 @@
 /Viatra/Query/Cpsquery/
 /x64/
 /.vs/
+/Release/
+/Debug/
+/dev.txt
+/DistributedTest.sdf
+/DistributedTest.opensdf
