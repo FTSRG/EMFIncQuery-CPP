@@ -131,11 +131,11 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		
 		template<> struct hash<«qualifiedName»> {
 			size_t operator()(const «qualifiedName»& match) const {
-				return 
-					«FOR parameter : parameters SEPARATOR '^'»
-						«parameter.toHash»
-					«ENDFOR»
-				;
+				size_t h = 0;
+				«FOR parameter : parameters SEPARATOR "\nh*=31;" »
+					h+=«parameter.toHash»;
+				«ENDFOR»
+				return h;
 			}
 		};
 				
@@ -143,10 +143,11 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		'''
 	}
 	
-	private def toHash(PParameter parameter) {
-		'''«val looseType = oneOfTheMatchingFrames.getVariableLooseType(oneOfTheMatchingFrames.getVariableFromParameter(parameter))»
-		«IF looseType instanceof EEnumImpl»match.«parameter.name»
-		«ELSE»std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)«ENDIF»'''
+	private def toHash(PParameter parameter){
+		val looseType = oneOfTheMatchingFrames.getVariableLooseType(oneOfTheMatchingFrames.getVariableFromParameter(parameter));
+		if(looseType instanceof EEnumImpl)
+			return '''match.«parameter.name»'''
+		else 
+			return '''std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)'''
 	}
-
 }
