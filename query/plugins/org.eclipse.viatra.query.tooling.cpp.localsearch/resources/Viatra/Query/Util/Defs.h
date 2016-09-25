@@ -10,4 +10,4 @@
  *******************************************************************************/
 #pragma once
 
-typedef short EClass;
+typedef short unsigned int EClass;
