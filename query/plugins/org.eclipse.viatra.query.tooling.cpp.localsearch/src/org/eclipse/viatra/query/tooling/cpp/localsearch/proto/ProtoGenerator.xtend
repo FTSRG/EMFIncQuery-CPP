@@ -2,14 +2,18 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.proto
 
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.List
+import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
+import java.io.File
+import java.io.IOException
+import java.io.BufferedWriter
+import java.io.FileWriter
 
 class ProtoGenerator extends BaseGenerator {
 	
-	val List<ProtoCompiler> compilers
+	val Set<ProtoCompiler> compilers
 	
-	new(List<ProtoCompiler> compilers)
+	new(Set<ProtoCompiler> compilers)
 	{
 		this.compilers = compilers
 	}
@@ -33,25 +37,56 @@ class ProtoGenerator extends BaseGenerator {
 		System.out.println("-- Post generation task for ProtoBuf --");
 		val input = '''«folderPath»/proto_gen.proto''';		
 		
-		var protoc = "protoc";
+		val protoPath = folderPath
+		var BufferedWriter output
+		var command = ""
 		if(System.getProperty ("os.name").toLowerCase().contains("windows"))
-			protoc = "cmd /C protoc";
+			command = '''cmd /C protoc --proto_path="«protoPath»" --cpp_out="«folderPath»" "«input»" '''
+		else {
+			try {
+				command = '''bash «protoPath»/proto_make.sh'''
+				
+				val File file = new File('''«protoPath»/proto_make.sh''');
 			
-		val protoPath = folderPath;
-			
-		val command = '''«protoc» --proto_path="«protoPath»" --cpp_out="«folderPath»" "«input»" '''
+				if (file.createNewFile()){
+					System.out.println("Proto_make.sh is created!");
+				}else{
+					System.out.println("Proto_make.sh already exists.");
+				}
+				output = new BufferedWriter(new FileWriter(file))
+				output.write('''#!/bin/bash 
+cmd=( sh -c 'protoc --proto_path="«protoPath»" --cpp_out="«folderPath»" "«input»"')
+"${cmd[@]}"''')
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally{
+				if (output != null) output.close()
+			}
+		}
 
 		System.out.println(command);
-		val Process p = Runtime.getRuntime().exec(
+		try{
+			val Process p = Runtime.getRuntime().exec(
 			command
 			);
-		val reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		var String line;
-		while((line = reader.readLine()) != null)
-			System.out.println(line);
-		
-		p.waitFor();
-		System.out.println("-- done -- ");		
+			val reader = new BufferedReader(new InputStreamReader(p.getErrorStream()))
+			
+			var String line;
+			while((line = reader.readLine()) != null){
+				System.out.println("<Error>");
+				System.out.println(line);
+				System.out.println("</Error>");
+			}
+			val int exitValue = p.waitFor()
+			if(exitValue != 0)
+				System.out.println("Exit value: "+ exitValue);
+			System.out.println("-- done -- ");
+			reader.close()
+		}catch(Throwable t){
+			t.printStackTrace();
+		}
+			
 	}
 	
 }

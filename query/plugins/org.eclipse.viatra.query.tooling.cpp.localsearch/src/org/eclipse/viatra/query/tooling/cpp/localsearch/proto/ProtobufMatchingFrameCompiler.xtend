@@ -16,13 +16,12 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescr
 /**
  * @author Robert Doczi
  */
-class ProtobufMatchingFrameCompiler implements ProtoCompiler {
+class ProtobufMatchingFrameCompiler extends ProtoCompiler {
 
 	
 	val String queryName
 	val String patternName
 	val MatchingFrameDescriptor matchingFrame
-	val String unitName
 	val int index
 	
 		
@@ -36,11 +35,11 @@ class ProtobufMatchingFrameCompiler implements ProtoCompiler {
 		int index,
 		MatchingFrameDescriptor matchingFrame)
 	{
+		super('''«patternName.toFirstUpper»Frame_«index»''')
 		this.queryName = queryName
 		this.patternName = patternName
 		this.matchingFrame = matchingFrame
 		this.index = index
-		this.unitName = '''«patternName.toFirstUpper»Frame_«index»'''
 	}
 		
 	override compile()'''

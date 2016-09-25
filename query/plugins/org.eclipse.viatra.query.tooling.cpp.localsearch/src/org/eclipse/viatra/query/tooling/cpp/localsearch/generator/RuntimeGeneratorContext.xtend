@@ -12,6 +12,7 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator
 
 import com.google.common.base.CaseFormat
 import java.util.List
+import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
@@ -30,8 +31,7 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
-		val List<ProtoCompiler> protoCompilers = newArrayList
-
+		val Set<ProtoCompiler> protoCompilers = newHashSet
 		query.patterns.forEach [ name, patterns |
 			val frameGenMap = newHashMap
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name)
