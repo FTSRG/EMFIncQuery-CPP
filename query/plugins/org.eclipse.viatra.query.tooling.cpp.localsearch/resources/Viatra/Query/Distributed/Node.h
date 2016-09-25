@@ -18,9 +18,7 @@ namespace Viatra {
 					, _ip(ip)
 					, _port(port)
 				{}
-
-				QueryService* queryService()
-
+				
 				uint16_t port() { return _port; }
 				std::string name() { return _name; }
 				std::string ip() { return _ip; }
@@ -29,10 +27,6 @@ namespace Viatra {
 				std::string _name;
 				std::string _ip;
 				uint16_t _port;
-
-				QueryService *queryService;
-
-				
 			};
 		}
 	}

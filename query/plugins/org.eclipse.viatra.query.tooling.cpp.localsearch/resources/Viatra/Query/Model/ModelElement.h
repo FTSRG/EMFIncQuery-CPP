@@ -17,6 +17,9 @@ namespace Viatra {
 				bool present() { return _present; }
 				id_t id() { return _id; }
 
+				virtual ~ModelElement()
+				{}
+
 			protected:
 				id_t _id;
 				bool _present;
@@ -24,6 +27,7 @@ namespace Viatra {
 					: _id(id)
 					, _present(present)
 				{}
+
 
 			};
 		}
