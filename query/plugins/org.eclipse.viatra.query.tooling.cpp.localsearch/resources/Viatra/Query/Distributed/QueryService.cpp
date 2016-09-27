@@ -25,12 +25,12 @@ class QueryService::QueryServiceImpl
 
 
 public:
-	void config(const char * cfgFile);
-	void run();
+	VIATRA_FUNCTION void config(const char * cfgFile);
+	VIATRA_FUNCTION void run();
 
 };
 
-void QueryService::QueryServiceImpl::config(const char * cfgFile)
+VIATRA_FUNCTION void QueryService::QueryServiceImpl::config(const char * cfgFile)
 {
 	std::ifstream ifs(cfgFile);
 	picojson::value root;
@@ -40,22 +40,22 @@ void QueryService::QueryServiceImpl::config(const char * cfgFile)
 	}
 }
 
-void QueryService::QueryServiceImpl::run()
+VIATRA_FUNCTION void QueryService::QueryServiceImpl::run()
 {
 
 }
 
-QueryService::QueryService(const char* cfgFile)
+VIATRA_FUNCTION QueryService::QueryService(const char* cfgFile)
 {
 	impl->config(cfgFile);
 }
 
-void QueryService::run()
+VIATRA_FUNCTION void QueryService::run()
 {
 	impl->run();
 }
 
-QueryService::~QueryService()
+VIATRA_FUNCTION QueryService::~QueryService()
 {
 	// default delegated to unique_ptr
 }
