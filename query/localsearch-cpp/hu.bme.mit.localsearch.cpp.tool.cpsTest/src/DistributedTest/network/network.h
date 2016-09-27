@@ -2,42 +2,55 @@
 #ifndef _NETWORK_NETWORK_H_
 #define _NETWORK_NETWORK_H_
 
+#include<string>
 #include<stdint.h>
-#include<vector>
 #include<memory>
+#include<vector>
 
 namespace Network
 {
-	
-	using MessageBuffer = std::vector<uint8_t>;
-
-	class AnswerFuture
-	{
-		class AnswerFutureImpl;
-		std::shared_ptr<AnswerFutureImpl> inner;
-		
-	public:
-		~AnswerFuture();
-		bool ready();
-		MessageBuffer answer();
-	};
+	using byte = uint8_t;
 
 	class Connection;
 
-	class Client {
-		Client(std::string, std::string ip);
-		AnswerFuture sendMessage(MessageBuffer message);
+	class Server {
+		class ServerImpl;
+		friend class Server::ServerImpl;
+		friend class Connection;
+
+		std::unique_ptr<ServerImpl> impl;
+		
+	public:
+		Server() = delete;
+
+
+		Server(uint16_t port);
+		virtual ~Server();
+
+		// Run the server on the current thread
+		void run();
+		void sendMessage(Connection * c, byte * buffer, int len);
+	protected:
+		virtual void process_message(Connection * c, byte * bytes, int len) = 0;
+
 	};
 
-	template<typename Connection>
-	class Server {
+	class Client {
+		class ClientImpl;
+		friend class Client::ClientImpl;
 
-	protected:
-		virtual MessageBuffer process(MessageBuffer message, Connection *client) = 0;
+		std::unique_ptr<ClientImpl> impl;
+
 	public:
-		Server();
+		Client() = delete;
+		Client(std::string ip, uint16_t port);
+		virtual ~Client();
+
+		// Run the client on the current thread
 		void run();
-		~Server();
+		void sendMessage(byte * buffer, int len);
+	protected:
+		virtual void process_message(byte * bytes, int len) = 0;
 
 	};
 }
