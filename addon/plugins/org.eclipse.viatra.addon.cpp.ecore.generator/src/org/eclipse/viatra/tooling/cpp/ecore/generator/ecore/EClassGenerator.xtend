@@ -192,7 +192,7 @@ class EClassGenerator {
 			public «clazz.genInterfaceName»
 		{
 		private:
-			static std::list<«clazz.genInterfaceName»*>& «instanceVariable»;
+			static std::list<«clazz.genInterfaceName»*> «instanceVariable»;
 					
 			«FOR a : clazz.getAllEAttribute»
 				«val ah = CppHelper::getAttributeHelper(a)»
@@ -207,7 +207,7 @@ class EClassGenerator {
 		public:
 			«clazz.genLocalName»(Viatra::Query::Model::id_t id);
 			virtual ~«clazz.genLocalName»();
-			inline static std::list<«clazz.genInterfaceName»*> Instances()
+			inline static std::list<«clazz.genInterfaceName»*>& Instances()
 			{
 				return «instanceVariable»;				
 			}
