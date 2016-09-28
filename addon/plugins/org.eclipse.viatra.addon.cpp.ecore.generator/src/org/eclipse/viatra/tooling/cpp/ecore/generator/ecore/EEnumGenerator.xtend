@@ -68,7 +68,12 @@ class EEnumGenerator {
 		struct EnumHelper{
 			static std::string ToString(T t)
 			{
-				throw "To String method undefined for type";
+				throw "EnumHelper undefined for type";
+			}
+			
+			static T ParseFromString(const std::string& str)
+			{
+				throw "EnumHelper undefined for type";
 			}
 		};
 		
@@ -93,6 +98,16 @@ class EEnumGenerator {
 					default:
 						throw "To String method undefined for enum";
 				}
+			}
+			
+			static «fqn» ParseFromString(const std::string& str)
+			{
+				«FOR literal : eenum.ELiterals»
+					if(str == "«literal.name»")
+						return «fqn»::«literal.name»;
+				«ENDFOR»
+					
+				throw "EnumHelper ParseFromString method: input string cannot be interpreted.";
 			}
 		};
 	'''
