@@ -37,7 +37,7 @@ namespace Network
 
 
 		VIATRA_FUNCTION Server(uint16_t port);
-		VIATRA_FUNCTION virtual ~Server() {}
+		VIATRA_FUNCTION virtual ~Server();
 
 		// Run the server on the current thread
 		VIATRA_FUNCTION void run();
@@ -56,7 +56,7 @@ namespace Network
 	public:
 		Client() = delete;
 		VIATRA_FUNCTION Client(std::string ip, uint16_t port);
-		VIATRA_FUNCTION virtual ~Client() {}
+		VIATRA_FUNCTION virtual ~Client();
 
 		// Run the client on the current thread
 		VIATRA_FUNCTION void run();

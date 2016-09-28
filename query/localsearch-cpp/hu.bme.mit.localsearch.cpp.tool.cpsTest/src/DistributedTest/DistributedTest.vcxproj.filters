@@ -180,9 +180,6 @@
     <ClInclude Include="Viatra\Query\Model\ModelRoot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="network\network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -224,16 +221,10 @@
     <ClCompile Include="model\cyberPhysicalSystem\Transition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="network\network.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Viatra\Query\Distributed\QueryService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Viatra\Query\Model\ModelRoot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Viatra\Query\Distributedquery\proto_gen.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="servertest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

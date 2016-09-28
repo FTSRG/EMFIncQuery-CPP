@@ -2,7 +2,7 @@
 #define ASIO_STANDALONE
 #include"network.h"
 
-#include<asio.hpp>
+#include<asio/asio.hpp>
 #include<iostream>
 
 
@@ -150,6 +150,11 @@ namespace Network
 	{
 		impl->run();
 	}
+	
+	VIATRA_FUNCTION Server::~Server()
+	{
+
+	}
 
 	VIATRA_FUNCTION void Server::sendMessage(Connection * c, byte * msgBuffer, int msglen)
 	{
@@ -278,6 +283,11 @@ namespace Network
 	VIATRA_FUNCTION void Client::run()
 	{
 		impl->run();
+	}
+
+	VIATRA_FUNCTION Client::~Client()
+	{
+
 	}
 
 	

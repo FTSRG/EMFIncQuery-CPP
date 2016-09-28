@@ -1,7 +1,5 @@
 
 
-#define _VIATRA_HEADER_ONLY_
-
 #include<string>
 
 #include<Viatra/Query/Distributed/network.h>
