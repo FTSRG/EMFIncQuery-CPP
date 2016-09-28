@@ -145,6 +145,7 @@ class AssociationHelper {
 	@Accessors(PUBLIC_GETTER)
 	val boolean multiple
 
+	@Accessors(PUBLIC_GETTER)
 	val TypeHelper typeHelper
 
 	new(EReference association) {
