@@ -48,11 +48,10 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			}
 		].filterNull
 		includes += new Include("stdint.h", true);
-		includes += new Include("Viatra/Query/Model/ModelRoot.h", true);
 		includes += new Include("proto_gen.pb.h", false);
 	}
 
-	override compileInner() '''		
+	override compileInner() '''	
 		struct «unitName» {
 			
 			«fields(oneOfTheMatchingFrames.parameters)»
@@ -65,7 +64,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	
 	def serialization(ImmutableList<PParameter> paramlist) '''
 		// Serialization and deserialization
-				
+
 		std::string SerializeAsString()
 		{
 			PB_«unitName» pbframe;
@@ -79,7 +78,8 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			return pbframe.SerializeAsString();
 		}
 	
-		void ParseFromString(std::string str, Viatra::Query::Model::ModelRoot *mr)
+		template<typename ModelRoot>
+		void ParseFromString(std::string str, ModelRoot *mr)
 		{
 			PB_«unitName» pbframe;
 			pbframe.ParseFromString(str);
