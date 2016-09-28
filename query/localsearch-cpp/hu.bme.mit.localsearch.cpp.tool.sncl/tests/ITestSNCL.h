@@ -8,15 +8,13 @@
 #include "gtest/gtest.h"
 
 #include "Arch/arch_def.h"
-#include "ArchIndex.h"
-#include "Viatra/Query/Sncl_runtime/PconnectedMatch.h"
+#include "Viatra/Query/Model/ModelRoot.h"
 
 /**
  * @author Krisztian Toth
  */
 
  using namespace ::Viatra::Query;
- using namespace ::Viatra::Query::Sncl_runtime;
 
 class ITestSNCL : public ::testing::Test {
  protected:
@@ -37,9 +35,10 @@ class ITestSNCL : public ::testing::Test {
   // Objects declared here can be used by all tests in the test case for SNCLGenCpp.
   int numOfLinks;
   int numOfRingMembers;
-  std::list<::arch::SN*> snStore;
-  std::list<::arch::CL*> clStore;
-  ::arch::SN* modelroot = nullptr;
-  ::arch::SN* deletableSN = nullptr;
-  ::arch::CL* deletableCL = nullptr;
+  std::list<::arch::ISN*> snStore;
+  std::list<::arch::ICL*> clStore;
+  ::arch::ISN* deletableSN = nullptr;
+  ::arch::ICL* deletableCL = nullptr;
+
+  Model::ModelRoot modelRoot;
 };

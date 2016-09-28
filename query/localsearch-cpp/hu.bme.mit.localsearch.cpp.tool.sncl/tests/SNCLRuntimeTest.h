@@ -28,7 +28,9 @@
 #include "Viatra/Query/Sncl_runtime/PconnectedMatcher.h"
 #include "Viatra/Query/Sncl_runtime/RingMembersMatcher.h"
 
-using namespace ::Viatra::Query;
+#include "Viatra/Query/Sncl_runtime/PconnectedMatch.h"
+
+using namespace ::Viatra::Query::Sncl_runtime;
 using namespace ::arch;
 
 // The fixture for testing class SNCLGenCpp.
@@ -45,10 +47,10 @@ public:
   }
 
   static bool validMatch(Sncl_runtime::LinkedMatch match){
-    for(auto node : match.S1->link){
+    for(auto node : match.S1->link()){
       if(node == match.S2) return true;
     }
-    for(auto node : match.S2->link){
+    for(auto node : match.S2->link()){
       if(node == match.S1) return true;
     }
     return false;
@@ -64,35 +66,43 @@ protected:
     //The objects below have another storage.
     //arch::Node:_instances, collection: std::list<...>
     //arch::CL::_instances, collection: std::list<...>
-    auto c1 = new CL(); c1->name = "C1"; clStore.push_back(c1);
-  	auto c2 = new CL(); c2->name = "C2"; clStore.push_back(c2);
-  	auto c3 = new CL(); c3->name = "C3"; clStore.push_back(c3);
-  	auto c4 = new CL(); c4->name = "C4"; clStore.push_back(c4);
-  	auto c5 = new CL(); c5->name = "C5"; clStore.push_back(c5);
-  	auto c6 = new CL(); c6->name = "C6"; clStore.push_back(c6);
+    auto c1 = new LocalCL(0); c1->set_name( "C1"); clStore.push_back(c1);
+  	auto c2 = new LocalCL(1); c2->set_name( "C2"); clStore.push_back(c2);
+  	auto c3 = new LocalCL(2); c3->set_name( "C3"); clStore.push_back(c3);
+  	auto c4 = new LocalCL(3); c4->set_name( "C4"); clStore.push_back(c4);
+  	auto c5 = new LocalCL(4); c5->set_name( "C5"); clStore.push_back(c5);
+  	auto c6 = new LocalCL(5); c6->set_name( "C6"); clStore.push_back(c6);
 
     //arch::SN::_instances, collection: std::list<...>
-    auto s1 = new SN(); s1->name = "S1"; snStore.push_back(s1);
-    auto s2 = new SN(); s2->name = "S2"; snStore.push_back(s2);
-  	auto s3 = new SN(); s3->name = "S3"; snStore.push_back(s3);
-  	auto s4 = new SN(); s4->name = "S4"; snStore.push_back(s4);
-  	auto s5 = new SN(); s5->name = "S5"; snStore.push_back(s5);
+    auto s1 = new LocalSN(6); s1->set_name( "S1"); snStore.push_back(s1);
+    auto s2 = new LocalSN(7); s2->set_name( "S2"); snStore.push_back(s2);
+  	auto s3 = new LocalSN(8); s3->set_name( "S3"); snStore.push_back(s3);
+  	auto s4 = new LocalSN(9); s4->set_name( "S4"); snStore.push_back(s4);
+  	auto s5 = new LocalSN(10); s5->set_name( "S5"); snStore.push_back(s5);
 
     //Setting up a ring with four SN and an isolated island.
-  	s1->link.push_back(s2);
-  	s2->link.push_back(s3);
-  	s4->link.push_back(s3);
-  	s4->link.push_back(s1);
-  	s1->link.push_back(s4);
-    numOfLinks = 8; // e.g. S1--link--S2 counts two times, once inorder and once traversal
+    auto tempVector = s1->link();
+  	tempVector.push_back(s2);
+	tempVector.push_back(s4);
+	s1->set_link(tempVector);
+
+	tempVector = s2->link();
+  	tempVector.push_back(s3);
+	s2->set_link(tempVector);
+
+	tempVector = s4->link();
+  	tempVector.push_back(s3);
+	tempVector.push_back(s1);
+	s4->set_link(tempVector);
+
+	numOfLinks = 8; // e.g. S1--link--S2 counts two times, once inorder and once traversal
     numOfRingMembers = 4; // number of SNs which connected via link association
 
     //Set references between objects
-    c1->cnn=s1; c2->cnn=s2; c3->cnn=s3; c4->cnn=s4;
-  	c5->cnn=s5; c6->cnn=s5;
+    c1->set_cnn(s1); c2->set_cnn(s2); c3->set_cnn(s3); c4->set_cnn(s4);
+  	c5->set_cnn(s5); c6->set_cnn(s5);
 
     //The root object and choosed objects for testing
-    modelroot = s2;
     deletableSN = s5;
     deletableCL = c2;
 
@@ -120,7 +130,6 @@ protected:
     // before the destructor).
     numOfLinks = 0;
     numOfRingMembers = 0;
-    modelroot = nullptr;
     for(auto cl : clStore){
       delete cl;
     }
@@ -131,17 +140,17 @@ protected:
     snStore.clear();
   }
 
-  QueryEngine<SN> engine = QueryEngine<SN>::empty();
-  Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
-  Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
-  Sncl_runtime::CountLinksQuerySpecification<SN>::Matcher countLinksMatcher =                       engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
-  Sncl_runtime::IsolatedCLQuerySpecification<SN>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
-  Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<SN>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
-  Sncl_runtime::IsolatedSNQuerySpecification<SN>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
-  Sncl_runtime::NotInRingQuerySpecification<SN>::Matcher notInRingMatcher =                         engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
-  Sncl_runtime::NumEqualityWithMemberQuerySpecification<SN>::Matcher numEqualWithMemberMatcher =    engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
-  Sncl_runtime::NumInEqualityWithMemberQuerySpecification<SN>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
-  Sncl_runtime::RingMembersQuerySpecification<SN>::Matcher ringMemberMatcher =                      engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
+  QueryEngine<Model::ModelRoot> engine = QueryEngine<Model::ModelRoot>::of(&modelRoot);
+  Sncl_runtime::LinkedQuerySpecification<Model::ModelRoot>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
+  Sncl_runtime::PconnectedQuerySpecification<Model::ModelRoot>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+  Sncl_runtime::CountLinksQuerySpecification<Model::ModelRoot>::Matcher countLinksMatcher =                       engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
+  Sncl_runtime::IsolatedCLQuerySpecification<Model::ModelRoot>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
+  Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<Model::ModelRoot>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
+  Sncl_runtime::IsolatedSNQuerySpecification<Model::ModelRoot>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
+  Sncl_runtime::NotInRingQuerySpecification<Model::ModelRoot>::Matcher notInRingMatcher =                         engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
+  Sncl_runtime::NumEqualityWithMemberQuerySpecification<Model::ModelRoot>::Matcher numEqualWithMemberMatcher =    engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::NumInEqualityWithMemberQuerySpecification<Model::ModelRoot>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::RingMembersQuerySpecification<Model::ModelRoot>::Matcher ringMemberMatcher =                      engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
 
   std::unordered_set<Sncl_runtime::PconnectedMatch> notConnectedSet;
 
