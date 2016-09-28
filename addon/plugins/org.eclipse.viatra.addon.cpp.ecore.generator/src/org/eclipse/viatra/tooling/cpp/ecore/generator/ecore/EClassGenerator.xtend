@@ -142,8 +142,8 @@ class EClassGenerator {
 		
 			virtual ~«clazz.genInterfaceName»() {}
 			static constexpr unsigned short type_id = «id++»;
-			
-			static constexpr unsigned short get_type_id(){
+						
+			virtual unsigned short get_type_id() override {
 				return type_id;
 			}
 		
