@@ -29,26 +29,26 @@ class ProtobufHelper {
 	static def setVarFromProtobuf(EClassifier type, String name, String pbStruct, String modelRoot ) '''
 		«val typeFQN = CppHelper::getTypeHelper(type).FQN»
 		«IF type instanceof EClass»
-			«name» = («pbStruct».«name»() == -1) 
+			«name» = («pbStruct».«name.toLowerCase»() == -1) 
 				? nullptr 
-				: dynamic_cast<«typeFQN»*>(«modelRoot»->findModelElementByID(«pbStruct».«name»()));
+				: dynamic_cast<«typeFQN»*>(«modelRoot»->findModelElementByID(«pbStruct».«name.toLowerCase»()));
 			
 		«ELSEIF type instanceof EEnum»
-			«name» = («typeFQN»)«pbStruct».«name»();
+			«name» = («typeFQN»)«pbStruct».«name.toLowerCase»();
 			
 		«ELSEIF type instanceof EDataType»
-			«name» = «pbStruct».«name»();
+			«name» = «pbStruct».«name.toLowerCase»();
 			
 		«ENDIF»
 	'''
 	
 	def static setProtobufVar(String pbStruct, String varName, EClassifier type) '''
 		«IF type instanceof EClass»
-			«pbStruct».set_«varName»(«varName» == nullptr ? -1 : «varName»->id());
+			«pbStruct».set_«varName.toLowerCase»(«varName» == nullptr ? -1 : «varName»->id());
 		«ELSEIF type instanceof EEnum»
-			«pbStruct».set_«varName»((int32_t)«varName»);
+			«pbStruct».set_«varName.toLowerCase»((int32_t)«varName»);
 		«ELSEIF type instanceof EDataType»
-			«pbStruct».set_«varName»(«varName»);
+			«pbStruct».set_«varName.toLowerCase»(«varName»);
 		«ENDIF»
 	'''
 	
