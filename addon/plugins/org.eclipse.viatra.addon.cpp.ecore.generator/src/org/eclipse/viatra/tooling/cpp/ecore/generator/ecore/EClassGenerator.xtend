@@ -47,7 +47,7 @@ class EClassGenerator {
 	/**
 	 * Returns all the inherited and contained EReference
 	 */
-	static def List<EReference> getAllEReference(EClass clazz) {
+	public static def List<EReference> getAllEReference(EClass clazz) {
 		var List<EReference> assoc = new ArrayList<EReference>();
 		
 		assoc += clazz.getEReferences;
@@ -61,7 +61,7 @@ class EClassGenerator {
 	/**
 	 * Returns all the inherited and contained EAttribute
 	 */
-	static def List<EAttribute> getAllEAttribute(EClass clazz) {
+	public static def List<EAttribute> getAllEAttribute(EClass clazz) {
 		var List<EAttribute> attrib = new ArrayList<EAttribute>();
 		
 		attrib += clazz.getEAttributes;

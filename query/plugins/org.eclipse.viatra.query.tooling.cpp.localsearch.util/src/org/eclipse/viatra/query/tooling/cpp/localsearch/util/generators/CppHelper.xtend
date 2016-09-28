@@ -17,11 +17,12 @@ import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EDataType
-import org.eclipse.emf.ecore.EReference
-
-import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
 import org.eclipse.emf.ecore.EEnum
 import org.eclipse.emf.ecore.ENamedElement
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtend.lib.annotations.Accessors
+
+import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
 
 /**
  * @author Robert Doczi
@@ -102,6 +103,8 @@ class GuardHelper {
 
 class AttributeHelper {
 	val EAttribute attr
+
+	@Accessors(PUBLIC_GETTER)
 	val boolean multiple
 	
 	val TypeHelper typeHelper
@@ -137,6 +140,7 @@ class AttributeHelper {
 
 class AssociationHelper {
 	val EReference association
+	@Accessors(PUBLIC_GETTER)
 	val boolean multiple
 
 	val TypeHelper typeHelper

@@ -24,6 +24,7 @@ import org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EEnumGenerator
 
 import static org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.EClassGenerator.*
 import org.eclipse.emf.ecore.EEnum
+import org.eclipse.viatra.tooling.cpp.ecore.generator.ecore.ModelRootGenerator
 
 /**
  * @author Robert Doczi
@@ -50,6 +51,11 @@ class EcoreGenerator {
 		// TODO: hack inc
 		EClassGenerator::id = 0;
 		ecoreModel.contents.forEach[generate(fsa.createInSubfolder(fullName))]
+		
+		ModelRootGenerator::generateModelRoot(
+			ecoreModel.contents.filter(EPackage).toList, 
+			fsa.createInSubfolder(fullName)
+		)
 
 		mkgen.generate(fsa)
 
