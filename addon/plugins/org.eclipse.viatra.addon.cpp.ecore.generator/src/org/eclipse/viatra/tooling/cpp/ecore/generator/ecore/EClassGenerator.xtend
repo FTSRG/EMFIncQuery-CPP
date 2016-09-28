@@ -150,13 +150,13 @@ class EClassGenerator {
 			«FOR a : clazz.getEAttributes»
 				«val ah = CppHelper::getAttributeHelper(a)»
 				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
-				virtual «ah.cppType» «ah.getterName»() = 0;
+				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
 			
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
-				virtual «ah.cppType» «ah.getterName»() = 0;
+				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
 		};
 	'''
@@ -175,13 +175,13 @@ class EClassGenerator {
 			«FOR a : clazz.getAllEAttribute»
 				«val ah = CppHelper::getAttributeHelper(a)»
 				void «ah.setterName»(«ah.cppType» newVal) override;
-				«ah.cppType» «ah.getterName»() override;
+				«ah.returnType» «ah.getterName»() const override;
 			«ENDFOR»
 			
 			«FOR a : clazz.getAllEReference»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				void «ah.setterName»(«ah.cppType» newVal) override;
-				«ah.cppType» «ah.getterName»() override;
+				«ah.returnType» «ah.getterName»() const override;
 			«ENDFOR»
 		};
 	'''
@@ -215,14 +215,14 @@ class EClassGenerator {
 			«FOR a : clazz.getAllEAttribute»
 				«val ah = CppHelper::getAttributeHelper(a)»
 				void «ah.setterName»(«ah.cppType» newVal) override;
-				«ah.cppType» «ah.getterName»() override;
+				«ah.returnType» «ah.getterName»() const override;
 
 			«ENDFOR»
 			
 			«FOR a : clazz.getAllEReference»
 				«val ah = CppHelper::getAssociationHelper(a)»
 				void «ah.setterName»(«ah.cppType» newVal) override;
-				«ah.cppType» «ah.getterName»() override;
+				«ah.returnType» «ah.getterName»() const override;
 				
 			«ENDFOR»
 		};
@@ -270,7 +270,7 @@ class EClassGenerator {
 			void «clazz.genLocalName»::«ah.setterName»(«ah.cppType» newVal) {
 				«ah.memberName» = newVal;				
 			}
-			«ah.cppType» «clazz.genLocalName»::«ah.getterName»() {
+			«ah.returnType» «clazz.genLocalName»::«ah.getterName»() const {
 				return «ah.memberName»;
 			}
 
@@ -281,7 +281,7 @@ class EClassGenerator {
 			void «clazz.genLocalName»::«ah.setterName»(«ah.cppType» newVal) {
 				«ah.memberName» = newVal;				
 			}
-			«ah.cppType» «clazz.genLocalName»::«ah.getterName»() {
+			«ah.returnType» «clazz.genLocalName»::«ah.getterName»() const  {
 				return «ah.memberName»;
 			}
 			
@@ -309,7 +309,7 @@ class EClassGenerator {
 			void «clazz.genRemoteName»::«ah.setterName»(«ah.cppType» newVal) {
 				throw "Unimplemented feature of Remote Class";			
 			}
-			«ah.cppType» «clazz.genRemoteName»::«ah.getterName»() {
+			«ah.returnType» «clazz.genRemoteName»::«ah.getterName»() const {
 				throw "Unimplemented feature of Remote Class";	
 			}
 
@@ -320,7 +320,7 @@ class EClassGenerator {
 			void «clazz.genRemoteName»::«ah.setterName»(«ah.cppType» newVal) {
 				throw "Unimplemented feature of Remote Class";			
 			}
-			«ah.cppType» «clazz.genRemoteName»::«ah.getterName»() {
+			«ah.returnType» «clazz.genRemoteName»::«ah.getterName»() const {
 				throw "Unimplemented feature of Remote Class";	
 			}
 			

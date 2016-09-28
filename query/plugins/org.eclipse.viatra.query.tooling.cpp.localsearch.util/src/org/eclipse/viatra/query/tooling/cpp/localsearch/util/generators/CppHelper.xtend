@@ -114,6 +114,8 @@ class AttributeHelper {
 	}
 	
 	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»>«ELSE»«typeHelper.getFQN»«ENDIF»'''
+	
+	def returnType() '''«IF multiple»const «cppType»&«ELSE»«cppType»«ENDIF»'''
 
 	def declaration() '''
 		 «cppType» «memberName» = «typeHelper.defaultValue»;
@@ -149,6 +151,8 @@ class AssociationHelper {
 	}
 
 	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»* >«ELSE»«typeHelper.getFQN»*«ENDIF»'''
+	
+	def returnType() '''«IF multiple»const «cppType»&«ELSE»«cppType»«ENDIF»'''
 
 	def declaration() '''
 		 «cppType» «memberName»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
