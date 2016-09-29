@@ -180,6 +180,9 @@
     <ClInclude Include="Viatra\Query\Model\ModelRoot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model\ModelRoot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -225,6 +228,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="servertest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\ModelRoot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

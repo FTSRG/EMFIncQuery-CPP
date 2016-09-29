@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FactoryFunction.h" />
+    <ClInclude Include="model\ModelRoot.h" />
     <ClInclude Include="Viatra\Query\Model\ModelRoot.h" />
     <ClInclude Include="model\cyberPhysicalSystem\ApplicationInstance.h" />
     <ClInclude Include="model\cyberPhysicalSystem\ApplicationType.h" />
@@ -208,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="model\ModelRoot.cpp" />
     <ClCompile Include="servertest.cpp" />
     <ClCompile Include="Viatra\Query\Distributedquery\proto_gen.pb.cc" />
     <ClCompile Include="model\cyberPhysicalSystem\ApplicationInstance.cpp" />
