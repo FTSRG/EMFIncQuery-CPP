@@ -53,7 +53,7 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 		class «unitName» {
 		public:
 			using Matcher = «patternName»Matcher<ModelRoot>;
-		
+			using Match = «patternName»Matcher<ModelRoot>;
 			using QueryGroup = «queryName»QueryGroup;
 		
 			«FOR pattern : patternGroup»
