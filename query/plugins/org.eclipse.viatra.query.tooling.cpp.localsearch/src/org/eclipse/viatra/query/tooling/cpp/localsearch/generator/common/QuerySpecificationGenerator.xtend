@@ -21,23 +21,23 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescrip
 abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val Set<PatternDescriptor> patternGroup
-	protected val String queryName
+	protected val String queryGroupName
 
 	protected val String patternName
 	protected val String querySpecificationName
 	
 	
-	new(String queryName, Set<PatternDescriptor> patternGroup) {
-		super(#{queryName.toFirstUpper}, '''«patternGroup.head.name.toFirstUpper»QuerySpecification''')
+	new(String queryGroupName, Set<PatternDescriptor> patternGroup) {
+		super(#{queryGroupName.toFirstUpper}, '''«patternGroup.head.name.toFirstUpper»QuerySpecification''')
 		this.patternGroup = patternGroup
-		this.queryName = queryName.toFirstUpper
+		this.queryGroupName = queryGroupName.toFirstUpper
 		
 		this.patternName = patternGroup.head.name.toFirstUpper
 		this.querySpecificationName = '''«patternName.toFirstUpper»QuerySpecification'''
 	}
 	
 	override initialize() {
-		includes += new Include('''Viatra/Query/«queryName»/«queryName»QueryGroup.h''')
+		includes += new Include('''Viatra/Query/«queryGroupName»/«queryGroupName»QueryGroup.h''')
 		
 		includes += new Include("Viatra/Query/Util/Optional.h")
 		includes += new Include("Viatra/Query/Operations/AllOperations.h")
@@ -54,9 +54,12 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 		public:
 			using Matcher = «patternName»Matcher<ModelRoot>;
 			using Match = «patternName»Matcher<ModelRoot>;
-			using QueryGroup = «queryName»QueryGroup;
-		
+			using QueryGroup = «queryGroupName»QueryGroup;
+			
+			static constexpr int queryID = «patternGroup.head.queryID»;
+					
 			«FOR pattern : patternGroup»
+				// queryID = «pattern.queryID»
 				«FOR body : pattern.patternBodies»
 					«generatePlan(pattern, body)»
 				«ENDFOR»
