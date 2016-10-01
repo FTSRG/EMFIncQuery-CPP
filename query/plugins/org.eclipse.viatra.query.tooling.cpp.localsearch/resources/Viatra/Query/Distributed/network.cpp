@@ -126,7 +126,9 @@ namespace Network
 			{
 				if (!ec)
 				{
-					connections.emplace_back(std::make_unique<Connection>(server, std::move(nextSocket)));
+					auto conn = new Connection(server, std::move(nextSocket));
+					connections.emplace_back(conn);
+					server->accept_connection(conn);
 				}
 				accept_connection();
 			});

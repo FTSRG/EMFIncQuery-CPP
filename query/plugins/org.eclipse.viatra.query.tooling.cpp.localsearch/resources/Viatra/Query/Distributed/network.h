@@ -43,6 +43,7 @@ namespace Network
 		VIATRA_FUNCTION void run();
 		void sendMessage(Connection * c, byte * buffer, int len);
 	protected:
+		VIATRA_FUNCTION virtual void accept_connection(Network::Connection * c) {};
 		VIATRA_FUNCTION virtual void process_message(Connection * c, byte * bytes, int len) = 0;
 
 	};

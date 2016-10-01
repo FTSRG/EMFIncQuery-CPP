@@ -21,6 +21,9 @@
     <ClCompile Include="Query\Distributed\QueryService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Query\Distributed\QueryServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Query\Distributed\network.h">
@@ -36,9 +39,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query\Distributed\QueryRunner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Query\Distributed\queryserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query\Distributed\QueryService.h">
@@ -135,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query\QueryEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Distributed\QueryServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

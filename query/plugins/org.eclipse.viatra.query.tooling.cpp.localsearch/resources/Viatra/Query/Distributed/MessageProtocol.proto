@@ -1,0 +1,22 @@
+syntax = "proto3";
+	
+enum QueryServerMsgType{
+	START_QUERY = 0;
+	TERMINATE_QUERY = 1;
+	CONTINUE_QUERY = 2;
+}
+
+message QueryServerRequest
+{
+	int64 rqID = 1;
+	
+	oneof msg{
+		string a = 2;
+		int32 x = 3;
+	}	
+}
+message QueryServerResponse
+{
+	int64 rqID = 1;
+}
+

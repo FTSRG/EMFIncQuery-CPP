@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Query\Distributed\network.cpp" />
+    <ClCompile Include="Query\Distributed\QueryServer.cpp" />
     <ClCompile Include="Query\Distributed\QueryService.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -28,7 +29,7 @@
     <ClInclude Include="Query\Distributed\NodeRegistry.h" />
     <ClInclude Include="Query\Distributed\QueryClient.h" />
     <ClInclude Include="Query\Distributed\QueryRunner.h" />
-    <ClInclude Include="Query\Distributed\queryserver.h" />
+    <ClInclude Include="Query\Distributed\QueryServer.h" />
     <ClInclude Include="Query\Distributed\QueryService.h" />
     <ClInclude Include="Query\Matcher\ClassHelper.h" />
     <ClInclude Include="Query\Matcher\IClassHelper.h" />
@@ -116,10 +117,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)..\</OutDir>
     <TargetName>viatrad</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\protobuf-3.0.0\src\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)..\</OutDir>
     <TargetName>viatra</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\protobuf-3.0.0\src\;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
