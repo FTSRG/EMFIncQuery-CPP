@@ -9,7 +9,7 @@ namespace Viatra {
 	namespace Query {
 		namespace Model {
 
-			using id_t = uint64_t;
+			using id_t = int32_t;
 
 			class ModelElement
 			{

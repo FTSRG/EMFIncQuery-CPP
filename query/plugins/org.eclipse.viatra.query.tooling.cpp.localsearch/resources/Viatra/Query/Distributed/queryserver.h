@@ -18,6 +18,7 @@ namespace Viatra {
 
 			class QueryServer : Network::Server
 			{
+			public:
 				VIATRA_FUNCTION QueryServer(uint16_t port);
 				VIATRA_FUNCTION ~QueryServer();
 			protected:

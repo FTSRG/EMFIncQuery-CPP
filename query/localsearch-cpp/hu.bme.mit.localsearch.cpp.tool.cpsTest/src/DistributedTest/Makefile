@@ -31,8 +31,10 @@ include $(dir)/Rules.mk
 $(BINARY): $(OBJECTS)
 		$(LINK)
 		
+DistributedTest:
+		
 .PHONY: all
-all: $(SOURCES) $(OBJECTS) $(BINARY)
+all: $(SOURCES) $(OBJECTS) $(BINARY) DistributedTest
 
 .PHONY: clean
 clean:

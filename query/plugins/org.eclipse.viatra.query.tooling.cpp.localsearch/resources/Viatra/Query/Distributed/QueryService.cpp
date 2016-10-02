@@ -1,6 +1,9 @@
-/*
+
 #include"QueryService.h"
 
+using namespace Viatra::Query::Distributed;
+
+/*
 #include<vector>
 #include<memory>
 #include<tuple>

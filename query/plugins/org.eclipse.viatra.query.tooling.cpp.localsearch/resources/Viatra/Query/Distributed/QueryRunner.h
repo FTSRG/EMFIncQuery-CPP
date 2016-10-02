@@ -1,26 +1,29 @@
 #pragma once
 
+#include<atomic>
+#include"QueryTask.h"
+#include"../Util/ConcurrentQueue.h"
+
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
 			class QueryRunnerBase {
-			private:
 
-			protected:
+			public:
 				QueryRunnerBase(){}
 				virtual ~QueryRunnerBase() {}
 				virtual void run() = 0;
 
-			public:
 			};
 
 			template<typename QuerySpecification>
 			class QueryRunner : public QueryRunnerBase
 			{
 				ConcurrentQueue<QueryTask<QuerySpecification>> tasks;
-				atomic_flag terminated = false;
+				std::atomic_flag terminated;
 
+			public:
 				void addTask(const QueryTask<QuerySpecification>& task)
 				{
 					tasks.push(std::move(task));

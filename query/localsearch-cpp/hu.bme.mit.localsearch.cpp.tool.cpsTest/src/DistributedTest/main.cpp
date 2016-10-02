@@ -5,6 +5,7 @@
 #include<string>
 
 #include<Viatra/Query/Distributedquery/QueryAFrame_0.h>
+#include<Model/ModelRoot.h>
 
 int server_test(int argc, char **argv);
 
@@ -18,7 +19,8 @@ int main(int argc, char **argv) {
 
 		// Create a query service and run it on the main thread
 
-		Viatra::Query::Distributed::QueryService service(arg);
+		Viatra::Query::Distributed::QueryService<
+			Viatra::Query::Model::ModelRoot, int> service(arg);
 		service.run();
 	}
 	catch (std::exception ex)

@@ -2,6 +2,8 @@
 #define ASIO_STANDALONE
 #include"network.h"
 
+#define ASIO_DISABLE_CONSTEXPR 1
+
 #include<asio/asio.hpp>
 #include<iostream>
 

@@ -5,11 +5,15 @@
 #
 ##############################################################################
 
-PROTOBUF=D:\libraries\protobuf-3.0.0\src
+##############################     Protobuf     ##############################
+PROTOBUF_INCLUDE_DIR=D:\libraries\protobuf-3.0.0\src
+##############################################################################
+
 
 CXX=clang++
-CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -Wno-microsoft-include -pedantic -fms-compatibility-version=19.00 -fexceptions
-INCLUDEFLAGS=-I. -I../ -I$(PROTOBUF)
+CXXWINFLAGS= -fms-compatibility-version=19.00 -Wno-microsoft-include
+CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -pedantic -fexceptions $(CXXWINFLAGS)
+INCLUDEFLAGS=-I. -I../ -I$(PROTOBUF_INCLUDE_DIR)
 LFLAGS=
 MAKE=make
 LIBS=
@@ -21,10 +25,10 @@ LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 .SUFFIXES: .cpp .h .o
 
 SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
-OBJECTS := $(SOURCES:%.cpp=%.o)
-BINARY := ../bin/viatra.out
+SOURCES2 := $(subst /,_FD_,$(SOURCES))
+OBJECTS := $(SOURCES2:%.cpp=../bin/%.o)
 
-%.o:	%.cpp
+$(OBJECTS): ../bin/%.o: $(subst _FD_,/,%).cpp
 		$(COMPILE)
 		
 $(BINARY): $(OBJECTS)

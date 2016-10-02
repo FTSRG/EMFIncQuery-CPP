@@ -15,20 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Query\Distributed\network.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Query\Distributed\QueryService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Query\Distributed\QueryServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Query\Util\network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Query\Distributed\MessageProtocol.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Query\Distributed\network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Query\Distributed\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,6 +138,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query\Distributed\QueryServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Distributed\QueryTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Util\ConcurrentQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Util\network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Distributed\MessageProtocol.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Distributed\QueryResultCollector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

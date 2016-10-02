@@ -19,18 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Query\Distributed\network.cpp" />
+    <ClCompile Include="Query\Distributed\MessageProtocol.pb.cc" />
+    <ClCompile Include="Query\Util\network.cpp" />
     <ClCompile Include="Query\Distributed\QueryServer.cpp" />
     <ClCompile Include="Query\Distributed\QueryService.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Query\Distributed\network.h" />
+    <ClInclude Include="Query\Distributed\MessageProtocol.pb.h" />
+    <ClInclude Include="Query\Distributed\QueryResultCollector.h" />
+    <ClInclude Include="Query\Util\network.h" />
     <ClInclude Include="Query\Distributed\Node.h" />
     <ClInclude Include="Query\Distributed\NodeRegistry.h" />
     <ClInclude Include="Query\Distributed\QueryClient.h" />
     <ClInclude Include="Query\Distributed\QueryRunner.h" />
     <ClInclude Include="Query\Distributed\QueryServer.h" />
     <ClInclude Include="Query\Distributed\QueryService.h" />
+    <ClInclude Include="Query\Distributed\QueryTask.h" />
     <ClInclude Include="Query\Matcher\ClassHelper.h" />
     <ClInclude Include="Query\Matcher\IClassHelper.h" />
     <ClInclude Include="Query\Matcher\ISearchContext.h" />
@@ -59,6 +63,7 @@
     <ClInclude Include="Query\Plan\SearchPlan.h" />
     <ClInclude Include="Query\Plan\SearchPlanExecutor.h" />
     <ClInclude Include="Query\QueryEngine.h" />
+    <ClInclude Include="Query\Util\ConcurrentQueue.h" />
     <ClInclude Include="Query\Util\Defs.h" />
     <ClInclude Include="Query\Util\IsNull.h" />
     <ClInclude Include="Query\Util\Optional.h" />

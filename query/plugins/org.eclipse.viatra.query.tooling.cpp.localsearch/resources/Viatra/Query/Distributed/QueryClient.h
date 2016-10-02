@@ -14,7 +14,9 @@ namespace Viatra {
 			private:
 
 			public:
-
+				QueryClient(std::string ip, uint16_t port)
+					: Network::Client(ip, port)
+				{}
 
 			};
 

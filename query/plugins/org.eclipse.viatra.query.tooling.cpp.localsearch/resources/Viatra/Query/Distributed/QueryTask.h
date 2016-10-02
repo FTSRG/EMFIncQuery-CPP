@@ -2,6 +2,8 @@
 #ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_H__
 #define _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_H__
 
+#include"QueryResultCollector.h"
+
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
@@ -13,8 +15,8 @@ namespace Viatra {
 				int operationIndex;
 				
 				std::string EncodedMatchingFrame;
-				QueryResultCollector<QuerySpecification> collector;
-
+				QueryResultCollector collector;
+				/*
 				template<typename MatchingFrame>
 				QueryTask(	const MatchingFrame &f, 
 							int bodyIndex, 
@@ -25,7 +27,7 @@ namespace Viatra {
 					, EncodedMatchingFrame(frame.SerializeAsString())
 					, collector(collector)
 					, bodyIndex (bodyIndex)
-				{}
+				{}*/
 
 				QueryTask(QueryTask &&) = default;
 
