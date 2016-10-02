@@ -56,7 +56,7 @@ public:
      *
      * @return **True** if the binding was successful, **False** if there are no more values to bound.
      */
-    bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) {
+    virtual bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) {
         if (_it != _end) {
             const SrcType next = *_it;
             _it++;
