@@ -57,7 +57,7 @@ class ModelRootGenerator {
 				struct ModelIndex<T, Viatra::Query::Model::ModelRoot> {
 					static const std::list<T*>& instances(const Viatra::Query::Model::ModelRoot* modelRoot)
 					{
-						return T::LocalImplementation::_instances__x__x__x__x__x__x__x;
+						return T::LocalImplementation::Instances();
 					}
 				};
 			}
