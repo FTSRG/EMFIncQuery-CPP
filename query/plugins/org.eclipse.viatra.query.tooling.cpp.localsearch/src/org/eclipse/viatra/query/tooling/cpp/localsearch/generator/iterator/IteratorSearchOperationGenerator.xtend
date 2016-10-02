@@ -31,17 +31,18 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 
 /**
  * @author Robert Doczi
@@ -208,8 +209,12 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 		}
 		return expressionString
 	}
+	
+	def dispatch compileOperation(GlobalExtendInstanceOfDescriptor operation, StringBuilder setupCode) '''
+		//NYI
+	'''
 
-	def dispatch compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) '''
+	def dispatch compileOperation(LocalExtendInstanceOfDescriptor operation, StringBuilder setupCode) '''
 		«val type = operation.matchingFrame.getVariableStrictType(operation.variable)»
 		«val typeHelper = CppHelper::getTypeHelper(type)»
 		«val varName = operation.variable.cppName»

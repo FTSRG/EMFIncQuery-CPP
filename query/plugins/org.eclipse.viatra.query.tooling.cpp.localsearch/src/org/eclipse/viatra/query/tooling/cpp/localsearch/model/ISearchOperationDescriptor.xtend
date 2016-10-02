@@ -141,9 +141,15 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val PVariable resultVariable
 }
 
-@Data class ExtendInstanceOfDescriptor extends InstanceOfDescriptor {
+@Data class GlobalExtendInstanceOfDescriptor extends InstanceOfDescriptor {
 
-	public static val String NAME = "IterateOverInstances"
+	public static val String NAME = "GlobalIterateOverInstances"
+
+}
+
+@Data class LocalExtendInstanceOfDescriptor extends InstanceOfDescriptor {
+
+	public static val String NAME = "LocalIterateOverInstances"
 
 }
 

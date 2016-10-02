@@ -35,7 +35,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
@@ -47,6 +46,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
 
 /**
  * @author Robert Doczi
@@ -116,8 +117,9 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 
 	override acceptIterateOverClassInstances(PVariable location, IInputKey inputKey) {
 		val eClass = (inputKey as EClassTransitiveInstancesKey).wrappedKey
-
-		searchOperations += new ExtendInstanceOfDescriptor(matchingFrame, location, eClass)
+		
+		searchOperations += new GlobalExtendInstanceOfDescriptor(matchingFrame, location, eClass)
+		searchOperations += new LocalExtendInstanceOfDescriptor(matchingFrame, location, eClass)
 	}
 
 	override acceptNACOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters) {
