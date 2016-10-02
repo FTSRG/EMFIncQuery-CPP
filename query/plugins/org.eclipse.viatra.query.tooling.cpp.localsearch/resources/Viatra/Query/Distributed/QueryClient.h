@@ -1,10 +1,14 @@
-#pragma once
+
+#ifndef _VIATRA_QUERY_UTIL_NETWORK_H_
+#define _VIATRA_QUERY_UTIL_NETWORK_H_
+
+#include"../Util/network.h"
 
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
-			class QueryClient
+			class QueryClient : public Network::Client
 			{
 				
 			private:
@@ -12,23 +16,10 @@ namespace Viatra {
 			public:
 
 
-				template<typename Query>
-				void RequestContinueQuery(
-						
-					)
-				{
-					throw "kek";
-				}
-
-				void SendQueryResult(
-					//	...
-					)
-				{
-					throw "kek";
-				}
-
 			};
 
 		}
 	}
 }
+
+#endif

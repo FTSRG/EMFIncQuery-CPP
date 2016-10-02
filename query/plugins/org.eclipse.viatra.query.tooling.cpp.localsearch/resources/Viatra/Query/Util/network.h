@@ -16,9 +16,6 @@
 #endif
 #define VIATRA_INLINE_FUNCTION inline
 	
-namespace Viatra{
-namespace Query{
-namespace Distributed{
 namespace Network
 {
 	using byte = uint8_t;
@@ -67,9 +64,7 @@ namespace Network
 
 	};
 }
-}
-}
-}
+
 
 #ifdef _VIATRA_HEADER_ONLY_
 	#include"network.cpp"

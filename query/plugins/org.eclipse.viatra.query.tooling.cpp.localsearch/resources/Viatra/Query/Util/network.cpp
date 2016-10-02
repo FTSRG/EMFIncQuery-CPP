@@ -5,10 +5,6 @@
 #include<asio/asio.hpp>
 #include<iostream>
 
-
-namespace Viatra{
-namespace Query{
-namespace Distributed{
 namespace Network
 {
 	using asio::ip::tcp;
@@ -315,7 +311,4 @@ namespace Network
 
 	}
 	
-}
-}
-}
 }

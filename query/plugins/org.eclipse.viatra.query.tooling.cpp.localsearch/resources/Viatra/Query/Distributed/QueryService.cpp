@@ -1,16 +1,10 @@
-
+/*
 #include"QueryService.h"
-
-#include"QueryRunner.h"
-#include"QueryServer.h"
-#include"QueryClient.h"
-#include"Node.h"
 
 #include<vector>
 #include<memory>
 #include<tuple>
 #include<fstream>
-
 
 #include<picojson.h>
 
@@ -59,3 +53,4 @@ VIATRA_FUNCTION QueryService::~QueryService()
 {
 	// default delegated to unique_ptr
 }
+*/
