@@ -25,17 +25,14 @@ LINK=$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 .SUFFIXES: .cpp .h .o
 
 SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
-SOURCES2 := $(subst /,_FD_,$(SOURCES))
-OBJECTS := $(SOURCES2:%.cpp=../bin/%.o)
+HEADERS := $(wildcard *.h) $(wildcard */*.h) $(wildcard */*/*.h)
+OBJECTS := $(SOURCES:%.cpp=%.o)
 
-$(OBJECTS): ../bin/%.o: $(subst _FD_,/,%).cpp
+$(OBJECTS): %.o: %.cpp $(HEADERS)
 		$(COMPILE)
-		
-$(BINARY): $(OBJECTS)
-		$(LINK)
-		
+				
 .PHONY: all
-all: $(SOURCES) $(OBJECTS) $(BINARY)
+all: $(SOURCES) $(OBJECTS)
 
 .PHONY: clean
 clean:

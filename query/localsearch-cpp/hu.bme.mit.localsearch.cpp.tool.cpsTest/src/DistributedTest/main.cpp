@@ -13,8 +13,6 @@ int server_test(int argc, char **argv);
 int main(int argc, char **argv) {
 	try {
 		
-		return server_test(argc, argv);
-
 		auto arg = "cfg1.json";
 
 		// Create a query service and run it on the main thread
