@@ -35,9 +35,9 @@ public:
 			for (auto&& frame : exec) {
 				NearByMatch match;
 			
-				match.robotPart = static_cast<::RailRoadModel::RobotPart*>(frame._0);
+				match.robotPart = static_cast<::RailRoadModel::IRobotPart*>(frame._0);
 				match.robotPartID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 				match.robX = static_cast<double>(frame._4);
 				match.robY = static_cast<double>(frame._5);
@@ -79,9 +79,9 @@ public:
 			for (auto&& frame : exec) {
 				NearByMatch match;
 			
-				match.robotPart = static_cast<::RailRoadModel::RobotPart*>(frame._0);
+				match.robotPart = static_cast<::RailRoadModel::IRobotPart*>(frame._0);
 				match.robotPartID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 				match.robX = static_cast<double>(frame._4);
 				match.robY = static_cast<double>(frame._5);

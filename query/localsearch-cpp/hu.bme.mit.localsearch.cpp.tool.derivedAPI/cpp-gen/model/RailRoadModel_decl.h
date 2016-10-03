@@ -3,15 +3,15 @@
 
 namespace RailRoadModel {
 
-	class Train;
-	class RailRoadElement;
-	class Point;
-	class RailRoadModel;
-	class Segment;
-	class RobotElement;
-	class Robot;
-	class RobotPart;
-	class RobotModel;
+	class ITrain;
+	class IRailRoadElement;
+	class IPoint;
+	class IRailRoadModel;
+	class ISegment;
+	class IRobotElement;
+	class IRobot;
+	class IRobotPart;
+	class IRobotModel;
 
 
 } /* namespace RailRoadModel */

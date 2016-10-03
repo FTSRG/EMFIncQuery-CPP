@@ -26,34 +26,31 @@ class ITrain :
 public:
 	using RemoteImplementation = RemoteTrain;
 	using LocalImplementation = LocalTrain;
-
 	ITrain(Viatra::Query::Model::id_t id, bool present)
 		: ModelElement(id, present)
 	{}
 
 	virtual ~ITrain() {}
 	static constexpr unsigned short type_id = 0;
-	
-	virtual unsigned short get_type_id() const {
+				
+	static constexpr unsigned short get_type_id() {
 		return type_id;
 	}
 
 	virtual void set_id(int newVal) = 0;
-	virtual int id() = 0;
-
-				
-	virtual void set_currentlyOn(::RailRoadModel::RailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::RailRoadElement* currentlyOn() = 0;
-	virtual void set_previouslyOn(::RailRoadModel::RailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::RailRoadElement* previouslyOn() = 0;
-	virtual void set_point(::RailRoadModel::Point* newVal) = 0;
-	virtual ::RailRoadModel::Point* point() = 0;
-};
+	virtual int id() const = 0;
 	
+	virtual void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::RailRoadModel::IRailRoadElement* currentlyOn() const = 0;
+	virtual void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::RailRoadModel::IRailRoadElement* previouslyOn() const = 0;
+	virtual void set_point(::RailRoadModel::IPoint* newVal) = 0;
+	virtual ::RailRoadModel::IPoint* point() const = 0;
+};
 
 
 class RemoteTrain : 
-													public Viatra::Query::Model::RemoteElement, 
+	public Viatra::Query::Model::RemoteElement, 
 	public ITrain
 {
 public:
@@ -62,60 +59,51 @@ public:
 	virtual ~RemoteTrain();
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 	
-				
-	void set_currentlyOn(::RailRoadModel::RailRoadElement* newVal) override;
-	::RailRoadModel::RailRoadElement* currentlyOn() override;
-	void set_previouslyOn(::RailRoadModel::RailRoadElement* newVal) override;
-	::RailRoadModel::RailRoadElement* previouslyOn() override;
-	void set_point(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* point() override;
+	void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) override;
+	::RailRoadModel::IRailRoadElement* currentlyOn() const override;
+	void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) override;
+	::RailRoadModel::IRailRoadElement* previouslyOn() const override;
+	void set_point(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* point() const override;
 };
-	
 
 class LocalTrain : 
-													public virtual Viatra::Query::Model::LocalElement, 
+	public virtual Viatra::Query::Model::LocalElement, 
 	public ITrain
 {
 private:
 	static std::list<ITrain*> _instances__x__x__x__x__x__x__x;
 			
 	int _id = 0;
-				
-	::RailRoadModel::RailRoadElement* _currentlyOn = nullptr;
-	::RailRoadModel::RailRoadElement* _previouslyOn = nullptr;
-	::RailRoadModel::Point* _point = nullptr;
+	
+	::RailRoadModel::IRailRoadElement* _currentlyOn = nullptr;
+	::RailRoadModel::IRailRoadElement* _previouslyOn = nullptr;
+	::RailRoadModel::IPoint* _point = nullptr;
 	
 public:
 	LocalTrain(Viatra::Query::Model::id_t id);
 	virtual ~LocalTrain();
-	static const unsigned short type_id = 1;
-	
-	virtual unsigned short get_type_id() const {
-		return type_id;
-	}
-	
-	inline static std::list<ITrain*> Instances()
+	inline static std::list<ITrain*>& Instances()
 	{
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 
-				
-	void set_currentlyOn(::RailRoadModel::RailRoadElement* newVal) override;
-	::RailRoadModel::RailRoadElement* currentlyOn() override;
 	
-	void set_previouslyOn(::RailRoadModel::RailRoadElement* newVal) override;
-	::RailRoadModel::RailRoadElement* previouslyOn() override;
+	void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) override;
+	::RailRoadModel::IRailRoadElement* currentlyOn() const override;
 	
-	void set_point(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* point() override;
+	void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) override;
+	::RailRoadModel::IRailRoadElement* previouslyOn() const override;
+	
+	void set_point(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* point() const override;
 	
 };
-	
 
 } /* namespace RailRoadModel */
 

@@ -26,34 +26,29 @@ class IPoint :
 public:
 	using RemoteImplementation = RemotePoint;
 	using LocalImplementation = LocalPoint;
-
 	IPoint(Viatra::Query::Model::id_t id, bool present)
 		: ModelElement(id, present)
 	{}
 
 	virtual ~IPoint() {}
-	static constexpr unsigned short type_id = 4;
-	
-	virtual unsigned short get_type_id() const {
+	static constexpr unsigned short type_id = 2;
+				
+	static constexpr unsigned short get_type_id() {
 		return type_id;
 	}
 
 	virtual void set_x(double newVal) = 0;
-	virtual double x() = 0;
-
+	virtual double x() const = 0;
 	virtual void set_y(double newVal) = 0;
-	virtual double y() = 0;
-
+	virtual double y() const = 0;
 	virtual void set_z(double newVal) = 0;
-	virtual double z() = 0;
-
-				
-};
+	virtual double z() const = 0;
 	
+};
 
 
 class RemotePoint : 
-													public Viatra::Query::Model::RemoteElement, 
+	public Viatra::Query::Model::RemoteElement, 
 	public IPoint
 {
 public:
@@ -62,18 +57,16 @@ public:
 	virtual ~RemotePoint();
 
 	void set_x(double newVal) override;
-	double x() override;
+	double x() const override;
 	void set_y(double newVal) override;
-	double y() override;
+	double y() const override;
 	void set_z(double newVal) override;
-	double z() override;
+	double z() const override;
 	
-				
 };
-	
 
 class LocalPoint : 
-													public virtual Viatra::Query::Model::LocalElement, 
+	public virtual Viatra::Query::Model::LocalElement, 
 	public IPoint
 {
 private:
@@ -82,34 +75,27 @@ private:
 	double _x = 0.0;
 	double _y = 0.0;
 	double _z = 0.0;
-				
+	
 	
 public:
 	LocalPoint(Viatra::Query::Model::id_t id);
 	virtual ~LocalPoint();
-	static const unsigned short type_id = 5;
-	
-	virtual unsigned short get_type_id() const {
-		return type_id;
-	}
-	
-	inline static std::list<IPoint*> Instances()
+	inline static std::list<IPoint*>& Instances()
 	{
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
 	void set_x(double newVal) override;
-	double x() override;
+	double x() const override;
 
 	void set_y(double newVal) override;
-	double y() override;
+	double y() const override;
 
 	void set_z(double newVal) override;
-	double z() override;
+	double z() const override;
 
-				
-};
 	
+};
 
 } /* namespace RailRoadModel */
 

@@ -3,7 +3,7 @@
 
 namespace PlatformModel {
 
-	class Node;
+	class INode;
 
 
 } /* namespace PlatformModel */

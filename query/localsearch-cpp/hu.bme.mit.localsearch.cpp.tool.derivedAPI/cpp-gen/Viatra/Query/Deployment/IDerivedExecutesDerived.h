@@ -23,21 +23,21 @@ struct IDerivedExecutesUpdate{
 		 * Atomicity is mandatory
 		 * Not supported parallel modifications and queries
 		 */
-		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::PlatformModel::Node >::type, ModelRoot>::instances(&modelRoot);
-		auto srcIDPredicate = [nodeID](const ::PlatformModel::Node* src){
+		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::PlatformModel::INode >::type, ModelRoot>::instances(&modelRoot);
+		auto srcIDPredicate = [nodeID](const ::PlatformModel::INode* src){
 			return src->id == nodeID;
 		};
 
 		auto srcIt = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 
-		if(srcIt == srcInstanceList.end()) throw new std::invalid_argument("::PlatformModel::Node ID not found.");
+		if(srcIt == srcInstanceList.end()) throw new std::invalid_argument("::PlatformModel::INode ID not found.");
 
 		auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 		auto derivedExecutesMatcher = engine.template matcher< IDerivedExecutesQuerySpecification >();
 		auto matches = derivedExecutesMatcher.matches(nodeID);
-		auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::Train >::type, ModelRoot>::instances(&modelRoot);
+		auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::ITrain >::type, ModelRoot>::instances(&modelRoot);
 
-		std::vector< ::RailRoadModel::Train* > newDerivedList;
+		std::vector< ::RailRoadModel::ITrain* > newDerivedList;
 
 		for(auto match : matches){
 			if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.train)) newDerivedList.push_back(match.train);

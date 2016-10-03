@@ -20,9 +20,12 @@ template<class ModelRoot>
 class NearByTestQuerySpecification {
 public:
 	using Matcher = NearByTestMatcher<ModelRoot>;
-
+	using Match = NearByTestMatcher<ModelRoot>;
 	using QueryGroup = DerivedFeaturesQueryGroup;
-
+	
+	static constexpr int queryID = 14;
+			
+	// queryID = 14
 	static ::Viatra::Query::Plan::SearchPlan<NearByTestFrame_0> get_plan_unbound__0(const ModelRoot* model) {
 		using namespace ::Viatra::Query::Operations::Check;
 		using namespace ::Viatra::Query::Operations::Extend;
@@ -30,9 +33,10 @@ public:
 		::Viatra::Query::Plan::SearchPlan<NearByTestFrame_0> sp;
 		
 		
-		sp.add_operation(create_IterateOverInstances(&NearByTestFrame_0::_0, ::RailRoadModel::RobotPart::type_id, model));
-		sp.add_operation(create_NavigateMultiAssociation(&NearByTestFrame_0::_0, &NearByTestFrame_0::_1, &::RailRoadModel::RobotPart::nearBy));
-		sp.add_operation(create_InstanceOfCheck(&NearByTestFrame_0::_0, ::RailRoadModel::RobotPart::type_id));
+		sp.add_operation(create_GlobalIterateOverInstances(&NearByTestFrame_0::_0, ::RailRoadModel::IRobotPart::get_type_id(), model));
+		sp.add_operation(create_LocalIterateOverInstances(&NearByTestFrame_0::_0, ::RailRoadModel::IRobotPart::get_type_id(), model));
+		sp.add_operation(create_NavigateMultiAssociation(&NearByTestFrame_0::_0, &NearByTestFrame_0::_1, &::RailRoadModel::IRobotPart::nearBy));
+		sp.add_operation(create_InstanceOfCheck(&NearByTestFrame_0::_0, ::RailRoadModel::IRobotPart::get_type_id()));
 		
 		return sp;
 	}

@@ -35,8 +35,8 @@ public:
 			for (auto&& frame : exec) {
 				NearByTestMatch match;
 			
-				match.robot = static_cast<::RailRoadModel::RobotPart*>(frame._0);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._1);
+				match.robot = static_cast<::RailRoadModel::IRobotPart*>(frame._0);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._1);
 			
 				matches.insert(match);
 			}

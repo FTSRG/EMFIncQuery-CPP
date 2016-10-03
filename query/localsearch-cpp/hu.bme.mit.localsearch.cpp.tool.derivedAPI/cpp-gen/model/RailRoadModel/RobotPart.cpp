@@ -11,7 +11,8 @@ std::list<IRobotPart*> LocalRobotPart::_instances__x__x__x__x__x__x__x;
 
 
 
-		
+
+
 LocalRobotPart::LocalRobotPart(Viatra::Query::Model::id_t id)
 	: Viatra::Query::Model::ModelElement(id, true)
 	, Viatra::Query::Model::LocalElement(id)
@@ -28,47 +29,48 @@ LocalRobotPart::~LocalRobotPart() {
 void LocalRobotPart::set_isOperational(bool newVal) {
 	_isOperational = newVal;				
 }
-bool LocalRobotPart::isOperational() {
+bool LocalRobotPart::isOperational() const {
 	return _isOperational;
 }
 
 void LocalRobotPart::set_id(int newVal) {
 	_id = newVal;				
 }
-int LocalRobotPart::id() {
+int LocalRobotPart::id() const {
 	return _id;
 }
 
 
-void LocalRobotPart::set_nearBy(std::vector< ::RailRoadModel::Train* > newVal) {
+void LocalRobotPart::set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) {
 	_nearBy = newVal;				
 }
-std::vector< ::RailRoadModel::Train* > LocalRobotPart::nearBy() {
+const std::vector< ::RailRoadModel::ITrain* >& LocalRobotPart::nearBy() const  {
 	return _nearBy;
 }
 
-void LocalRobotPart::set_refSegment(::RailRoadModel::Segment* newVal) {
+void LocalRobotPart::set_refSegment(::RailRoadModel::ISegment* newVal) {
 	_refSegment = newVal;				
 }
-::RailRoadModel::Segment* LocalRobotPart::refSegment() {
+::RailRoadModel::ISegment* LocalRobotPart::refSegment() const  {
 	return _refSegment;
 }
 
-void LocalRobotPart::set_position(::RailRoadModel::Point* newVal) {
+void LocalRobotPart::set_position(::RailRoadModel::IPoint* newVal) {
 	_position = newVal;				
 }
-::RailRoadModel::Point* LocalRobotPart::position() {
+::RailRoadModel::IPoint* LocalRobotPart::position() const  {
 	return _position;
 }
 
 
-		
+
+
 RemoteRobotPart::RemoteRobotPart(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv)
 : Viatra::Query::Model::ModelElement(id, false)
 , Viatra::Query::Model::RemoteElement(id)
 , IRobotElement(id, false)
 , IRobotPart(id, true)
-	{
+{
 	//_instances__x__x__x__x__x__x__x.push_back(this);
 }
 
@@ -79,36 +81,39 @@ RemoteRobotPart::~RemoteRobotPart() {
 void RemoteRobotPart::set_isOperational(bool newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-bool RemoteRobotPart::isOperational() {
+bool RemoteRobotPart::isOperational() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 void RemoteRobotPart::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteRobotPart::id() {
+int RemoteRobotPart::id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
-void RemoteRobotPart::set_nearBy(std::vector< ::RailRoadModel::Train* > newVal) {
+void RemoteRobotPart::set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-std::vector< ::RailRoadModel::Train* > RemoteRobotPart::nearBy() {
+const std::vector< ::RailRoadModel::ITrain* >& RemoteRobotPart::nearBy() const {
 	throw "Unimplemented feature of Remote Class";	
 }
-void RemoteRobotPart::set_refSegment(::RailRoadModel::Segment* newVal) {
+
+void RemoteRobotPart::set_refSegment(::RailRoadModel::ISegment* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::Segment* RemoteRobotPart::refSegment() {
+::RailRoadModel::ISegment* RemoteRobotPart::refSegment() const {
 	throw "Unimplemented feature of Remote Class";	
 }
-void RemoteRobotPart::set_position(::RailRoadModel::Point* newVal) {
+
+void RemoteRobotPart::set_position(::RailRoadModel::IPoint* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::Point* RemoteRobotPart::position() {
+::RailRoadModel::IPoint* RemoteRobotPart::position() const {
 	throw "Unimplemented feature of Remote Class";	
 }
+
 
 
 } /* namespace RailRoadModel */
