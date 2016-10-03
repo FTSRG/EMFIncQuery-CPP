@@ -12,7 +12,7 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator
 
 import com.google.common.base.CaseFormat
 import java.util.List
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.InputUpdaterAPIGenerator
+import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator

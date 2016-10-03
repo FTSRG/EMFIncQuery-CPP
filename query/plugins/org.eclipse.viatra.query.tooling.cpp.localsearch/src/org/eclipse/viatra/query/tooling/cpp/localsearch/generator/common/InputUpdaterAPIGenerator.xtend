@@ -41,7 +41,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("algorithm", true)
 		includes += new Include("Viatra/Query/QueryEngine.h")
 		includes += new Include("Viatra/Query/Matcher/ModelIndex.h")
-		includes += new Include('''Viatra/Query/«querySpecification.queryName»/«name»Matcher.h''')
+		includes += new Include('''Viatra/Query/«querySpecification.queryGroupName»/«name»Matcher.h''')
 	}
 	
 	override compileInner() '''

@@ -18,6 +18,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHea
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import com.google.common.collect.ImmutableList
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * @author Robert Doczi
