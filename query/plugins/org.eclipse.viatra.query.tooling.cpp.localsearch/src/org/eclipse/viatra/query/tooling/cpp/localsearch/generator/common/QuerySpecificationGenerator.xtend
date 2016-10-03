@@ -42,6 +42,7 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("Viatra/Query/Util/Optional.h")
 		includes += new Include("Viatra/Query/Operations/AllOperations.h")
 		includes += new Include("Viatra/Query/Plan/SearchPlan.h")
+		includes += new Include("cmath", true)
 	}
 
 	// TODO: Iterating over the bodies giving them indices makes the generated code nondeterministic

@@ -12,7 +12,7 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator
 
 import com.google.common.base.CaseFormat
 import java.util.List
-import java.util.Set
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.InputUpdaterAPIGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
@@ -40,7 +40,7 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 					val matchingFrameGenerator = new MatchingFrameGenerator(query.name, patternName, patternBody.index, patternBody.matchingFrame)
 					frameGenMap.put(patternBody, matchingFrameGenerator)
 					generators += matchingFrameGenerator
-		
+
 					val protoMatchingFrameCompiler
 						= new ProtobufMatchingFrameCompiler(query.name, patternName, patternBody.index, patternBody.matchingFrame)
 					protoCompilers += protoMatchingFrameCompiler
@@ -50,20 +50,20 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			// TODO: WARNING! Incredible Hack Inc! works, but ugly...
 			val matchGen = new MatchGenerator(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
 			generators += matchGen
-			
+
 			// ... I use this hack too hope it still works
 			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
 			protoCompilers += protoMatchCompiler
-			
+
 			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
 			generators += querySpec
-			
+
 			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
 		]
-		
-		generators += new ProtoGenerator(protoCompilers)		
-		
+
+		generators += new ProtoGenerator(protoCompilers)
+
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator
 

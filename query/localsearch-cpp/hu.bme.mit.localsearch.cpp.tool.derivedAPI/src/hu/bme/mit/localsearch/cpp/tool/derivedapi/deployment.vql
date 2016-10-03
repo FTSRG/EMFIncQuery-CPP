@@ -1,0 +1,19 @@
+package hu.bme.mit.localsearch.cpp.tool.derivedapi
+
+import "http://cpp/tool/platform";
+import "http://cpp/tool/derivedapi";
+
+@Bind(parameters={nodeID})
+@QueryBasedFeature(feature="derivedExecutes")
+pattern IDerivedExecutes(node, nodeID, train, trainID){
+	Node.executes(node, segment);
+	Train.currentlyOn(train, segment);
+	Node.id(node, nodeID);
+	Train.id(train, trainID);
+} or {
+	Node.executes(node, segment1);
+	Segment.connectedTo(segment1, segment2);
+	Train.currentlyOn(train, segment2);
+	Node.id(node, nodeID);
+	Train.id(train, trainID);
+}

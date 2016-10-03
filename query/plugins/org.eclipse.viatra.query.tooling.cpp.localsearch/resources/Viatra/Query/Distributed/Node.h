@@ -18,7 +18,6 @@ namespace Viatra {
 					, _ip(ip)
 					, _port(port)
 				{}
-				
 				uint16_t port() { return _port; }
 				std::string name() { return _name; }
 				std::string ip() { return _ip; }

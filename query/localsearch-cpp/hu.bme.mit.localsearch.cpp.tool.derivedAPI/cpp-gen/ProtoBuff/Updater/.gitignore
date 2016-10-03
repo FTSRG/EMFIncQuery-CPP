@@ -1,0 +1,6 @@
+*.o
+*.grpc.pb.h
+*.pb.h
+server
+client
+*.project

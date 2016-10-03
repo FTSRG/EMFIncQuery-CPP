@@ -33,12 +33,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Segment" eSuperTypes="#//RailRoadElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isEnabled" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectedTo" lowerBound="1"
         upperBound="2" eType="#//RailRoadElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotElement" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1"
         eType="#//Point" containment="true"/>
   </eClassifiers>
@@ -48,8 +48,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotPart" eSuperTypes="#//RobotElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nearBy" upperBound="-1"
-        eType="#//RailRoadElement" volatile="true" transient="true" derived="true"/>
+        eType="#//Train" volatile="true" transient="true" derived="true">
+      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.derivedapi.nearBy"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOperational" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="refSegment" eType="#//Segment"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.derivedapi.refSeg"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="robots" upperBound="-1"

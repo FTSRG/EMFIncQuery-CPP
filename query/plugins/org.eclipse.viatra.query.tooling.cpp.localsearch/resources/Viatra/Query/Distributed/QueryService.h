@@ -23,7 +23,7 @@
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
-			
+
 			class QueryServiceBase
 			{
 			protected:
@@ -44,9 +44,9 @@ namespace Viatra {
 
 			template<typename ModelRoot, typename QueryRunnerFactory>
 			class QueryService
-			{		
+			{
 				std::map < int, std::unique_ptr<QueryRunnerBase> > queryRunners;
-				
+
 
 			public:
 
@@ -60,7 +60,7 @@ namespace Viatra {
 				}
 				VIATRA_FUNCTION ~QueryService()
 				{
-				
+
 				}
 
 				template<typename QuerySpec>
@@ -71,7 +71,7 @@ namespace Viatra {
 
 				template<typename QuerySpec>
 				std::future<std::unordered_set<MatchT<QuerySpec>>> DistributeToNodes(
-					
+
 				);
 
 				void run() {};
@@ -86,14 +86,13 @@ namespace Viatra {
 
 			};
 
-
 			/**
 			class QueryService
 			{
 				// PIMPL idiom for hiding implementation, and avoid recompiling of the source base on change
 				class QueryServiceImpl;
 				std::unique_ptr<QueryServiceImpl> impl;
-				
+
 			public:
 				// Initialize the Service by giving a config file
 				VIATRA_FUNCTION QueryService(const char* cfgFile);

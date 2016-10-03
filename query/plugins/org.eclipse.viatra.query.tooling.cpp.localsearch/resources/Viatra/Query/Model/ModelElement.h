@@ -11,6 +11,7 @@ namespace Viatra {
 
 			using id_t = int32_t;
 
+
 			class ModelElement
 			{
 			public:
@@ -30,13 +31,9 @@ namespace Viatra {
 					, _present(present)
 				{}
 
-
 			};
 		}
 	}
 }
-
-
-
 
 #endif

@@ -169,7 +169,7 @@ class POperationCompiler {
 				acceptor.acceptContainmentCheck(src, trg, inputKey)
 			}
 			EDataTypeInSlotsKey: {
-				throw new UnsupportedDataTypeException("Cannot interpret TypeConstraint with primitiveType.")
+			
 			}
 		}
 	}
@@ -305,7 +305,7 @@ class POperationCompiler {
 				}
 			}
 			EDataTypeInSlotsKey: {
-				throw new UnsupportedDataTypeException("Cannot interpret TypeConstraint with primitiveType.")
+				
 			}
 		}
 	}

@@ -1,12 +1,35 @@
 package hu.bme.mit.localsearch.cpp.tool.derivedapi
 
 import "http://cpp/tool/derivedapi"
+import "http://cpp/tool/platform"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
 @Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
 @QueryBasedFeature(feature = "nearBy")
-pattern nearBy(robotPart, train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
+pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
 	RobotPart.id(robotPart, robotPartID);
 	Train.id(train,trainID);
 	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
 }
+
+@Bind(parameters={robotPartID, robX, robY, robZ})
+@QueryBasedFeature(feature = "refSegment")
+pattern refSeg(robotPart : RobotPart, robotPartID, segment : Segment, segmentID, robX : EDouble, robY : EDouble, robZ : EDouble){
+	RobotPart.id(robotPart, robotPartID);
+	Segment.id(segment, segmentID);
+	Segment.points(segment, point);
+	Point.x(point, sX);
+	Point.y(point, sY);
+	Point.z(point, sZ);
+	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && sX > 10 && sY > 10 && sZ > 10);
+}
+
+@Bind(parameters={seg})
+pattern assignedToCamera(cam, seg){
+	Camera.responsibleFor(cam, seg);
+}
+
+pattern nearByTest(robot, train){
+	RobotPart.nearBy(robot, train);	
+}
+
