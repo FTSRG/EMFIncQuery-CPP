@@ -1,50 +1,53 @@
 #pragma once
 
+#include<atomic>
+#include"QueryTask.h"
+#include"../Util/ConcurrentQueue.h"
+
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
-			class QueryRunnerBase;
-
-			class QuerySession
-			{
-			private:
-				uint64_t id;
-				std::unique_ptr<QueryRunnerBase> runner;
-
-			public:
-				template<typename QuerySpecification>
-				QuerySession(uint64_t id);
-
-			};
-
 			class QueryRunnerBase {
-			private:
-				QuerySession *session;
-
-			protected:
-				QueryRunnerBase()
-				{}
 
 			public:
-				void run();
+				QueryRunnerBase(){}
+				virtual ~QueryRunnerBase() {}
+				virtual void run() = 0;
+
 			};
 
 			template<typename QuerySpecification>
 			class QueryRunner : public QueryRunnerBase
 			{
+				ConcurrentQueue<QueryTask<QuerySpecification>> tasks;
+				std::atomic_flag terminated;
 
+			public:
+				void addTask(const QueryTask<QuerySpecification>& task)
+				{
+					tasks.push(std::move(task));
+				}
+
+				void addTask(QueryTask<QuerySpecification>&& task)
+				{
+					tasks.push(std::move(task));
+				}
+
+				void terminate()
+				{
+					terminated = true;
+				}
+				
+				void run() override
+				{
+					while (!terminated)
+					{
+						tasks.pop();
+					}
+				}
 			};
-
-			template<typename QuerySpecification>
-			QuerySession::QuerySession(uint64_t id)
-				: queryRunner(new QueryRunner<QuerySpecification>())
-			{
-			}
-
-
-
-			
+					
 		}
 	}
 }

@@ -2,13 +2,11 @@
 
 #include<string>
 
-#include<Viatra/Query/Distributed/network.h>
+#include<Viatra/Query/Util/network.h>
 #include<iostream>
 #include<thread>
 
 constexpr int BUFSIZE = 6000;
-
-using namespace Viatra::Query::Distributed;
 
 
 class MyClient final : public Network::Client{

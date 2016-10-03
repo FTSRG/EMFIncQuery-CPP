@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
+import java.util.HashMap
+import java.util.Map
 import java.util.Set
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
+import org.eclipse.xtend.lib.annotations.Accessors
 
 import static com.google.common.base.Preconditions.*
 
@@ -28,6 +31,10 @@ class PatternDescriptor {
 	
 	val Set<PatternBodyDescriptor> bodies
 	
+	static var nextID = 1;
+	@Accessors
+	val int queryID;
+	
 	new(PQuery query, Set<PatternBodyDescriptor> bodies) {
 		this(query, bodies, #{})
 	}
@@ -42,6 +49,7 @@ class PatternDescriptor {
 
 		this.bodies = bodies
 		this.boundParameters = boundParameters
+		queryID = nextID++;
 	}
 
 	def getPatternBodies() {

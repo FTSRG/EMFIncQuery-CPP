@@ -2,7 +2,7 @@
 #ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_
 #define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_
 
-#include "network.h"
+#include "../Util/network.h"
 
 
 #ifdef _VIATRA_HEADER_ONLY_
@@ -24,7 +24,7 @@ namespace Viatra {
 				VIATRA_FUNCTION virtual void accept_connection(Network::Connection * c) override;
 				VIATRA_FUNCTION virtual void process_message(Network::Connection * c, Network::byte * bytes, int len)override;
 			};
-			
+
 		}
 	}
 }
