@@ -21,7 +21,7 @@ namespace Viatra {
 				virtual ~ModelElement()
 				{}
 
-				//virtual constexpr unsigned short get_type_id() = 0;
+				virtual unsigned short get_type_id() = 0;
 
 			protected:
 				id_t _id;
