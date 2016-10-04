@@ -25,6 +25,7 @@
     <ClCompile Include="Query\Distributed\QueryService.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Query\Distributed\IDGenerator.h" />
     <ClInclude Include="Query\Distributed\MessageProtocol.pb.h" />
     <ClInclude Include="Query\Distributed\QueryResultCollector.h" />
     <ClInclude Include="Query\Util\HierarchicalID.h" />

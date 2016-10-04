@@ -10,8 +10,7 @@ namespace Viatra {
 		namespace Model {
 
 			using id_t = int32_t;
-
-
+			
 			class ModelElement
 			{
 			public:

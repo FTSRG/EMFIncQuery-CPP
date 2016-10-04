@@ -4,7 +4,8 @@
 #include<iostream>
 #include<string>
 
-#include<Viatra/Query/Distributedquery/QueryAFrame_0.h>
+#include<Viatra/Query/Distributedquery/QueryRunnerFactory.h>
+#include<Viatra/Query/Distributedquery/QueryBQuerySpecification.h>
 #include<Model/ModelRoot.h>
 
 int server_test(int argc, char **argv);
@@ -18,8 +19,14 @@ int main(int argc, char **argv) {
 		// Create a query service and run it on the main thread
 
 		Viatra::Query::Distributed::QueryService<
-			Viatra::Query::Model::ModelRoot, int> service(arg);
-		service.run();
+			Viatra::Query::Model::ModelRoot, 
+			Viatra::Query::Distributedquery::QueryRunnerFactory
+		>	service(arg);
+
+		auto thread = service.run_async();
+
+		service.RunNewQuery<Viatra::Query::Distributedquery::QueryBQuerySpecification>();
+
 	}
 	catch (std::exception ex)
 	{

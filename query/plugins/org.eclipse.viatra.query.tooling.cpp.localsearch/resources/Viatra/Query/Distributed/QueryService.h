@@ -19,6 +19,7 @@
 #include"QueryRunner.h"
 #include"QueryServer.h"
 #include"QueryClient.h"
+#include"IDGenerator.h"
 
 namespace Viatra {
 	namespace Query {
@@ -29,35 +30,26 @@ namespace Viatra {
 			protected:
 				std::string nodeName;
 				std::unique_ptr<QueryServer> server;
-				std::map<std::string,std::unique_ptr<QueryClient>> clients;
+				std::map<std::string,std::unique_ptr<QueryClient>> clients;		
 
-				int64_t startID, increment, nextID;
-				std::mutex id_mutex;
-
-				int64_t generateID()
-				{
-					std::unique_lock<std::mutex> lock(id_mutex);
-					auto id = nextID;
-					nextID += increment;
-					return id;
-				}
+				IDGenerator querySessionIDGenerator;
+				std::map < int, std::unique_ptr<QueryRunnerBase> > queryRunners;
 				
 			};
 
-			template<typename ModelRoot, typename QueryRunnerFactory>
-			class QueryService
+			template<typename ModelRoot, template<class> class QueryRunnerFactoryTemplate>
+			class QueryService : protected QueryServiceBase
 			{
-				std::map < int, std::unique_ptr<QueryRunnerBase> > queryRunners;
-
-
 			public:
+				using QueryRunnerFactory = QueryRunnerFactoryTemplate<ModelRoot>;
 
 				template<typename QS>
-				using MatchT = typename QS::Match;
+				using MatchOf = typename QS::Match;
 				template<typename QS>
-				using MatcherT = typename QS::Matcher;
+				using MatcherOf = typename QS::Matcher;
 
-				VIATRA_FUNCTION QueryService(const char *configJSON) {
+				VIATRA_FUNCTION QueryService(const char *configJSON) 
+				{
 
 				}
 				VIATRA_FUNCTION ~QueryService()
@@ -66,15 +58,17 @@ namespace Viatra {
 				}
 
 				template<typename QuerySpec>
-				std::unordered_set<MatchT<QuerySpec>> RunQuery()
+				std::unordered_set<MatchOf<QuerySpec>> RunNewQuery()
 				{
-					
+					int64_t sessionID = querySessionIDGenerator::generate();
+					queryRunners[sessionID] = QueryRunnerFactory::Create(QuerySpec::queryID, sessionID);
+					throw "Not implemented";
 				}
-
+				/*
 				template<typename QuerySpec>
 				std::future<std::unordered_set<MatchT<QuerySpec>>> DistributeToNodes(
 
-				);
+				);**/
 
 				void run() {};
 
