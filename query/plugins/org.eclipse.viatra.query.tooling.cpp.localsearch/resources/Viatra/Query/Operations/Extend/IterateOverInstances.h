@@ -82,11 +82,9 @@ public:
      * @param clazz The id of the type to be iterated.
      */
     GlobalIterateOverInstances(BindPoint bind, EClass clazz, const ModelRoot* model);
-    void on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context);
+    void on_initialize(MatchingFrame&, const Matcher::ISearchContext& ) override;
 
-    bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) override {
-      //NYI
-    }
+    bool execute(MatchingFrame&, const Matcher::ISearchContext&) override;
 private:
     EClass _clazz;
 	const ModelRoot* _model;
@@ -99,8 +97,13 @@ inline GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::GlobalIter
 }
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
-inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_initialize(MatchingFrame&, const Matcher::ISearchContext&) {
-  //NYI
+inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context) {
+  return;
+}
+
+template<class SrcType, class MatchingFrame, class ModelRoot>
+inline bool GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::execute(MatchingFrame& frame, const Matcher::ISearchContext& context) {
+  return false;
 }
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
