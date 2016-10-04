@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "Arch/arch_def.h"
-#include "Viatra/Query/Model/ModelRoot.h"
+#include "Arch/ModelRoot.h"
 
 /**
  * @author Krisztian Toth
