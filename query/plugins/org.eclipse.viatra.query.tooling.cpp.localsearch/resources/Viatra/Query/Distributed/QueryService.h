@@ -28,7 +28,7 @@ namespace Viatra {
 			class QueryServiceBase
 			{
 			public:
-				QueryServiceBase(const char *jsonConfig) {}
+				QueryServiceBase(const char *configJSON) {}
 				~QueryServiceBase() {}
 			protected:
 				std::string nodeName;
@@ -52,7 +52,7 @@ namespace Viatra {
 				using MatcherOf = typename QS::Matcher;
 
 				VIATRA_FUNCTION QueryService(const char *configJSON)
-					: QueryServiceBase(jsonConfig);
+					: QueryServiceBase(configJSON)
 				{
 
 				}
