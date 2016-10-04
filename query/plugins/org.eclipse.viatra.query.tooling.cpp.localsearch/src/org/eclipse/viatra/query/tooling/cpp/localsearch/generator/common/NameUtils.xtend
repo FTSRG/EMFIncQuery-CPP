@@ -14,16 +14,16 @@ import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EDataType
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
  */
 class NameUtils {
 	
-	static def getPlanName(PatternDescriptor pattern) {
+	static def getPlanName(BoundedPatternDescriptor pattern) {
 		if(!pattern.bound)
 			return '''unbound'''
 		

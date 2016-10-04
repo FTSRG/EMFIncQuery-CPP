@@ -12,22 +12,22 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import java.util.Set
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
  */
 abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 	
-	protected val Set<PatternDescriptor> patternGroup
+	protected val Set<BoundedPatternDescriptor> patternGroup
 	protected val String queryGroupName
 
 	protected val String patternName
 	protected val String querySpecificationName
 	
 	
-	new(String queryGroupName, Set<PatternDescriptor> patternGroup) {
+	new(String queryGroupName, Set<BoundedPatternDescriptor> patternGroup) {
 		super(#{queryGroupName.toFirstUpper}, '''«patternGroup.head.name.toFirstUpper»QuerySpecification''')
 		this.patternGroup = patternGroup
 		this.queryGroupName = queryGroupName.toFirstUpper
@@ -69,6 +69,6 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 		};
 	'''
 	
-	abstract def String generatePlan(PatternDescriptor pattern, PatternBodyDescriptor patternBody) 
+	abstract def String generatePlan(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) 
 	
 }

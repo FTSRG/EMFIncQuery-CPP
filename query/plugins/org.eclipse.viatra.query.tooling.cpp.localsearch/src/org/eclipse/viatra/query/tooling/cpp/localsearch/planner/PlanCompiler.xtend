@@ -26,13 +26,13 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
 import org.eclipse.viatra.query.runtime.matchers.psystem.rewriters.DefaultFlattenCallPredicate
 import org.eclipse.viatra.query.runtime.matchers.psystem.rewriters.PBodyNormalizer
 import org.eclipse.viatra.query.runtime.matchers.psystem.rewriters.PQueryFlattener
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBasedStrategy
 import org.eclipse.viatra.query.runtime.localsearch.planner.cost.impl.VariableBindingBasedCostFunction
 import org.eclipse.viatra.query.runtime.localsearch.plan.PlannerConfiguration
 import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHintKeys
 import java.util.LinkedList
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
@@ -78,16 +78,16 @@ class PlanCompiler {
 			val boundParameters = getBoundParameters(binding, pQuery)
 
 			val bodies = normalizedBodies.compile(boundParameters, frameRegistry)
-			return new PatternDescriptor(pQuery, bodies, boundParameters)
+			return new BoundedPatternDescriptor(pQuery, bodies, boundParameters)
 		]
 
 		val bodies = normalizedBodies.compile(#{}, frameRegistry)
-		val unboundPatternStub = new PatternDescriptor(pQuery, bodies)
+		val unboundPatternStub = new BoundedPatternDescriptor(pQuery, bodies)
 		
 		val dependentPatternStubs = dependencies.map[
 			val dependentNormalizedBodies = it.referredQuery.flattenAndNormalize
 			val dependentBodies = dependentNormalizedBodies.compile(it.adornment, frameRegistry)
-			return new PatternDescriptor(it.referredQuery, dependentBodies, it.adornment)
+			return new BoundedPatternDescriptor(it.referredQuery, dependentBodies, it.adornment)
 		]
 				
 		// copy to prevent lazy evaluation

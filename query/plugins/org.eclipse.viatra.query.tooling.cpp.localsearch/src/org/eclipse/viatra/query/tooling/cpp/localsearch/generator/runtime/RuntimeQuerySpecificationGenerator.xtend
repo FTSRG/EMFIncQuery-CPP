@@ -17,19 +17,19 @@ import java.util.List
 import java.util.Map
 import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
  */
 class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	
-	val Map<PatternDescriptor, Map<PatternBodyDescriptor, List<RuntimeSearchOperationGenerator>>> searchOperations
+	val Map<BoundedPatternDescriptor, Map<PatternBodyDescriptor, List<RuntimeSearchOperationGenerator>>> searchOperations
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
-	new(String queryName, Set<PatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
+	new(String queryName, Set<BoundedPatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
 		super(queryName, patternGroup)
 		
 		this.searchOperations = Maps::asMap(patternGroup)[pattern |
@@ -62,7 +62,7 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	
 	var generatedPlanList = newArrayList
 	
-	override generatePlan(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+	override generatePlan(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val uniqueName = NameUtils::getPlanName(pattern) + patternBody.index»
 		«IF !generatedPlanList.contains(uniqueName)»
 		«val youShallNotPrint = generatedPlanList.add(uniqueName)»

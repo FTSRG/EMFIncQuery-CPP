@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
-import java.util.HashMap
-import java.util.Map
 import java.util.Set
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery
@@ -20,11 +18,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import static com.google.common.base.Preconditions.*
 
 /**
- * This class represents a 
+ * This class represents a Bounded version of a pattern
  * 
  * @author Robert Doczi
  */
-class PatternDescriptor {
+class BoundedPatternDescriptor {
 
 	val PQuery query
 	val Set<PParameter> boundParameters

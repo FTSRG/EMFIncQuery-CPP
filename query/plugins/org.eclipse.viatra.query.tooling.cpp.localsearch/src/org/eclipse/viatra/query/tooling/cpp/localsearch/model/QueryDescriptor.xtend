@@ -22,10 +22,10 @@ class QueryDescriptor {
 	@Accessors(PUBLIC_GETTER)
 	val String name
 
-	val Set<PatternDescriptor> patterns
+	val Set<BoundedPatternDescriptor> patterns
 	val Set<EClass> classes
 
-	new(String name, Set<PatternDescriptor> patterns, Set<EClass> classes) {
+	new(String name, Set<BoundedPatternDescriptor> patterns, Set<EClass> classes) {
 		this.name = name
 
 		this.patterns = patterns

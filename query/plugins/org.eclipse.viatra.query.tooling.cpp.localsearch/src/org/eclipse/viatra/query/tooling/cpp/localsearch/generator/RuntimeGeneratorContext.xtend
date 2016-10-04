@@ -16,8 +16,10 @@ import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.QueryRunnerFactoryGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeQuerySpecificationGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoCompiler
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoGenerator
@@ -32,6 +34,7 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
 		val Set<ProtoCompiler> protoCompilers = newHashSet
+		val Set<Set<BoundedPatternDescriptor>> patternGroupSets = newHashSet
 		query.patterns.forEach [ name, patterns |
 			val frameGenMap = newHashMap
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name)
@@ -57,7 +60,8 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 
 			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
 			generators += querySpec
-
+			patternGroupSets.add(patterns.toSet);
+			
 			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
 		]
@@ -66,6 +70,8 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator
+		
+		generators += new QueryRunnerFactoryGenerator(query.name, patternGroupSets);
 
 		generators.forEach[initialize]
 

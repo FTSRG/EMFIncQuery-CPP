@@ -20,18 +20,18 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUti
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
  */
 class IteratorMatcherGenerator extends MatcherGenerator {
 	
-	val Map<PatternDescriptor, Map<PatternBodyDescriptor, IteratorSearchOperationGenerator>> searchOperations
+	val Map<BoundedPatternDescriptor, Map<PatternBodyDescriptor, IteratorSearchOperationGenerator>> searchOperations
 	
-	new(String queryName, String patternName, Set<PatternDescriptor> patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, Set<BoundedPatternDescriptor> patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
 		super(queryName, patternName, patternGroup, matchGenerator, querySpecification)
 		this.searchOperations = Maps::asMap(patternGroup)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
@@ -62,7 +62,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			]
 	}
 	
-	override protected compilePlanExecution(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+	override protected compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		auto _classHelper = &_context->get_class_helper();		
 		«assignParamsToVariables(pattern)»		
 		«val sog = searchOperations.get(pattern).get(patternBody)»
@@ -73,7 +73,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		«executionCode»
 	'''
 	
-	def assignParamsToVariables(PatternDescriptor pattern) {
+	def assignParamsToVariables(BoundedPatternDescriptor pattern) {
 		val matchingFrame = pattern.patternBodies.head.matchingFrame
 		'''«FOR param : pattern.boundParameters»
 		«val varName = NameUtils::getPurgedName(param.toPVariable(matchingFrame))»

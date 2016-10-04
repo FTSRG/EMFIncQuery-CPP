@@ -18,7 +18,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGe
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 
 /**
  * @author Robert Doczi
@@ -27,7 +27,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
-	new(String queryName, String patternName, Set<PatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators, MatchGenerator matchGenerator, RuntimeQuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, Set<BoundedPatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators, MatchGenerator matchGenerator, RuntimeQuerySpecificationGenerator querySpecification) {
 		super(queryName, patternName, patternGroup, matchGenerator, querySpecification)
 		this.frameGenerators = frameGenerators
 	}
@@ -41,7 +41,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	}
 	
 
-	override protected compilePlanExecution(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+	override protected compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val frame = frameGenerators.get(patternBody)»
 		«val bodyNum = frame.index»
 		auto sp = «name»QuerySpecification<ModelRoot>::get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(_model);
