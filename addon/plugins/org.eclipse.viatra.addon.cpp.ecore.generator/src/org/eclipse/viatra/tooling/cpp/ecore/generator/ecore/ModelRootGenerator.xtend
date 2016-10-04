@@ -34,6 +34,7 @@ class ModelRootGenerator {
 					class ModelRoot
 					{
 					public:
+						ModelRoot();
 						ModelRoot(const char * configjson);
 						~ModelRoot()
 						{
@@ -74,7 +75,9 @@ class ModelRootGenerator {
 		#include<fstream>
 		«FOR pack : packages»
 			#include"«pack.name»_def.h"
+			«IF !pack.EClassifiers.filter(EEnum).isEmpty»
 			#include"«pack.name»/EnumHelper.h"
+			«ENDIF»
 		«ENDFOR»
 		
 		#define PICOJSON_USE_INT64
@@ -83,6 +86,10 @@ class ModelRootGenerator {
 		
 		using namespace Viatra::Query::Model;
 										
+		ModelRoot::ModelRoot(){
+			
+		}
+		
 		ModelRoot::ModelRoot(const char * configjson)
 		{
 			try {
