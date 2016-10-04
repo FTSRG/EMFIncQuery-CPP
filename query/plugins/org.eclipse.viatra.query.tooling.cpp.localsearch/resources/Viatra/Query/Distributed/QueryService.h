@@ -27,8 +27,9 @@ namespace Viatra {
 			class QueryServiceBase
 			{
 			protected:
+				std::string nodeName;
 				std::unique_ptr<QueryServer> server;
-				std::vector<QueryClient> clients;
+				std::map<std::string,std::unique_ptr<QueryClient>> clients;
 
 				int64_t startID, increment, nextID;
 				std::mutex id_mutex;
@@ -40,6 +41,7 @@ namespace Viatra {
 					nextID += increment;
 					return id;
 				}
+				
 			};
 
 			template<typename ModelRoot, typename QueryRunnerFactory>
@@ -66,7 +68,7 @@ namespace Viatra {
 				template<typename QuerySpec>
 				std::unordered_set<MatchT<QuerySpec>> RunQuery()
 				{
-
+					
 				}
 
 				template<typename QuerySpec>

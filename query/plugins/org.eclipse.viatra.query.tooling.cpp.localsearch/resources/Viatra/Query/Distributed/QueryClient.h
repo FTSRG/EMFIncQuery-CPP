@@ -18,6 +18,9 @@ namespace Viatra {
 					: Network::Client(ip, port)
 				{}
 
+				~QueryClient()
+				{}
+
 			};
 
 		}

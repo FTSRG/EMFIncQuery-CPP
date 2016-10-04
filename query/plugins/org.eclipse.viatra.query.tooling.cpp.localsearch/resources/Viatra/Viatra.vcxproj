@@ -27,6 +27,7 @@
   <ItemGroup>
     <ClInclude Include="Query\Distributed\MessageProtocol.pb.h" />
     <ClInclude Include="Query\Distributed\QueryResultCollector.h" />
+    <ClInclude Include="Query\Util\HierarchicalID.h" />
     <ClInclude Include="Query\Util\network.h" />
     <ClInclude Include="Query\Distributed\Node.h" />
     <ClInclude Include="Query\Distributed\NodeRegistry.h" />

@@ -155,5 +155,8 @@
     <ClInclude Include="Query\Distributed\QueryResultCollector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Query\Util\HierarchicalID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
