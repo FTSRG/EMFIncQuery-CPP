@@ -45,7 +45,7 @@ public:
             _bind(member) {
     }
 
-    void on_backtrack(MatchingFrame&, const Matcher::ISearchContext&) {
+    virtual void on_backtrack(MatchingFrame&, const Matcher::ISearchContext&) {
         //_binder(frame, NULL);
     }
 

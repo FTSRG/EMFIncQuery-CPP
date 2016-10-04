@@ -83,17 +83,18 @@ public:
      */
     GlobalIterateOverInstances(BindPoint bind, EClass clazz, const ModelRoot* model);
     void on_initialize(MatchingFrame&, const Matcher::ISearchContext& ) override;
+    void on_backtrack(MatchingFrame&, const Matcher::ISearchContext& ) override;
 
     bool execute(MatchingFrame&, const Matcher::ISearchContext&) override;
 private:
+    bool _executed;
     EClass _clazz;
-	const ModelRoot* _model;
-
+  	const ModelRoot* _model;
 };
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
 inline GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::GlobalIterateOverInstances(BindPoint bind, EClass clazz, const ModelRoot* model)
-	: ExtendOperation<SrcType, std::list<SrcType>, MatchingFrame>(bind), _clazz(clazz), _model(model) {
+	: ExtendOperation<SrcType, std::list<SrcType>, MatchingFrame>(bind), _executed(false), _clazz(clazz), _model(model) {
 }
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
@@ -102,8 +103,16 @@ inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_in
 }
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
+inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_backtrack(MatchingFrame& frame, const Matcher::ISearchContext& context) {
+  _executed = false;
+  return;
+}
+
+template<class SrcType, class MatchingFrame, class ModelRoot>
 inline bool GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::execute(MatchingFrame& frame, const Matcher::ISearchContext& context) {
-  return false;
+  if(_executed) return false;
+  _executed = true;
+  return _executed;
 }
 
 template<class SrcType, class MatchingFrame, class ModelRoot>
