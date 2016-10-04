@@ -19,6 +19,9 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 	
 	override initialize() {
 		includes += new Include('''stdexcept''', true)
+		includes += new Include('''memory''', true)
+		
+			includes += new Include('''Viatra/Query/Distributed/QueryRunner.h''')
 		
 		for(patternGroup: patternGroupSet)
 		{
@@ -34,13 +37,15 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 		class QueryRunnerFactory{
 		public:
 
-			std::unique_ptr<QueryRunnerBase> Create(int queryID, int64_t sessionID)
+			std::unique_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID)
 			{
 				switch(queryID){
 					«FOR patternGroup : patternGroupSet»
 						«val pattern = patternGroup.head»
 						case «pattern.queryID»:
-							return std::make_unique<QueryRunner<«pattern.name»QuerySpecification<ModelRoot>>>(sessionID);
+							return std::make_unique<
+								Viatra::Query::Distributed::QueryRunner<«pattern.name»QuerySpecification<ModelRoot>>
+							>(sessionID);
 					«ENDFOR»
 				}
 				throw std::invalid_argument("Cannot instantiate Query runner from the given queryID!");

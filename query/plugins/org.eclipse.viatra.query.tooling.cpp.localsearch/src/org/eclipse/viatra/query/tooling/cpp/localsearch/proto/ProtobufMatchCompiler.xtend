@@ -49,6 +49,14 @@ class ProtobufMatchCompiler extends ProtoCompiler {
 				«ProtobufHelper::protobufType(type)» «parameter.name» = «FieldNum++»;
 			«ENDFOR»
 		};
+		
+		«compileSet»
+	'''
+	
+	def compileSet() '''
+		message «(this.unitName+"Set").MessageName» {
+			repeated «this.unitName.MessageName» matches = 1;
+		};
 	'''
 	
 

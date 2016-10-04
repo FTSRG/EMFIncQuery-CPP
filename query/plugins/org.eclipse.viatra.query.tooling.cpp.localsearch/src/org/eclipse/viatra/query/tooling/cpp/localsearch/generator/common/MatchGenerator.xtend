@@ -65,7 +65,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	
 	def serialization(ImmutableList<PParameter> paramlist) '''
 		// Serialization and deserialization
-
+		
 		std::string SerializeAsString()
 		{
 			PB_«unitName» pbframe;
@@ -75,24 +75,31 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				«val varName = param.name»
 				«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
 			«ENDFOR»
-
+			
 			return pbframe.SerializeAsString();
 		}
-	
+		
 		template<typename ModelRoot>
 		void ParseFromString(std::string str, ModelRoot *mr)
 		{
 			PB_«unitName» pbframe;
 			pbframe.ParseFromString(str);
-	
+				
 			«FOR param : paramlist»
 				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 				«val varName = param.name»
 				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbframe", "mr")»
 			«ENDFOR»
 		}
+		
+		template<typename ModelRoot, typename Action>
+		void ParseMatchSet( const uint8_t *bytes, int len, Action action )
+		{
+			PB_«unitName»Set pbMsgSet;
+		}
+
 	'''
-	
+				
 	override compileOuter() '''
 		«hash(oneOfTheMatchingFrames.parameters)»
 	'''
