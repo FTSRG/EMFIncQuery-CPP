@@ -12,7 +12,6 @@ namespace Viatra {
 			class QueryRunnerBase {
 				uint64_t sessionID;
 
-				std::set<HierarchiclaID>
 
 			public:
 				QueryRunnerBase(uint64_t sessionID) 
@@ -20,19 +19,28 @@ namespace Viatra {
 				{}
 				virtual ~QueryRunnerBase() {}
 				virtual void run() = 0;
-
+				
 			};
 
 			template<typename QuerySpecification>
 			class QueryRunner : public QueryRunnerBase
 			{
-				ConcurrentQueue<QueryTask<QuerySpecification>> tasks;
+				std::unordered_set<Util::HierarchicalID<uint64_t>> remoteTaskIDs;
+				Util::ConcurrentQueue<QueryTask<QuerySpecification>> localTasks;
 				std::atomic_flag terminated;
 
 			public:
 				QueryRunner(uint64_t sessionID)
 					: QueryRunnerBase(sessionID)
 				{}
+
+				void MergeMatchResult(Util::HierarchicalID<uint64_t> remoteTaskID, std::string && serailizedMatchset)
+				{
+					using Match = typename QuerySpecification::Match;
+					
+
+
+				}
 
 				void addTask(const QueryTask<QuerySpecification>& task)
 				{
