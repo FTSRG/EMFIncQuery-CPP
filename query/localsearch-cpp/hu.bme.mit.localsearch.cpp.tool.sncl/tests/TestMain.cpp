@@ -354,9 +354,10 @@ namespace Runtime {
             sn->set_link(list);
           }
       snStore.remove(deletableSN);
-	  deletableSN = nullptr;
+      deletableSN = nullptr;
        try{
          auto queriedMatches = pconnectedMatcher.matches();
+         ASSERT_NE(queriedMatches.size(), 0);
          for(auto match : queriedMatches){
            if(match.C1->name() == "C5" && match.C2->name() == "C6") FAIL()
            << "Not properly handled one SN's delete. SN.name = " << deletedName;
@@ -380,6 +381,7 @@ namespace Runtime {
       delete deletableCL;
         try{
          auto queriedMatches = pconnectedMatcher.matches();
+         ASSERT_NE(queriedMatches.size(), 0);
          for(auto match : queriedMatches){
            if(match.C1->name() == "C2" || match.C2->name() == "C2") FAIL() << "Not properly handled one CN's delete. CN.name = " << deletedName;
          }
@@ -473,9 +475,8 @@ namespace Runtime {
        ASSERT_NE(it,combinationOfCls.end());
        combinationOfCls.erase(it);
        it = queriedMatches.find(notConnectedMatch);
-       //ASSERT_EQ(it, queriedMatches.end());(
        if(it != queriedMatches.end()) FAIL() << "Query found a match, that doesn't fit: "
-       << it->C1->name() << "-" << it->C2->name() << std::endl;
+                                             << it->C1->name() << "-" << it->C2->name() << std::endl;
      }
      //Check equality
      for(auto match : combinationOfCls){
