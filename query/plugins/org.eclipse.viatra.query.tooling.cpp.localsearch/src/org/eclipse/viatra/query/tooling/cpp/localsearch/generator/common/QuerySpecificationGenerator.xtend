@@ -38,6 +38,7 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 	
 	override initialize() {
 		includes += new Include('''Viatra/Query/«queryGroupName»/«queryGroupName»QueryGroup.h''')
+		includes += new Include('''Viatra/Query/«queryGroupName»/«patternName»Match.h''')
 		
 		includes += new Include("Viatra/Query/Util/Optional.h")
 		includes += new Include("Viatra/Query/Operations/AllOperations.h")
@@ -54,7 +55,7 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 		class «unitName» {
 		public:
 			using Matcher = «patternName»Matcher<ModelRoot>;
-			using Match = «patternName»Match<ModelRoot>;
+			using Match = «patternName»Match;
 			using QueryGroup = «queryGroupName»QueryGroup;
 			
 			static constexpr int queryID = «patternGroup.head.queryID»;
