@@ -162,7 +162,7 @@ class ModelRootGenerator {
 													{
 														as_array = ref_elem.get<picojson::array>();	
 														std::vector<«refTypeFQN»*> as_vector(as_array.size());
-														for(int i = 0 ; i < as_array.size() ; ++i)
+														for(size_t i = 0 ; i < as_array.size() ; ++i)
 														{
 															int64_t id = as_array[i].get<int64_t>();
 															as_vector[i] = dynamic_cast<«refTypeFQN»*>(modelElements[id]);
@@ -190,16 +190,14 @@ class ModelRootGenerator {
 													{
 														auto as_array = attrib_elem.get<array>();	
 														std::vector<«attribTypeFQN»*> as_vector(as_array.size());
-														for(int i = 0 ; i < as_array.size() ; ++i)
+														for(size_t i = 0 ; i < as_array.size() ; ++i)
 														{
 															«IF attribType instanceof EEnum»
 																as_vector[i] = EnumHelper<«attribTypeFQN»>::ParseFromString(as_array[i].get<«jsonType»>());
-															«ELSEIF attribType.name == "EBoolean"»
-																as_vector[i] = as_array[i].get<«jsonType»>() == "true";
 															«ELSEIF attribType.name == "EChar"»
 																as_vector[i] = as_array[i].get<«jsonType»>()[0];
 															«ELSE»
-																as_vector[i] = as_array[i].get<«jsonType»>();
+																as_vector[i] = («attribHelper.cppType»)as_array[i].get<«jsonType»>();
 															«ENDIF»
 														}
 														modelElement->«attribHelper.setterName»(as_vector);
@@ -209,12 +207,10 @@ class ModelRootGenerator {
 													{
 														«IF attribType instanceof EEnum»
 															modelElement->«attribHelper.setterName»( EnumHelper<«attribTypeFQN»>::ParseFromString(attrib_elem.get<«jsonType»>()) );
-														«ELSEIF attribType.name == "EBoolean"»
-															modelElement->«attribHelper.setterName»( attrib_elem.get<«jsonType»>() == "true" );
 														«ELSEIF attribType.name == "EChar"»
 															modelElement->«attribHelper.setterName»( attrib_elem.get<«jsonType»>()[0] );
 														«ELSE»
-															modelElement->«attribHelper.setterName»( attrib_elem.get<«jsonType»>() );
+															modelElement->«attribHelper.setterName»( («attribHelper.cppType»)attrib_elem.get<«jsonType»>() );
 														«ENDIF»
 													}
 												«ENDIF»
@@ -266,7 +262,7 @@ class ModelRootGenerator {
 		"EFloat" -> "double",
 		"EShort" -> "int64_t",
 		"EChar" -> "std::string",
-		"EBoolean" -> "std::string"
+		"EBoolean" -> "bool"
 	}
 	
 	def static getJsonType(EClassifier classifier) {

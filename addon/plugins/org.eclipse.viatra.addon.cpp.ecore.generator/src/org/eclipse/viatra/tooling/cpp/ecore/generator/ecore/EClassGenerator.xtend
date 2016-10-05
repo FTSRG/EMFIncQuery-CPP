@@ -175,6 +175,10 @@ class EClassGenerator {
 			«clazz.genRemoteName»(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv);
 			
 			virtual ~«clazz.genRemoteName»();
+			
+			unsigned short get_type_id() override {
+				return «clazz.genInterfaceName»::type_id;
+			}
 
 			«FOR a : clazz.getAllEAttribute»
 				«val ah = CppHelper::getAttributeHelper(a)»
@@ -210,6 +214,12 @@ class EClassGenerator {
 			
 		public:
 			«clazz.genLocalName»(Viatra::Query::Model::id_t id);
+			
+			unsigned short get_type_id() override {
+				return «clazz.genInterfaceName»::type_id;
+			}
+
+						
 			virtual ~«clazz.genLocalName»();
 			inline static std::list<«clazz.genInterfaceName»*>& Instances()
 			{
