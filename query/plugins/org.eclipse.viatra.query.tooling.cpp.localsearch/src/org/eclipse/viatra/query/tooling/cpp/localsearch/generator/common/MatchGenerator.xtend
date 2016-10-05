@@ -82,20 +82,31 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		template<typename ModelRoot>
 		void ParseFromString(std::string str, ModelRoot *mr)
 		{
-			PB_«unitName» pbframe;
-			pbframe.ParseFromString(str);
+			PB_«unitName» pbMatch;
+			pbMatch.ParseFromString(str);
 				
 			«FOR param : paramlist»
 				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 				«val varName = param.name»
-				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbframe", "mr")»
+				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbMatch", "mr")»
 			«ENDFOR»
 		}
 		
 		template<typename ModelRoot, typename Action>
-		void ParseMatchSet( const uint8_t *bytes, int len, Action action )
+		static void ParseMatchSet( const uint8_t *bytes, int len, ModelRoot * mr, Action action )
 		{
 			PB_«unitName»Set pbMsgSet;
+			«unitName» match;
+			for (auto & pbMatch : pbMsgSet.matches())
+			{
+				«FOR param : paramlist»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+					«val varName = param.name»
+					match.«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbMatch", "mr")»
+				«ENDFOR»
+				
+				action(match);
+			}
 		}
 
 	'''
