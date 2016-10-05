@@ -9,8 +9,6 @@
 PROTOBUF_INCLUDE_DIR=D:\libraries\protobuf-3.0.0\src
 ##############################################################################
 
-
-
 VIATRA_DIR=../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/
 include $(VIATRA_DIR)/Makefile
 VIATRAOBJECTS := $(wildcard $(VIATRA_DIR)*.o) $(wildcard $(VIATRA_DIR)*/*.o) $(wildcard $(VIATRA_DIR)*/*/*.o)

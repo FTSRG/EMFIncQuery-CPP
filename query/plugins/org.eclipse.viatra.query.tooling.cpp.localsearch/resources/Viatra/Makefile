@@ -5,11 +5,6 @@
 #
 ##############################################################################
 
-##############################     Protobuf     ##############################
-PROTOBUF_INCLUDE_DIR=D:\libraries\protobuf-3.0.0\src
-##############################################################################
-
-
 CXX=clang++
 CXXWINFLAGS= -fms-compatibility-version=19.00 -Wno-microsoft-include
 CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -pedantic -fexceptions $(CXXWINFLAGS)
