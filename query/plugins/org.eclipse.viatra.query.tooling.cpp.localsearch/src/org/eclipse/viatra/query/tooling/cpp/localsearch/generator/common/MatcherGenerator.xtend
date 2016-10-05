@@ -60,6 +60,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 				«IF !generatedParamLists.contains(getParamList(pattern))»
 					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
 					«compileGetter(pattern)»
+					«compileDistGetter(pattern)»
 				«ENDIF»
 			«ENDFOR»
 			
@@ -68,6 +69,31 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			const ::Viatra::Query::Matcher::ISearchContext* _context;
 		};
 	'''
+	//Generate another function to unbounded plans. For distributed plan execution continue.
+	def String compileDistGetter(BoundedPatternDescriptor pattern) '''
+		«IF !pattern.bound»
+			«FOR patternBody : pattern.patternBodies»
+				«compileContinueDistQuery(pattern, patternBody)»
+				
+			«ENDFOR»
+			
+		std::unordered_set<«name»Match> continueExec(std::string strFrame, int bodyID, int startOpIndex){
+			switch(bodyID){
+				«FOR patternBody : pattern.patternBodies»
+					«val bodyNum = patternBody.index»
+					case «bodyNum»:
+						«name»Frame_«bodyNum» frame«bodyNum»; frame«bodyNum».ParseFromString(strFrame, _model);
+						return continue_«bodyNum»(frame«bodyNum», startOpIndex);
+				«ENDFOR»
+				default:
+					throw "Matcher continue function has an unidentified bodyID";
+				break;
+			}
+		}
+		«ENDIF»
+	'''
+	
+	protected abstract def String compileContinueDistQuery(BoundedPatternDescriptor descriptor, PatternBodyDescriptor descriptor2)
 	
 	protected def compileGetter(BoundedPatternDescriptor pattern) '''
 		std::unordered_set<«name»Match> matches(«getParamList(pattern)») const {
@@ -89,7 +115,6 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			return matches;
 		}
 	'''
-	
 	protected abstract def String compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody)
 	
 	protected def fillMatch(MatchingFrameDescriptor matchingFrame) '''

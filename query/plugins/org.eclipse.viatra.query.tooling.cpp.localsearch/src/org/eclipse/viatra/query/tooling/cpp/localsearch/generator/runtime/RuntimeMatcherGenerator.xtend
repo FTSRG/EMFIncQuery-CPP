@@ -38,6 +38,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		includes += frameGenerators.values.map[it.include]
 		
 		includes += new Include("Viatra/Query/Plan/SearchPlanExecutor.h")
+		includes += new Include("Viatra/Query/Plan/DistSearchPlanExecutor.h")
 	}
 	
 
@@ -62,6 +63,33 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 			matches.insert(match);
 		}
 	'''
+	//Generate a function to continue a plan execution from a designated point with a precalculated Frame.	 	
+	override protected compileContinueDistQuery(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+		«val frame = frameGenerators.get(patternBody)»
+		std::unordered_set<«name»Match> continue_«frame.index»(«frame.frameName»& frame, int startOpIndex) const {
+			using ::Viatra::Query::Matcher::ISearchContext;
+			using ::Viatra::Query::Plan::SearchPlan;
+			using ::Viatra::Query::Plan::DistSearchPlanExecutor;
+			using ::Viatra::Query::Matcher::ClassHelper;
+		
+			std::unordered_set<«name»Match> matches;
+			«val bodyNum = frame.index»
+			auto sp = «name»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model);
+				
+			auto exec = DistSearchPlanExecutor<«frame.frameName»>(sp, *_context, «frame.index», startOpIndex).prepare(frame);
+			
+			for (auto&& frame : exec) {
+				«name»Match match;
+			
+				«fillMatch(patternBody.matchingFrame)»
+			
+				matches.insert(match);
+			}
+		
+			return matches;
+		}
+	'''
+		
 	
 	private def initializeFrame(PatternBodyDescriptor patternBody, Set<PParameter> boundParameters, int bodyNum) '''
 		«val matchingFrameGen = frameGenerators.get(patternBody)»
@@ -75,4 +103,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 			«ENDFOR»
 		«ENDFOR»
 	'''
+	
+
+	
 }
