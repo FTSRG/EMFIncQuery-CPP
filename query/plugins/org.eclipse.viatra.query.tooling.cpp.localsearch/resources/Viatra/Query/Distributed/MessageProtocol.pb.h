@@ -35,19 +35,23 @@ void protobuf_AddDesc_MessageProtocol_2eproto();
 void protobuf_AssignDesc_MessageProtocol_2eproto();
 void protobuf_ShutdownFile_MessageProtocol_2eproto();
 
+class ContinueQuerySession;
 class QueryServerRequest;
 class QueryServerResponse;
+class RemoteResults;
+class SimpleResponse;
+class StartQuerySession;
 
 enum QueryServerMsgType {
-  START_QUERY = 0,
-  TERMINATE_QUERY = 1,
-  CONTINUE_QUERY = 2,
+  START_QUERY_SESSION = 0,
+  TERMINATE_QUERY_SESSION = 1,
+  CONTINUE_QUERY_SESSION = 2,
   QueryServerMsgType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   QueryServerMsgType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool QueryServerMsgType_IsValid(int value);
-const QueryServerMsgType QueryServerMsgType_MIN = START_QUERY;
-const QueryServerMsgType QueryServerMsgType_MAX = CONTINUE_QUERY;
+const QueryServerMsgType QueryServerMsgType_MIN = START_QUERY_SESSION;
+const QueryServerMsgType QueryServerMsgType_MAX = CONTINUE_QUERY_SESSION;
 const int QueryServerMsgType_ARRAYSIZE = QueryServerMsgType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* QueryServerMsgType_descriptor();
@@ -78,8 +82,8 @@ class QueryServerRequest : public ::google::protobuf::Message /* @@protoc_insert
   static const QueryServerRequest& default_instance();
 
   enum MsgCase {
-    kA = 2,
-    kX = 3,
+    kStartQuerySession = 4,
+    kContinueQuerySession = 6,
     MSG_NOT_SET = 0,
   };
 
@@ -134,34 +138,41 @@ class QueryServerRequest : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::int64 rqid() const;
   void set_rqid(::google::protobuf::int64 value);
 
-  // optional string a = 2;
-  private:
-  bool has_a() const;
-  public:
-  void clear_a();
-  static const int kAFieldNumber = 2;
-  const ::std::string& a() const;
-  void set_a(const ::std::string& value);
-  void set_a(const char* value);
-  void set_a(const char* value, size_t size);
-  ::std::string* mutable_a();
-  ::std::string* release_a();
-  void set_allocated_a(::std::string* a);
+  // optional int64 querySessionID = 2;
+  void clear_querysessionid();
+  static const int kQuerySessionIDFieldNumber = 2;
+  ::google::protobuf::int64 querysessionid() const;
+  void set_querysessionid(::google::protobuf::int64 value);
 
-  // optional int32 x = 3;
-  private:
-  bool has_x() const;
-  public:
-  void clear_x();
-  static const int kXFieldNumber = 3;
-  ::google::protobuf::int32 x() const;
-  void set_x(::google::protobuf::int32 value);
+  // optional .QueryServerMsgType msgType = 3;
+  void clear_msgtype();
+  static const int kMsgTypeFieldNumber = 3;
+  ::QueryServerMsgType msgtype() const;
+  void set_msgtype(::QueryServerMsgType value);
+
+  // optional .StartQuerySession startQuerySession = 4;
+  bool has_startquerysession() const;
+  void clear_startquerysession();
+  static const int kStartQuerySessionFieldNumber = 4;
+  const ::StartQuerySession& startquerysession() const;
+  ::StartQuerySession* mutable_startquerysession();
+  ::StartQuerySession* release_startquerysession();
+  void set_allocated_startquerysession(::StartQuerySession* startquerysession);
+
+  // optional .ContinueQuerySession continueQuerySession = 6;
+  bool has_continuequerysession() const;
+  void clear_continuequerysession();
+  static const int kContinueQuerySessionFieldNumber = 6;
+  const ::ContinueQuerySession& continuequerysession() const;
+  ::ContinueQuerySession* mutable_continuequerysession();
+  ::ContinueQuerySession* release_continuequerysession();
+  void set_allocated_continuequerysession(::ContinueQuerySession* continuequerysession);
 
   MsgCase msg_case() const;
   // @@protoc_insertion_point(class_scope:QueryServerRequest)
  private:
-  inline void set_has_a();
-  inline void set_has_x();
+  inline void set_has_startquerysession();
+  inline void set_has_continuequerysession();
 
   inline bool has_msg() const;
   void clear_msg();
@@ -170,10 +181,12 @@ class QueryServerRequest : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 rqid_;
+  ::google::protobuf::int64 querysessionid_;
+  int msgtype_;
   union MsgUnion {
     MsgUnion() {}
-    ::google::protobuf::internal::ArenaStringPtr a_;
-    ::google::protobuf::int32 x_;
+    ::StartQuerySession* startquerysession_;
+    ::ContinueQuerySession* continuequerysession_;
   } msg_;
   mutable int _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -201,6 +214,12 @@ class QueryServerResponse : public ::google::protobuf::Message /* @@protoc_inser
 
   static const ::google::protobuf::Descriptor* descriptor();
   static const QueryServerResponse& default_instance();
+
+  enum MsgCase {
+    kSimpleResponse = 4,
+    kRemoteResults = 5,
+    MSG_NOT_SET = 0,
+  };
 
   void Swap(QueryServerResponse* other);
 
@@ -253,19 +272,450 @@ class QueryServerResponse : public ::google::protobuf::Message /* @@protoc_inser
   ::google::protobuf::int64 rqid() const;
   void set_rqid(::google::protobuf::int64 value);
 
+  // optional int64 querySessionID = 2;
+  void clear_querysessionid();
+  static const int kQuerySessionIDFieldNumber = 2;
+  ::google::protobuf::int64 querysessionid() const;
+  void set_querysessionid(::google::protobuf::int64 value);
+
+  // optional .QueryServerMsgType msgType = 3;
+  void clear_msgtype();
+  static const int kMsgTypeFieldNumber = 3;
+  ::QueryServerMsgType msgtype() const;
+  void set_msgtype(::QueryServerMsgType value);
+
+  // optional .SimpleResponse simpleResponse = 4;
+  bool has_simpleresponse() const;
+  void clear_simpleresponse();
+  static const int kSimpleResponseFieldNumber = 4;
+  const ::SimpleResponse& simpleresponse() const;
+  ::SimpleResponse* mutable_simpleresponse();
+  ::SimpleResponse* release_simpleresponse();
+  void set_allocated_simpleresponse(::SimpleResponse* simpleresponse);
+
+  // optional .RemoteResults remoteResults = 5;
+  bool has_remoteresults() const;
+  void clear_remoteresults();
+  static const int kRemoteResultsFieldNumber = 5;
+  const ::RemoteResults& remoteresults() const;
+  ::RemoteResults* mutable_remoteresults();
+  ::RemoteResults* release_remoteresults();
+  void set_allocated_remoteresults(::RemoteResults* remoteresults);
+
+  MsgCase msg_case() const;
   // @@protoc_insertion_point(class_scope:QueryServerResponse)
  private:
+  inline void set_has_simpleresponse();
+  inline void set_has_remoteresults();
+
+  inline bool has_msg() const;
+  void clear_msg();
+  inline void clear_has_msg();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 rqid_;
+  ::google::protobuf::int64 querysessionid_;
+  int msgtype_;
+  union MsgUnion {
+    MsgUnion() {}
+    ::SimpleResponse* simpleresponse_;
+    ::RemoteResults* remoteresults_;
+  } msg_;
   mutable int _cached_size_;
+  ::google::protobuf::uint32 _oneof_case_[1];
+
   friend void  protobuf_AddDesc_MessageProtocol_2eproto();
   friend void protobuf_AssignDesc_MessageProtocol_2eproto();
   friend void protobuf_ShutdownFile_MessageProtocol_2eproto();
 
   void InitAsDefaultInstance();
   static QueryServerResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SimpleResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SimpleResponse) */ {
+ public:
+  SimpleResponse();
+  virtual ~SimpleResponse();
+
+  SimpleResponse(const SimpleResponse& from);
+
+  inline SimpleResponse& operator=(const SimpleResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SimpleResponse& default_instance();
+
+  void Swap(SimpleResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline SimpleResponse* New() const { return New(NULL); }
+
+  SimpleResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SimpleResponse& from);
+  void MergeFrom(const SimpleResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SimpleResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string value = 1;
+  void clear_value();
+  static const int kValueFieldNumber = 1;
+  const ::std::string& value() const;
+  void set_value(const ::std::string& value);
+  void set_value(const char* value);
+  void set_value(const char* value, size_t size);
+  ::std::string* mutable_value();
+  ::std::string* release_value();
+  void set_allocated_value(::std::string* value);
+
+  // @@protoc_insertion_point(class_scope:SimpleResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr value_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_MessageProtocol_2eproto();
+  friend void protobuf_AssignDesc_MessageProtocol_2eproto();
+  friend void protobuf_ShutdownFile_MessageProtocol_2eproto();
+
+  void InitAsDefaultInstance();
+  static SimpleResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class StartQuerySession : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:StartQuerySession) */ {
+ public:
+  StartQuerySession();
+  virtual ~StartQuerySession();
+
+  StartQuerySession(const StartQuerySession& from);
+
+  inline StartQuerySession& operator=(const StartQuerySession& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const StartQuerySession& default_instance();
+
+  void Swap(StartQuerySession* other);
+
+  // implements Message ----------------------------------------------
+
+  inline StartQuerySession* New() const { return New(NULL); }
+
+  StartQuerySession* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const StartQuerySession& from);
+  void MergeFrom(const StartQuerySession& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StartQuerySession* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 queryID = 1;
+  void clear_queryid();
+  static const int kQueryIDFieldNumber = 1;
+  ::google::protobuf::int32 queryid() const;
+  void set_queryid(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:StartQuerySession)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 queryid_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_MessageProtocol_2eproto();
+  friend void protobuf_AssignDesc_MessageProtocol_2eproto();
+  friend void protobuf_ShutdownFile_MessageProtocol_2eproto();
+
+  void InitAsDefaultInstance();
+  static StartQuerySession* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ContinueQuerySession : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ContinueQuerySession) */ {
+ public:
+  ContinueQuerySession();
+  virtual ~ContinueQuerySession();
+
+  ContinueQuerySession(const ContinueQuerySession& from);
+
+  inline ContinueQuerySession& operator=(const ContinueQuerySession& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ContinueQuerySession& default_instance();
+
+  void Swap(ContinueQuerySession* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ContinueQuerySession* New() const { return New(NULL); }
+
+  ContinueQuerySession* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ContinueQuerySession& from);
+  void MergeFrom(const ContinueQuerySession& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ContinueQuerySession* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 taskID = 1;
+  int taskid_size() const;
+  void clear_taskid();
+  static const int kTaskIDFieldNumber = 1;
+  ::google::protobuf::int32 taskid(int index) const;
+  void set_taskid(int index, ::google::protobuf::int32 value);
+  void add_taskid(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      taskid() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_taskid();
+
+  // optional int32 bodyIndex = 2;
+  void clear_bodyindex();
+  static const int kBodyIndexFieldNumber = 2;
+  ::google::protobuf::int32 bodyindex() const;
+  void set_bodyindex(::google::protobuf::int32 value);
+
+  // optional int32 operationIndex = 3;
+  void clear_operationindex();
+  static const int kOperationIndexFieldNumber = 3;
+  ::google::protobuf::int32 operationindex() const;
+  void set_operationindex(::google::protobuf::int32 value);
+
+  // optional string frameAsString = 4;
+  void clear_frameasstring();
+  static const int kFrameAsStringFieldNumber = 4;
+  const ::std::string& frameasstring() const;
+  void set_frameasstring(const ::std::string& value);
+  void set_frameasstring(const char* value);
+  void set_frameasstring(const char* value, size_t size);
+  ::std::string* mutable_frameasstring();
+  ::std::string* release_frameasstring();
+  void set_allocated_frameasstring(::std::string* frameasstring);
+
+  // @@protoc_insertion_point(class_scope:ContinueQuerySession)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > taskid_;
+  mutable int _taskid_cached_byte_size_;
+  ::google::protobuf::int32 bodyindex_;
+  ::google::protobuf::int32 operationindex_;
+  ::google::protobuf::internal::ArenaStringPtr frameasstring_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_MessageProtocol_2eproto();
+  friend void protobuf_AssignDesc_MessageProtocol_2eproto();
+  friend void protobuf_ShutdownFile_MessageProtocol_2eproto();
+
+  void InitAsDefaultInstance();
+  static ContinueQuerySession* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RemoteResults : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:RemoteResults) */ {
+ public:
+  RemoteResults();
+  virtual ~RemoteResults();
+
+  RemoteResults(const RemoteResults& from);
+
+  inline RemoteResults& operator=(const RemoteResults& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RemoteResults& default_instance();
+
+  void Swap(RemoteResults* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RemoteResults* New() const { return New(NULL); }
+
+  RemoteResults* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RemoteResults& from);
+  void MergeFrom(const RemoteResults& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RemoteResults* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 taskID = 1;
+  int taskid_size() const;
+  void clear_taskid();
+  static const int kTaskIDFieldNumber = 1;
+  ::google::protobuf::int32 taskid(int index) const;
+  void set_taskid(int index, ::google::protobuf::int32 value);
+  void add_taskid(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      taskid() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_taskid();
+
+  // optional string resultAsSet = 2;
+  void clear_resultasset();
+  static const int kResultAsSetFieldNumber = 2;
+  const ::std::string& resultasset() const;
+  void set_resultasset(const ::std::string& value);
+  void set_resultasset(const char* value);
+  void set_resultasset(const char* value, size_t size);
+  ::std::string* mutable_resultasset();
+  ::std::string* release_resultasset();
+  void set_allocated_resultasset(::std::string* resultasset);
+
+  // @@protoc_insertion_point(class_scope:RemoteResults)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > taskid_;
+  mutable int _taskid_cached_byte_size_;
+  ::google::protobuf::internal::ArenaStringPtr resultasset_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_MessageProtocol_2eproto();
+  friend void protobuf_AssignDesc_MessageProtocol_2eproto();
+  friend void protobuf_ShutdownFile_MessageProtocol_2eproto();
+
+  void InitAsDefaultInstance();
+  static RemoteResults* default_instance_;
 };
 // ===================================================================
 
@@ -289,114 +739,128 @@ inline void QueryServerRequest::set_rqid(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:QueryServerRequest.rqID)
 }
 
-// optional string a = 2;
-inline bool QueryServerRequest::has_a() const {
-  return msg_case() == kA;
+// optional int64 querySessionID = 2;
+inline void QueryServerRequest::clear_querysessionid() {
+  querysessionid_ = GOOGLE_LONGLONG(0);
 }
-inline void QueryServerRequest::set_has_a() {
-  _oneof_case_[0] = kA;
+inline ::google::protobuf::int64 QueryServerRequest::querysessionid() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.querySessionID)
+  return querysessionid_;
 }
-inline void QueryServerRequest::clear_a() {
-  if (has_a()) {
-    msg_.a_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void QueryServerRequest::set_querysessionid(::google::protobuf::int64 value) {
+  
+  querysessionid_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerRequest.querySessionID)
+}
+
+// optional .QueryServerMsgType msgType = 3;
+inline void QueryServerRequest::clear_msgtype() {
+  msgtype_ = 0;
+}
+inline ::QueryServerMsgType QueryServerRequest::msgtype() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.msgType)
+  return static_cast< ::QueryServerMsgType >(msgtype_);
+}
+inline void QueryServerRequest::set_msgtype(::QueryServerMsgType value) {
+  
+  msgtype_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerRequest.msgType)
+}
+
+// optional .StartQuerySession startQuerySession = 4;
+inline bool QueryServerRequest::has_startquerysession() const {
+  return msg_case() == kStartQuerySession;
+}
+inline void QueryServerRequest::set_has_startquerysession() {
+  _oneof_case_[0] = kStartQuerySession;
+}
+inline void QueryServerRequest::clear_startquerysession() {
+  if (has_startquerysession()) {
+    delete msg_.startquerysession_;
     clear_has_msg();
   }
 }
-inline const ::std::string& QueryServerRequest::a() const {
-  // @@protoc_insertion_point(field_get:QueryServerRequest.a)
-  if (has_a()) {
-    return msg_.a_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
+inline  const ::StartQuerySession& QueryServerRequest::startquerysession() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.startQuerySession)
+  return has_startquerysession()
+      ? *msg_.startquerysession_
+      : ::StartQuerySession::default_instance();
 }
-inline void QueryServerRequest::set_a(const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:QueryServerRequest.a)
-  if (!has_a()) {
+inline ::StartQuerySession* QueryServerRequest::mutable_startquerysession() {
+  if (!has_startquerysession()) {
     clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    set_has_startquerysession();
+    msg_.startquerysession_ = new ::StartQuerySession;
   }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:QueryServerRequest.a)
+  // @@protoc_insertion_point(field_mutable:QueryServerRequest.startQuerySession)
+  return msg_.startquerysession_;
 }
-inline void QueryServerRequest::set_a(const char* value) {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:QueryServerRequest.a)
-}
-inline void QueryServerRequest::set_a(const char* value, size_t size) {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:QueryServerRequest.a)
-}
-inline ::std::string* QueryServerRequest::mutable_a() {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_mutable:QueryServerRequest.a)
-  return msg_.a_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* QueryServerRequest::release_a() {
-  // @@protoc_insertion_point(field_release:QueryServerRequest.a)
-  if (has_a()) {
+inline ::StartQuerySession* QueryServerRequest::release_startquerysession() {
+  // @@protoc_insertion_point(field_release:QueryServerRequest.startQuerySession)
+  if (has_startquerysession()) {
     clear_has_msg();
-    return msg_.a_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::StartQuerySession* temp = msg_.startquerysession_;
+    msg_.startquerysession_ = NULL;
+    return temp;
   } else {
     return NULL;
   }
 }
-inline void QueryServerRequest::set_allocated_a(::std::string* a) {
-  if (!has_a()) {
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
+inline void QueryServerRequest::set_allocated_startquerysession(::StartQuerySession* startquerysession) {
   clear_msg();
-  if (a != NULL) {
-    set_has_a();
-    msg_.a_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-        a);
+  if (startquerysession) {
+    set_has_startquerysession();
+    msg_.startquerysession_ = startquerysession;
   }
-  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.a)
+  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.startQuerySession)
 }
 
-// optional int32 x = 3;
-inline bool QueryServerRequest::has_x() const {
-  return msg_case() == kX;
+// optional .ContinueQuerySession continueQuerySession = 6;
+inline bool QueryServerRequest::has_continuequerysession() const {
+  return msg_case() == kContinueQuerySession;
 }
-inline void QueryServerRequest::set_has_x() {
-  _oneof_case_[0] = kX;
+inline void QueryServerRequest::set_has_continuequerysession() {
+  _oneof_case_[0] = kContinueQuerySession;
 }
-inline void QueryServerRequest::clear_x() {
-  if (has_x()) {
-    msg_.x_ = 0;
+inline void QueryServerRequest::clear_continuequerysession() {
+  if (has_continuequerysession()) {
+    delete msg_.continuequerysession_;
     clear_has_msg();
   }
 }
-inline ::google::protobuf::int32 QueryServerRequest::x() const {
-  // @@protoc_insertion_point(field_get:QueryServerRequest.x)
-  if (has_x()) {
-    return msg_.x_;
-  }
-  return 0;
+inline  const ::ContinueQuerySession& QueryServerRequest::continuequerysession() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.continueQuerySession)
+  return has_continuequerysession()
+      ? *msg_.continuequerysession_
+      : ::ContinueQuerySession::default_instance();
 }
-inline void QueryServerRequest::set_x(::google::protobuf::int32 value) {
-  if (!has_x()) {
+inline ::ContinueQuerySession* QueryServerRequest::mutable_continuequerysession() {
+  if (!has_continuequerysession()) {
     clear_msg();
-    set_has_x();
+    set_has_continuequerysession();
+    msg_.continuequerysession_ = new ::ContinueQuerySession;
   }
-  msg_.x_ = value;
-  // @@protoc_insertion_point(field_set:QueryServerRequest.x)
+  // @@protoc_insertion_point(field_mutable:QueryServerRequest.continueQuerySession)
+  return msg_.continuequerysession_;
+}
+inline ::ContinueQuerySession* QueryServerRequest::release_continuequerysession() {
+  // @@protoc_insertion_point(field_release:QueryServerRequest.continueQuerySession)
+  if (has_continuequerysession()) {
+    clear_has_msg();
+    ::ContinueQuerySession* temp = msg_.continuequerysession_;
+    msg_.continuequerysession_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void QueryServerRequest::set_allocated_continuequerysession(::ContinueQuerySession* continuequerysession) {
+  clear_msg();
+  if (continuequerysession) {
+    set_has_continuequerysession();
+    msg_.continuequerysession_ = continuequerysession;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.continueQuerySession)
 }
 
 inline bool QueryServerRequest::has_msg() const {
@@ -426,7 +890,398 @@ inline void QueryServerResponse::set_rqid(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:QueryServerResponse.rqID)
 }
 
+// optional int64 querySessionID = 2;
+inline void QueryServerResponse::clear_querysessionid() {
+  querysessionid_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 QueryServerResponse::querysessionid() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.querySessionID)
+  return querysessionid_;
+}
+inline void QueryServerResponse::set_querysessionid(::google::protobuf::int64 value) {
+  
+  querysessionid_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerResponse.querySessionID)
+}
+
+// optional .QueryServerMsgType msgType = 3;
+inline void QueryServerResponse::clear_msgtype() {
+  msgtype_ = 0;
+}
+inline ::QueryServerMsgType QueryServerResponse::msgtype() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.msgType)
+  return static_cast< ::QueryServerMsgType >(msgtype_);
+}
+inline void QueryServerResponse::set_msgtype(::QueryServerMsgType value) {
+  
+  msgtype_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerResponse.msgType)
+}
+
+// optional .SimpleResponse simpleResponse = 4;
+inline bool QueryServerResponse::has_simpleresponse() const {
+  return msg_case() == kSimpleResponse;
+}
+inline void QueryServerResponse::set_has_simpleresponse() {
+  _oneof_case_[0] = kSimpleResponse;
+}
+inline void QueryServerResponse::clear_simpleresponse() {
+  if (has_simpleresponse()) {
+    delete msg_.simpleresponse_;
+    clear_has_msg();
+  }
+}
+inline  const ::SimpleResponse& QueryServerResponse::simpleresponse() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.simpleResponse)
+  return has_simpleresponse()
+      ? *msg_.simpleresponse_
+      : ::SimpleResponse::default_instance();
+}
+inline ::SimpleResponse* QueryServerResponse::mutable_simpleresponse() {
+  if (!has_simpleresponse()) {
+    clear_msg();
+    set_has_simpleresponse();
+    msg_.simpleresponse_ = new ::SimpleResponse;
+  }
+  // @@protoc_insertion_point(field_mutable:QueryServerResponse.simpleResponse)
+  return msg_.simpleresponse_;
+}
+inline ::SimpleResponse* QueryServerResponse::release_simpleresponse() {
+  // @@protoc_insertion_point(field_release:QueryServerResponse.simpleResponse)
+  if (has_simpleresponse()) {
+    clear_has_msg();
+    ::SimpleResponse* temp = msg_.simpleresponse_;
+    msg_.simpleresponse_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void QueryServerResponse::set_allocated_simpleresponse(::SimpleResponse* simpleresponse) {
+  clear_msg();
+  if (simpleresponse) {
+    set_has_simpleresponse();
+    msg_.simpleresponse_ = simpleresponse;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerResponse.simpleResponse)
+}
+
+// optional .RemoteResults remoteResults = 5;
+inline bool QueryServerResponse::has_remoteresults() const {
+  return msg_case() == kRemoteResults;
+}
+inline void QueryServerResponse::set_has_remoteresults() {
+  _oneof_case_[0] = kRemoteResults;
+}
+inline void QueryServerResponse::clear_remoteresults() {
+  if (has_remoteresults()) {
+    delete msg_.remoteresults_;
+    clear_has_msg();
+  }
+}
+inline  const ::RemoteResults& QueryServerResponse::remoteresults() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.remoteResults)
+  return has_remoteresults()
+      ? *msg_.remoteresults_
+      : ::RemoteResults::default_instance();
+}
+inline ::RemoteResults* QueryServerResponse::mutable_remoteresults() {
+  if (!has_remoteresults()) {
+    clear_msg();
+    set_has_remoteresults();
+    msg_.remoteresults_ = new ::RemoteResults;
+  }
+  // @@protoc_insertion_point(field_mutable:QueryServerResponse.remoteResults)
+  return msg_.remoteresults_;
+}
+inline ::RemoteResults* QueryServerResponse::release_remoteresults() {
+  // @@protoc_insertion_point(field_release:QueryServerResponse.remoteResults)
+  if (has_remoteresults()) {
+    clear_has_msg();
+    ::RemoteResults* temp = msg_.remoteresults_;
+    msg_.remoteresults_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void QueryServerResponse::set_allocated_remoteresults(::RemoteResults* remoteresults) {
+  clear_msg();
+  if (remoteresults) {
+    set_has_remoteresults();
+    msg_.remoteresults_ = remoteresults;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerResponse.remoteResults)
+}
+
+inline bool QueryServerResponse::has_msg() const {
+  return msg_case() != MSG_NOT_SET;
+}
+inline void QueryServerResponse::clear_has_msg() {
+  _oneof_case_[0] = MSG_NOT_SET;
+}
+inline QueryServerResponse::MsgCase QueryServerResponse::msg_case() const {
+  return QueryServerResponse::MsgCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// SimpleResponse
+
+// optional string value = 1;
+inline void SimpleResponse::clear_value() {
+  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SimpleResponse::value() const {
+  // @@protoc_insertion_point(field_get:SimpleResponse.value)
+  return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SimpleResponse::set_value(const ::std::string& value) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SimpleResponse.value)
+}
+inline void SimpleResponse::set_value(const char* value) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SimpleResponse.value)
+}
+inline void SimpleResponse::set_value(const char* value, size_t size) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SimpleResponse.value)
+}
+inline ::std::string* SimpleResponse::mutable_value() {
+  
+  // @@protoc_insertion_point(field_mutable:SimpleResponse.value)
+  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SimpleResponse::release_value() {
+  // @@protoc_insertion_point(field_release:SimpleResponse.value)
+  
+  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SimpleResponse::set_allocated_value(::std::string* value) {
+  if (value != NULL) {
+    
+  } else {
+    
+  }
+  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set_allocated:SimpleResponse.value)
+}
+
+// -------------------------------------------------------------------
+
+// StartQuerySession
+
+// optional int32 queryID = 1;
+inline void StartQuerySession::clear_queryid() {
+  queryid_ = 0;
+}
+inline ::google::protobuf::int32 StartQuerySession::queryid() const {
+  // @@protoc_insertion_point(field_get:StartQuerySession.queryID)
+  return queryid_;
+}
+inline void StartQuerySession::set_queryid(::google::protobuf::int32 value) {
+  
+  queryid_ = value;
+  // @@protoc_insertion_point(field_set:StartQuerySession.queryID)
+}
+
+// -------------------------------------------------------------------
+
+// ContinueQuerySession
+
+// repeated int32 taskID = 1;
+inline int ContinueQuerySession::taskid_size() const {
+  return taskid_.size();
+}
+inline void ContinueQuerySession::clear_taskid() {
+  taskid_.Clear();
+}
+inline ::google::protobuf::int32 ContinueQuerySession::taskid(int index) const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.taskID)
+  return taskid_.Get(index);
+}
+inline void ContinueQuerySession::set_taskid(int index, ::google::protobuf::int32 value) {
+  taskid_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.taskID)
+}
+inline void ContinueQuerySession::add_taskid(::google::protobuf::int32 value) {
+  taskid_.Add(value);
+  // @@protoc_insertion_point(field_add:ContinueQuerySession.taskID)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+ContinueQuerySession::taskid() const {
+  // @@protoc_insertion_point(field_list:ContinueQuerySession.taskID)
+  return taskid_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+ContinueQuerySession::mutable_taskid() {
+  // @@protoc_insertion_point(field_mutable_list:ContinueQuerySession.taskID)
+  return &taskid_;
+}
+
+// optional int32 bodyIndex = 2;
+inline void ContinueQuerySession::clear_bodyindex() {
+  bodyindex_ = 0;
+}
+inline ::google::protobuf::int32 ContinueQuerySession::bodyindex() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.bodyIndex)
+  return bodyindex_;
+}
+inline void ContinueQuerySession::set_bodyindex(::google::protobuf::int32 value) {
+  
+  bodyindex_ = value;
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.bodyIndex)
+}
+
+// optional int32 operationIndex = 3;
+inline void ContinueQuerySession::clear_operationindex() {
+  operationindex_ = 0;
+}
+inline ::google::protobuf::int32 ContinueQuerySession::operationindex() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.operationIndex)
+  return operationindex_;
+}
+inline void ContinueQuerySession::set_operationindex(::google::protobuf::int32 value) {
+  
+  operationindex_ = value;
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.operationIndex)
+}
+
+// optional string frameAsString = 4;
+inline void ContinueQuerySession::clear_frameasstring() {
+  frameasstring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ContinueQuerySession::frameasstring() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.frameAsString)
+  return frameasstring_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ContinueQuerySession::set_frameasstring(const ::std::string& value) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.frameAsString)
+}
+inline void ContinueQuerySession::set_frameasstring(const char* value) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ContinueQuerySession.frameAsString)
+}
+inline void ContinueQuerySession::set_frameasstring(const char* value, size_t size) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ContinueQuerySession.frameAsString)
+}
+inline ::std::string* ContinueQuerySession::mutable_frameasstring() {
+  
+  // @@protoc_insertion_point(field_mutable:ContinueQuerySession.frameAsString)
+  return frameasstring_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ContinueQuerySession::release_frameasstring() {
+  // @@protoc_insertion_point(field_release:ContinueQuerySession.frameAsString)
+  
+  return frameasstring_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ContinueQuerySession::set_allocated_frameasstring(::std::string* frameasstring) {
+  if (frameasstring != NULL) {
+    
+  } else {
+    
+  }
+  frameasstring_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), frameasstring);
+  // @@protoc_insertion_point(field_set_allocated:ContinueQuerySession.frameAsString)
+}
+
+// -------------------------------------------------------------------
+
+// RemoteResults
+
+// repeated int32 taskID = 1;
+inline int RemoteResults::taskid_size() const {
+  return taskid_.size();
+}
+inline void RemoteResults::clear_taskid() {
+  taskid_.Clear();
+}
+inline ::google::protobuf::int32 RemoteResults::taskid(int index) const {
+  // @@protoc_insertion_point(field_get:RemoteResults.taskID)
+  return taskid_.Get(index);
+}
+inline void RemoteResults::set_taskid(int index, ::google::protobuf::int32 value) {
+  taskid_.Set(index, value);
+  // @@protoc_insertion_point(field_set:RemoteResults.taskID)
+}
+inline void RemoteResults::add_taskid(::google::protobuf::int32 value) {
+  taskid_.Add(value);
+  // @@protoc_insertion_point(field_add:RemoteResults.taskID)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RemoteResults::taskid() const {
+  // @@protoc_insertion_point(field_list:RemoteResults.taskID)
+  return taskid_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RemoteResults::mutable_taskid() {
+  // @@protoc_insertion_point(field_mutable_list:RemoteResults.taskID)
+  return &taskid_;
+}
+
+// optional string resultAsSet = 2;
+inline void RemoteResults::clear_resultasset() {
+  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RemoteResults::resultasset() const {
+  // @@protoc_insertion_point(field_get:RemoteResults.resultAsSet)
+  return resultasset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RemoteResults::set_resultasset(const ::std::string& value) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:RemoteResults.resultAsSet)
+}
+inline void RemoteResults::set_resultasset(const char* value) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:RemoteResults.resultAsSet)
+}
+inline void RemoteResults::set_resultasset(const char* value, size_t size) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:RemoteResults.resultAsSet)
+}
+inline ::std::string* RemoteResults::mutable_resultasset() {
+  
+  // @@protoc_insertion_point(field_mutable:RemoteResults.resultAsSet)
+  return resultasset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RemoteResults::release_resultasset() {
+  // @@protoc_insertion_point(field_release:RemoteResults.resultAsSet)
+  
+  return resultasset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RemoteResults::set_allocated_resultasset(::std::string* resultasset) {
+  if (resultasset != NULL) {
+    
+  } else {
+    
+  }
+  resultasset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultasset);
+  // @@protoc_insertion_point(field_set_allocated:RemoteResults.resultAsSet)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

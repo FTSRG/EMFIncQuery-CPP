@@ -1,22 +1,55 @@
 syntax = "proto3";
 	
 enum QueryServerMsgType{
-	START_QUERY = 0;
-	TERMINATE_QUERY = 1;
-	CONTINUE_QUERY = 2;
+	START_QUERY_SESSION = 0;		
+	TERMINATE_QUERY_SESSION = 1;
+	CONTINUE_QUERY_SESSION = 2;
 }
 
 message QueryServerRequest
 {
 	int64 rqID = 1;
+	int64 querySessionID = 2;	
+	QueryServerMsgType msgType = 3;
 	
-	oneof msg{
-		string a = 2;
-		int32 x = 3;
+	oneof msg {
+		StartQuerySession startQuerySession = 4;
+		// TerminateQuerySession terminateQuerySession = 5
+		ContinueQuerySession continueQuerySession = 6;
 	}	
 }
+
 message QueryServerResponse
 {
 	int64 rqID = 1;
+	int64 querySessionID = 2;
+	QueryServerMsgType msgType = 3;
+
+	oneof msg {
+		SimpleResponse simpleResponse = 4;
+		RemoteResults remoteResults = 5;
+	}
 }
+
+message SimpleResponse{
+	string value = 1;
+}
+message StartQuerySession{
+	int32 queryID = 1;
+}
+
+message ContinueQuerySession
+{
+	repeated int32 taskID = 1;
+	int32 bodyIndex = 2;
+	int32 operationIndex = 3;
+	string frameAsString = 4;
+}
+
+message RemoteResults
+{
+	repeated int32 taskID = 1;
+	string resultAsSet = 2;
+}
+
 

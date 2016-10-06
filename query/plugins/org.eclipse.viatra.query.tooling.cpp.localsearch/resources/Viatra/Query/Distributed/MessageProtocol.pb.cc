@@ -23,12 +23,28 @@ const ::google::protobuf::Descriptor* QueryServerRequest_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   QueryServerRequest_reflection_ = NULL;
 struct QueryServerRequestOneofInstance {
-  ::google::protobuf::internal::ArenaStringPtr a_;
-  ::google::protobuf::int32 x_;
+  const ::StartQuerySession* startquerysession_;
+  const ::ContinueQuerySession* continuequerysession_;
 }* QueryServerRequest_default_oneof_instance_ = NULL;
 const ::google::protobuf::Descriptor* QueryServerResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   QueryServerResponse_reflection_ = NULL;
+struct QueryServerResponseOneofInstance {
+  const ::SimpleResponse* simpleresponse_;
+  const ::RemoteResults* remoteresults_;
+}* QueryServerResponse_default_oneof_instance_ = NULL;
+const ::google::protobuf::Descriptor* SimpleResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SimpleResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* StartQuerySession_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  StartQuerySession_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ContinueQuerySession_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ContinueQuerySession_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RemoteResults_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RemoteResults_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* QueryServerMsgType_descriptor_ = NULL;
 
 }  // namespace
@@ -42,10 +58,12 @@ void protobuf_AssignDesc_MessageProtocol_2eproto() {
       "MessageProtocol.proto");
   GOOGLE_CHECK(file != NULL);
   QueryServerRequest_descriptor_ = file->message_type(0);
-  static const int QueryServerRequest_offsets_[4] = {
+  static const int QueryServerRequest_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, rqid_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerRequest_default_oneof_instance_, a_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerRequest_default_oneof_instance_, x_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, querysessionid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, msgtype_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerRequest_default_oneof_instance_, startquerysession_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerRequest_default_oneof_instance_, continuequerysession_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, msg_),
   };
   QueryServerRequest_reflection_ =
@@ -62,8 +80,13 @@ void protobuf_AssignDesc_MessageProtocol_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerRequest, _is_default_instance_));
   QueryServerResponse_descriptor_ = file->message_type(1);
-  static const int QueryServerResponse_offsets_[1] = {
+  static const int QueryServerResponse_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, rqid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, querysessionid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, msgtype_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerResponse_default_oneof_instance_, simpleresponse_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(QueryServerResponse_default_oneof_instance_, remoteresults_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, msg_),
   };
   QueryServerResponse_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -73,9 +96,75 @@ void protobuf_AssignDesc_MessageProtocol_2eproto() {
       -1,
       -1,
       -1,
+      QueryServerResponse_default_oneof_instance_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, _oneof_case_[0]),
       sizeof(QueryServerResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QueryServerResponse, _is_default_instance_));
+  SimpleResponse_descriptor_ = file->message_type(2);
+  static const int SimpleResponse_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimpleResponse, value_),
+  };
+  SimpleResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      SimpleResponse_descriptor_,
+      SimpleResponse::default_instance_,
+      SimpleResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(SimpleResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimpleResponse, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimpleResponse, _is_default_instance_));
+  StartQuerySession_descriptor_ = file->message_type(3);
+  static const int StartQuerySession_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySession, queryid_),
+  };
+  StartQuerySession_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      StartQuerySession_descriptor_,
+      StartQuerySession::default_instance_,
+      StartQuerySession_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(StartQuerySession),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySession, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySession, _is_default_instance_));
+  ContinueQuerySession_descriptor_ = file->message_type(4);
+  static const int ContinueQuerySession_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, taskid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, bodyindex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, operationindex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, frameasstring_),
+  };
+  ContinueQuerySession_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      ContinueQuerySession_descriptor_,
+      ContinueQuerySession::default_instance_,
+      ContinueQuerySession_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(ContinueQuerySession),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, _is_default_instance_));
+  RemoteResults_descriptor_ = file->message_type(5);
+  static const int RemoteResults_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, taskid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, resultasset_),
+  };
+  RemoteResults_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RemoteResults_descriptor_,
+      RemoteResults::default_instance_,
+      RemoteResults_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RemoteResults),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, _is_default_instance_));
   QueryServerMsgType_descriptor_ = file->enum_type(0);
 }
 
@@ -94,6 +183,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
       QueryServerRequest_descriptor_, &QueryServerRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       QueryServerResponse_descriptor_, &QueryServerResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      SimpleResponse_descriptor_, &SimpleResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      StartQuerySession_descriptor_, &StartQuerySession::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      ContinueQuerySession_descriptor_, &ContinueQuerySession::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RemoteResults_descriptor_, &RemoteResults::default_instance());
 }
 
 }  // namespace
@@ -103,7 +200,16 @@ void protobuf_ShutdownFile_MessageProtocol_2eproto() {
   delete QueryServerRequest_default_oneof_instance_;
   delete QueryServerRequest_reflection_;
   delete QueryServerResponse::default_instance_;
+  delete QueryServerResponse_default_oneof_instance_;
   delete QueryServerResponse_reflection_;
+  delete SimpleResponse::default_instance_;
+  delete SimpleResponse_reflection_;
+  delete StartQuerySession::default_instance_;
+  delete StartQuerySession_reflection_;
+  delete ContinueQuerySession::default_instance_;
+  delete ContinueQuerySession_reflection_;
+  delete RemoteResults::default_instance_;
+  delete RemoteResults_reflection_;
 }
 
 void protobuf_AddDesc_MessageProtocol_2eproto() GOOGLE_ATTRIBUTE_COLD;
@@ -114,19 +220,42 @@ void protobuf_AddDesc_MessageProtocol_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025MessageProtocol.proto\"C\n\022QueryServerRe"
-    "quest\022\014\n\004rqID\030\001 \001(\003\022\013\n\001a\030\002 \001(\tH\000\022\013\n\001x\030\003 "
-    "\001(\005H\000B\005\n\003msg\"#\n\023QueryServerResponse\022\014\n\004r"
-    "qID\030\001 \001(\003*N\n\022QueryServerMsgType\022\017\n\013START"
-    "_QUERY\020\000\022\023\n\017TERMINATE_QUERY\020\001\022\022\n\016CONTINU"
-    "E_QUERY\020\002b\006proto3", 217);
+    "\n\025MessageProtocol.proto\"\317\001\n\022QueryServerR"
+    "equest\022\014\n\004rqID\030\001 \001(\003\022\026\n\016querySessionID\030\002"
+    " \001(\003\022$\n\007msgType\030\003 \001(\0162\023.QueryServerMsgTy"
+    "pe\022/\n\021startQuerySession\030\004 \001(\0132\022.StartQue"
+    "rySessionH\000\0225\n\024continueQuerySession\030\006 \001("
+    "\0132\025.ContinueQuerySessionH\000B\005\n\003msg\"\274\001\n\023Qu"
+    "eryServerResponse\022\014\n\004rqID\030\001 \001(\003\022\026\n\016query"
+    "SessionID\030\002 \001(\003\022$\n\007msgType\030\003 \001(\0162\023.Query"
+    "ServerMsgType\022)\n\016simpleResponse\030\004 \001(\0132\017."
+    "SimpleResponseH\000\022\'\n\rremoteResults\030\005 \001(\0132"
+    "\016.RemoteResultsH\000B\005\n\003msg\"\037\n\016SimpleRespon"
+    "se\022\r\n\005value\030\001 \001(\t\"$\n\021StartQuerySession\022\017"
+    "\n\007queryID\030\001 \001(\005\"h\n\024ContinueQuerySession\022"
+    "\016\n\006taskID\030\001 \003(\005\022\021\n\tbodyIndex\030\002 \001(\005\022\026\n\016op"
+    "erationIndex\030\003 \001(\005\022\025\n\rframeAsString\030\004 \001("
+    "\t\"4\n\rRemoteResults\022\016\n\006taskID\030\001 \003(\005\022\023\n\013re"
+    "sultAsSet\030\002 \001(\t*f\n\022QueryServerMsgType\022\027\n"
+    "\023START_QUERY_SESSION\020\000\022\033\n\027TERMINATE_QUER"
+    "Y_SESSION\020\001\022\032\n\026CONTINUE_QUERY_SESSION\020\002b"
+    "\006proto3", 767);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageProtocol.proto", &protobuf_RegisterTypes);
   QueryServerRequest::default_instance_ = new QueryServerRequest();
   QueryServerRequest_default_oneof_instance_ = new QueryServerRequestOneofInstance();
   QueryServerResponse::default_instance_ = new QueryServerResponse();
+  QueryServerResponse_default_oneof_instance_ = new QueryServerResponseOneofInstance();
+  SimpleResponse::default_instance_ = new SimpleResponse();
+  StartQuerySession::default_instance_ = new StartQuerySession();
+  ContinueQuerySession::default_instance_ = new ContinueQuerySession();
+  RemoteResults::default_instance_ = new RemoteResults();
   QueryServerRequest::default_instance_->InitAsDefaultInstance();
   QueryServerResponse::default_instance_->InitAsDefaultInstance();
+  SimpleResponse::default_instance_->InitAsDefaultInstance();
+  StartQuerySession::default_instance_->InitAsDefaultInstance();
+  ContinueQuerySession::default_instance_->InitAsDefaultInstance();
+  RemoteResults::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_MessageProtocol_2eproto);
 }
 
@@ -156,8 +285,10 @@ bool QueryServerMsgType_IsValid(int value) {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int QueryServerRequest::kRqIDFieldNumber;
-const int QueryServerRequest::kAFieldNumber;
-const int QueryServerRequest::kXFieldNumber;
+const int QueryServerRequest::kQuerySessionIDFieldNumber;
+const int QueryServerRequest::kMsgTypeFieldNumber;
+const int QueryServerRequest::kStartQuerySessionFieldNumber;
+const int QueryServerRequest::kContinueQuerySessionFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 QueryServerRequest::QueryServerRequest()
@@ -168,8 +299,8 @@ QueryServerRequest::QueryServerRequest()
 
 void QueryServerRequest::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  QueryServerRequest_default_oneof_instance_->a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  QueryServerRequest_default_oneof_instance_->x_ = 0;
+  QueryServerRequest_default_oneof_instance_->startquerysession_ = const_cast< ::StartQuerySession*>(&::StartQuerySession::default_instance());
+  QueryServerRequest_default_oneof_instance_->continuequerysession_ = const_cast< ::ContinueQuerySession*>(&::ContinueQuerySession::default_instance());
 }
 
 QueryServerRequest::QueryServerRequest(const QueryServerRequest& from)
@@ -182,9 +313,10 @@ QueryServerRequest::QueryServerRequest(const QueryServerRequest& from)
 
 void QueryServerRequest::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   rqid_ = GOOGLE_LONGLONG(0);
+  querysessionid_ = GOOGLE_LONGLONG(0);
+  msgtype_ = 0;
   clear_has_msg();
 }
 
@@ -229,12 +361,12 @@ QueryServerRequest* QueryServerRequest::New(::google::protobuf::Arena* arena) co
 void QueryServerRequest::clear_msg() {
 // @@protoc_insertion_point(one_of_clear_start:QueryServerRequest)
   switch(msg_case()) {
-    case kA: {
-      msg_.a_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    case kStartQuerySession: {
+      delete msg_.startquerysession_;
       break;
     }
-    case kX: {
-      // No need to clear
+    case kContinueQuerySession: {
+      delete msg_.continuequerysession_;
       break;
     }
     case MSG_NOT_SET: {
@@ -247,7 +379,27 @@ void QueryServerRequest::clear_msg() {
 
 void QueryServerRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:QueryServerRequest)
-  rqid_ = GOOGLE_LONGLONG(0);
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(QueryServerRequest, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<QueryServerRequest*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(rqid_, msgtype_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
   clear_msg();
 }
 
@@ -271,36 +423,60 @@ bool QueryServerRequest::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_a;
+        if (input->ExpectTag(16)) goto parse_querySessionID;
         break;
       }
 
-      // optional string a = 2;
+      // optional int64 querySessionID = 2;
       case 2: {
-        if (tag == 18) {
-         parse_a:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_a()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->a().data(), this->a().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "QueryServerRequest.a"));
+        if (tag == 16) {
+         parse_querySessionID:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &querysessionid_)));
+
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_x;
+        if (input->ExpectTag(24)) goto parse_msgType;
         break;
       }
 
-      // optional int32 x = 3;
+      // optional .QueryServerMsgType msgType = 3;
       case 3: {
         if (tag == 24) {
-         parse_x:
-          clear_msg();
+         parse_msgType:
+          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &msg_.x_)));
-          set_has_x();
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_msgtype(static_cast< ::QueryServerMsgType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_startQuerySession;
+        break;
+      }
+
+      // optional .StartQuerySession startQuerySession = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_startQuerySession:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_startquerysession()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_continueQuerySession;
+        break;
+      }
+
+      // optional .ContinueQuerySession continueQuerySession = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_continueQuerySession:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_continuequerysession()));
         } else {
           goto handle_unusual;
         }
@@ -337,19 +513,27 @@ void QueryServerRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->rqid(), output);
   }
 
-  // optional string a = 2;
-  if (has_a()) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->a().data(), this->a().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "QueryServerRequest.a");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->a(), output);
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->querysessionid(), output);
   }
 
-  // optional int32 x = 3;
-  if (has_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->x(), output);
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->msgtype(), output);
+  }
+
+  // optional .StartQuerySession startQuerySession = 4;
+  if (has_startquerysession()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *msg_.startquerysession_, output);
+  }
+
+  // optional .ContinueQuerySession continueQuerySession = 6;
+  if (has_continuequerysession()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, *msg_.continuequerysession_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:QueryServerRequest)
@@ -363,20 +547,29 @@ void QueryServerRequest::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->rqid(), target);
   }
 
-  // optional string a = 2;
-  if (has_a()) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->a().data(), this->a().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "QueryServerRequest.a");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->a(), target);
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->querysessionid(), target);
   }
 
-  // optional int32 x = 3;
-  if (has_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->x(), target);
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->msgtype(), target);
+  }
+
+  // optional .StartQuerySession startQuerySession = 4;
+  if (has_startquerysession()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        4, *msg_.startquerysession_, false, target);
+  }
+
+  // optional .ContinueQuerySession continueQuerySession = 6;
+  if (has_continuequerysession()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        6, *msg_.continuequerysession_, false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:QueryServerRequest)
@@ -394,19 +587,32 @@ int QueryServerRequest::ByteSize() const {
         this->rqid());
   }
 
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->querysessionid());
+  }
+
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgtype());
+  }
+
   switch (msg_case()) {
-    // optional string a = 2;
-    case kA: {
+    // optional .StartQuerySession startQuerySession = 4;
+    case kStartQuerySession: {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->a());
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *msg_.startquerysession_);
       break;
     }
-    // optional int32 x = 3;
-    case kX: {
+    // optional .ContinueQuerySession continueQuerySession = 6;
+    case kContinueQuerySession: {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->x());
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *msg_.continuequerysession_);
       break;
     }
     case MSG_NOT_SET: {
@@ -442,12 +648,12 @@ void QueryServerRequest::MergeFrom(const QueryServerRequest& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   switch (from.msg_case()) {
-    case kA: {
-      set_a(from.a());
+    case kStartQuerySession: {
+      mutable_startquerysession()->::StartQuerySession::MergeFrom(from.startquerysession());
       break;
     }
-    case kX: {
-      set_x(from.x());
+    case kContinueQuerySession: {
+      mutable_continuequerysession()->::ContinueQuerySession::MergeFrom(from.continuequerysession());
       break;
     }
     case MSG_NOT_SET: {
@@ -456,6 +662,12 @@ void QueryServerRequest::MergeFrom(const QueryServerRequest& from) {
   }
   if (from.rqid() != 0) {
     set_rqid(from.rqid());
+  }
+  if (from.querysessionid() != 0) {
+    set_querysessionid(from.querysessionid());
+  }
+  if (from.msgtype() != 0) {
+    set_msgtype(from.msgtype());
   }
 }
 
@@ -484,6 +696,8 @@ void QueryServerRequest::Swap(QueryServerRequest* other) {
 }
 void QueryServerRequest::InternalSwap(QueryServerRequest* other) {
   std::swap(rqid_, other->rqid_);
+  std::swap(querysessionid_, other->querysessionid_);
+  std::swap(msgtype_, other->msgtype_);
   std::swap(msg_, other->msg_);
   std::swap(_oneof_case_[0], other->_oneof_case_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -515,114 +729,128 @@ void QueryServerRequest::clear_rqid() {
   // @@protoc_insertion_point(field_set:QueryServerRequest.rqID)
 }
 
-// optional string a = 2;
-bool QueryServerRequest::has_a() const {
-  return msg_case() == kA;
+// optional int64 querySessionID = 2;
+void QueryServerRequest::clear_querysessionid() {
+  querysessionid_ = GOOGLE_LONGLONG(0);
 }
-void QueryServerRequest::set_has_a() {
-  _oneof_case_[0] = kA;
+ ::google::protobuf::int64 QueryServerRequest::querysessionid() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.querySessionID)
+  return querysessionid_;
 }
-void QueryServerRequest::clear_a() {
-  if (has_a()) {
-    msg_.a_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ void QueryServerRequest::set_querysessionid(::google::protobuf::int64 value) {
+  
+  querysessionid_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerRequest.querySessionID)
+}
+
+// optional .QueryServerMsgType msgType = 3;
+void QueryServerRequest::clear_msgtype() {
+  msgtype_ = 0;
+}
+ ::QueryServerMsgType QueryServerRequest::msgtype() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.msgType)
+  return static_cast< ::QueryServerMsgType >(msgtype_);
+}
+ void QueryServerRequest::set_msgtype(::QueryServerMsgType value) {
+  
+  msgtype_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerRequest.msgType)
+}
+
+// optional .StartQuerySession startQuerySession = 4;
+bool QueryServerRequest::has_startquerysession() const {
+  return msg_case() == kStartQuerySession;
+}
+void QueryServerRequest::set_has_startquerysession() {
+  _oneof_case_[0] = kStartQuerySession;
+}
+void QueryServerRequest::clear_startquerysession() {
+  if (has_startquerysession()) {
+    delete msg_.startquerysession_;
     clear_has_msg();
   }
 }
- const ::std::string& QueryServerRequest::a() const {
-  // @@protoc_insertion_point(field_get:QueryServerRequest.a)
-  if (has_a()) {
-    return msg_.a_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
+ const ::StartQuerySession& QueryServerRequest::startquerysession() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.startQuerySession)
+  return has_startquerysession()
+      ? *msg_.startquerysession_
+      : ::StartQuerySession::default_instance();
 }
- void QueryServerRequest::set_a(const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:QueryServerRequest.a)
-  if (!has_a()) {
+::StartQuerySession* QueryServerRequest::mutable_startquerysession() {
+  if (!has_startquerysession()) {
     clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    set_has_startquerysession();
+    msg_.startquerysession_ = new ::StartQuerySession;
   }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:QueryServerRequest.a)
+  // @@protoc_insertion_point(field_mutable:QueryServerRequest.startQuerySession)
+  return msg_.startquerysession_;
 }
- void QueryServerRequest::set_a(const char* value) {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:QueryServerRequest.a)
-}
- void QueryServerRequest::set_a(const char* value, size_t size) {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  msg_.a_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:QueryServerRequest.a)
-}
- ::std::string* QueryServerRequest::mutable_a() {
-  if (!has_a()) {
-    clear_msg();
-    set_has_a();
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_mutable:QueryServerRequest.a)
-  return msg_.a_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* QueryServerRequest::release_a() {
-  // @@protoc_insertion_point(field_release:QueryServerRequest.a)
-  if (has_a()) {
+::StartQuerySession* QueryServerRequest::release_startquerysession() {
+  // @@protoc_insertion_point(field_release:QueryServerRequest.startQuerySession)
+  if (has_startquerysession()) {
     clear_has_msg();
-    return msg_.a_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::StartQuerySession* temp = msg_.startquerysession_;
+    msg_.startquerysession_ = NULL;
+    return temp;
   } else {
     return NULL;
   }
 }
- void QueryServerRequest::set_allocated_a(::std::string* a) {
-  if (!has_a()) {
-    msg_.a_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
+void QueryServerRequest::set_allocated_startquerysession(::StartQuerySession* startquerysession) {
   clear_msg();
-  if (a != NULL) {
-    set_has_a();
-    msg_.a_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-        a);
+  if (startquerysession) {
+    set_has_startquerysession();
+    msg_.startquerysession_ = startquerysession;
   }
-  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.a)
+  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.startQuerySession)
 }
 
-// optional int32 x = 3;
-bool QueryServerRequest::has_x() const {
-  return msg_case() == kX;
+// optional .ContinueQuerySession continueQuerySession = 6;
+bool QueryServerRequest::has_continuequerysession() const {
+  return msg_case() == kContinueQuerySession;
 }
-void QueryServerRequest::set_has_x() {
-  _oneof_case_[0] = kX;
+void QueryServerRequest::set_has_continuequerysession() {
+  _oneof_case_[0] = kContinueQuerySession;
 }
-void QueryServerRequest::clear_x() {
-  if (has_x()) {
-    msg_.x_ = 0;
+void QueryServerRequest::clear_continuequerysession() {
+  if (has_continuequerysession()) {
+    delete msg_.continuequerysession_;
     clear_has_msg();
   }
 }
- ::google::protobuf::int32 QueryServerRequest::x() const {
-  // @@protoc_insertion_point(field_get:QueryServerRequest.x)
-  if (has_x()) {
-    return msg_.x_;
-  }
-  return 0;
+ const ::ContinueQuerySession& QueryServerRequest::continuequerysession() const {
+  // @@protoc_insertion_point(field_get:QueryServerRequest.continueQuerySession)
+  return has_continuequerysession()
+      ? *msg_.continuequerysession_
+      : ::ContinueQuerySession::default_instance();
 }
- void QueryServerRequest::set_x(::google::protobuf::int32 value) {
-  if (!has_x()) {
+::ContinueQuerySession* QueryServerRequest::mutable_continuequerysession() {
+  if (!has_continuequerysession()) {
     clear_msg();
-    set_has_x();
+    set_has_continuequerysession();
+    msg_.continuequerysession_ = new ::ContinueQuerySession;
   }
-  msg_.x_ = value;
-  // @@protoc_insertion_point(field_set:QueryServerRequest.x)
+  // @@protoc_insertion_point(field_mutable:QueryServerRequest.continueQuerySession)
+  return msg_.continuequerysession_;
+}
+::ContinueQuerySession* QueryServerRequest::release_continuequerysession() {
+  // @@protoc_insertion_point(field_release:QueryServerRequest.continueQuerySession)
+  if (has_continuequerysession()) {
+    clear_has_msg();
+    ::ContinueQuerySession* temp = msg_.continuequerysession_;
+    msg_.continuequerysession_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void QueryServerRequest::set_allocated_continuequerysession(::ContinueQuerySession* continuequerysession) {
+  clear_msg();
+  if (continuequerysession) {
+    set_has_continuequerysession();
+    msg_.continuequerysession_ = continuequerysession;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerRequest.continueQuerySession)
 }
 
 bool QueryServerRequest::has_msg() const {
@@ -640,6 +868,10 @@ QueryServerRequest::MsgCase QueryServerRequest::msg_case() const {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int QueryServerResponse::kRqIDFieldNumber;
+const int QueryServerResponse::kQuerySessionIDFieldNumber;
+const int QueryServerResponse::kMsgTypeFieldNumber;
+const int QueryServerResponse::kSimpleResponseFieldNumber;
+const int QueryServerResponse::kRemoteResultsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 QueryServerResponse::QueryServerResponse()
@@ -650,6 +882,8 @@ QueryServerResponse::QueryServerResponse()
 
 void QueryServerResponse::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  QueryServerResponse_default_oneof_instance_->simpleresponse_ = const_cast< ::SimpleResponse*>(&::SimpleResponse::default_instance());
+  QueryServerResponse_default_oneof_instance_->remoteresults_ = const_cast< ::RemoteResults*>(&::RemoteResults::default_instance());
 }
 
 QueryServerResponse::QueryServerResponse(const QueryServerResponse& from)
@@ -664,6 +898,9 @@ void QueryServerResponse::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
   rqid_ = GOOGLE_LONGLONG(0);
+  querysessionid_ = GOOGLE_LONGLONG(0);
+  msgtype_ = 0;
+  clear_has_msg();
 }
 
 QueryServerResponse::~QueryServerResponse() {
@@ -672,6 +909,9 @@ QueryServerResponse::~QueryServerResponse() {
 }
 
 void QueryServerResponse::SharedDtor() {
+  if (has_msg()) {
+    clear_msg();
+  }
   if (this != default_instance_) {
   }
 }
@@ -701,9 +941,49 @@ QueryServerResponse* QueryServerResponse::New(::google::protobuf::Arena* arena) 
   return n;
 }
 
+void QueryServerResponse::clear_msg() {
+// @@protoc_insertion_point(one_of_clear_start:QueryServerResponse)
+  switch(msg_case()) {
+    case kSimpleResponse: {
+      delete msg_.simpleresponse_;
+      break;
+    }
+    case kRemoteResults: {
+      delete msg_.remoteresults_;
+      break;
+    }
+    case MSG_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = MSG_NOT_SET;
+}
+
+
 void QueryServerResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:QueryServerResponse)
-  rqid_ = GOOGLE_LONGLONG(0);
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(QueryServerResponse, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<QueryServerResponse*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(rqid_, msgtype_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
+  clear_msg();
 }
 
 bool QueryServerResponse::MergePartialFromCodedStream(
@@ -723,6 +1003,63 @@ bool QueryServerResponse::MergePartialFromCodedStream(
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &rqid_)));
 
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_querySessionID;
+        break;
+      }
+
+      // optional int64 querySessionID = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_querySessionID:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &querysessionid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_msgType;
+        break;
+      }
+
+      // optional .QueryServerMsgType msgType = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_msgType:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_msgtype(static_cast< ::QueryServerMsgType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_simpleResponse;
+        break;
+      }
+
+      // optional .SimpleResponse simpleResponse = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_simpleResponse:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_simpleresponse()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_remoteResults;
+        break;
+      }
+
+      // optional .RemoteResults remoteResults = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_remoteResults:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_remoteresults()));
         } else {
           goto handle_unusual;
         }
@@ -759,6 +1096,29 @@ void QueryServerResponse::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->rqid(), output);
   }
 
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->querysessionid(), output);
+  }
+
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->msgtype(), output);
+  }
+
+  // optional .SimpleResponse simpleResponse = 4;
+  if (has_simpleresponse()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *msg_.simpleresponse_, output);
+  }
+
+  // optional .RemoteResults remoteResults = 5;
+  if (has_remoteresults()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *msg_.remoteresults_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:QueryServerResponse)
 }
 
@@ -768,6 +1128,31 @@ void QueryServerResponse::SerializeWithCachedSizes(
   // optional int64 rqID = 1;
   if (this->rqid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->rqid(), target);
+  }
+
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->querysessionid(), target);
+  }
+
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->msgtype(), target);
+  }
+
+  // optional .SimpleResponse simpleResponse = 4;
+  if (has_simpleresponse()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        4, *msg_.simpleresponse_, false, target);
+  }
+
+  // optional .RemoteResults remoteResults = 5;
+  if (has_remoteresults()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        5, *msg_.remoteresults_, false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:QueryServerResponse)
@@ -785,6 +1170,38 @@ int QueryServerResponse::ByteSize() const {
         this->rqid());
   }
 
+  // optional int64 querySessionID = 2;
+  if (this->querysessionid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->querysessionid());
+  }
+
+  // optional .QueryServerMsgType msgType = 3;
+  if (this->msgtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgtype());
+  }
+
+  switch (msg_case()) {
+    // optional .SimpleResponse simpleResponse = 4;
+    case kSimpleResponse: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *msg_.simpleresponse_);
+      break;
+    }
+    // optional .RemoteResults remoteResults = 5;
+    case kRemoteResults: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *msg_.remoteresults_);
+      break;
+    }
+    case MSG_NOT_SET: {
+      break;
+    }
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -813,8 +1230,27 @@ void QueryServerResponse::MergeFrom(const QueryServerResponse& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
+  switch (from.msg_case()) {
+    case kSimpleResponse: {
+      mutable_simpleresponse()->::SimpleResponse::MergeFrom(from.simpleresponse());
+      break;
+    }
+    case kRemoteResults: {
+      mutable_remoteresults()->::RemoteResults::MergeFrom(from.remoteresults());
+      break;
+    }
+    case MSG_NOT_SET: {
+      break;
+    }
+  }
   if (from.rqid() != 0) {
     set_rqid(from.rqid());
+  }
+  if (from.querysessionid() != 0) {
+    set_querysessionid(from.querysessionid());
+  }
+  if (from.msgtype() != 0) {
+    set_msgtype(from.msgtype());
   }
 }
 
@@ -843,6 +1279,10 @@ void QueryServerResponse::Swap(QueryServerResponse* other) {
 }
 void QueryServerResponse::InternalSwap(QueryServerResponse* other) {
   std::swap(rqid_, other->rqid_);
+  std::swap(querysessionid_, other->querysessionid_);
+  std::swap(msgtype_, other->msgtype_);
+  std::swap(msg_, other->msg_);
+  std::swap(_oneof_case_[0], other->_oneof_case_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -870,6 +1310,1540 @@ void QueryServerResponse::clear_rqid() {
   
   rqid_ = value;
   // @@protoc_insertion_point(field_set:QueryServerResponse.rqID)
+}
+
+// optional int64 querySessionID = 2;
+void QueryServerResponse::clear_querysessionid() {
+  querysessionid_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 QueryServerResponse::querysessionid() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.querySessionID)
+  return querysessionid_;
+}
+ void QueryServerResponse::set_querysessionid(::google::protobuf::int64 value) {
+  
+  querysessionid_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerResponse.querySessionID)
+}
+
+// optional .QueryServerMsgType msgType = 3;
+void QueryServerResponse::clear_msgtype() {
+  msgtype_ = 0;
+}
+ ::QueryServerMsgType QueryServerResponse::msgtype() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.msgType)
+  return static_cast< ::QueryServerMsgType >(msgtype_);
+}
+ void QueryServerResponse::set_msgtype(::QueryServerMsgType value) {
+  
+  msgtype_ = value;
+  // @@protoc_insertion_point(field_set:QueryServerResponse.msgType)
+}
+
+// optional .SimpleResponse simpleResponse = 4;
+bool QueryServerResponse::has_simpleresponse() const {
+  return msg_case() == kSimpleResponse;
+}
+void QueryServerResponse::set_has_simpleresponse() {
+  _oneof_case_[0] = kSimpleResponse;
+}
+void QueryServerResponse::clear_simpleresponse() {
+  if (has_simpleresponse()) {
+    delete msg_.simpleresponse_;
+    clear_has_msg();
+  }
+}
+ const ::SimpleResponse& QueryServerResponse::simpleresponse() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.simpleResponse)
+  return has_simpleresponse()
+      ? *msg_.simpleresponse_
+      : ::SimpleResponse::default_instance();
+}
+::SimpleResponse* QueryServerResponse::mutable_simpleresponse() {
+  if (!has_simpleresponse()) {
+    clear_msg();
+    set_has_simpleresponse();
+    msg_.simpleresponse_ = new ::SimpleResponse;
+  }
+  // @@protoc_insertion_point(field_mutable:QueryServerResponse.simpleResponse)
+  return msg_.simpleresponse_;
+}
+::SimpleResponse* QueryServerResponse::release_simpleresponse() {
+  // @@protoc_insertion_point(field_release:QueryServerResponse.simpleResponse)
+  if (has_simpleresponse()) {
+    clear_has_msg();
+    ::SimpleResponse* temp = msg_.simpleresponse_;
+    msg_.simpleresponse_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void QueryServerResponse::set_allocated_simpleresponse(::SimpleResponse* simpleresponse) {
+  clear_msg();
+  if (simpleresponse) {
+    set_has_simpleresponse();
+    msg_.simpleresponse_ = simpleresponse;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerResponse.simpleResponse)
+}
+
+// optional .RemoteResults remoteResults = 5;
+bool QueryServerResponse::has_remoteresults() const {
+  return msg_case() == kRemoteResults;
+}
+void QueryServerResponse::set_has_remoteresults() {
+  _oneof_case_[0] = kRemoteResults;
+}
+void QueryServerResponse::clear_remoteresults() {
+  if (has_remoteresults()) {
+    delete msg_.remoteresults_;
+    clear_has_msg();
+  }
+}
+ const ::RemoteResults& QueryServerResponse::remoteresults() const {
+  // @@protoc_insertion_point(field_get:QueryServerResponse.remoteResults)
+  return has_remoteresults()
+      ? *msg_.remoteresults_
+      : ::RemoteResults::default_instance();
+}
+::RemoteResults* QueryServerResponse::mutable_remoteresults() {
+  if (!has_remoteresults()) {
+    clear_msg();
+    set_has_remoteresults();
+    msg_.remoteresults_ = new ::RemoteResults;
+  }
+  // @@protoc_insertion_point(field_mutable:QueryServerResponse.remoteResults)
+  return msg_.remoteresults_;
+}
+::RemoteResults* QueryServerResponse::release_remoteresults() {
+  // @@protoc_insertion_point(field_release:QueryServerResponse.remoteResults)
+  if (has_remoteresults()) {
+    clear_has_msg();
+    ::RemoteResults* temp = msg_.remoteresults_;
+    msg_.remoteresults_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void QueryServerResponse::set_allocated_remoteresults(::RemoteResults* remoteresults) {
+  clear_msg();
+  if (remoteresults) {
+    set_has_remoteresults();
+    msg_.remoteresults_ = remoteresults;
+  }
+  // @@protoc_insertion_point(field_set_allocated:QueryServerResponse.remoteResults)
+}
+
+bool QueryServerResponse::has_msg() const {
+  return msg_case() != MSG_NOT_SET;
+}
+void QueryServerResponse::clear_has_msg() {
+  _oneof_case_[0] = MSG_NOT_SET;
+}
+QueryServerResponse::MsgCase QueryServerResponse::msg_case() const {
+  return QueryServerResponse::MsgCase(_oneof_case_[0]);
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SimpleResponse::kValueFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+SimpleResponse::SimpleResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:SimpleResponse)
+}
+
+void SimpleResponse::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+SimpleResponse::SimpleResponse(const SimpleResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:SimpleResponse)
+}
+
+void SimpleResponse::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+SimpleResponse::~SimpleResponse() {
+  // @@protoc_insertion_point(destructor:SimpleResponse)
+  SharedDtor();
+}
+
+void SimpleResponse::SharedDtor() {
+  value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void SimpleResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SimpleResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SimpleResponse_descriptor_;
+}
+
+const SimpleResponse& SimpleResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_MessageProtocol_2eproto();
+  return *default_instance_;
+}
+
+SimpleResponse* SimpleResponse::default_instance_ = NULL;
+
+SimpleResponse* SimpleResponse::New(::google::protobuf::Arena* arena) const {
+  SimpleResponse* n = new SimpleResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void SimpleResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:SimpleResponse)
+  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool SimpleResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:SimpleResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string value = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_value()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->value().data(), this->value().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "SimpleResponse.value"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:SimpleResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:SimpleResponse)
+  return false;
+#undef DO_
+}
+
+void SimpleResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:SimpleResponse)
+  // optional string value = 1;
+  if (this->value().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->value().data(), this->value().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "SimpleResponse.value");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->value(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:SimpleResponse)
+}
+
+::google::protobuf::uint8* SimpleResponse::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:SimpleResponse)
+  // optional string value = 1;
+  if (this->value().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->value().data(), this->value().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "SimpleResponse.value");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->value(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:SimpleResponse)
+  return target;
+}
+
+int SimpleResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:SimpleResponse)
+  int total_size = 0;
+
+  // optional string value = 1;
+  if (this->value().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->value());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SimpleResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:SimpleResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const SimpleResponse* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const SimpleResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SimpleResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:SimpleResponse)
+    MergeFrom(*source);
+  }
+}
+
+void SimpleResponse::MergeFrom(const SimpleResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:SimpleResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.value().size() > 0) {
+
+    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
+  }
+}
+
+void SimpleResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:SimpleResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SimpleResponse::CopyFrom(const SimpleResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SimpleResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SimpleResponse::IsInitialized() const {
+
+  return true;
+}
+
+void SimpleResponse::Swap(SimpleResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void SimpleResponse::InternalSwap(SimpleResponse* other) {
+  value_.Swap(&other->value_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata SimpleResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SimpleResponse_descriptor_;
+  metadata.reflection = SimpleResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// SimpleResponse
+
+// optional string value = 1;
+void SimpleResponse::clear_value() {
+  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& SimpleResponse::value() const {
+  // @@protoc_insertion_point(field_get:SimpleResponse.value)
+  return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void SimpleResponse::set_value(const ::std::string& value) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SimpleResponse.value)
+}
+ void SimpleResponse::set_value(const char* value) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SimpleResponse.value)
+}
+ void SimpleResponse::set_value(const char* value, size_t size) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SimpleResponse.value)
+}
+ ::std::string* SimpleResponse::mutable_value() {
+  
+  // @@protoc_insertion_point(field_mutable:SimpleResponse.value)
+  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* SimpleResponse::release_value() {
+  // @@protoc_insertion_point(field_release:SimpleResponse.value)
+  
+  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void SimpleResponse::set_allocated_value(::std::string* value) {
+  if (value != NULL) {
+    
+  } else {
+    
+  }
+  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set_allocated:SimpleResponse.value)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int StartQuerySession::kQueryIDFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+StartQuerySession::StartQuerySession()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:StartQuerySession)
+}
+
+void StartQuerySession::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+StartQuerySession::StartQuerySession(const StartQuerySession& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:StartQuerySession)
+}
+
+void StartQuerySession::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  queryid_ = 0;
+}
+
+StartQuerySession::~StartQuerySession() {
+  // @@protoc_insertion_point(destructor:StartQuerySession)
+  SharedDtor();
+}
+
+void StartQuerySession::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void StartQuerySession::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* StartQuerySession::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return StartQuerySession_descriptor_;
+}
+
+const StartQuerySession& StartQuerySession::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_MessageProtocol_2eproto();
+  return *default_instance_;
+}
+
+StartQuerySession* StartQuerySession::default_instance_ = NULL;
+
+StartQuerySession* StartQuerySession::New(::google::protobuf::Arena* arena) const {
+  StartQuerySession* n = new StartQuerySession;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void StartQuerySession::Clear() {
+// @@protoc_insertion_point(message_clear_start:StartQuerySession)
+  queryid_ = 0;
+}
+
+bool StartQuerySession::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:StartQuerySession)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 queryID = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &queryid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:StartQuerySession)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:StartQuerySession)
+  return false;
+#undef DO_
+}
+
+void StartQuerySession::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:StartQuerySession)
+  // optional int32 queryID = 1;
+  if (this->queryid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->queryid(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:StartQuerySession)
+}
+
+::google::protobuf::uint8* StartQuerySession::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:StartQuerySession)
+  // optional int32 queryID = 1;
+  if (this->queryid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->queryid(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:StartQuerySession)
+  return target;
+}
+
+int StartQuerySession::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:StartQuerySession)
+  int total_size = 0;
+
+  // optional int32 queryID = 1;
+  if (this->queryid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->queryid());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void StartQuerySession::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:StartQuerySession)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const StartQuerySession* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const StartQuerySession>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:StartQuerySession)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:StartQuerySession)
+    MergeFrom(*source);
+  }
+}
+
+void StartQuerySession::MergeFrom(const StartQuerySession& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:StartQuerySession)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.queryid() != 0) {
+    set_queryid(from.queryid());
+  }
+}
+
+void StartQuerySession::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:StartQuerySession)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StartQuerySession::CopyFrom(const StartQuerySession& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:StartQuerySession)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StartQuerySession::IsInitialized() const {
+
+  return true;
+}
+
+void StartQuerySession::Swap(StartQuerySession* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void StartQuerySession::InternalSwap(StartQuerySession* other) {
+  std::swap(queryid_, other->queryid_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata StartQuerySession::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = StartQuerySession_descriptor_;
+  metadata.reflection = StartQuerySession_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// StartQuerySession
+
+// optional int32 queryID = 1;
+void StartQuerySession::clear_queryid() {
+  queryid_ = 0;
+}
+ ::google::protobuf::int32 StartQuerySession::queryid() const {
+  // @@protoc_insertion_point(field_get:StartQuerySession.queryID)
+  return queryid_;
+}
+ void StartQuerySession::set_queryid(::google::protobuf::int32 value) {
+  
+  queryid_ = value;
+  // @@protoc_insertion_point(field_set:StartQuerySession.queryID)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ContinueQuerySession::kTaskIDFieldNumber;
+const int ContinueQuerySession::kBodyIndexFieldNumber;
+const int ContinueQuerySession::kOperationIndexFieldNumber;
+const int ContinueQuerySession::kFrameAsStringFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ContinueQuerySession::ContinueQuerySession()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ContinueQuerySession)
+}
+
+void ContinueQuerySession::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+ContinueQuerySession::ContinueQuerySession(const ContinueQuerySession& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ContinueQuerySession)
+}
+
+void ContinueQuerySession::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  bodyindex_ = 0;
+  operationindex_ = 0;
+  frameasstring_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+ContinueQuerySession::~ContinueQuerySession() {
+  // @@protoc_insertion_point(destructor:ContinueQuerySession)
+  SharedDtor();
+}
+
+void ContinueQuerySession::SharedDtor() {
+  frameasstring_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void ContinueQuerySession::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ContinueQuerySession::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ContinueQuerySession_descriptor_;
+}
+
+const ContinueQuerySession& ContinueQuerySession::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_MessageProtocol_2eproto();
+  return *default_instance_;
+}
+
+ContinueQuerySession* ContinueQuerySession::default_instance_ = NULL;
+
+ContinueQuerySession* ContinueQuerySession::New(::google::protobuf::Arena* arena) const {
+  ContinueQuerySession* n = new ContinueQuerySession;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void ContinueQuerySession::Clear() {
+// @@protoc_insertion_point(message_clear_start:ContinueQuerySession)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(ContinueQuerySession, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<ContinueQuerySession*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(bodyindex_, operationindex_);
+  frameasstring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
+  taskid_.Clear();
+}
+
+bool ContinueQuerySession::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ContinueQuerySession)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated int32 taskID = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_taskid())));
+        } else if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 10, input, this->mutable_taskid())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_bodyIndex;
+        break;
+      }
+
+      // optional int32 bodyIndex = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_bodyIndex:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &bodyindex_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_operationIndex;
+        break;
+      }
+
+      // optional int32 operationIndex = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_operationIndex:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &operationindex_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_frameAsString;
+        break;
+      }
+
+      // optional string frameAsString = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_frameAsString:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_frameasstring()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->frameasstring().data(), this->frameasstring().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "ContinueQuerySession.frameAsString"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ContinueQuerySession)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ContinueQuerySession)
+  return false;
+#undef DO_
+}
+
+void ContinueQuerySession::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ContinueQuerySession)
+  // repeated int32 taskID = 1;
+  if (this->taskid_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_taskid_cached_byte_size_);
+  }
+  for (int i = 0; i < this->taskid_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
+      this->taskid(i), output);
+  }
+
+  // optional int32 bodyIndex = 2;
+  if (this->bodyindex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->bodyindex(), output);
+  }
+
+  // optional int32 operationIndex = 3;
+  if (this->operationindex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->operationindex(), output);
+  }
+
+  // optional string frameAsString = 4;
+  if (this->frameasstring().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->frameasstring().data(), this->frameasstring().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ContinueQuerySession.frameAsString");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->frameasstring(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ContinueQuerySession)
+}
+
+::google::protobuf::uint8* ContinueQuerySession::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ContinueQuerySession)
+  // repeated int32 taskID = 1;
+  if (this->taskid_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _taskid_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->taskid_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32NoTagToArray(this->taskid(i), target);
+  }
+
+  // optional int32 bodyIndex = 2;
+  if (this->bodyindex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->bodyindex(), target);
+  }
+
+  // optional int32 operationIndex = 3;
+  if (this->operationindex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->operationindex(), target);
+  }
+
+  // optional string frameAsString = 4;
+  if (this->frameasstring().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->frameasstring().data(), this->frameasstring().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ContinueQuerySession.frameAsString");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->frameasstring(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ContinueQuerySession)
+  return target;
+}
+
+int ContinueQuerySession::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:ContinueQuerySession)
+  int total_size = 0;
+
+  // optional int32 bodyIndex = 2;
+  if (this->bodyindex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->bodyindex());
+  }
+
+  // optional int32 operationIndex = 3;
+  if (this->operationindex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->operationindex());
+  }
+
+  // optional string frameAsString = 4;
+  if (this->frameasstring().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->frameasstring());
+  }
+
+  // repeated int32 taskID = 1;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->taskid_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->taskid(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _taskid_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ContinueQuerySession::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ContinueQuerySession)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const ContinueQuerySession* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const ContinueQuerySession>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ContinueQuerySession)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ContinueQuerySession)
+    MergeFrom(*source);
+  }
+}
+
+void ContinueQuerySession::MergeFrom(const ContinueQuerySession& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ContinueQuerySession)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  taskid_.MergeFrom(from.taskid_);
+  if (from.bodyindex() != 0) {
+    set_bodyindex(from.bodyindex());
+  }
+  if (from.operationindex() != 0) {
+    set_operationindex(from.operationindex());
+  }
+  if (from.frameasstring().size() > 0) {
+
+    frameasstring_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.frameasstring_);
+  }
+}
+
+void ContinueQuerySession::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ContinueQuerySession)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ContinueQuerySession::CopyFrom(const ContinueQuerySession& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ContinueQuerySession)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ContinueQuerySession::IsInitialized() const {
+
+  return true;
+}
+
+void ContinueQuerySession::Swap(ContinueQuerySession* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ContinueQuerySession::InternalSwap(ContinueQuerySession* other) {
+  taskid_.UnsafeArenaSwap(&other->taskid_);
+  std::swap(bodyindex_, other->bodyindex_);
+  std::swap(operationindex_, other->operationindex_);
+  frameasstring_.Swap(&other->frameasstring_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata ContinueQuerySession::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ContinueQuerySession_descriptor_;
+  metadata.reflection = ContinueQuerySession_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// ContinueQuerySession
+
+// repeated int32 taskID = 1;
+int ContinueQuerySession::taskid_size() const {
+  return taskid_.size();
+}
+void ContinueQuerySession::clear_taskid() {
+  taskid_.Clear();
+}
+ ::google::protobuf::int32 ContinueQuerySession::taskid(int index) const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.taskID)
+  return taskid_.Get(index);
+}
+ void ContinueQuerySession::set_taskid(int index, ::google::protobuf::int32 value) {
+  taskid_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.taskID)
+}
+ void ContinueQuerySession::add_taskid(::google::protobuf::int32 value) {
+  taskid_.Add(value);
+  // @@protoc_insertion_point(field_add:ContinueQuerySession.taskID)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+ContinueQuerySession::taskid() const {
+  // @@protoc_insertion_point(field_list:ContinueQuerySession.taskID)
+  return taskid_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+ContinueQuerySession::mutable_taskid() {
+  // @@protoc_insertion_point(field_mutable_list:ContinueQuerySession.taskID)
+  return &taskid_;
+}
+
+// optional int32 bodyIndex = 2;
+void ContinueQuerySession::clear_bodyindex() {
+  bodyindex_ = 0;
+}
+ ::google::protobuf::int32 ContinueQuerySession::bodyindex() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.bodyIndex)
+  return bodyindex_;
+}
+ void ContinueQuerySession::set_bodyindex(::google::protobuf::int32 value) {
+  
+  bodyindex_ = value;
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.bodyIndex)
+}
+
+// optional int32 operationIndex = 3;
+void ContinueQuerySession::clear_operationindex() {
+  operationindex_ = 0;
+}
+ ::google::protobuf::int32 ContinueQuerySession::operationindex() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.operationIndex)
+  return operationindex_;
+}
+ void ContinueQuerySession::set_operationindex(::google::protobuf::int32 value) {
+  
+  operationindex_ = value;
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.operationIndex)
+}
+
+// optional string frameAsString = 4;
+void ContinueQuerySession::clear_frameasstring() {
+  frameasstring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& ContinueQuerySession::frameasstring() const {
+  // @@protoc_insertion_point(field_get:ContinueQuerySession.frameAsString)
+  return frameasstring_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ContinueQuerySession::set_frameasstring(const ::std::string& value) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ContinueQuerySession.frameAsString)
+}
+ void ContinueQuerySession::set_frameasstring(const char* value) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ContinueQuerySession.frameAsString)
+}
+ void ContinueQuerySession::set_frameasstring(const char* value, size_t size) {
+  
+  frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ContinueQuerySession.frameAsString)
+}
+ ::std::string* ContinueQuerySession::mutable_frameasstring() {
+  
+  // @@protoc_insertion_point(field_mutable:ContinueQuerySession.frameAsString)
+  return frameasstring_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* ContinueQuerySession::release_frameasstring() {
+  // @@protoc_insertion_point(field_release:ContinueQuerySession.frameAsString)
+  
+  return frameasstring_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ContinueQuerySession::set_allocated_frameasstring(::std::string* frameasstring) {
+  if (frameasstring != NULL) {
+    
+  } else {
+    
+  }
+  frameasstring_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), frameasstring);
+  // @@protoc_insertion_point(field_set_allocated:ContinueQuerySession.frameAsString)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RemoteResults::kTaskIDFieldNumber;
+const int RemoteResults::kResultAsSetFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RemoteResults::RemoteResults()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:RemoteResults)
+}
+
+void RemoteResults::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+RemoteResults::RemoteResults(const RemoteResults& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:RemoteResults)
+}
+
+void RemoteResults::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  resultasset_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+RemoteResults::~RemoteResults() {
+  // @@protoc_insertion_point(destructor:RemoteResults)
+  SharedDtor();
+}
+
+void RemoteResults::SharedDtor() {
+  resultasset_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void RemoteResults::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RemoteResults::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RemoteResults_descriptor_;
+}
+
+const RemoteResults& RemoteResults::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_MessageProtocol_2eproto();
+  return *default_instance_;
+}
+
+RemoteResults* RemoteResults::default_instance_ = NULL;
+
+RemoteResults* RemoteResults::New(::google::protobuf::Arena* arena) const {
+  RemoteResults* n = new RemoteResults;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RemoteResults::Clear() {
+// @@protoc_insertion_point(message_clear_start:RemoteResults)
+  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  taskid_.Clear();
+}
+
+bool RemoteResults::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:RemoteResults)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated int32 taskID = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_taskid())));
+        } else if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 10, input, this->mutable_taskid())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_resultAsSet;
+        break;
+      }
+
+      // optional string resultAsSet = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_resultAsSet:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_resultasset()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->resultasset().data(), this->resultasset().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "RemoteResults.resultAsSet"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:RemoteResults)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:RemoteResults)
+  return false;
+#undef DO_
+}
+
+void RemoteResults::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:RemoteResults)
+  // repeated int32 taskID = 1;
+  if (this->taskid_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_taskid_cached_byte_size_);
+  }
+  for (int i = 0; i < this->taskid_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
+      this->taskid(i), output);
+  }
+
+  // optional string resultAsSet = 2;
+  if (this->resultasset().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->resultasset().data(), this->resultasset().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "RemoteResults.resultAsSet");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->resultasset(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:RemoteResults)
+}
+
+::google::protobuf::uint8* RemoteResults::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RemoteResults)
+  // repeated int32 taskID = 1;
+  if (this->taskid_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _taskid_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->taskid_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32NoTagToArray(this->taskid(i), target);
+  }
+
+  // optional string resultAsSet = 2;
+  if (this->resultasset().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->resultasset().data(), this->resultasset().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "RemoteResults.resultAsSet");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->resultasset(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:RemoteResults)
+  return target;
+}
+
+int RemoteResults::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:RemoteResults)
+  int total_size = 0;
+
+  // optional string resultAsSet = 2;
+  if (this->resultasset().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->resultasset());
+  }
+
+  // repeated int32 taskID = 1;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->taskid_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->taskid(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _taskid_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RemoteResults::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:RemoteResults)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const RemoteResults* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RemoteResults>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:RemoteResults)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:RemoteResults)
+    MergeFrom(*source);
+  }
+}
+
+void RemoteResults::MergeFrom(const RemoteResults& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:RemoteResults)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  taskid_.MergeFrom(from.taskid_);
+  if (from.resultasset().size() > 0) {
+
+    resultasset_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.resultasset_);
+  }
+}
+
+void RemoteResults::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:RemoteResults)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RemoteResults::CopyFrom(const RemoteResults& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RemoteResults)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RemoteResults::IsInitialized() const {
+
+  return true;
+}
+
+void RemoteResults::Swap(RemoteResults* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RemoteResults::InternalSwap(RemoteResults* other) {
+  taskid_.UnsafeArenaSwap(&other->taskid_);
+  resultasset_.Swap(&other->resultasset_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RemoteResults::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RemoteResults_descriptor_;
+  metadata.reflection = RemoteResults_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RemoteResults
+
+// repeated int32 taskID = 1;
+int RemoteResults::taskid_size() const {
+  return taskid_.size();
+}
+void RemoteResults::clear_taskid() {
+  taskid_.Clear();
+}
+ ::google::protobuf::int32 RemoteResults::taskid(int index) const {
+  // @@protoc_insertion_point(field_get:RemoteResults.taskID)
+  return taskid_.Get(index);
+}
+ void RemoteResults::set_taskid(int index, ::google::protobuf::int32 value) {
+  taskid_.Set(index, value);
+  // @@protoc_insertion_point(field_set:RemoteResults.taskID)
+}
+ void RemoteResults::add_taskid(::google::protobuf::int32 value) {
+  taskid_.Add(value);
+  // @@protoc_insertion_point(field_add:RemoteResults.taskID)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RemoteResults::taskid() const {
+  // @@protoc_insertion_point(field_list:RemoteResults.taskID)
+  return taskid_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RemoteResults::mutable_taskid() {
+  // @@protoc_insertion_point(field_mutable_list:RemoteResults.taskID)
+  return &taskid_;
+}
+
+// optional string resultAsSet = 2;
+void RemoteResults::clear_resultasset() {
+  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RemoteResults::resultasset() const {
+  // @@protoc_insertion_point(field_get:RemoteResults.resultAsSet)
+  return resultasset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RemoteResults::set_resultasset(const ::std::string& value) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:RemoteResults.resultAsSet)
+}
+ void RemoteResults::set_resultasset(const char* value) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:RemoteResults.resultAsSet)
+}
+ void RemoteResults::set_resultasset(const char* value, size_t size) {
+  
+  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:RemoteResults.resultAsSet)
+}
+ ::std::string* RemoteResults::mutable_resultasset() {
+  
+  // @@protoc_insertion_point(field_mutable:RemoteResults.resultAsSet)
+  return resultasset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RemoteResults::release_resultasset() {
+  // @@protoc_insertion_point(field_release:RemoteResults.resultAsSet)
+  
+  return resultasset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RemoteResults::set_allocated_resultasset(::std::string* resultasset) {
+  if (resultasset != NULL) {
+    
+  } else {
+    
+  }
+  resultasset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultasset);
+  // @@protoc_insertion_point(field_set_allocated:RemoteResults.resultAsSet)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
