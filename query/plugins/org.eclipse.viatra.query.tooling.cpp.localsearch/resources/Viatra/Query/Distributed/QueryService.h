@@ -16,6 +16,9 @@
 #include<future>
 #include<unordered_set>
 
+#include"../Model/IModelElemService.h"
+
+
 #include"QueryRunner.h"
 #include"QueryServer.h"
 #include"QueryClient.h"
@@ -25,34 +28,47 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
+			struct NodeInfo {
+				std::string name;
+				std::string ip;
+				uint16_t port;
+			};
+
+			// Type independent baseclass for QueryService
 			class QueryServiceBase
 			{
 			public:
-				QueryServiceBase(const char *configJSON) {}
-				~QueryServiceBase() {}
+				QueryServiceBase(const char *configJSON, const char * nodeName);
+				~QueryServiceBase();
 			protected:
+
+				std::map<std::string, NodeInfo> nodes;
+
 				std::string nodeName;
 				std::unique_ptr<QueryServer> server;
-				std::map<std::string,std::unique_ptr<QueryClient>> clients;		
+
+				std::map<std::string, std::unique_ptr<QueryClient>> clients;
 
 				IDGenerator querySessionIDGenerator;
-				std::map < int, std::unique_ptr<QueryRunnerBase> > queryRunners;
+				std::map< uint64_t , std::unique_ptr<QueryRunnerBase> > queryRunners;
 				
 			};
 
-			template<typename ModelRoot, template<class> class QueryRunnerFactoryTemplate>
-			class QueryService : protected QueryServiceBase
+			template<typename ModelRoot, template<typename> class QueryRunnerFactoryTemplate>
+			class QueryService : public QueryServiceBase
 			{
+			private:
+				ModelRoot modelRoot;
 			public:
 				using QueryRunnerFactory = QueryRunnerFactoryTemplate<ModelRoot>;
 
-				template<typename QS>
-				using MatchOf = typename QS::Match;
-				template<typename QS>
-				using MatcherOf = typename QS::Matcher;
-
-				VIATRA_FUNCTION QueryService(const char *configJSON)
-					: QueryServiceBase(configJSON)
+				// Helper type functions for a Query Class
+				template<typename Query> using MatchOf = typename Query::Match;
+				template<typename Query> using MatcherOf = typename Query::Matcher;
+				
+				VIATRA_FUNCTION QueryService(const char *configJSON, const char *nodeName)
+					: QueryServiceBase(configJSON, nodeName)
+					, modelRoot(configJSON, nodeName)
 				{
 
 				}
@@ -61,11 +77,12 @@ namespace Viatra {
 
 				}
 
-				template<typename QuerySpec>
-				std::unordered_set<MatchOf<QuerySpec>> RunNewQuery()
+				// usage: queryService.RunNewQuery<QueryName>()
+				template<  template<typename>class QueryTemplate  ,  class Query = QueryTemplate<ModelRoot>  >
+				std::unordered_set<typename Query::Match> RunNewQuery()
 				{
-					int64_t sessionID = querySessionIDGenerator::generate();
-					queryRunners[sessionID] = QueryRunnerFactory::Create(QuerySpec::queryID, sessionID);
+					int64_t sessionID = querySessionIDGenerator.generate();
+					queryRunners[sessionID] = QueryRunnerFactory::Create(Query::queryID, sessionID, &modelRoot);
 					throw "Not implemented";
 				}
 				/*
@@ -85,28 +102,6 @@ namespace Viatra {
 				}
 
 			};
-
-			/**
-			class QueryService
-			{
-				// PIMPL idiom for hiding implementation, and avoid recompiling of the source base on change
-				class QueryServiceImpl;
-				std::unique_ptr<QueryServiceImpl> impl;
-
-			public:
-				// Initialize the Service by giving a config file
-				VIATRA_FUNCTION QueryService(const char* cfgFile);
-				// Run the Service
-				VIATRA_FUNCTION void run();
-
-				template<typename Frame>
-				VIATRA_INLINE_FUNCTION void DistributeExecutionToNodes(int QueryID, int bodyIndex, int operationIndex, const Frame& frame)
-				{
-				}
-				// Deinitialize the service
-				VIATRA_FUNCTION ~QueryService();
-			};
-			*/
 		}
 	}
 }

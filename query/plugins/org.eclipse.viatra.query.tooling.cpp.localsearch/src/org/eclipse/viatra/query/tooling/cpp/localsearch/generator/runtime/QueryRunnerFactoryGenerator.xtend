@@ -26,7 +26,7 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 		for(patternGroup: patternGroupSet)
 		{
 			val pattern = patternGroup.head;
-			includes += new Include('''Viatra/Query/«queryGroupName»/«pattern.name»QuerySpecification.h''')
+			includes += new Include('''Viatra/Query/«queryGroupName»/«pattern.name».h''')
 		}
 	}
 
@@ -44,7 +44,7 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 						«val pattern = patternGroup.head»
 						case «pattern.queryID»:
 							return std::make_unique<
-								Viatra::Query::Distributed::QueryRunner<ModelRoot, «pattern.name»QuerySpecification>
+								Viatra::Query::Distributed::QueryRunner<ModelRoot, «pattern.name»>
 							>(sessionID, modelRoot);
 					«ENDFOR»
 				}

@@ -1,12 +1,14 @@
 
-#include<Viatra/Query/Distributed/QueryService.h>
 
 #include<iostream>
 #include<string>
 
-#include<Viatra/Query/Distributedquery/QueryRunnerFactory.h>
-#include<Viatra/Query/Distributedquery/QueryBQuerySpecification.h>
 #include<Model/ModelRoot.h>
+#include<Viatra/Query/Distributed/QueryService.h>
+#include<Viatra/Query/Distributedquery/QueryA.h>
+#include<Viatra/Query/Distributedquery/QueryB.h>
+#include<Viatra/Query/Distributedquery/QueryC.h>
+#include<Viatra/Query/Distributedquery/QueryRunnerFactory.h>
 
 int server_test(int argc, char **argv);
 
@@ -21,11 +23,11 @@ int main(int argc, char **argv) {
 		Viatra::Query::Distributed::QueryService<
 			Viatra::Query::Model::ModelRoot, 
 			Viatra::Query::Distributedquery::QueryRunnerFactory
-		>	service(arg);
+		>	service(arg, "nodeA");
 
 		auto thread = service.run_async();
 
-		service.RunNewQuery<Viatra::Query::Distributedquery::QueryBQuerySpecification>();
+		service.RunNewQuery<Viatra::Query::Distributedquery::QueryB>();
 
 	}
 	catch (std::exception ex)

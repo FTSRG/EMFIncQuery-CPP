@@ -9,7 +9,7 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
-			template<typename QuerySpecification>
+			template<typename Query>
 			struct QueryTask {
 				
 				// Unique Id for the task inside a QuerySession
@@ -34,7 +34,7 @@ namespace Viatra {
 					, bodyIndex (bodyIndex)
 				{}
 
-				QueryTask(QueryTask<QuerySpecification> &&) = default;
+				QueryTask(QueryTask<Query> &&) = default;
 
 			};
 		}
