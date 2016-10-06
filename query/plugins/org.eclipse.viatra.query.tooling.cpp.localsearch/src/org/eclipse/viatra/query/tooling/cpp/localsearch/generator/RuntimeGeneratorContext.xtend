@@ -15,6 +15,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryIncludeGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.QueryRunnerFactoryGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
@@ -64,6 +65,9 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			
 			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
+			
+			val	includeGen = new QueryIncludeGenerator(query.name, patternName)
+			generators += includeGen
 		]
 
 		generators += new ProtoGenerator(protoCompilers)
