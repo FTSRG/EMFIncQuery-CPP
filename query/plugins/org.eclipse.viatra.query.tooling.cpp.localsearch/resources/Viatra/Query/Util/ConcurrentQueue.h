@@ -5,10 +5,19 @@
 #include <mutex>
 #include <condition_variable>
 #include <deque>
+#include <stdexcept>
 
 namespace Viatra {
 	namespace Query {
 		namespace Util {
+
+			class ConcurrentQueueTimeout : public std::exception {
+
+				const char * what() const noexcept override
+				{
+					return "ConcurrentQueue method failed because of timeout";
+				}
+			};
 
 			template <typename T>
 			class ConcurrentQueue
@@ -38,6 +47,21 @@ namespace Viatra {
 					T rc(std::move(this->d_queue.back()));
 					this->d_queue.pop_back();
 					return rc;
+				}
+
+				template<typename duration_t>
+				T pop(duration_t timeout) {
+					std::unique_lock<std::mutex> lock(this->d_mutex);
+					if (this->d_condition.wait_for(
+						lock, timeout,
+						[=] { return !this->d_queue.empty(); })
+					) {
+						T rc(std::move(this->d_queue.back()));
+						this->d_queue.pop_back();
+						return rc;
+					}
+					else
+						throw ConcurrentQueueTimeout{};
 				}
 			};
 
