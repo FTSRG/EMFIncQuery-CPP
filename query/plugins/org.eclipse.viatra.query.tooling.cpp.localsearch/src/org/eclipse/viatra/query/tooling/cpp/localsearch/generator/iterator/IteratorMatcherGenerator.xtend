@@ -165,6 +165,10 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 	«ENDIF»
 	'''
 	
+	override protected compileContinueDistQuery(BoundedPatternDescriptor descriptor, PatternBodyDescriptor descriptor2) {
+		throw new UnsupportedOperationException("Distribution not implemented to iterator based approach");
+	}
+	
 	
 	
 }
