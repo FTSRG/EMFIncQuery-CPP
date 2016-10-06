@@ -124,8 +124,8 @@ bool ClassHelper::is_super_type(const EClass& child, const EClass& parent) const
 IClassHelper* ClassHelper::ClassHelperBuilder::build() {
 	size_t nrOfClasses = _classRelationshipMap.size();
 	std::map<EClass, std::map<EClass, bool> > inheritanceMatrix;
-	for (size_t i = 0; i < nrOfClasses; i++) {
-		for (size_t j = 0; j < nrOfClasses; j++) {
+	for (EClass i = 0; i < nrOfClasses; i++) {
+		for (EClass j = 0; j < nrOfClasses; j++) {
 			if (i == j) {
 				inheritanceMatrix[i][j] = true;
 			}
