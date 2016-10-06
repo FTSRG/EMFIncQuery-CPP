@@ -35,7 +35,7 @@ class ModelRootGenerator {
 					{
 					public:
 						ModelRoot();
-						ModelRoot(const char * configjson);
+						ModelRoot(const char * configjson, const char * localNodeName);
 						~ModelRoot()
 						{
 							FreeAllModelElement();
@@ -90,7 +90,7 @@ class ModelRootGenerator {
 			
 		}
 		
-		ModelRoot::ModelRoot(const char * configjson)
+		ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 		{
 			try {
 				std::ifstream ifs(configjson);
@@ -99,15 +99,13 @@ class ModelRootGenerator {
 				if (!err.empty()) {
 					throw err;
 				}
-		
-				auto localnode = root.get("localnode").get<std::string>();
-		
+				
 				auto elements = root.get("model").get<picojson::value::array>();
 		
 				// Creating class instances
 				for (auto & elem : elements)
 				{
-					bool is_remote = elem.get(":node").get<std::string>() != localnode;
+					bool is_remote = elem.get(":node").get<std::string>() != localNodeName;
 					std::string type = elem.get(":type").get<std::string>();
 					int id = static_cast<int>(elem.get(":id").get<double>());
 					if (modelElements.find(id) != modelElements.end())
@@ -133,7 +131,7 @@ class ModelRootGenerator {
 				// Filling class instances with data
 				for (auto & elem : elements)
 				{
-					bool is_remote = elem.get(":node").get<std::string>() != localnode;
+					bool is_remote = elem.get(":node").get<std::string>() != localNodeName;
 					std::string type = elem.get(":type").get<std::string>();
 					int id = static_cast<int>(elem.get(":id").get<double>());
 					auto modelElement = modelElements.find(id)->second;
