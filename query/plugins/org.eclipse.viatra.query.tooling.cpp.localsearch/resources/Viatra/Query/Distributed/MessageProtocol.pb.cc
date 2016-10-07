@@ -152,9 +152,11 @@ void protobuf_AssignDesc_MessageProtocol_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContinueQuerySession, _is_default_instance_));
   RemoteResults_descriptor_ = file->message_type(5);
-  static const int RemoteResults_offsets_[2] = {
+  static const int RemoteResults_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, taskid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, resultasset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, resultmatchset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, partindex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RemoteResults, isfinalpart_),
   };
   RemoteResults_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -237,11 +239,12 @@ void protobuf_AddDesc_MessageProtocol_2eproto() {
     "e\030\001 \001(\t\"$\n\021StartQuerySession\022\017\n\007queryID\030"
     "\001 \001(\005\"h\n\024ContinueQuerySession\022\016\n\006taskID\030"
     "\001 \003(\005\022\021\n\tbodyIndex\030\002 \001(\005\022\026\n\016operationInd"
-    "ex\030\003 \001(\005\022\025\n\rframeAsString\030\004 \001(\t\"4\n\rRemot"
-    "eResults\022\016\n\006taskID\030\001 \003(\005\022\023\n\013resultAsSet\030"
-    "\002 \001(\t*[\n\007MsgType\022\027\n\023START_QUERY_SESSION\020"
-    "\000\022\033\n\027TERMINATE_QUERY_SESSION\020\001\022\032\n\026CONTIN"
-    "UE_QUERY_SESSION\020\002b\006proto3", 786);
+    "ex\030\003 \001(\005\022\025\n\rframeAsString\030\004 \001(\t\"_\n\rRemot"
+    "eResults\022\016\n\006taskID\030\001 \003(\005\022\026\n\016resultMatchS"
+    "et\030\002 \001(\t\022\021\n\tpartIndex\030\003 \001(\005\022\023\n\013isFinalPa"
+    "rt\030\004 \001(\010*[\n\007MsgType\022\027\n\023START_QUERY_SESSI"
+    "ON\020\000\022\033\n\027TERMINATE_QUERY_SESSION\020\001\022\032\n\026CON"
+    "TINUE_QUERY_SESSION\020\002b\006proto3", 829);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageProtocol.proto", &protobuf_RegisterTypes);
   QueryRequest::default_instance_ = new QueryRequest();
@@ -2477,7 +2480,9 @@ void ContinueQuerySession::clear_frameasstring() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RemoteResults::kTaskIDFieldNumber;
-const int RemoteResults::kResultAsSetFieldNumber;
+const int RemoteResults::kResultMatchSetFieldNumber;
+const int RemoteResults::kPartIndexFieldNumber;
+const int RemoteResults::kIsFinalPartFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RemoteResults::RemoteResults()
@@ -2502,7 +2507,9 @@ void RemoteResults::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  resultasset_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  resultmatchset_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  partindex_ = 0;
+  isfinalpart_ = false;
 }
 
 RemoteResults::~RemoteResults() {
@@ -2511,7 +2518,7 @@ RemoteResults::~RemoteResults() {
 }
 
 void RemoteResults::SharedDtor() {
-  resultasset_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  resultmatchset_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -2543,7 +2550,28 @@ RemoteResults* RemoteResults::New(::google::protobuf::Arena* arena) const {
 
 void RemoteResults::Clear() {
 // @@protoc_insertion_point(message_clear_start:Protobuf.RemoteResults)
-  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(RemoteResults, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<RemoteResults*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(partindex_, isfinalpart_);
+  resultmatchset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
   taskid_.Clear();
 }
 
@@ -2570,20 +2598,50 @@ bool RemoteResults::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_resultAsSet;
+        if (input->ExpectTag(18)) goto parse_resultMatchSet;
         break;
       }
 
-      // optional string resultAsSet = 2;
+      // optional string resultMatchSet = 2;
       case 2: {
         if (tag == 18) {
-         parse_resultAsSet:
+         parse_resultMatchSet:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_resultasset()));
+                input, this->mutable_resultmatchset()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->resultasset().data(), this->resultasset().length(),
+            this->resultmatchset().data(), this->resultmatchset().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "Protobuf.RemoteResults.resultAsSet"));
+            "Protobuf.RemoteResults.resultMatchSet"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_partIndex;
+        break;
+      }
+
+      // optional int32 partIndex = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_partIndex:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &partindex_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_isFinalPart;
+        break;
+      }
+
+      // optional bool isFinalPart = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_isFinalPart:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &isfinalpart_)));
+
         } else {
           goto handle_unusual;
         }
@@ -2625,14 +2683,24 @@ void RemoteResults::SerializeWithCachedSizes(
       this->taskid(i), output);
   }
 
-  // optional string resultAsSet = 2;
-  if (this->resultasset().size() > 0) {
+  // optional string resultMatchSet = 2;
+  if (this->resultmatchset().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->resultasset().data(), this->resultasset().length(),
+      this->resultmatchset().data(), this->resultmatchset().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.RemoteResults.resultAsSet");
+      "Protobuf.RemoteResults.resultMatchSet");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->resultasset(), output);
+      2, this->resultmatchset(), output);
+  }
+
+  // optional int32 partIndex = 3;
+  if (this->partindex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->partindex(), output);
+  }
+
+  // optional bool isFinalPart = 4;
+  if (this->isfinalpart() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->isfinalpart(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:Protobuf.RemoteResults)
@@ -2655,15 +2723,25 @@ void RemoteResults::SerializeWithCachedSizes(
       WriteInt32NoTagToArray(this->taskid(i), target);
   }
 
-  // optional string resultAsSet = 2;
-  if (this->resultasset().size() > 0) {
+  // optional string resultMatchSet = 2;
+  if (this->resultmatchset().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->resultasset().data(), this->resultasset().length(),
+      this->resultmatchset().data(), this->resultmatchset().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.RemoteResults.resultAsSet");
+      "Protobuf.RemoteResults.resultMatchSet");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->resultasset(), target);
+        2, this->resultmatchset(), target);
+  }
+
+  // optional int32 partIndex = 3;
+  if (this->partindex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->partindex(), target);
+  }
+
+  // optional bool isFinalPart = 4;
+  if (this->isfinalpart() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->isfinalpart(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:Protobuf.RemoteResults)
@@ -2674,11 +2752,23 @@ int RemoteResults::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:Protobuf.RemoteResults)
   int total_size = 0;
 
-  // optional string resultAsSet = 2;
-  if (this->resultasset().size() > 0) {
+  // optional string resultMatchSet = 2;
+  if (this->resultmatchset().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->resultasset());
+        this->resultmatchset());
+  }
+
+  // optional int32 partIndex = 3;
+  if (this->partindex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->partindex());
+  }
+
+  // optional bool isFinalPart = 4;
+  if (this->isfinalpart() != 0) {
+    total_size += 1 + 1;
   }
 
   // repeated int32 taskID = 1;
@@ -2727,9 +2817,15 @@ void RemoteResults::MergeFrom(const RemoteResults& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   taskid_.MergeFrom(from.taskid_);
-  if (from.resultasset().size() > 0) {
+  if (from.resultmatchset().size() > 0) {
 
-    resultasset_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.resultasset_);
+    resultmatchset_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.resultmatchset_);
+  }
+  if (from.partindex() != 0) {
+    set_partindex(from.partindex());
+  }
+  if (from.isfinalpart() != 0) {
+    set_isfinalpart(from.isfinalpart());
   }
 }
 
@@ -2758,7 +2854,9 @@ void RemoteResults::Swap(RemoteResults* other) {
 }
 void RemoteResults::InternalSwap(RemoteResults* other) {
   taskid_.UnsafeArenaSwap(&other->taskid_);
-  resultasset_.Swap(&other->resultasset_);
+  resultmatchset_.Swap(&other->resultmatchset_);
+  std::swap(partindex_, other->partindex_);
+  std::swap(isfinalpart_, other->isfinalpart_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2804,48 +2902,76 @@ RemoteResults::mutable_taskid() {
   return &taskid_;
 }
 
-// optional string resultAsSet = 2;
-void RemoteResults::clear_resultasset() {
-  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string resultMatchSet = 2;
+void RemoteResults::clear_resultmatchset() {
+  resultmatchset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& RemoteResults::resultasset() const {
-  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.resultAsSet)
-  return resultasset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& RemoteResults::resultmatchset() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.resultMatchSet)
+  return resultmatchset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RemoteResults::set_resultasset(const ::std::string& value) {
+ void RemoteResults::set_resultmatchset(const ::std::string& value) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.resultMatchSet)
 }
- void RemoteResults::set_resultasset(const char* value) {
+ void RemoteResults::set_resultmatchset(const char* value) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Protobuf.RemoteResults.resultMatchSet)
 }
- void RemoteResults::set_resultasset(const char* value, size_t size) {
+ void RemoteResults::set_resultmatchset(const char* value, size_t size) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Protobuf.RemoteResults.resultAsSet)
+  // @@protoc_insertion_point(field_set_pointer:Protobuf.RemoteResults.resultMatchSet)
 }
- ::std::string* RemoteResults::mutable_resultasset() {
+ ::std::string* RemoteResults::mutable_resultmatchset() {
   
-  // @@protoc_insertion_point(field_mutable:Protobuf.RemoteResults.resultAsSet)
-  return resultasset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:Protobuf.RemoteResults.resultMatchSet)
+  return resultmatchset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* RemoteResults::release_resultasset() {
-  // @@protoc_insertion_point(field_release:Protobuf.RemoteResults.resultAsSet)
+ ::std::string* RemoteResults::release_resultmatchset() {
+  // @@protoc_insertion_point(field_release:Protobuf.RemoteResults.resultMatchSet)
   
-  return resultasset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return resultmatchset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RemoteResults::set_allocated_resultasset(::std::string* resultasset) {
-  if (resultasset != NULL) {
+ void RemoteResults::set_allocated_resultmatchset(::std::string* resultmatchset) {
+  if (resultmatchset != NULL) {
     
   } else {
     
   }
-  resultasset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultasset);
-  // @@protoc_insertion_point(field_set_allocated:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultmatchset);
+  // @@protoc_insertion_point(field_set_allocated:Protobuf.RemoteResults.resultMatchSet)
+}
+
+// optional int32 partIndex = 3;
+void RemoteResults::clear_partindex() {
+  partindex_ = 0;
+}
+ ::google::protobuf::int32 RemoteResults::partindex() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.partIndex)
+  return partindex_;
+}
+ void RemoteResults::set_partindex(::google::protobuf::int32 value) {
+  
+  partindex_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.partIndex)
+}
+
+// optional bool isFinalPart = 4;
+void RemoteResults::clear_isfinalpart() {
+  isfinalpart_ = false;
+}
+ bool RemoteResults::isfinalpart() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.isFinalPart)
+  return isfinalpart_;
+}
+ void RemoteResults::set_isfinalpart(bool value) {
+  
+  isfinalpart_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.isFinalPart)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

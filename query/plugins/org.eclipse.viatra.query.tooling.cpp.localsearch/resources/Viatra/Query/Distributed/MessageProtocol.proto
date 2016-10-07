@@ -50,7 +50,10 @@ message ContinueQuerySession
 message RemoteResults
 {
 	repeated int32 taskID = 1;
-	string resultAsSet = 2;
+
+	string resultMatchSet = 2;
+	int32 partIndex = 3;
+	bool isFinalPart = 4;
 }
 
 

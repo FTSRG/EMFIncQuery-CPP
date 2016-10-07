@@ -692,16 +692,28 @@ class RemoteResults : public ::google::protobuf::Message /* @@protoc_insertion_p
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_taskid();
 
-  // optional string resultAsSet = 2;
-  void clear_resultasset();
-  static const int kResultAsSetFieldNumber = 2;
-  const ::std::string& resultasset() const;
-  void set_resultasset(const ::std::string& value);
-  void set_resultasset(const char* value);
-  void set_resultasset(const char* value, size_t size);
-  ::std::string* mutable_resultasset();
-  ::std::string* release_resultasset();
-  void set_allocated_resultasset(::std::string* resultasset);
+  // optional string resultMatchSet = 2;
+  void clear_resultmatchset();
+  static const int kResultMatchSetFieldNumber = 2;
+  const ::std::string& resultmatchset() const;
+  void set_resultmatchset(const ::std::string& value);
+  void set_resultmatchset(const char* value);
+  void set_resultmatchset(const char* value, size_t size);
+  ::std::string* mutable_resultmatchset();
+  ::std::string* release_resultmatchset();
+  void set_allocated_resultmatchset(::std::string* resultmatchset);
+
+  // optional int32 partIndex = 3;
+  void clear_partindex();
+  static const int kPartIndexFieldNumber = 3;
+  ::google::protobuf::int32 partindex() const;
+  void set_partindex(::google::protobuf::int32 value);
+
+  // optional bool isFinalPart = 4;
+  void clear_isfinalpart();
+  static const int kIsFinalPartFieldNumber = 4;
+  bool isfinalpart() const;
+  void set_isfinalpart(bool value);
 
   // @@protoc_insertion_point(class_scope:Protobuf.RemoteResults)
  private:
@@ -710,7 +722,9 @@ class RemoteResults : public ::google::protobuf::Message /* @@protoc_insertion_p
   bool _is_default_instance_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > taskid_;
   mutable int _taskid_cached_byte_size_;
-  ::google::protobuf::internal::ArenaStringPtr resultasset_;
+  ::google::protobuf::internal::ArenaStringPtr resultmatchset_;
+  ::google::protobuf::int32 partindex_;
+  bool isfinalpart_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_MessageProtocol_2eproto();
   friend void protobuf_AssignDesc_MessageProtocol_2eproto();
@@ -1231,48 +1245,76 @@ RemoteResults::mutable_taskid() {
   return &taskid_;
 }
 
-// optional string resultAsSet = 2;
-inline void RemoteResults::clear_resultasset() {
-  resultasset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string resultMatchSet = 2;
+inline void RemoteResults::clear_resultmatchset() {
+  resultmatchset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& RemoteResults::resultasset() const {
-  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.resultAsSet)
-  return resultasset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& RemoteResults::resultmatchset() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.resultMatchSet)
+  return resultmatchset_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void RemoteResults::set_resultasset(const ::std::string& value) {
+inline void RemoteResults::set_resultmatchset(const ::std::string& value) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.resultMatchSet)
 }
-inline void RemoteResults::set_resultasset(const char* value) {
+inline void RemoteResults::set_resultmatchset(const char* value) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Protobuf.RemoteResults.resultMatchSet)
 }
-inline void RemoteResults::set_resultasset(const char* value, size_t size) {
+inline void RemoteResults::set_resultmatchset(const char* value, size_t size) {
   
-  resultasset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Protobuf.RemoteResults.resultAsSet)
+  // @@protoc_insertion_point(field_set_pointer:Protobuf.RemoteResults.resultMatchSet)
 }
-inline ::std::string* RemoteResults::mutable_resultasset() {
+inline ::std::string* RemoteResults::mutable_resultmatchset() {
   
-  // @@protoc_insertion_point(field_mutable:Protobuf.RemoteResults.resultAsSet)
-  return resultasset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:Protobuf.RemoteResults.resultMatchSet)
+  return resultmatchset_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* RemoteResults::release_resultasset() {
-  // @@protoc_insertion_point(field_release:Protobuf.RemoteResults.resultAsSet)
+inline ::std::string* RemoteResults::release_resultmatchset() {
+  // @@protoc_insertion_point(field_release:Protobuf.RemoteResults.resultMatchSet)
   
-  return resultasset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return resultmatchset_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void RemoteResults::set_allocated_resultasset(::std::string* resultasset) {
-  if (resultasset != NULL) {
+inline void RemoteResults::set_allocated_resultmatchset(::std::string* resultmatchset) {
+  if (resultmatchset != NULL) {
     
   } else {
     
   }
-  resultasset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultasset);
-  // @@protoc_insertion_point(field_set_allocated:Protobuf.RemoteResults.resultAsSet)
+  resultmatchset_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultmatchset);
+  // @@protoc_insertion_point(field_set_allocated:Protobuf.RemoteResults.resultMatchSet)
+}
+
+// optional int32 partIndex = 3;
+inline void RemoteResults::clear_partindex() {
+  partindex_ = 0;
+}
+inline ::google::protobuf::int32 RemoteResults::partindex() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.partIndex)
+  return partindex_;
+}
+inline void RemoteResults::set_partindex(::google::protobuf::int32 value) {
+  
+  partindex_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.partIndex)
+}
+
+// optional bool isFinalPart = 4;
+inline void RemoteResults::clear_isfinalpart() {
+  isfinalpart_ = false;
+}
+inline bool RemoteResults::isfinalpart() const {
+  // @@protoc_insertion_point(field_get:Protobuf.RemoteResults.isFinalPart)
+  return isfinalpart_;
+}
+inline void RemoteResults::set_isfinalpart(bool value) {
+  
+  isfinalpart_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.RemoteResults.isFinalPart)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
