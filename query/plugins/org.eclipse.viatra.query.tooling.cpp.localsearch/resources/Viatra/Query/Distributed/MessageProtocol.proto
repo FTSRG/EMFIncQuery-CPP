@@ -1,16 +1,17 @@
 syntax = "proto3";
+package Protobuf;
 	
-enum QueryServerMsgType{
+enum MsgType{
 	START_QUERY_SESSION = 0;		
 	TERMINATE_QUERY_SESSION = 1;
 	CONTINUE_QUERY_SESSION = 2;
 }
 
-message QueryServerRequest
+message QueryRequest
 {
 	int64 rqID = 1;
 	int64 querySessionID = 2;	
-	QueryServerMsgType msgType = 3;
+	MsgType msgType = 3;
 	
 	oneof msg {
 		StartQuerySession startQuerySession = 4;
@@ -19,11 +20,11 @@ message QueryServerRequest
 	}	
 }
 
-message QueryServerResponse
+message QueryResponse
 {
 	int64 rqID = 1;
 	int64 querySessionID = 2;
-	QueryServerMsgType msgType = 3;
+	MsgType msgType = 3;
 
 	oneof msg {
 		SimpleResponse simpleResponse = 4;
