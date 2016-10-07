@@ -18,10 +18,10 @@ VIATRA_FUNCTION void Viatra::Query::Distributed::QueryServer::accept_connection(
 {
 
 }
-VIATRA_FUNCTION void Viatra::Query::Distributed::QueryServer::process_message(Network::Connection * c, Network::byte * bytes, int len)
+VIATRA_FUNCTION void Viatra::Query::Distributed::QueryServer::process_message(Network::Connection * c, Network::Buffer message)
 {
-	QueryServerRequest qsr;
-	qsr.ParseFromArray(bytes, len);
+	Protobuf::QueryRequest qsr;
+	qsr.ParseFromArray(message.data(), message.size());
 	
 
 }

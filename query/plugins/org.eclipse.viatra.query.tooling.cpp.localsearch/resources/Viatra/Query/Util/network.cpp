@@ -16,7 +16,8 @@ namespace Network
 
 
 	static constexpr int INT_ENCODE_SIZE = 4;
-
+	static_assert(Buffer::HEADER == INT_ENCODE_SIZE, "Buffer size and INT_ENCODE_SIZE must be the same");
+	
 	static void encodeInt(int what, byte* buffer)
 	{
 		buffer[0] = (what >> 24);
@@ -32,6 +33,11 @@ namespace Network
 			(int(buffer[1]) << 16) +
 			(int(buffer[2]) << 8) +
 			(int(buffer[3]) << 0);
+	}
+
+
+	void Buffer::calculate_header() {
+		encodeInt(len, buf.get());
 	}
 
 
@@ -78,12 +84,11 @@ namespace Network
 
 			VIATRA_FUNCTION void read_async_msgbody(int msgSize)
 			{
-				std::unique_ptr<byte[]> storagePtr(new byte[msgSize]);
-				auto dataptr = storagePtr.get();
+				Buffer msgBuffer(msgSize);
 				
 				asio::async_read(socket,
-					asio::buffer(dataptr, msgSize),
-					[this, data = std::move(storagePtr), msgSize](std::error_code ec, std::size_t length)
+					asio::buffer(msgBuffer.data(), msgBuffer.size()),
+					[this, msgBuffer = std::move(msgBuffer), msgSize](std::error_code ec, std::size_t length) mutable
 				{
 					if (ec || length != msgSize)
 					{
@@ -92,7 +97,7 @@ namespace Network
 						return;
 					}
 
-					server->process_message(this, data.get(), msgSize);
+					server->process_message(this, std::move(msgBuffer));
 
 					read_async_msgheader();
 				});
@@ -156,21 +161,11 @@ namespace Network
 
 	}
 
-	VIATRA_FUNCTION void Server::sendMessage(Connection * c, byte * msgBuffer, int msglen)
-	{
-		int encoded_len = INT_ENCODE_SIZE + msglen;
-		
-		std::unique_ptr<byte[]> encoded(new byte[encoded_len]);
-		byte * dataptr = encoded.get();
-
-		encodeInt(msglen, &encoded[0]);
-
-		memcpy(&encoded[INT_ENCODE_SIZE], msgBuffer, msglen);
-
-		
+	VIATRA_FUNCTION void Server::sendMessage(Connection * c, Buffer message)
+	{				
 		asio::async_write(c->socket,
-			asio::buffer(dataptr, encoded_len),
-			[this, store_encoded = std::move(encoded)](std::error_code ec, std::size_t length)
+			asio::buffer(message.framed_data(), message.framed_size()),
+			[this, store_message = std::move(message)](std::error_code ec, std::size_t length)
 			{
 				if (ec) {
 					std::cout << "Error during sending message " << ec ;
@@ -228,12 +223,12 @@ namespace Network
 
 		VIATRA_FUNCTION void read_async_msgheader()
 		{
-			std::unique_ptr<byte[]> data(new byte[INT_ENCODE_SIZE]);
-			auto dataptr = data.get();
+			std::unique_ptr<byte[]> header(new byte[INT_ENCODE_SIZE]);
+			auto dataptr = header.get();
 
 			asio::async_read(socket,
 				asio::buffer(dataptr, INT_ENCODE_SIZE),
-				[this, data = std::move(data)](std::error_code ec, std::size_t length)
+				[this, header = std::move(header)](std::error_code ec, std::size_t length)
 			{
 				if (ec || length != INT_ENCODE_SIZE)
 				{
@@ -241,7 +236,7 @@ namespace Network
 					return;
 				}
 
-				int messagesize = decodeInt(&data[0]);
+				int messagesize = decodeInt(&header[0]);
 				read_async_msgbody(messagesize);
 				
 			});
@@ -249,12 +244,11 @@ namespace Network
 
 		VIATRA_FUNCTION void read_async_msgbody(int msgSize)
 		{
-			std::unique_ptr<byte[]> data(new byte[msgSize]);
-			auto dataptr = data.get();
+			Buffer buffer(msgSize);
 
 			asio::async_read(socket,
-				asio::buffer(dataptr, msgSize),
-				[this, data = std::move(data), msgSize](std::error_code ec, std::size_t length)
+				asio::buffer(buffer.data(), buffer.size()),
+				[this, messageBuffer = std::move(buffer), msgSize](std::error_code ec, std::size_t length) mutable
 			{
 				if (ec || length != msgSize)
 				{
@@ -262,7 +256,7 @@ namespace Network
 					return;
 				}
 
-				client->process_message(data.get(), msgSize); 
+				client->process_message(std::move(messageBuffer)); 
 				read_async_msgheader();
 			});
 		}
@@ -291,20 +285,11 @@ namespace Network
 	}
 
 	
-	VIATRA_FUNCTION void Client::sendMessage(byte * buffer, int len)
+	VIATRA_FUNCTION void Client::sendMessage(Buffer message)
 	{
-		int encoded_len = INT_ENCODE_SIZE + len;
-
-		std::unique_ptr<byte[]> encoded(new byte[encoded_len]);
-		byte * dataptr = encoded.get();
-
-		encodeInt(len, dataptr);
-
-		memcpy(&dataptr[INT_ENCODE_SIZE], buffer, len);
-
 		asio::async_write(impl->socket,
-			asio::buffer(dataptr, encoded_len),
-			[this, store_encoded = std::move(encoded)](std::error_code ec, std::size_t length)
+			asio::buffer(message.framed_data(), message.framed_size()),
+			[this, keep_message_alive = std::move(message)](std::error_code ec, std::size_t length)
 		{
 			if (ec) {
 				std::cout << "Error during sending message " << ec << std::endl;

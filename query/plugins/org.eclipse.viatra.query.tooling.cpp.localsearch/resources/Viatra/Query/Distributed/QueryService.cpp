@@ -1,10 +1,11 @@
 
 #include"QueryService.h"
 
-using namespace Viatra::Query::Distributed;
-
-
+#include"MessageProtocol.pb.h"
+#include"QueryResultCollector.h"
 #include"picojson.h"
+
+using namespace Viatra::Query::Distributed;
 
 /*
 class QueryServiceBase
@@ -26,5 +27,16 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * nodeNam
 QueryServiceBase::~QueryServiceBase()
 {
 
+}
+
+void QueryServiceBase::StartRemoteQuerySession(uint64_t sessionID, int queryID)
+{
+	Protobuf::QueryRequest request;
+	request.set_rqid(0);
+
+	Network::Buffer buffer(request);
+
+	for (auto & c : clients)
+		c.second->sendMessage(buffer.copy());
 }
 

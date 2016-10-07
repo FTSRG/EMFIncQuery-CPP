@@ -9,6 +9,7 @@
 constexpr int BUFSIZE = 6000;
 
 
+
 class MyClient final : public Network::Client{
 
 public:
@@ -18,10 +19,10 @@ public:
 	}
 		
 protected:
-	void process_message(Network::byte * bytes, int len) override
+	void process_message(Network::Buffer message) override
 	{
-		char * begin = (char*)bytes;
-		char * end = (char*)bytes + len;
+		char * begin = (char*)message.data();
+		char * end = (char*)message.data() + message.size();
 
 		std::cout << "The server said: \"" + std::string(begin, end) + "\"" << std::endl;
 	}
@@ -34,14 +35,17 @@ public:
 	{	
 	}
 protected:
-	void process_message(Network::Connection * c, Network::byte * bytes, int len) override
+	void process_message(Network::Connection * c, Network::Buffer message) override
 	{
-		char * begin = (char*)bytes;
-		char * end = (char*)bytes + len;
+		char * begin = (char*)message.data();
+		char * end = (char*)message.data() + message.size();
 		std::cout << "The  client said: \"" + std::string(begin, end) + "\"" << std::endl;
 
 		char buffer[BUFSIZE];
-		sendMessage(c, (Network::byte*)buffer, snprintf(buffer, BUFSIZE, " Nice message \"%.*s\"", len, begin));
+		Network::Buffer out(snprintf(buffer, BUFSIZE, " Nice message \"%.*s\"", message.size(), begin));
+		memcpy(out.data(), buffer, out.size());
+
+		sendMessage(c, std::move(out));
 	}
 
 };
@@ -67,7 +71,12 @@ int server_test(int argc, char **argv)
 		char buffer[BUFSIZE];
 		for (int i = 1; i <= 10; ++i) {
 			std::cout << "x";
-			client.sendMessage((Network::byte*)buffer, snprintf(buffer, BUFSIZE, "It is the %d. message from me", i));
+
+			char buffer[BUFSIZE];
+			Network::Buffer out(snprintf(buffer, BUFSIZE, "It is the %d. message from me", i));
+			memcpy(out.data(), buffer, out.size());
+
+			client.sendMessage(std::move(out));
 		}
 			
 

@@ -23,7 +23,7 @@ namespace Viatra {
 				VIATRA_FUNCTION ~QueryServer();
 			protected:
 				VIATRA_FUNCTION virtual void accept_connection(Network::Connection * c) override;
-				VIATRA_FUNCTION virtual void process_message(Network::Connection * c, Network::byte * bytes, int len)override;
+				VIATRA_FUNCTION virtual void process_message(Network::Connection * c, Network::Buffer message)override;
 			};
 
 		}

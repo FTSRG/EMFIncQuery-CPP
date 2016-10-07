@@ -28,6 +28,8 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
+			class QueryResultCollectorBase;
+
 			struct NodeInfo {
 				std::string name;
 				std::string ip;
@@ -51,6 +53,11 @@ namespace Viatra {
 
 				IDGenerator querySessionIDGenerator;
 				std::map< uint64_t , std::unique_ptr<QueryRunnerBase> > queryRunners;
+				std::map< std::tuple<uint64_t, TaskID>, std::unique_ptr<QueryResultCollectorBase> > localResultCollectors;
+
+				// Tasks for handling request via network
+				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) = 0;
+				void StartRemoteQuerySession(uint64_t sessionID, int queryID);
 				
 			};
 
@@ -78,13 +85,15 @@ namespace Viatra {
 				}
 
 				// usage: queryService.RunNewQuery<QueryName>()
-				template<  template<typename>class QueryTemplate  ,  class Query = QueryTemplate<ModelRoot>  >
-				std::unordered_set<typename Query::Match> RunNewQuery()
+				template<  template<typename>class QueryTemplate >
+				std::unordered_set<typename QueryTemplate<ModelRoot>::Match> RunNewQuery()
 				{
 					int64_t sessionID = querySessionIDGenerator.generate();
-					queryRunners[sessionID] = QueryRunnerFactory::Create(Query::queryID, sessionID, &modelRoot);
+					queryRunners[sessionID] = QueryRunnerFactory::Create(QueryTemplate<ModelRoot>::queryID, sessionID, &modelRoot);
 					throw "Not implemented";
 				}
+							
+
 				/*
 				template<typename QuerySpec>
 				std::future<std::unordered_set<MatchT<QuerySpec>>> DistributeToNodes(
@@ -101,6 +110,14 @@ namespace Viatra {
 					return std::move(t);
 				}
 
+				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) override
+				{
+					if (queryRunners[sessionID])
+						return "ERROR: QuerySession with the given sessionID is already running in this node!";
+
+					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot);
+					return "OK";
+				}
 			};
 		}
 	}
