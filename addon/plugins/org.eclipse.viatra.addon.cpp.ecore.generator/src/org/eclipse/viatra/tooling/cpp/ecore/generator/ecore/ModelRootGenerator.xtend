@@ -48,7 +48,7 @@ class ModelRootGenerator {
 		
 					private:
 						void FreeAllModelElement();
-						std::map<int, Viatra::Query::Model::ModelElement*> modelElements;
+						std::map<int32_t, Viatra::Query::Model::ModelElement*> modelElements;
 		
 					};
 		
@@ -133,7 +133,7 @@ class ModelRootGenerator {
 				{
 					bool is_remote = elem.get(":node").get<std::string>() != localNodeName;
 					std::string type = elem.get(":type").get<std::string>();
-					int id = static_cast<int>(elem.get(":id").get<double>());
+					int32_t id = static_cast<int>(elem.get(":id").get<double>());
 					auto modelElement = modelElements.find(id)->second;
 				
 					if( !is_remote )
@@ -162,7 +162,7 @@ class ModelRootGenerator {
 														std::vector<«refTypeFQN»*> as_vector(as_array.size());
 														for(size_t i = 0 ; i < as_array.size() ; ++i)
 														{
-															int64_t id = as_array[i].get<int64_t>();
+															int32_t id = (int32_t)as_array[i].get<int64_t>();
 															as_vector[i] = dynamic_cast<«refTypeFQN»*>(modelElements[id]);
 														}
 														modelElement->«refHelper.setterName»(as_vector);
@@ -171,7 +171,7 @@ class ModelRootGenerator {
 													if( ref_elem.is<int64_t>() )
 													{
 														modelElement->«refHelper.setterName»(
-															dynamic_cast<«refTypeFQN»*>(modelElements[ref_elem.get<int64_t>()])
+															dynamic_cast<«refTypeFQN»*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 														);
 													}
 												«ENDIF»
