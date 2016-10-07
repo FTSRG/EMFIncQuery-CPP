@@ -50,6 +50,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		].filterNull
 		includes += new Include("stdint.h", true);
 		includes += new Include("proto_gen.pb.h", false);
+		includes += new Include("Viatra/Query/MatchSet.h", false);
 	}
 
 	override compileInner() '''	
@@ -60,7 +61,23 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			«equals(oneOfTheMatchingFrames.parameters)»
 			
 			«serialization(oneOfTheMatchingFrames.parameters)»
-		};		
+		};			
+			
+		«closeNamespaces»
+		
+		«hash(oneOfTheMatchingFrames.parameters)»
+		
+		«openNamespaces»
+		
+				
+		struct «unitName»Set 
+			: public Viatra::Query::MatchSet
+			, private std::unordered_set<«unitName»>
+		{
+			«FOR using : #["insert", "clear", "empty", "size" ]»
+				using std::unordered_set<«unitName»>::«using»;
+			«ENDFOR»
+		};
 	'''
 	
 	def serialization(ImmutableList<PParameter> paramlist) '''
@@ -110,11 +127,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		}
 
 	'''
-				
-	override compileOuter() '''
-		«hash(oneOfTheMatchingFrames.parameters)»
-	'''
-	
+					
 	def getMatchName() {
 		return unitName
 	}

@@ -67,6 +67,18 @@ class ViatraQueryHeaderGenerator extends BaseGenerator {
 	
 	override getFileName() '''«unitName».h'''
 	
+	final def openNamespaces()	'''
+		«FOR namespaceFragment : implementationNamespace»
+			namespace «namespaceFragment» {
+		«ENDFOR»
+		'''
+		
+	final def closeNamespaces()	'''
+		«FOR namespaceFragment : implementationNamespace.toList.reverseView»
+			} /* namespace «namespaceFragment» */
+		«ENDFOR»
+	'''
+	
 	final def addInclude(Include include) {
 		includes += include;
 	}
@@ -92,15 +104,11 @@ class ViatraQueryHeaderGenerator extends BaseGenerator {
 			«include.compile»
 		«ENDFOR»
 		
-		«FOR namespaceFragment : implementationNamespace»
-			namespace «namespaceFragment» {
-		«ENDFOR»
+		«openNamespaces»
 		
 		«compileInner»
 		
-		«FOR namespaceFragment : implementationNamespace.toList.reverseView»
-			} /* namespace «namespaceFragment» */
-		«ENDFOR»
+		«closeNamespaces»
 		
 		«compileOuter»
 		
