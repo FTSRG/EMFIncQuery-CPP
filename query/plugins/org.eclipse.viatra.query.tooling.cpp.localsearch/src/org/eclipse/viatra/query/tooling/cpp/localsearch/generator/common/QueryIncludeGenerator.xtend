@@ -25,9 +25,10 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	// TODO: Iterating over the bodies giving them indices makes the generated code nondeterministic
 	override compileInner() '''
 	
-		template<class ModelRoot>
+		template<class ModelRootParam>
 		class «unitName» {
 		public:
+			using ModelRoot = ModelRootParam;
 			using Matcher = «patternName»Matcher<ModelRoot>;
 			using QuerySpecification = «patternName»QuerySpecification<ModelRoot>;
 			using Match = «patternName»Match;

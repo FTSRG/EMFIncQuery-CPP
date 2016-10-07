@@ -31,7 +31,6 @@
     <ClInclude Include="Query\Util\HierarchicalID.h" />
     <ClInclude Include="Query\Util\network.h" />
     <ClInclude Include="Query\Distributed\Node.h" />
-    <ClInclude Include="Query\Distributed\NodeRegistry.h" />
     <ClInclude Include="Query\Distributed\QueryClient.h" />
     <ClInclude Include="Query\Distributed\QueryRunner.h" />
     <ClInclude Include="Query\Distributed\QueryServer.h" />
@@ -69,6 +68,10 @@
     <ClInclude Include="Query\Util\Defs.h" />
     <ClInclude Include="Query\Util\IsNull.h" />
     <ClInclude Include="Query\Util\Optional.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Query\Distributed\CompileProtobuf.bat" />
+    <None Include="Query\Distributed\MessageProtocol.proto" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{446411A1-C253-4CE5-92EF-F8A682AF8DDC}</ProjectGuid>

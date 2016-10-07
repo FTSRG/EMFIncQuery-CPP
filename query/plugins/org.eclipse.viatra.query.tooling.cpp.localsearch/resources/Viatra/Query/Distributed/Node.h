@@ -10,10 +10,10 @@ namespace Viatra {
 		namespace Distributed {
 			class QueryService;
 
-			class Node : public Model::IModelElemService
+			class NodeInfo
 			{
 			public:
-				Node(std::string name, std::string ip, uint16_t port)
+				NodeInfo(std::string name, std::string ip, uint16_t port)
 					: _name(name)
 					, _ip(ip)
 					, _port(port)

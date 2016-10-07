@@ -32,9 +32,6 @@
     <ClInclude Include="Query\Distributed\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Query\Distributed\NodeRegistry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Query\Distributed\QueryClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -161,5 +158,11 @@
     <ClInclude Include="Query\Distributed\IDGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Query\Distributed\MessageProtocol.proto" />
+    <None Include="Query\Distributed\CompileProtobuf.bat">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

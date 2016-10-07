@@ -55,9 +55,10 @@ namespace Viatra {
 				std::map< uint64_t , std::unique_ptr<QueryRunnerBase> > queryRunners;
 				std::map< std::tuple<uint64_t, TaskID>, std::unique_ptr<QueryResultCollectorBase> > localResultCollectors;
 
-				// Tasks for handling request via network
-				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) = 0;
-				void StartRemoteQuerySession(uint64_t sessionID, int queryID);
+				// Start Local Query Session on this node
+				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) = 0;	// Implementation
+				// Start Local Query Session on all other node and waiting for the result
+				void StartRemoteQuerySessions(uint64_t sessionID, int queryID);						// Stub
 				
 			};
 
@@ -88,9 +89,11 @@ namespace Viatra {
 				template<  template<typename>class QueryTemplate >
 				std::unordered_set<typename QueryTemplate<ModelRoot>::Match> RunNewQuery()
 				{
-					int64_t sessionID = querySessionIDGenerator.generate();
-					queryRunners[sessionID] = QueryRunnerFactory::Create(QueryTemplate<ModelRoot>::queryID, sessionID, &modelRoot);
-					throw "Not implemented";
+					auto sessionID = querySessionIDGenerator.generate();
+					auto queryID = QueryTemplate<ModelRoot>::queryID;
+					StartLocalQuerySession(sessionID, queryID);
+					StartRemoteQuerySessions(sessionID, queryID);
+					queryRunners[sessionID]->run_async();
 				}
 							
 

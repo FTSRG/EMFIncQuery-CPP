@@ -21,7 +21,22 @@ class QueryServiceBase
 
 QueryServiceBase::QueryServiceBase(const char * configJSON, const char * nodeName)
 {
-	
+	try {
+		std::ifstream ifs(configjson);
+		picojson::value root;
+		std::string err = picojson::parse(root, ifs);
+		if (!err.empty()) {
+			throw err;
+		}
+
+		auto elements = root.get("model").get<picojson::value::array>();
+
+
+	}
+	catch (...)
+	{
+		throw;
+	}
 }
 
 QueryServiceBase::~QueryServiceBase()
@@ -29,7 +44,7 @@ QueryServiceBase::~QueryServiceBase()
 
 }
 
-void QueryServiceBase::StartRemoteQuerySession(uint64_t sessionID, int queryID)
+void QueryServiceBase::StartRemoteQuerySessions(uint64_t sessionID, int queryID)
 {
 	Protobuf::QueryRequest request;
 	request.set_rqid(0);

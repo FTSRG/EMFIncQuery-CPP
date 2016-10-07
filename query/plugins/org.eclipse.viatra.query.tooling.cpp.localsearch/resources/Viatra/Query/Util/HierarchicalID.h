@@ -24,14 +24,14 @@ namespace std {
 	template<typename T> 
 	struct hash<::Viatra::Query::Util::HierarchicalID<T>> 
 	{
+		std::hash<T> hashT;
 		size_t operator()(const ::Viatra::Query::Util::HierarchicalID<T>& hID) const 
 		{
-			static std::hash<T> hash;
 			size_t h = 0;
 			for (auto && x : hID)
 			{
 				h *= 31; 
-				h += hash(x);
+				h += hashT(x);
 			}
 			return h;
 		}
