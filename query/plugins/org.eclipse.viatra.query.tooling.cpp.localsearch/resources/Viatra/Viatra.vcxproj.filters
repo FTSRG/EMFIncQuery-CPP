@@ -158,6 +158,12 @@
     <ClInclude Include="Query\Distributed\IDGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Query\Distributed\QueryFuture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\MatchSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Query\Distributed\MessageProtocol.proto" />

@@ -15,26 +15,26 @@ int server_test(int argc, char **argv);
 // Entry point
 int main(int argc, char **argv) {
 	try {
-		return server_test(argc, argv);
-		auto arg = "cfg1.json";
-
-		// Create a query service and run it on the main thread
+		//return server_test(argc, argv)
 
 		Viatra::Query::Distributed::QueryService<
 			Viatra::Query::Model::ModelRoot, 
 			Viatra::Query::Distributedquery::QueryRunnerFactory
-		>	service(arg, "nodeA");
+		>	service("config.json", argv[1]);
 
 		auto thread = service.run_async();
 
-		service.RunNewQuery<Viatra::Query::Distributedquery::QueryB>();
+		auto result = service.RunNewQuery<Viatra::Query::Distributedquery::QueryB>();
+		while (!result->ready())
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+
 
 	}
-	catch (std::exception ex)
+	catch (const std::exception& ex)
 	{
 		std::cout << ex.what();
 	}
-	catch (std::string ex)
+	catch (const std::string& ex)
 	{
 		std::cout << ex;
 	}

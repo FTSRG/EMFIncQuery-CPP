@@ -5,6 +5,9 @@
 #include"QueryResultCollector.h"
 #include"picojson.h"
 
+#include<fstream>
+
+
 using namespace Viatra::Query::Distributed;
 
 /*
@@ -22,7 +25,7 @@ class QueryServiceBase
 QueryServiceBase::QueryServiceBase(const char * configJSON, const char * nodeName)
 {
 	try {
-		std::ifstream ifs(configjson);
+		std::ifstream ifs(configJSON);
 		picojson::value root;
 		std::string err = picojson::parse(root, ifs);
 		if (!err.empty()) {

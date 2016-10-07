@@ -45,7 +45,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	override protected compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val frame = frameGenerators.get(patternBody)»
 		«val bodyNum = frame.index»
-		auto sp = «name»QuerySpecification<ModelRoot>::get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(_model);
+		auto sp = «patternName»QuerySpecification<ModelRoot>::get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(_model);
 		«IF pattern.bound»
 			«initializeFrame(patternBody, pattern.boundParameters, bodyNum)»
 			
@@ -56,7 +56,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		
 		
 		for (auto&& frame : exec) {
-			«name»Match match;
+			«patternName»Match match;
 		
 			«fillMatch(patternBody.matchingFrame)»
 		
@@ -66,20 +66,20 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	//Generate a function to continue a plan execution from a designated point with a precalculated Frame.	 	
 	override protected compileContinueDistQuery(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val frame = frameGenerators.get(patternBody)»
-		std::unordered_set<«name»Match> continue_«frame.index»(«frame.frameName»& frame, int startOpIndex) const {
+		std::unordered_set<«patternName»Match> continue_«frame.index»(«frame.frameName»& frame, int startOpIndex) const {
 			using ::Viatra::Query::Matcher::ISearchContext;
 			using ::Viatra::Query::Plan::SearchPlan;
 			using ::Viatra::Query::Plan::DistSearchPlanExecutor;
 			using ::Viatra::Query::Matcher::ClassHelper;
 		
-			std::unordered_set<«name»Match> matches;
+			std::unordered_set<«patternName»Match> matches;
 			«val bodyNum = frame.index»
-			auto sp = «name»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model);
+			auto sp = «patternName»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model);
 				
 			auto exec = DistSearchPlanExecutor<«frame.frameName»>(sp, *_context, «frame.index», startOpIndex).prepare(frame);
 			
 			for (auto&& frame : exec) {
-				«name»Match match;
+				«patternName»Match match;
 			
 				«fillMatch(patternBody.matchingFrame)»
 			
@@ -95,7 +95,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		«val matchingFrameGen = frameGenerators.get(patternBody)»
 		«val boundVariables = boundParameters.map[toPVariable(patternBody.matchingFrame)].toSet»
 		«val boundParamNames = boundParameters.map[it.name].toSet»
-		«name»Frame_«bodyNum» frame;
+		«patternName»Frame_«bodyNum» frame;
 		«FOR boundVar : boundVariables»
 			«FOR exportedParameter: matchingFrameGen.matchingFrame.getParameterFromVariable(boundVar)»
 				«««TODO Incredible Hack, a bit ugly.

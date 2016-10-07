@@ -54,15 +54,19 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 	}
 
 	override compileInner() '''	
+		class «unitName»Set;
+		
 		struct «unitName» {
+			
+			using MatchSet = «unitName»Set;
 			
 			«fields(oneOfTheMatchingFrames.parameters)»
 			
 			«equals(oneOfTheMatchingFrames.parameters)»
 			
-			«serialization(oneOfTheMatchingFrames.parameters)»
-		};			
-			
+			«serializationOfMatch(oneOfTheMatchingFrames.parameters)»
+		};
+
 		«closeNamespaces»
 		
 		«hash(oneOfTheMatchingFrames.parameters)»
@@ -70,17 +74,20 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		«openNamespaces»
 		
 				
-		struct «unitName»Set 
+		class «unitName»Set 
 			: public Viatra::Query::MatchSet
 			, private std::unordered_set<«unitName»>
 		{
+			public:
 			«FOR using : #["insert", "clear", "empty", "size" ]»
 				using std::unordered_set<«unitName»>::«using»;
 			«ENDFOR»
+			
+			«serializationOfMatchSet(oneOfTheMatchingFrames.parameters)»
 		};
 	'''
 	
-	def serialization(ImmutableList<PParameter> paramlist) '''
+	def serializationOfMatch(ImmutableList<PParameter> paramlist) '''
 		// Serialization and deserialization
 		
 		std::string SerializeAsString()
@@ -108,9 +115,14 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbMatch", "mr")»
 			«ENDFOR»
 		}
+		'''
+		
+		def serializationOfMatchSet(ImmutableList<PParameter> paramlist) '''
+			// Serialization and deserialization
+			
 		
 		template<typename ModelRoot, typename Action>
-		static void ParseMatchSet( const uint8_t *bytes, int len, ModelRoot * mr, Action action )
+		static void ParseFromArray( const uint8_t *bytes, int len, ModelRoot * mr, Action action )
 		{
 			PB_«unitName»Set pbMsgSet;
 			«unitName» match;

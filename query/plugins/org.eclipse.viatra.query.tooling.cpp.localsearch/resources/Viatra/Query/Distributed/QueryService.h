@@ -23,6 +23,7 @@
 #include"QueryServer.h"
 #include"QueryClient.h"
 #include"IDGenerator.h"
+#include"QueryFuture.h"
 
 namespace Viatra {
 	namespace Query {
@@ -52,7 +53,7 @@ namespace Viatra {
 				std::map<std::string, std::unique_ptr<QueryClient>> clients;
 
 				IDGenerator querySessionIDGenerator;
-				std::map< uint64_t , std::unique_ptr<QueryRunnerBase> > queryRunners;
+				std::map< uint64_t , std::shared_ptr<QueryRunnerBase> > queryRunners;
 				std::map< std::tuple<uint64_t, TaskID>, std::unique_ptr<QueryResultCollectorBase> > localResultCollectors;
 
 				// Start Local Query Session on this node
@@ -71,8 +72,8 @@ namespace Viatra {
 				using QueryRunnerFactory = QueryRunnerFactoryTemplate<ModelRoot>;
 
 				// Helper type functions for a Query Class
-				template<typename Query> using MatchOf = typename Query::Match;
-				template<typename Query> using MatcherOf = typename Query::Matcher;
+				template<template<typename>typename QueryTemplate> using MatchOf = typename QueryTemplate<ModelRoot>::Match;
+				template<template<typename>typename QueryTemplate> using MatcherOf = typename QueryTemplate<ModelRoot>::Matcher;
 				
 				VIATRA_FUNCTION QueryService(const char *configJSON, const char *nodeName)
 					: QueryServiceBase(configJSON, nodeName)
@@ -86,14 +87,25 @@ namespace Viatra {
 				}
 
 				// usage: queryService.RunNewQuery<QueryName>()
-				template<  template<typename>class QueryTemplate >
-				std::unordered_set<typename QueryTemplate<ModelRoot>::Match> RunNewQuery()
+				template<  template<typename>class QueryTemplate, class RootedQuery = QueryTemplate<ModelRoot> >
+				std::unique_ptr<QueryFuture<RootedQuery>> RunNewQuery()
 				{
+					using RootedQuery = QueryTemplate<ModelRoot>;
+
 					auto sessionID = querySessionIDGenerator.generate();
-					auto queryID = QueryTemplate<ModelRoot>::queryID;
+					auto queryID = RootedQuery::queryID;
 					StartLocalQuerySession(sessionID, queryID);
 					StartRemoteQuerySessions(sessionID, queryID);
-					queryRunners[sessionID]->run_async();
+
+					auto future = queryRunners[sessionID]->start();
+
+
+					std::unique_ptr<QueryFuture<RootedQuery>> ret{
+						dynamic_cast<QueryFuture<RootedQuery>*>(future.get())
+					};
+					// on succesful dynamic cast
+					future.release();
+					return ret;
 				}
 							
 
