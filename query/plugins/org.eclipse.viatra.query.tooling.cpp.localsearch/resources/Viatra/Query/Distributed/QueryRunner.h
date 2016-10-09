@@ -46,7 +46,7 @@ namespace Viatra {
 				}
 				bool ready() { return _ready; }
 
-				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame);
+				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame) = 0;
 
 			};
 
@@ -87,7 +87,7 @@ namespace Viatra {
 
 					queryService->addSubResultCollector(sessionID, taskID, shared_collector, destNodeName);
 					QueryTaskT task(frame, body, operation, collector);
-					localTasks.push(task);
+					localTasks.push(std::move(task));
 				}
 
 				void run()
