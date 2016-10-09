@@ -4,6 +4,8 @@
 
 #include "../Util/network.h"
 
+#include<thread>
+
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
@@ -12,10 +14,26 @@ namespace Viatra {
 
 			class QueryServer : private Network::Server
 			{
+
+			private:
+				std::unique_ptr<std::thread> thread;
 				QueryServiceBase * service;
 			public:
 				QueryServer(uint16_t port, QueryServiceBase * service);
+
+				QueryServer(const QueryServer&) = delete;
+				void operator=(const QueryServer&) = delete;
+
 				~QueryServer();
+
+				void runAsync() {
+					thread = std::unique_ptr<std::thread>(
+						new std::thread([this]() {
+							Server::run();
+						}
+					));
+				}
+
 			protected:
 				void accept_connection(Network::Connection * c) override;
 				void process_message(Network::Connection * c, Network::Buffer message)override;

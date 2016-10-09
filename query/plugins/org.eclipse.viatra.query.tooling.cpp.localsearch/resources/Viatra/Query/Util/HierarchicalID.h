@@ -10,29 +10,60 @@ namespace Viatra {
 		namespace Util {
 
 			template<typename T>
-			class HierarchicalID : private std::vector<T>
+			class HierarchicalID
 			{
-			public:
-				using std::vector<T>::begin;
-				using std::vector<T>::end;
-				using std::vector<T>::empty;
+				std::vector<T> vec;
 
+			private:
+				template<typename Iterator>
+				HierarchicalID(Iterator begin, Iterator end)
+					: vec(begin, end)
+				{}
+
+			public:
+				// comparator for map
+				struct compare {
+					bool operator()(const HierarchicalID& a, const HierarchicalID& b) const
+					{
+						if (a.size() != b.size())
+							return a.size() < b.size();
+
+						for (size_t i = 0; i < a.size(); ++i)
+						{
+							if (a.vec[i] !=b.vec[i])
+								return a.vec[i] < b.vec[i];
+						}
+						return false;
+					}
+				};
+
+				auto begin()const { return vec.begin();	}
+				auto end() const { return vec.end(); }
+				auto empty() const { return vec.empty(); }
+				auto size() const { return vec.size(); }
+								
 				HierarchicalID() = default;
 				HierarchicalID(HierarchicalID&&) = default;
 				HierarchicalID(const HierarchicalID&) = default;
 				~HierarchicalID() = default;
 
+
+				HierarchicalID<T>& operator=(const HierarchicalID&) = default;
+				HierarchicalID<T>& operator=(HierarchicalID&&) = default;
+
+				bool operator==(const HierarchicalID& other) const { return vec == other.vec; }
+
 				HierarchicalID(google::protobuf::RepeatedField<int> pbfield)
-					: std::vector<T>(pbfield.begin(), pbfield.end())
+					: HierarchicalID(pbfield.begin(), pbfield.end())
 				{}
 
 
 				HierarchicalID<T> parent()const {
-					auto ret(*this);
-					if (ret.begin() == ret.end())
+
+					if (vec.begin() == vec.end())
 						throw std::logic_error("Empty Hierarchical ID does not have a parent");
-					ret.resize(ret.size() - 1);
-					return ret;
+					
+					return HierarchicalID<T>(vec.begin(), vec.end()-1);
 				}
 				
 			};

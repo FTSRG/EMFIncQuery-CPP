@@ -29,17 +29,43 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
+			class QueryFutureBase;
 			class QueryResultCollectorBase;
 
+			// Information struct for a processing node
 			struct NodeInfo {
 				std::string name;
 				std::string ip;
 				uint16_t port;
 
-				// The client to the server on the node
+				// The client for the server on the remote node
 				std::unique_ptr<QueryClient> client;
-				// The Connection to our server from the node
+				// The Connection in our server to the remote node
 				Network::Connection * connection;
+			};
+
+			// Information struct about the collection of results of a subtask
+			struct CollectorInfo {
+				// true for response being served, false for the top-level result collector
+				bool remote;
+				// Collector class which collects the subresult
+				std::shared_ptr<QueryResultCollectorBase> collector;
+				
+				// nodename in case of remote sequests being served
+				std::string nodeName;
+				
+				// in case its a top level result collector
+				QueryFutureBase *future;
+				
+				
+				
+				CollectorInfo(bool remote, std::shared_ptr<QueryResultCollectorBase> collector, std::string nodeName, QueryFutureBase *future)
+					: remote(remote)
+					, collector(std::move(collector))
+					, nodeName(std::move(nodeName))
+					, future(future)
+				{}
+
 			};
 
 			// Type independent baseclass for QueryService
@@ -57,12 +83,24 @@ namespace Viatra {
 				
 				IDGenerator querySessionIDGenerator;
 				std::map< uint64_t , std::shared_ptr<QueryRunnerBase> > queryRunners;
-				std::map< std::tuple<uint64_t, TaskID>, std::unique_ptr<QueryResultCollectorBase> > localResultCollectors;
 
+				// ResultCollectors for remote tasks
+				std::map< uint64_t, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectors;
+				
 			public:
+
+				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::string destNode)
+				{
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, destNode, nullptr);
+				}
+
+				void addTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, QueryFutureBase *future)
+				{
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, "", future);
+				}
 				
 				// Start Local Query Session on all other node and waiting for the result(stub)
-				void StartRemoteQuerySessions(uint64_t sessionID, int queryID); 
+				void startRemoteQuerySessions(uint64_t sessionID, int queryID); 
 				
 				void acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet);
 				
@@ -104,7 +142,6 @@ namespace Viatra {
 					: QueryServiceBase(configJSON, nodeName)
 					, modelRoot(configJSON, nodeName)
 				{
-
 				}
 				VIATRA_FUNCTION ~QueryService()
 				{
@@ -119,8 +156,9 @@ namespace Viatra {
 
 					auto sessionID = querySessionIDGenerator.generate();
 					auto queryID = RootedQuery::queryID;
-					StartLocalQuerySession(sessionID, queryID);
-					StartRemoteQuerySessions(sessionID, queryID);
+					
+					startLocalQuerySession(sessionID, queryID);
+					startRemoteQuerySessions(sessionID, queryID);
 
 					auto future = queryRunners[sessionID]->start();
 
@@ -132,34 +170,17 @@ namespace Viatra {
 					future.release();
 					return ret;
 				}
-							
-
-				/*
-				template<typename QuerySpec>
-				std::future<std::unordered_set<MatchT<QuerySpec>>> DistributeToNodes(
-
-				);**/
-
-				void run() {};
-
-				std::thread run_async() {
-					std::thread t(
-							[this]() {
-								this->run();
-					});
-					return std::move(t);
-				}
 
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) override
 				{
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
 
-					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot);
+					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot, this);
 					return "OK";
 				}
 
-				virtual void continueQuery(std::string nodeName, uint64_t sessionID, TaskID taskID, int body, int operation, std::string frame) override
+				virtual void continueQuery(const std::string& nodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
 				{
 					auto runner = queryRunners.at(sessionID);
 					runner->addTask(nodeName, taskID, body, operation, frame);

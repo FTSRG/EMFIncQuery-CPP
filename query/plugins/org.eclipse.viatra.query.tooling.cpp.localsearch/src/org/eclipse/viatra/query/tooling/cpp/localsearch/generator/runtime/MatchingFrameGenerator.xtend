@@ -90,7 +90,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 					«val type = matchingFrame.getVariableLooseType(param)»
 					«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
-					«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
+					«ProtobufHelper::setProtobufVar("pbframe", "", varName, type)»
 				«ENDFOR»
 
 				return pbframe.SerializeAsString();

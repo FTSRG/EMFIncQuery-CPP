@@ -21,9 +21,7 @@ int main(int argc, char **argv) {
 			Viatra::Query::Model::ModelRoot, 
 			Viatra::Query::Distributedquery::QueryRunnerFactory
 		>	service("config.json", argv[1]);
-
-		auto thread = service.run_async();
-
+		
 		auto result = service.RunNewQuery<Viatra::Query::Distributedquery::QueryB>();
 		while (!result->ready())
 			std::this_thread::sleep_for(std::chrono::seconds(1));

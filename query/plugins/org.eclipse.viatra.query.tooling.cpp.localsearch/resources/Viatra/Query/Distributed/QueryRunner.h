@@ -3,6 +3,7 @@
 #define _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_
 
 #include"QueryTask.h"
+#include"QueryResultCollector.h"
 #include"../Util/ConcurrentQueue.h"
 #include"../Util/HierarchicalID.h"
 
@@ -15,6 +16,7 @@ namespace Viatra {
 		namespace Distributed {
 
 			class QueryFutureBase;
+			class QueryServiceBase;
 			
 			class QueryRunnerBase : public std::enable_shared_from_this<QueryRunnerBase>{
 			protected:
@@ -57,55 +59,52 @@ namespace Viatra {
 				using QueryGroup = typename RootedQuery::QueryGroup;
 				using QueryTaskT = QueryTask<RootedQuery>;
 				
-				std::unordered_set<Util::HierarchicalID<uint64_t>> remoteSubTaskIDs;
+				//std::unordered_set<Util::HierarchicalID<uint64_t>> remoteSubTaskIDs;
 				Util::ConcurrentQueue<QueryTaskT> localTasks;
 
+				QueryServiceBase *queryService;
 				Matcher matcher;
 				ModelRoot * modelRoot;
+				TaskID currentTaskID;
 
 			public:
-				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot)
+				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService)
 					: QueryRunnerBase(sessionID)
+					, queryService(queryService)
 					, modelRoot(modelRoot)
 					, matcher(modelRoot, QueryGroup::instance()->context(), this)
 				{}
 
 				// Distribues the query execution to all the other nodes from a given state in the body
 				void GlobalIterateOverInstances(int bodyIndex, int opIndex, std::string encodedFrame) {
+
+				}
 				
-				}
-
-				void MergeRemoteMatchResult(Util::HierarchicalID<uint64_t> remoteTaskID, std::string && serializedMatchset)
-				{					
-					MatchSet::ParseMatchSet(serializedMatchset, [](Match& match) {
-						
-					});
-				}
-
-				inline void addTask(QueryTaskT& task){
-					localTasks.push(task);
-				}
-
-				inline void addTask(QueryTaskT&& task){
-					localTasks.push(std::move(task));
-				}
-				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame)
+				virtual void addTask(const std::string& destNodeName, TaskID taskID, int body, int operation, std::string frame) override
 				{
-					std::shared_ptr<QueryResultCollector<RootedQuery>> collector(new QueryResultCollector<RootedQuery>(taskID));
-					service->addResultCollector(collector);
+					auto collector = new QueryResultCollector<RootedQuery>(taskID, destNodeName, queryService, modelRoot);
+					auto shared_collector = std::shared_ptr<QueryResultCollectorBase>(collector);
 
+					queryService->addSubResultCollector(sessionID, taskID, shared_collector, destNodeName);
+					QueryTaskT task(frame, body, operation, collector);
+					localTasks.push(task);
 				}
 
 				void run()
 				{
-
 					while (!terminated)
 					{
 						try {
+
 							QueryTaskT task = localTasks.pop(std::chrono::milliseconds(100));
-							
+							currentTaskID = task.id;
+							auto partialResult = matcher.continueExec(task.EncodedMatchingFrame, task.bodyIndex, task.operationIndex);
+							task.collector->addLocalMatches(std::move(partialResult));
+
+
 						}
-						catch (Viatra::Query::Util::ConcurrentQueueTimeout&){}
+						catch (Viatra::Query::Util::ConcurrentQueueTimeout&){
+						}
 					}
 				}
 

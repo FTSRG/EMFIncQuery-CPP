@@ -98,7 +98,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			«FOR param : paramlist»
 				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 				«val varName = param.name»
-				«ProtobufHelper::setProtobufVar("pbMatch", varName, type)»
+				«ProtobufHelper::setProtobufVar("pbMatch", "", varName, type)»
 			«ENDFOR»
 			
 			return pbMatch.SerializeAsString();
@@ -146,12 +146,12 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			PB_«unitName»Set pbMatchSet;
 			
 			for(auto& storedMatch: *this){
-				«val structName = "pbMatch"»
-				auto «structName» = pbMatchSet.add_matches();
+				auto & pbMatch = *pbMatchSet.add_matches();
 				«FOR param : paramlist»
 					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 					«val varName = param.name»
-					«ProtobufHelper::setProtoBufSet(structName, varName, type)»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»					
+					«ProtobufHelper::setProtobufVar("pbMatch", "storedMatch.", varName, type)»
 				«ENDFOR»
 			}
 			return pbMatchSet.SerializeAsString();

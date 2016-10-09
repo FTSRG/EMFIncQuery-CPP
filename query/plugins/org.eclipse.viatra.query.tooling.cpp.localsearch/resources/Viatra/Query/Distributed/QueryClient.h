@@ -12,14 +12,24 @@ namespace Viatra {
 			{
 				
 			private:
+				std::unique_ptr<std::thread> thread;
 
 			public:
 				QueryClient(std::string ip, uint16_t port)
 					: Network::Client(ip, port)
 				{}
 
+				QueryClient(const QueryClient&) = delete;
+				void operator=(const QueryClient&) = delete;
+
 				~QueryClient()
 				{}
+
+				void runAsync() {
+					thread = std::make_unique<std::thread>([this]() {
+						Client::run();
+					});
+				}
 
 			};
 

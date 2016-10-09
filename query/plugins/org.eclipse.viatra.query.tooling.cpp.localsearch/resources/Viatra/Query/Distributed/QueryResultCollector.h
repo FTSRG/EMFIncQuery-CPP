@@ -1,5 +1,6 @@
 #pragma once
 
+#include"QueryService.h"
 #include"QueryTask.h"
 #include"../util/network.h"
 
@@ -13,10 +14,23 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
+			class QueryServiceBase;
+
 			class QueryResultCollectorBase { 
+			protected:
+				TaskID taskID;
+				std::string nodeName;
+				QueryServiceBase *service;
+
 			public:
+				QueryResultCollectorBase(TaskID taskID, std::string nodeName, QueryServiceBase *service)
+					: taskID(std::move(taskID))
+					, nodeName(std::move(nodeName))
+					, service(service)
+				{}
+
 				virtual ~QueryResultCollectorBase() {}
-				virtual void addRemoteMatches(const std::string& encodedMatches, TaskID taskId) = 0;
+				virtual void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskId) = 0;
 			};
 
 			// RootedQuery = QueryClass<ModelRoot>
@@ -29,39 +43,37 @@ namespace Viatra {
 				using MatchSet = typename Match::MatchSet;
 
 			private:
+				ModelRoot *modelRoot;
+
 				std::mutex resultMutex;
-
-				ModelRoot * modelRoot;
-
-				TaskID task;
-				std::unordered_set<TaskID> remoteRunningTasks;
 				MatchSet matches;
-
+				std::unordered_set<TaskID> remoteRunningTasks;
 				std::atomic<bool> finishedLocally = false;
 
 			public:
 
-				QueryResultCollector(const TaskID taskID)
-					: taskID(taskID)
+				QueryResultCollector(const TaskID taskID, std::string NodeName, QueryServiceBase *service, ModelRoot * modelRoot)
+					: QueryResultCollectorBase(taskID, nodeName, service)
+					, modelRoot(modelRoot)
 				{}
 				~QueryResultCollector() {}
 
 				void addLocalMatches(std::unordered_set<typename RootedQuery::Match> && matches2add)
 				{
-					auto lock = std::unique_lock(resultMutex);
+					auto lock = std::unique_lock<std::mutex>(resultMutex);
 
 					for(auto && match : matches2add)
 						matches.insert(match);
 					finishedLocally = true;
 				}
 
-				void addRemoteMatches(const std::string& encodedMatches, TaskID taskID) override
+				void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskID) override
 				{
-					auto lock = std::unique_lock(resultMutex);
-					MatchSet::ParseFromStringCallback(encodedMatches, modelRoot, []() {
-						throw "Not implemented QueryResultCollector::addRemoteMatches";
-					};
-					remoteRunningTasks.remove(taskID);
+					auto lock = std::unique_lock<decltype(resultMutex)>(resultMutex);
+					MatchSet::ParseFromStringCallback(encodedMatches, modelRoot, [this](const Match& match) {
+						matches.insert(match);
+					});
+					remoteRunningTasks.erase(taskID);
 				}
 
 				bool finished()

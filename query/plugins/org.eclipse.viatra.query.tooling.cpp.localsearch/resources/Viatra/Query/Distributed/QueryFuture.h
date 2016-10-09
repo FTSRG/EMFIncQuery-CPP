@@ -36,10 +36,16 @@ namespace Viatra{
 			class QueryFuture : public QueryFutureBase {
 				using Match = typename RootedQuery::Match;
 				using MatchSet = typename Match::MatchSet;
+
+				// Doesn't need to be shared since the baseclass keeps it alive
+				QueryRunner<RootedQuery> *concreteRunner;
+
 			public:
 				QueryFuture(std::shared_ptr<QueryRunnerBase> runner)
 					: QueryFutureBase(runner)
-				{}
+				{
+					this->concreteRunner = dynamic_cast<QueryRunner<RootedQuery>*>(runner.get());
+				}
 								
 			};
 
