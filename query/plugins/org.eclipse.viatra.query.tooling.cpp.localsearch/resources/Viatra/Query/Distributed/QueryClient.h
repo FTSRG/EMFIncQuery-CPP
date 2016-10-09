@@ -8,7 +8,7 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
-			class QueryClient : public Network::Client
+			class QueryClient : private Network::Client
 			{
 				
 			private:

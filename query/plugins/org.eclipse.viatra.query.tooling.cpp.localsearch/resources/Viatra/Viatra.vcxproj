@@ -30,6 +30,7 @@
     <ClInclude Include="Query\Distributed\QueryFuture.h" />
     <ClInclude Include="Query\Distributed\QueryResultCollector.h" />
     <ClInclude Include="Query\MatchSet.h" />
+    <ClInclude Include="Query\Util\BufferedSet.h" />
     <ClInclude Include="Query\Util\HierarchicalID.h" />
     <ClInclude Include="Query\Util\network.h" />
     <ClInclude Include="Query\Distributed\Node.h" />

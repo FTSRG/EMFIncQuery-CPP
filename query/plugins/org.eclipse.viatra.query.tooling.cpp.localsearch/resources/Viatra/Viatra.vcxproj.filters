@@ -164,6 +164,9 @@
     <ClInclude Include="Query\MatchSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Query\Util\BufferedSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Query\Distributed\MessageProtocol.proto" />

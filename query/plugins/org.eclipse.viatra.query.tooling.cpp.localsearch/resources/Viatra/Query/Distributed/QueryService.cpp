@@ -54,7 +54,15 @@ void QueryServiceBase::StartRemoteQuerySessions(uint64_t sessionID, int queryID)
 
 	Network::Buffer buffer(request);
 
-	for (auto & c : clients)
-		c.second->sendMessage(buffer.copy());
+	for (auto & node : nodes)
+		throw "Not implemented QueryService.cpp StartRemoteQuerySessions";//	node.second.client->sendRequest(buffer.copy());
 }
 
+
+void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet)
+{
+	TaskID parent = taskID.parent();
+	auto & collector = localResultCollectors.at(std::make_tuple(sessionID, taskID));
+	collector->addRemoteMatches(encodedMatchSet, taskID);
+
+}

@@ -92,15 +92,15 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		
 		std::string SerializeAsString()
 		{
-			PB_«unitName» pbframe;
+			PB_«unitName» pbMatch;
 			
 			«FOR param : paramlist»
 				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 				«val varName = param.name»
-				«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
+				«ProtobufHelper::setProtobufVar("pbMatch", varName, type)»
 			«ENDFOR»
 			
-			return pbframe.SerializeAsString();
+			return pbMatch.SerializeAsString();
 		}
 		
 		template<typename ModelRoot>
@@ -122,9 +122,11 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			
 		
 		template<typename ModelRoot, typename Action>
-		static void ParseFromArray( const uint8_t *bytes, int len, ModelRoot * mr, Action action )
+		static void ParseFromStringCallback( const std::string& serialized_data, ModelRoot * mr, Action action )
 		{
 			PB_«unitName»Set pbMsgSet;
+			pbMsgSet.ParseFromString(serialized_data);
+			
 			«unitName» match;
 			for (auto & pbMatch : pbMsgSet.matches())
 			{
@@ -136,6 +138,19 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				
 				action(match);
 			}
+		}
+		
+		std::string SerializeAsString()
+		{
+			PB_«unitName»Set pbMatchSet;
+			
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val varName = param.name»
+				«ProtobufHelper::setProtobufVar("pbframe", varName, type)»
+			«ENDFOR»
+			
+			return pbframe.SerializeAsString();
 		}
 
 	'''

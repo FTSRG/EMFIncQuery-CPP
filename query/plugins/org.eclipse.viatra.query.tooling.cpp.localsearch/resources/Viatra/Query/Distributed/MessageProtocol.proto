@@ -5,55 +5,73 @@ enum MsgType{
 	START_QUERY_SESSION = 0;		
 	TERMINATE_QUERY_SESSION = 1;
 	CONTINUE_QUERY_SESSION = 2;
+	INITIATE_CONNECTION = 3;
 }
 
 message QueryRequest
 {
 	int64 rqID = 1;
-	int64 querySessionID = 2;	
-	MsgType msgType = 3;
+	MsgType msgType = 2;
 	
 	oneof msg {
-		StartQuerySession startQuerySession = 4;
-		// TerminateQuerySession terminateQuerySession = 5
-		ContinueQuerySession continueQuerySession = 6;
+		InitiateConnection initiateConnection = 5;
+		StartQuerySession startQuerySession = 6;
+		ContinueQuerySession continueQuerySession = 7;
+		// TerminateQuerySession terminateQuerySession = 8
 	}	
 }
 
 message QueryResponse
 {
 	int64 rqID = 1;
-	int64 querySessionID = 2;
 	MsgType msgType = 3;
 
 	oneof msg {
-		SimpleResponse simpleResponse = 4;
-		RemoteResults remoteResults = 5;
+		InitiateConnectionResponse initiateConnectionResponse= 5;
+		StartQuerySessionResponse startQuerySessionResponse = 6;
+		ContinueQuerySessionResponse continueQuerySessionResponse = 7;
 	}
 }
 
-message SimpleResponse{
-	string value = 1;
+
+message InitiateConnection 
+{
+	string nodeName = 1;
 }
+
+message InitiateConnectionResponse
+{
+	string message = 1;		//"OK" or "ERROR: ..."
+}
+
 message StartQuerySession{
-	int32 queryID = 1;
+	int64 sessionID = 1;
+	int32 queryID = 2;
 }
+message StartQuerySessionResponse{
+	string message = 1;		//"OK" or "ERROR: ..."
+}
+
 
 message ContinueQuerySession
 {
-	repeated int32 taskID = 1;
-	int32 bodyIndex = 2;
-	int32 operationIndex = 3;
-	string frameAsString = 4;
+	string nodeName = 1;
+	int64 sessionID = 2;
+	repeated int32 taskID = 3;
+	int32 bodyIndex = 4;
+	int32 operationIndex = 5;
+	string frameAsString = 6;
 }
 
-message RemoteResults
+message ContinueQuerySessionResponse
 {
-	repeated int32 taskID = 1;
+	string status = 1;		//"OK" or "ERROR: ..."
+	int64 sessionID = 2;
+	repeated int32 taskID = 3;
 
-	string resultMatchSet = 2;
-	int32 partIndex = 3;
-	bool isFinalPart = 4;
+	string resultMatchSet = 4;
+	int32 partIndex = 5;	// from 0 to n-1, where the n-1 part is 
+	bool isFinalPart = 6;
 }
 
 

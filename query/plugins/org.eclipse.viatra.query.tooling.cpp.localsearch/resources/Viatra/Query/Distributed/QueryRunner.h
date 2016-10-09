@@ -44,6 +44,8 @@ namespace Viatra {
 				}
 				bool ready() { return _ready; }
 
+				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame);
+
 			};
 
 			template<typename RootedQuery>
@@ -86,6 +88,12 @@ namespace Viatra {
 
 				inline void addTask(QueryTaskT&& task){
 					localTasks.push(std::move(task));
+				}
+				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame)
+				{
+					std::shared_ptr<QueryResultCollector<RootedQuery>> collector(new QueryResultCollector<RootedQuery>(taskID));
+					service->addResultCollector(collector);
+
 				}
 
 				void run()

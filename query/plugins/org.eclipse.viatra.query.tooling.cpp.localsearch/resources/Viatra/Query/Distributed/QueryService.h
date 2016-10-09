@@ -35,6 +35,11 @@ namespace Viatra {
 				std::string name;
 				std::string ip;
 				uint16_t port;
+
+				// The client to the server on the node
+				std::unique_ptr<QueryClient> client;
+				// The Connection to our server from the node
+				Network::Connection * connection;
 			};
 
 			// Type independent baseclass for QueryService
@@ -49,18 +54,38 @@ namespace Viatra {
 
 				std::string nodeName;
 				std::unique_ptr<QueryServer> server;
-
-				std::map<std::string, std::unique_ptr<QueryClient>> clients;
-
+				
 				IDGenerator querySessionIDGenerator;
 				std::map< uint64_t , std::shared_ptr<QueryRunnerBase> > queryRunners;
 				std::map< std::tuple<uint64_t, TaskID>, std::unique_ptr<QueryResultCollectorBase> > localResultCollectors;
 
-				// Start Local Query Session on this node
-				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) = 0;	// Implementation
-				// Start Local Query Session on all other node and waiting for the result
-				void StartRemoteQuerySessions(uint64_t sessionID, int queryID);						// Stub
+			public:
 				
+				// Start Local Query Session on all other node and waiting for the result(stub)
+				void StartRemoteQuerySessions(uint64_t sessionID, int queryID); 
+				
+				void acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet);
+				
+				std::string initiateConnection(Network::Connection* connection, std::string nodeName)
+				{
+					if (nodes.find(nodeName) == nodes.end())
+						return std::string("ERROR: No node named \"") + nodeName + "\" is part of the configuration in this server";
+				}
+
+				bool checkNodeConnection(std::string nodeName, Network::Connection * connection)
+				{
+					auto find = nodes.find(nodeName);
+					if (find == nodes.end())
+						return false;
+					return find->second.connection == connection;
+					
+				}
+				
+				// Start Local Query Session on this node (implementation)
+				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) = 0;
+				virtual void continueQuery(const std::string &nodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) = 0;
+				
+
 			};
 
 			template<typename ModelRoot, template<typename> class QueryRunnerFactoryTemplate>
@@ -125,13 +150,19 @@ namespace Viatra {
 					return std::move(t);
 				}
 
-				virtual std::string StartLocalQuerySession(uint64_t sessionID, int queryID) override
+				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) override
 				{
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
 
 					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot);
 					return "OK";
+				}
+
+				virtual void continueQuery(std::string nodeName, uint64_t sessionID, TaskID taskID, int body, int operation, std::string frame) override
+				{
+					auto runner = queryRunners.at(sessionID);
+					runner->addTask(nodeName, taskID, body, operation, frame);
 				}
 			};
 		}

@@ -7,6 +7,7 @@
 #include<mutex>
 #include<atomic>
 #include<stdint.h>
+#include<string>
 
 namespace Viatra {
 	namespace Query {
@@ -15,8 +16,7 @@ namespace Viatra {
 			class QueryResultCollectorBase { 
 			public:
 				virtual ~QueryResultCollectorBase() {}
-
-				virtual void addRemoteMatches(uint8_t bytes, int len, TaskID taskId) = 0;
+				virtual void addRemoteMatches(const std::string& encodedMatches, TaskID taskId) = 0;
 			};
 
 			// RootedQuery = QueryClass<ModelRoot>
@@ -26,18 +26,26 @@ namespace Viatra {
 				// The ModelRoot for the Query 
 				using ModelRoot = typename RootedQuery::ModelRoot;
 				using Match = typename RootedQuery::Match;
+				using MatchSet = typename Match::MatchSet;
 
 			private:
 				std::mutex resultMutex;
 
-				typename ModelRoot * modelRoot;
+				ModelRoot * modelRoot;
 
 				TaskID task;
-				std::unordered_set<TaskID> remoteTasks;
-				std::unordered_set<typename RootedQuery::Match> matches;
+				std::unordered_set<TaskID> remoteRunningTasks;
+				MatchSet matches;
+
 				std::atomic<bool> finishedLocally = false;
 
 			public:
+
+				QueryResultCollector(const TaskID taskID)
+					: taskID(taskID)
+				{}
+				~QueryResultCollector() {}
+
 				void addLocalMatches(std::unordered_set<typename RootedQuery::Match> && matches2add)
 				{
 					auto lock = std::unique_lock(resultMutex);
@@ -46,24 +54,25 @@ namespace Viatra {
 						matches.insert(match);
 					finishedLocally = true;
 				}
-				
-				void addRemoteMatches(uint8_t bytes, int len, TaskID taskId) override
+
+				void addRemoteMatches(const std::string& encodedMatches, TaskID taskID) override
 				{
 					auto lock = std::unique_lock(resultMutex);
-					using Match = typename RootedQuery::Match;
-					Match::ParseMatchSet()
-
-
-					for (auto && match : matches2add)
-						matches.insert(match);
+					MatchSet::ParseFromStringCallback(encodedMatches, modelRoot, []() {
+						throw "Not implemented QueryResultCollector::addRemoteMatches";
+					};
+					remoteRunningTasks.remove(taskID);
 				}
 
 				bool finished()
 				{
-					return finishedLocally;
+					if (!finishedLocally)
+						return false;
+
+					auto lock = std::unique_lock(resultMutex);
+					return remoteRunningTasks.empty();
 				}
 
-				~QueryResultCollector() {}
 
 			};
 			
