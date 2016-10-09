@@ -55,6 +55,8 @@ class ProtobufMatchCompiler extends ProtoCompiler {
 	
 	def compileSet() '''
 		message «(this.unitName+"Set").MessageName» {
+			«««The name must be "matches", dependency in MatchGenerator
+			
 			repeated «this.unitName.MessageName» matches = 1;
 		};
 	'''
