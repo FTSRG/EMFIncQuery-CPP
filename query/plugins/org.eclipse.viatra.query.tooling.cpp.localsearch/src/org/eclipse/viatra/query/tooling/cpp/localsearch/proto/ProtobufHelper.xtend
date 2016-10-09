@@ -52,4 +52,14 @@ class ProtobufHelper {
 		«ENDIF»
 	'''
 	
+	def static setProtoBufSet(String pbStruct, String varName, EClassifier type) '''
+		«IF type instanceof EDataType»
+			«pbStruct»->set_«varName.toLowerCase»(storedMatch.«varName»);
+		«ELSEIF type instanceof EEnum »
+			«pbStruct»->set_«varName.toLowerCase»((int32_t)storedMatch.«varName»);
+		«ELSE»
+			«pbStruct»->set_«varName.toLowerCase»(storedMatch.«varName» == nullptr ? -1 : storedMatch.«varName»->id());
+		«ENDIF»
+	'''
+	
 }

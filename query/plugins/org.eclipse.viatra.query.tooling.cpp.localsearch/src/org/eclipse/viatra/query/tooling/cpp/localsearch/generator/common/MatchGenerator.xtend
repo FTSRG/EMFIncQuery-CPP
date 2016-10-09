@@ -19,6 +19,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescr
 import com.google.common.collect.ImmutableList
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -147,6 +148,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			for(auto& storedMatch: *this){
 				auto & pbMatch = *pbMatchSet.add_matches();
 				«FOR param : paramlist»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 					«val varName = param.name»
 					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»					
 					«ProtobufHelper::setProtobufVar("pbMatch", "storedMatch.", varName, type)»

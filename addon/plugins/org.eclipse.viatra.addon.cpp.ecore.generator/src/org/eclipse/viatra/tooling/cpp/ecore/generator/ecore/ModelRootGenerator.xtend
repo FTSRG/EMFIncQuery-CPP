@@ -41,7 +41,7 @@ class ModelRootGenerator {
 							FreeAllModelElement();
 						}
 		
-						Viatra::Query::Model::ModelElement* findModelElementByID(int32_t id)
+						Viatra::Query::Model::ModelElement* findModelElementByID(int32_t id) const
 						{
 							return modelElements.at(id);
 						}

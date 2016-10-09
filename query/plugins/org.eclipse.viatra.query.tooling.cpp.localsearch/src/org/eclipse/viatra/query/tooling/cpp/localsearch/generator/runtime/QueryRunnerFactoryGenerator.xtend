@@ -22,6 +22,7 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include('''memory''', true)
 		
 			includes += new Include('''Viatra/Query/Distributed/QueryRunner.h''')
+			includes += new Include('''Viatra/Query/Distributed/QueryService.h''')
 		
 		for(patternGroup: patternGroupSet)
 		{
@@ -32,20 +33,19 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 
 	// TODO: Iterating over the bodies giving them indices makes the generated code nondeterministic
 	override compileInner() '''
-		
 		template<class ModelRoot>
 		class QueryRunnerFactory{
 		public:
 
-			static std::unique_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot)
+			static std::shared_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot, Viatra::Query::Distributed::QueryServiceBase * service)
 			{
 				switch(queryID){
 					«FOR patternGroup : patternGroupSet»
 						«val pattern = patternGroup.head»
 						case «pattern.queryID»:
-							return std::make_unique<
+							return std::make_shared<
 								Viatra::Query::Distributed::QueryRunner<«pattern.name»<ModelRoot>>
-							>(sessionID, modelRoot);
+							>(sessionID, modelRoot, service);
 					«ENDFOR»
 				}
 				throw std::invalid_argument("Cannot instantiate Query runner from the given queryID!");

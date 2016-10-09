@@ -39,8 +39,8 @@ namespace Viatra {
 					: bodyIndex(bodyIndex)
 					, operationIndex(operationIndex)
 					, EncodedMatchingFrame(frame.SerializeAsString())
-					, collector(collector)
 					, bodyIndex (bodyIndex)
+					, collector(collector)
 				{}
 
 				QueryTask(	std::string encodedFrame,
@@ -51,7 +51,9 @@ namespace Viatra {
 					, operationIndex(operationIndex)
 					, EncodedMatchingFrame(encodedFrame)
 					, collector(collector)
-					, bodyIndex(bodyIndex)
+				{}
+
+				~QueryTask()
 				{}
 
 				QueryTask(QueryTask<RootedQuery> &&) = default;

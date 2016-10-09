@@ -47,7 +47,7 @@ QueryServiceBase::~QueryServiceBase()
 
 }
 
-void QueryServiceBase::StartRemoteQuerySessions(uint64_t sessionID, int queryID)
+void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 {
 	Protobuf::QueryRequest request;
 	request.set_rqid(0);
@@ -62,7 +62,7 @@ void QueryServiceBase::StartRemoteQuerySessions(uint64_t sessionID, int queryID)
 void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet)
 {
 	TaskID parent = taskID.parent();
-	auto & collector = localResultCollectors.at(std::make_tuple(sessionID, taskID));
-	collector->addRemoteMatches(encodedMatchSet, taskID);
+	auto & collectorInfo = localResultCollectors.at(sessionID).at(taskID);
+	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
 
 }
