@@ -19,6 +19,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescr
 import com.google.common.collect.ImmutableList
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -145,10 +146,12 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			PB_«unitName»Set pbMatchSet;
 			
 			for(auto& storedMatch: *this){
-				auto pbMatch = pbMatchSet.add_matches();
+				«val structName = "pbMatch"»
+				auto «structName» = pbMatchSet.add_matches();
 				«FOR param : paramlist»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
 					«val varName = param.name»
-					pbMatch->set_«varName.toLowerCase»(storedMatch.«varName» == nullptr ? -1 : storedMatch.«varName»->id());
+					«ProtobufHelper::setProtoBufSet(structName, varName, type)»
 				«ENDFOR»
 			}
 			return pbMatchSet.SerializeAsString();
