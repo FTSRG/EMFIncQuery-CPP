@@ -2,13 +2,20 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator
 
 import com.google.common.base.CaseFormat
 import java.util.List
+import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryIncludeGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.RefAPIGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.QueryRunnerFactoryGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeQuerySpecificationGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoCompiler
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufMatchCompiler
 
 class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 
@@ -16,6 +23,8 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 	override initializeGenerators(QueryDescriptor query) {
 		
 		val List<IGenerator> generators = newArrayList
+		val Set<ProtoCompiler> protoCompilers = newHashSet
+		val Set<Set<BoundedPatternDescriptor>> patternGroupSets = newHashSet
 
 		query.patterns.forEach [ name, patterns |
 			val frameGenMap = newHashMap
@@ -32,8 +41,13 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			val matchGen = new MatchGenerator(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
 			generators += matchGen
 			
+			// ... I use this hack too hope it still works
+			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			protoCompilers += protoMatchCompiler
+			
 			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
 			generators += querySpec
+			patternGroupSets.add(patterns.toSet);
 			
 			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
@@ -49,10 +63,18 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 				val updaterGen = new RefAPIGenerator(query.name, patternName, featureName, patterns.toSet, matchGen, matcherGen, querySpec)
 				generators += updaterGen
 			}
+			
+			val	includeGen = new QueryIncludeGenerator(query.name, patternName)
+			generators += includeGen
 		]
+		
+		generators += new ProtoGenerator(protoCompilers)
 		
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator
+		
+		generators += new QueryRunnerFactoryGenerator(query.name, patternGroupSets);
+		
 
 		generators.forEach[initialize]
 
