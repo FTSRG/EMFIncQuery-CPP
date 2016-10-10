@@ -75,8 +75,9 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		
 			«val bodyNum = frame.index»
 			auto sp = «patternName»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model);
-				
-			auto exec = DistSearchPlanExecutor<«frame.frameName»>(sp, *_context, «frame.index», startOpIndex).prepare(frame);
+			
+			auto unprepared_exec = DistSearchPlanExecutor<«frame.frameName»>(sp, *_context, «frame.index», startOpIndex);	
+			auto exec = unprepared_exec.prepare(frame);
 			
 			for (auto&& frame : exec) {
 				«patternName»Match match;
