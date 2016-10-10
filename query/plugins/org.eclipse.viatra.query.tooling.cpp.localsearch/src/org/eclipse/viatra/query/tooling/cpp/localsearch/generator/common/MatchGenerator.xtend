@@ -80,7 +80,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			, private std::unordered_set<«unitName»>
 		{
 			public:
-			«FOR using : #["insert", "clear", "empty", "size" ]»
+			«FOR using : #["insert", "clear", "empty", "size", "begin", "end" ]»
 				using std::unordered_set<«unitName»>::«using»;
 			«ENDFOR»
 			
@@ -119,8 +119,8 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		'''
 		
 		def serializationOfMatchSet(ImmutableList<PParameter> paramlist) '''
-			// Serialization and deserialization
-			
+		
+		// Serialization and deserialization
 		
 		template<typename ModelRoot, typename Action>
 		static void ParseFromStringCallback( const std::string& serialized_data, ModelRoot * mr, Action action )
@@ -149,8 +149,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				auto & pbMatch = *pbMatchSet.add_matches();
 				«FOR param : paramlist»
 					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
-					«val varName = param.name»
-					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»					
+					«val varName = param.name»				
 					«ProtobufHelper::setProtobufVar("pbMatch", "storedMatch.", varName, type)»
 				«ENDFOR»
 			}

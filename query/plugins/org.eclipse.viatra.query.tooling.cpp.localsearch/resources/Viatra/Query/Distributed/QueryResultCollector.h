@@ -58,7 +58,7 @@ namespace Viatra {
 				{}
 				~QueryResultCollector() {}
 
-				void addLocalMatches(std::unordered_set<typename RootedQuery::Match> && matches2add)
+				void addLocalMatches(MatchSet && matches2add)
 				{
 					auto lock = std::unique_lock<std::mutex>(resultMutex);
 

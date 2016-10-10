@@ -52,6 +52,17 @@ class ProtobufMatchingFrameCompiler extends ProtoCompiler {
 				«typeName» «pos.variableName» = «FieldNum++»;
 			«ENDFOR»
 		};
+		
+		
+		«compileVector»
+	'''
+			
+	def compileVector() '''
+		message «(this.unitName+"Vector").MessageName» {
+			«««The name must be "matches", dependency in MatchGenerator
+			
+			repeated «this.unitName.MessageName» frames = 1;
+		};
 	'''
 
 	static def getVariableName(PVariable variable, MatchingFrameDescriptor matchingFrame) {

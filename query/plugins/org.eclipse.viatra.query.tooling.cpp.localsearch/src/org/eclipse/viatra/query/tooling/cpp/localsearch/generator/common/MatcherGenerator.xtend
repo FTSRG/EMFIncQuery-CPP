@@ -83,13 +83,28 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 				
 			«ENDFOR»
 			
-		std::unordered_set<«patternName»Match> continueExec(std::string strFrame, int bodyID, int startOpIndex){
+		«patternName»MatchSet continueExec(std::string strFrameVector, int bodyID, int startOpIndex){
 			switch(bodyID){
 				«FOR patternBody : pattern.patternBodies»
 					«val bodyNum = patternBody.index»
-					case «bodyNum»:
-						«patternName»Frame_«bodyNum» frame«bodyNum»; frame«bodyNum».ParseFromString(strFrame, _model);
-						return continue_«bodyNum»(frame«bodyNum», startOpIndex);
+					case «bodyNum»: {
+						«patternName»MatchSet resultSet;
+						
+						// TODO: optimize by using a simple array/vector
+						std::map<int, «patternName»Frame_«bodyNum»Vector> frameVectors;
+						
+						// For each frame
+						«patternName»Frame_«bodyNum»Vector::ParseFromStringCallback( strFrameVector, _model, [&](«patternName»Frame_«bodyNum»& frame){
+							continue_«bodyNum»(frame, startOpIndex, resultSet, frameVectors);														
+						});
+						// frameVectors are now update with possible subtask needed to be done
+						for (auto & op_pbframe : frameVectors)
+						{
+							queryRunner->PropagateFrameVector(bodyID, op_pbframe.first, op_pbframe.second.SerializeAsString());
+						}
+					
+						return resultSet;
+					}
 				«ENDFOR»
 				default:
 					throw "Matcher continue function has an unidentified bodyID";

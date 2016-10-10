@@ -19,8 +19,8 @@ pattern QueryB(a1, h1)
 pattern QueryC(a1 : ApplicationInstance, a2 : ApplicationInstance)
 {
 	a1 == a2;
-}
-or
+} 
+or 
 {
 	ApplicationInstance.dbPassword(a1, x);	
 	ApplicationInstance.dbUser(a2, x);

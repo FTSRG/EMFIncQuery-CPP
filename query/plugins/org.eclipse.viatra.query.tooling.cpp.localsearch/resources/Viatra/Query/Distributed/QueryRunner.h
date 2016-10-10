@@ -65,7 +65,7 @@ namespace Viatra {
 				QueryServiceBase *queryService;
 				Matcher matcher;
 				ModelRoot * modelRoot;
-				TaskID currentTaskID;
+				QueryTaskT *currentTask;
 
 			public:
 				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService)
@@ -76,17 +76,17 @@ namespace Viatra {
 				{}
 
 				// Distribues the query execution to all the other nodes from a given state in the body
-				void GlobalIterateOverInstances(int bodyIndex, int opIndex, std::string encodedFrame) {
-
+				void PropagateFrameVector(int body, int operation, std::string encodedFrameVector ) {
+					TaskID = currentTask->nextSubTaskID();
 				}
-				
+								
 				virtual void addTask(const std::string& destNodeName, TaskID taskID, int body, int operation, std::string frame) override
 				{
 					auto collector = new QueryResultCollector<RootedQuery>(taskID, destNodeName, queryService, modelRoot);
 					auto shared_collector = std::shared_ptr<QueryResultCollectorBase>(collector);
 
 					queryService->addSubResultCollector(sessionID, taskID, shared_collector, destNodeName);
-					QueryTaskT task(frame, body, operation, collector);
+					QueryTaskT task(taskID, frame, body, operation, collector);
 					localTasks.push(std::move(task));
 				}
 
@@ -97,11 +97,10 @@ namespace Viatra {
 						try {
 
 							QueryTaskT task = localTasks.pop(std::chrono::milliseconds(100));
-							currentTaskID = task.id;
-							auto partialResult = matcher.continueExec(task.EncodedMatchingFrame, task.bodyIndex, task.operationIndex);
+							currentTask = &task;
+							auto partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
 							task.collector->addLocalMatches(std::move(partialResult));
-
-
+							currentTask = nullptr;
 						}
 						catch (Viatra::Query::Util::ConcurrentQueueTimeout&){
 						}

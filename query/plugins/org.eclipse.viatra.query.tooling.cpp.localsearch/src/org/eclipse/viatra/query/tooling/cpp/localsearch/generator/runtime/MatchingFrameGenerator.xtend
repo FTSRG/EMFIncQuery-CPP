@@ -48,6 +48,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			}
 		].filterNull
 		includes += new Include("stdint.h", true);
+		includes += new Include("vector", true);
 		includes += new Include("proto_gen.pb.h", false);		
 	}
 
@@ -60,56 +61,98 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
 					«val pos = matchingFrame.getVariablePosition(param)»
 					«typeFQN»* «pos.variableName»;
-«««					static «typeFQN»* «pos.getter»(«frameName»& frame) {
-«««						return frame.«pos.paramName»;
-«««					}
-«««					
-«««					static void «pos.setter»(«frameName»& frame, «typeFQN»* value) {
-«««						frame.«pos.paramName» = value;
-«««					}
 				«ELSEIF type instanceof EDataType»
 					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
 					«val pos = matchingFrame.getVariablePosition(param)»
 					«typeFQN» «pos.variableName»;
-«««					static «typeFQN»& «pos.getter»(«frameName»& frame) {
-«««						return frame.«pos.paramName»;
-«««					}
-«««					
-«««					static void «pos.setter»(«frameName»& frame, «typeFQN» value) {
-«««						frame.«pos.paramName» = value;
-«««					}
 				«ENDIF»
 			«ENDFOR»
 		
-			// Serialization and deserialization
-			
-			std::string SerializeAsString()
-			{
-				PB_«unitName» pbframe;
-				
-				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-					«val type = matchingFrame.getVariableLooseType(param)»
-					«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
-					«ProtobufHelper::setProtobufVar("pbframe", "", varName, type)»
-				«ENDFOR»
-
-				return pbframe.SerializeAsString();
-			}
-		
-			template<typename ModelRoot>
-			void ParseFromString(std::string str, ModelRoot *mr)
-			{
-				PB_«unitName» pbframe;
-				pbframe.ParseFromString(str);
-		
-				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-					«val type = matchingFrame.getVariableLooseType(param)»
-					«val name = param.variableName.toString»
-					«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
-				«ENDFOR»
-			}
+			«generateFrameSerialization»
 		};
+				
+		class «unitName»Vector 
+			: private std::vector<«unitName»>
+		{
+			public:
+			«FOR using : #["push_back", "clear", "empty", "size", "begin", "end" ]»
+				using std::vector<«unitName»>::«using»;
+			«ENDFOR»
+			
+			«generateFrameVectorSerialization»
+		};
+		
 	'''
+	
+	def generateFrameSerialization() '''
+		// Serialization and deserialization
+		
+		std::string SerializeAsString()
+		{
+			PB_«unitName» pbframe;
+			
+			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+				«val type = matchingFrame.getVariableLooseType(param)»
+				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
+				«ProtobufHelper::setProtobufVar("pbframe", "", varName, type)»
+			«ENDFOR»
+
+			return pbframe.SerializeAsString();
+		}
+	
+		template<typename ModelRoot>
+		void ParseFromString(std::string str, ModelRoot *mr)
+		{
+			PB_«unitName» pbframe;
+			pbframe.ParseFromString(str);
+	
+			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+				«val type = matchingFrame.getVariableLooseType(param)»
+				«val name = param.variableName.toString»
+				«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
+			«ENDFOR»
+		}
+		'''
+
+
+	def generateFrameVectorSerialization() '''
+		// Serialization and deserialization
+		
+		template<typename ModelRoot, typename Action>
+		static void ParseFromStringCallback( const std::string& serialized_data, ModelRoot * mr, Action action )
+		{
+			PB_«unitName»Vector pbFrameVector;
+			pbFrameVector.ParseFromString(serialized_data);
+			
+			«unitName» frame;
+			for (auto & pbFrame : pbFrameVector.frames())
+			{
+				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+					«val type = matchingFrame.getVariableLooseType(param)»
+					«val varName = param.variableName.toString»
+					frame.«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbFrame", "mr")»
+				«ENDFOR»
+				
+				action(frame);
+			}
+		}
+		
+		std::string SerializeAsString()
+		{
+			PB_«unitName»Vector pbFrameVector;
+			
+			for(auto& storedVector: *this){
+				auto & pbFrame= *pbFrameVector.add_frames();
+				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+					«val type = matchingFrame.getVariableLooseType(param)»
+					«val varName = param.variableName.toString»
+					«ProtobufHelper::setProtobufVar("pbFrame", "storedVector.", varName, type)»
+				«ENDFOR»
+			}
+			return pbFrameVector.SerializeAsString();
+		}
+	'''
+	
 
 	def getVariableName(PVariable variable) {
 		getVariableName(matchingFrame.getVariablePosition(variable))

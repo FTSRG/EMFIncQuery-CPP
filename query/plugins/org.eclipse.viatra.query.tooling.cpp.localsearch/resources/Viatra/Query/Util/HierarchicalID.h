@@ -37,6 +37,12 @@ namespace Viatra {
 					}
 				};
 
+
+				static HierarchicalID<T> CreateTopLevel(T topLevelID)
+				{
+					return HierarchicalID<T>(&topLevelID, &topLevelID+1)
+				}
+				
 				auto begin()const { return vec.begin();	}
 				auto end() const { return vec.end(); }
 				auto empty() const { return vec.empty(); }
@@ -56,6 +62,16 @@ namespace Viatra {
 				HierarchicalID(google::protobuf::RepeatedField<int> pbfield)
 					: HierarchicalID(pbfield.begin(), pbfield.end())
 				{}
+
+				void addSubID(T subID)
+				{
+					vec.push_back(subID);
+				}
+
+				void step(T inc)
+				{
+					vec.back() += inc;
+				}
 
 
 				HierarchicalID<T> parent()const {
