@@ -49,7 +49,8 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		«IF pattern.bound»
 			«initializeFrame(patternBody, pattern.boundParameters, bodyNum)»
 			
-			auto exec = SearchPlanExecutor<«frame.frameName»>(sp, *_context).prepare(frame);
+			auto unprepared_exec = SearchPlanExecutor<«frame.frameName»>(sp, *_context);
+			auto exec = unprepared_exec.prepare(frame);
 		«ELSE»							
 			auto exec = SearchPlanExecutor<«frame.frameName»>(sp, *_context);
 		«ENDIF»
