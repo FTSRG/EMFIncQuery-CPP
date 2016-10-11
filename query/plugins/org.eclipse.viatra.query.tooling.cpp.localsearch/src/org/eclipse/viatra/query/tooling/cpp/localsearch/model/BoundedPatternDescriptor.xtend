@@ -82,4 +82,8 @@ class BoundedPatternDescriptor {
 		paramNames.join(", ")
 	}
 	
+	def cppBoundName() {
+		return '''«FOR param:boundParameters SEPARATOR "_"»«param.name»«ENDFOR»'''.toString;
+	}
+	
 }

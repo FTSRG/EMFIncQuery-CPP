@@ -30,7 +30,6 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 	@Accessors val MatchingFrameDescriptor matchingFrame
 	@Accessors val int index
 	
-
 	new(String queryName, String patternName, int index, MatchingFrameDescriptor matchingFrame) {
 		super(#{queryName}, '''«patternName.toFirstUpper»Frame_«index»''')
 		this.queryName = queryName

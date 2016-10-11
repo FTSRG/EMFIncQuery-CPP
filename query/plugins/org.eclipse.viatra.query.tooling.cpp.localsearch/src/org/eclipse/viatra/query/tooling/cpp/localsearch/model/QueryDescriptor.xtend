@@ -50,7 +50,7 @@ class QueryDescriptor {
 	
 	override toString() '''
 		Query<«name»>:
-			«FOR pattern : patterns»
+			«FOR pattern : everyBoundedPatternInTheFile»
 				«pattern»
 			«ENDFOR»		
 	'''

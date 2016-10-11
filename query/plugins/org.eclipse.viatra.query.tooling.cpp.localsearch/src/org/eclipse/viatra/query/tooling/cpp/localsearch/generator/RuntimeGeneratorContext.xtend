@@ -78,7 +78,7 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator
 		
-		generators += new QueryRunnerFactoryGenerator(query.name, patternGroupSets);
+		generators += new QueryRunnerFactoryGenerator(query);
 
 		generators.forEach[initialize]
 

@@ -24,7 +24,7 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
 		val Set<ProtoCompiler> protoCompilers = newHashSet
-		val Set<PatternGroupDescriptor> patternGroupSets = newHashSet
+		val Set<PatternGroupDescriptor> patternGroupSet = newHashSet
 
 		query.patternGroups.forEach [ name, patternGroup |
 			val frameGenMap = newHashMap
@@ -49,7 +49,7 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			
 			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patternGroup, frameGenMap)
 			generators += querySpec
-			patternGroupSets.add(patternGroup);
+			patternGroupSet.add(patternGroup);
 			
 			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patternGroup, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
@@ -75,7 +75,7 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 		val queryGroupGenerator = new QueryGroupGenerator(query, true)
 		generators += queryGroupGenerator
 		
-		generators += new QueryRunnerFactoryGenerator(query.name, patternGroupSets);
+		generators += new QueryRunnerFactoryGenerator(query);
 		
 
 		generators.forEach[initialize]
