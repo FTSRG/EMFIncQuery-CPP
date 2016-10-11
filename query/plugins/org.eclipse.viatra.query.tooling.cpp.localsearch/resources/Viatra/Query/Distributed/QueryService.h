@@ -71,11 +71,13 @@ namespace Viatra {
 			// Type independent baseclass for QueryService
 			class QueryServiceBase
 			{
+				using Lock = std::unique_lock<mutex>;
+
 			public:
 				QueryServiceBase(const char *configJSON, const char * nodeName);
 				~QueryServiceBase();
 			protected:
-
+				std::mutex mutex;
 				std::map<std::string, NodeInfo> nodes;
 
 				std::string nodeName;
@@ -88,14 +90,17 @@ namespace Viatra {
 				std::map< uint64_t, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectors;
 				
 			public:
+				inline static std::unique_lock lock
 
 				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::string destNode)
 				{
+					Lock lck(mutex);
 					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, destNode, nullptr);
 				}
 
 				void addTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, QueryFutureBase *future)
 				{
+					Lock lck(mutex);
 					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, "", future);
 				}
 				
@@ -106,12 +111,14 @@ namespace Viatra {
 				
 				std::string initiateConnection(Network::Connection* connection, std::string nodeName)
 				{
+					Lock lck(mutex);
 					if (nodes.find(nodeName) == nodes.end())
 						return std::string("ERROR: No node named \"") + nodeName + "\" is part of the configuration in this server";
 				}
 
 				bool checkNodeConnection(std::string nodeName, Network::Connection * connection)
 				{
+					Lock lck(mutex);
 					auto find = nodes.find(nodeName);
 					if (find == nodes.end())
 						return false;
@@ -152,6 +159,7 @@ namespace Viatra {
 				template<  template<typename>class QueryTemplate, class RootedQuery = QueryTemplate<ModelRoot> >
 				std::unique_ptr<QueryFuture<RootedQuery>> RunNewQuery()
 				{
+					Lock lck(mutex);
 					using RootedQuery = QueryTemplate<ModelRoot>;
 
 					auto sessionID = querySessionIDGenerator.generate();
@@ -161,7 +169,6 @@ namespace Viatra {
 					startRemoteQuerySessions(sessionID, queryID);
 
 					auto future = queryRunners[sessionID]->start();
-
 
 					std::unique_ptr<QueryFuture<RootedQuery>> ret{
 						dynamic_cast<QueryFuture<RootedQuery>*>(future.get())
@@ -173,6 +180,7 @@ namespace Viatra {
 
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) override
 				{
+					Lock lck(mutex);
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
 
@@ -180,8 +188,9 @@ namespace Viatra {
 					return "OK";
 				}
 
-				virtual void continueQuery(const std::string& nodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
+				virtual void continueQuery(Request request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
 				{
+					Lock lck(mutex);
 					auto runner = queryRunners.at(sessionID);
 					runner->addTask(nodeName, taskID, body, operation, frame);
 				}

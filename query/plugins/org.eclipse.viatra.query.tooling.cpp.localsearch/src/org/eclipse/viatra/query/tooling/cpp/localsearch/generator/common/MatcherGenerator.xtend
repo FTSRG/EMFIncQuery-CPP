@@ -60,7 +60,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context, QueryRunnerT * queryRunner) 
 				: _model(model), _context(context), _queryRunner(queryRunner) {
 			}
-		«val generatedParamLists = newArrayList»
+			«val generatedParamLists = newArrayList»
 			«FOR pattern : patternGroup»
 				«IF !generatedParamLists.contains(getParamList(pattern))»
 					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
@@ -100,7 +100,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 						// frameVectors are now update with possible subtask needed to be done
 						for (auto & op_pbframe : frameVectors)
 						{
-							queryRunner->PropagateFrameVector(bodyID, op_pbframe.first, op_pbframe.second.SerializeAsString());
+							_queryRunner->PropagateFrameVector(bodyID, op_pbframe.first, op_pbframe.second.SerializeAsString());
 						}
 					
 						return resultSet;

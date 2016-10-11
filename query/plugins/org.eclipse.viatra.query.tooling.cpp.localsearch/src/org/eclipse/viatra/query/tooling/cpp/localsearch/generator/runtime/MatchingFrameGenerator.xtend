@@ -53,7 +53,13 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 	}
 
 	override compileInner() '''
+		
+		class «unitName»Vector;
+	
 		struct «unitName» {
+			
+			using PBFrame = PB_«unitName»;
+			using FrameVector = «unitName»Vector;
 			
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»

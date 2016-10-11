@@ -128,7 +128,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 	
 	private dispatch def compileOperation(GlobalExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
-		return '''create_«GlobalExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
+		return '''create_«GlobalExtendInstanceOfDescriptor::NAME»<«frameGenerator.frameName»>(«operation.nextOperationIndex», subFrames)'''
 	}
 	
 	private dispatch def compileOperation(LocalExtendInstanceOfDescriptor operation, StringBuilder setupCode) {

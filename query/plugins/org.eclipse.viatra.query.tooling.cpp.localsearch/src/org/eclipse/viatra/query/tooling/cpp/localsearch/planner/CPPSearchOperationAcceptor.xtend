@@ -118,7 +118,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	override acceptIterateOverClassInstances(PVariable location, IInputKey inputKey) {
 		val eClass = (inputKey as EClassTransitiveInstancesKey).wrappedKey
 		
-		searchOperations += new GlobalExtendInstanceOfDescriptor(matchingFrame, location, eClass)
+		searchOperations += new GlobalExtendInstanceOfDescriptor(matchingFrame, searchOperations.size()+1);
 		searchOperations += new LocalExtendInstanceOfDescriptor(matchingFrame, location, eClass)
 	}
 

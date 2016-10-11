@@ -58,6 +58,11 @@ namespace Viatra {
 				{}
 				~QueryResultCollector() {}
 
+				void addRemoteRunningTask(TaskID taskID)
+				{
+					remoteRunningTasks.insert(taskID);
+				}
+
 				void addLocalMatches(MatchSet && matches2add)
 				{
 					auto lock = std::unique_lock<std::mutex>(resultMutex);
@@ -65,6 +70,8 @@ namespace Viatra {
 					for(auto && match : matches2add)
 						matches.insert(match);
 					finishedLocally = true;
+					if (finished())
+						service.notifyCollectionDone(taskID);
 				}
 
 				void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskID) override
@@ -74,6 +81,9 @@ namespace Viatra {
 						matches.insert(match);
 					});
 					remoteRunningTasks.erase(taskID);
+					if (finished())
+						service.notifyCollectionDone(taskID);
+						
 				}
 
 				bool finished()

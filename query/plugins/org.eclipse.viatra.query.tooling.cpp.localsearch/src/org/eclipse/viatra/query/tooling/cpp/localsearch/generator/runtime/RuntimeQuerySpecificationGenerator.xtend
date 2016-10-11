@@ -68,7 +68,7 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 		«val youShallNotPrint = generatedPlanList.add(uniqueName)»
 		«val bodyNum = patternBody.index»
 		«val frame = frameGenerators.get(patternBody)»
-		static ::Viatra::Query::Plan::SearchPlan<«frame.frameName»> get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(const ModelRoot* model) {
+		static ::Viatra::Query::Plan::SearchPlan<«frame.frameName»> get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(const ModelRoot* model, std::map<int,«frame.frameName»Vector>* subFrames = nullptr) {
 			using namespace ::Viatra::Query::Operations::Check;
 			using namespace ::Viatra::Query::Operations::Extend;
 		

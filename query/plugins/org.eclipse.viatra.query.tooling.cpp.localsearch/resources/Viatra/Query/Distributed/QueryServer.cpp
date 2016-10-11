@@ -69,7 +69,7 @@ void Viatra::Query::Distributed::QueryServer::process_message(Network::Connectio
 			else
 			{
 				service->continueQuery(
-					request.nodename(),
+					Request{connection, queryRequest.rqid()},
 					request.sessionid(),
 					request.taskid(),
 					request.bodyindex(),

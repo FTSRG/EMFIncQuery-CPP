@@ -7,6 +7,7 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 			
+			// Threadsafe object to generate id by a given increment from a given start id
 			class IDGenerator {
 			private:
 

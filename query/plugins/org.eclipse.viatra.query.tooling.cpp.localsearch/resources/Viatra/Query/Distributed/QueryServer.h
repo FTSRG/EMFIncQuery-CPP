@@ -9,6 +9,11 @@
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
+
+			struct Request{
+				Network::Connection * connecton;
+				int64_t rqid;
+			};
 			
 			class QueryServiceBase;
 

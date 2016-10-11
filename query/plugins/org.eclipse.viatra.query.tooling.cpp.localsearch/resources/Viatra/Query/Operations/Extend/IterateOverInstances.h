@@ -12,9 +12,11 @@
 
 #include "../../Util/Defs.h"
 #include "ExtendOperation.h"
+#include "../Check/CheckOperation.h"
 
 #include <list>
 #include <type_traits>
+#include <map>
 
 namespace Viatra {
 namespace Query {
@@ -71,9 +73,13 @@ inline LocalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>* create_Loca
  * @tparam SrcType The type of the variable to be bound.
  * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
  */
-template<class SrcType, class MatchingFrame, class ModelRoot>
-class GlobalIterateOverInstances: public ExtendOperation<SrcType, std::list<SrcType>, MatchingFrame> {
-    typedef SrcType MatchingFrame::* BindPoint;
+template<class MatchingFrame>
+class GlobalIterateOverInstances: public Check::CheckOperation<MatchingFrame> {
+
+private:
+	int _operationIndex;
+	std::map<int, typename MatchingFrame::FrameVector> *_subFrames;
+
 public:
     /**
      * Creates a new instance of an GlobalIterateOverInstances operation.
@@ -81,43 +87,24 @@ public:
      * @param bind The function used to bind the variable in a frame.
      * @param clazz The id of the type to be iterated.
      */
-    GlobalIterateOverInstances(BindPoint bind, EClass clazz, const ModelRoot* model);
-    void on_initialize(MatchingFrame&, const Matcher::ISearchContext& ) override;
-    void on_backtrack(MatchingFrame&, const Matcher::ISearchContext& ) override;
+	GlobalIterateOverInstances(int operationIndex, std::map<int, typename MatchingFrame::FrameVector> *subFrames )
+		: _operationIndex(operationIndex)
+		, _subFrames(subFrames)
+	{}
+	
+	virtual bool check(MatchingFrame& frame, const Matcher::ISearchContext& context)
+	{
+		if (_subFrames != nullptr)
+			(*_subFrames)[_operationIndex].push_back(frame);
+		return false;
+	}
 
-    bool execute(MatchingFrame&, const Matcher::ISearchContext&) override;
-private:
-    bool _executed;
-    EClass _clazz;
-  	const ModelRoot* _model;
 };
 
-template<class SrcType, class MatchingFrame, class ModelRoot>
-inline GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::GlobalIterateOverInstances(BindPoint bind, EClass clazz, const ModelRoot* model)
-	: ExtendOperation<SrcType, std::list<SrcType>, MatchingFrame>(bind), _executed(false), _clazz(clazz), _model(model) {
-}
-
-template<class SrcType, class MatchingFrame, class ModelRoot>
-inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context) {
-  return;
-}
-
-template<class SrcType, class MatchingFrame, class ModelRoot>
-inline void GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::on_backtrack(MatchingFrame& frame, const Matcher::ISearchContext& context) {
-  _executed = false;
-  return;
-}
-
-template<class SrcType, class MatchingFrame, class ModelRoot>
-inline bool GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>::execute(MatchingFrame& frame, const Matcher::ISearchContext& context) {
-  if(_executed) return false;
-  _executed = true;
-  return _executed;
-}
-
-template<class SrcType, class MatchingFrame, class ModelRoot>
-inline GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>* create_GlobalIterateOverInstances(SrcType MatchingFrame::* bind, EClass clazz, const ModelRoot* model) {
-	return new GlobalIterateOverInstances<SrcType, MatchingFrame, ModelRoot>(bind, clazz, model);
+template<typename MatchingFrame>
+GlobalIterateOverInstances<MatchingFrame>* create_GlobalIterateOverInstances(int _operationIndex, std::map<int, typename MatchingFrame::FrameVector> *_subFrames)
+{
+	return new GlobalIterateOverInstances<MatchingFrame>(_operationIndex, _subFrames);
 }
 
 } /* namespace Extend */

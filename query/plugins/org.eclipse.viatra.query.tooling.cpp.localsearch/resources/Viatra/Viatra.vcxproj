@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Query\Distributed\MessageProtocol.pb.cc" />
+    <ClCompile Include="Query\Distributed\QueryClient.cpp" />
     <ClCompile Include="Query\Util\network.cpp" />
     <ClCompile Include="Query\Distributed\QueryServer.cpp" />
     <ClCompile Include="Query\Distributed\QueryService.cpp" />

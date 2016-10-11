@@ -67,14 +67,14 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	//Generate a function to continue a plan execution from a designated point with a precalculated Frame.	 	
 	override protected compileContinueDistQuery(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val frame = frameGenerators.get(patternBody)»
-		void continue_«frame.index»(«frame.frameName»& frame, int startOpIndex, «patternName»MatchSet& results) const {
+		void continue_«frame.index»(«frame.frameName»& frame, int startOpIndex, «patternName»MatchSet& results, std::map<int, «frame.frameName»Vector>& subFrames) const {
 			using ::Viatra::Query::Matcher::ISearchContext;
 			using ::Viatra::Query::Plan::SearchPlan;
 			using ::Viatra::Query::Plan::DistSearchPlanExecutor;
 			using ::Viatra::Query::Matcher::ClassHelper;
 		
 			«val bodyNum = frame.index»
-			auto sp = «patternName»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model);
+			auto sp = «patternName»QuerySpecification<ModelRoot>::get_plan_unbound__«bodyNum»(_model, &subFrames);
 			
 			auto unprepared_exec = DistSearchPlanExecutor<«frame.frameName»>(sp, *_context, «frame.index», startOpIndex);	
 			auto exec = unprepared_exec.prepare(frame);

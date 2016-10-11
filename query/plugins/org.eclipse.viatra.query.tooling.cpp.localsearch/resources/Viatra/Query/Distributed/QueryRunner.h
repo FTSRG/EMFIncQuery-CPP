@@ -75,9 +75,9 @@ namespace Viatra {
 					, matcher(modelRoot, QueryGroup::instance()->context(), this)
 				{}
 				
-				// Distribues the query execution to all the other nodes from a given state in the body
+				// Distribues the query execution to all the other nodes from a given state in the 
 				void PropagateFrameVector(int body, int operation, std::string encodedFrameVector ) {
-					TaskID = currentTask->nextSubTaskID();
+					TaskID taskID = currentTask->nextSubtaskID();
 					throw "Unimplemented QueryRunner.h PropagateFrameVector";
 				}
 								
