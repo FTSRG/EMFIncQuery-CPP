@@ -39,7 +39,7 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 					«FOR patternGroup : query.patternGroups.values»
 						case «patternGroup.queryID»:
 							return std::make_unique<
-								Viatra::Query::Distributed::QueryRunner<«patternGroup.name.toFirstUpper»<ModelRoot>>
+								Viatra::Query::Distributed::QueryRunner<Rooted«patternGroup.name.toFirstUpper»<ModelRoot>>
 							>(sessionID, modelRoot, service);
 					«ENDFOR»
 				}

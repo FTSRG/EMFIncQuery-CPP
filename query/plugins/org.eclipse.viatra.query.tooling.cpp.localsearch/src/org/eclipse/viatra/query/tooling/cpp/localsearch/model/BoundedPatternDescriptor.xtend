@@ -29,6 +29,10 @@ class BoundedPatternDescriptor {
 	
 	val Set<PatternBodyDescriptor> bodies
 	
+	static var int nextQueryID = 1;
+	@Accessors
+	val int queryID
+	
 	
 	new(PQuery query, Set<PatternBodyDescriptor> bodies) {
 		this(query, bodies, #{})
@@ -41,6 +45,7 @@ class BoundedPatternDescriptor {
 		checkArgument(!bodies.empty)	
 		
 		this.query = query
+		this.queryID = nextQueryID++;
 
 		this.bodies = bodies
 		this.boundParameters = boundParameters
@@ -84,6 +89,5 @@ class BoundedPatternDescriptor {
 	
 	def cppBoundName() {
 		return '''«FOR param:boundParameters SEPARATOR "_"»«param.name»«ENDFOR»'''.toString;
-	}
-	
+	}	
 }

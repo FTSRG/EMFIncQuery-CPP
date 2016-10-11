@@ -205,6 +205,7 @@ interface TypeHelper {
 	
 	def String getName()
 	def String getFQN()
+	def String declareType()
 	def String getDefaultValue()
 	
 }
@@ -248,6 +249,10 @@ class ClassHelper implements TypeHelper {
 		'''nullptr'''
 	}
 	
+	override declareType() 
+		'''«FQN»*'''
+	
+	
 }
 
 
@@ -278,6 +283,9 @@ class EnumHelper implements TypeHelper {
 		'''«this.fqn»::«(eEnum.defaultValue as ENamedElement).name»'''
 	}
 	
+	override declareType(){ 
+		fqn
+	}
 }
 
 class PrimitiveTypeHelper implements TypeHelper {
@@ -327,4 +335,9 @@ class PrimitiveTypeHelper implements TypeHelper {
 	override getDefaultValue() {
 		defaultValue
 	}
+	
+	override declareType() {
+		name
+	}
+	
 }

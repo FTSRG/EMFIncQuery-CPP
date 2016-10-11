@@ -170,13 +170,13 @@
     <ClInclude Include="Query\Util\BufferedSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Query\Distributed\ResultConsumer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Query\Distributed\Request.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query\Distributed\TaskID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\QueryResolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

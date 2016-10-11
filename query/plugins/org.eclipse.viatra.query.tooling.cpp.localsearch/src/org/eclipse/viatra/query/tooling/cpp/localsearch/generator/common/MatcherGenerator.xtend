@@ -50,11 +50,11 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 	}
 	
 	override compileInner() '''
-		template<typename>class «patternName»;
+		template<typename>class Rooted«patternName»;
 				
 		template<class ModelRoot>
 		class «unitName» {
-			using QueryRunnerT = ::Viatra::Query::Distributed::QueryRunner<«patternName»<ModelRoot>>;
+			using QueryRunnerT = ::Viatra::Query::Distributed::QueryRunner<Rooted«patternName»<ModelRoot>>;
 		public:
 			«unitName»(
 			const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context, QueryRunnerT * queryRunner) 

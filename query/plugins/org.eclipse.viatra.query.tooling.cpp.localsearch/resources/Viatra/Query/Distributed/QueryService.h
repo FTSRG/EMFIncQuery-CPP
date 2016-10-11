@@ -11,7 +11,6 @@
 
 #include"../Model/IModelElemService.h"
 
-
 #include"QueryRunner.h"
 #include"QueryServer.h"
 #include"QueryClient.h"
@@ -23,7 +22,7 @@ namespace Viatra {
 		namespace Distributed {
 
 			class QueryFutureBase;
-			class QueryTaskBase;
+			struct QueryTaskBase;
 			class QueryResultCollectorBase;
 
 			// Information struct for a processing node
@@ -85,16 +84,16 @@ namespace Viatra {
 				
 			public:
 
-				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::string destNode)
+				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, destNode, nullptr);
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, nullptr);
 				}
 
 				void addTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, QueryFutureBase *future)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, "", future);
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{nullptr, 0}, future);
 				}
 				
 				// Start Local Query Session on all other node and waiting for the result(stub)
@@ -126,7 +125,6 @@ namespace Viatra {
 				// runs on QueryRunner Thread
 				void continueQueryRemotely(QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
 
-
 			};
 
 			template<typename ModelRoot, template<typename> class QueryRunnerFactoryTemplate>
@@ -134,6 +132,7 @@ namespace Viatra {
 			{
 			private:
 				ModelRoot modelRoot;
+				
 			public:
 				using QueryRunnerFactory = QueryRunnerFactoryTemplate<ModelRoot>;
 
@@ -150,9 +149,14 @@ namespace Viatra {
 				{
 
 				}
-
+				
 				// usage: queryService.RunNewQuery<QueryName>()
-				template<  template<typename>class QueryTemplate, class RootedQuery = QueryTemplate<ModelRoot> >
+				template<
+					class QueryClass, 
+					class BindClass = typename QueryClass::NoBind, 
+					//class RootedQuery = typename QueryResolver<QueryClass, ModelRoot>::RootedQuery
+					class RootedQuery = typename QueryClass::RootedQuery<ModelRoot>
+				>
 				std::unique_ptr<QueryFuture<RootedQuery>> RunNewQuery()
 				{
 					Lock lck(mutex);

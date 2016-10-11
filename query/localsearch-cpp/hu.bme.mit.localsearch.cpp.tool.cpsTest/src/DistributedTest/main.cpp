@@ -16,7 +16,7 @@ int server_test(int argc, char **argv);
 int main(int argc, char **argv) {
 	try {
 		//return server_test(argc, argv)
-
+		
 		Viatra::Query::Distributed::QueryService<
 			Viatra::Query::Model::ModelRoot, 
 			Viatra::Query::Distributedquery::QueryRunnerFactory
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 		while (!result->ready())
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 
-
+		
 	}
 	catch (const std::exception& ex)
 	{

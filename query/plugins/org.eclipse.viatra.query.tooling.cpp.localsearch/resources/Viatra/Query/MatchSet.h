@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _VIATRA_QUERY_MATCHSET_23523_
+#define _VIATRA_QUERY_MATCHSET_23523_
 
 namespace Viatra {
 	namespace Query {
@@ -10,3 +11,5 @@ namespace Viatra {
 		};
 	}
 }
+
+#endif
