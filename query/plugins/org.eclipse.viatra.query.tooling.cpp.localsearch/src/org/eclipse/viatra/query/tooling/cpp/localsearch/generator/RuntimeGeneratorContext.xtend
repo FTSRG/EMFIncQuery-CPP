@@ -20,7 +20,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.Matchi
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.QueryRunnerFactoryGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeQuerySpecificationGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoCompiler
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoGenerator
@@ -35,11 +35,12 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
 		val Set<ProtoCompiler> protoCompilers = newHashSet
-		val Set<Set<BoundedPatternDescriptor>> patternGroupSets = newHashSet
-		query.patterns.forEach [ name, patterns |
+		val Set<PatternGroupDescriptor> patternGroupSets = newHashSet
+		query.patternGroups.forEach [ name, patternGroup |
+			
 			val frameGenMap = newHashMap
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name)
-			patterns.forEach[
+			patternGroup.boundedPatterns.forEach[
 				patternBodies.forEach[ patternBody |
 					val matchingFrameGenerator = new MatchingFrameGenerator(query.name, patternName, patternBody.index, patternBody.matchingFrame)
 					frameGenMap.put(patternBody, matchingFrameGenerator)
@@ -51,22 +52,24 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 				]
 			]
 
+			val aMatchingFrame = patternGroup.boundedPatterns.head.patternBodies.head.matchingFrame
+
 			// TODO: WARNING! Incredible Hack Inc! works, but ugly...
-			val matchGen = new MatchGenerator(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			val matchGen = new MatchGenerator(query.name, patternName, aMatchingFrame)
 			generators += matchGen
 
 			// ... I use this hack too hope it still works
-			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, aMatchingFrame)
 			protoCompilers += protoMatchCompiler
 
-			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
+			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patternGroup, frameGenMap)
 			generators += querySpec
-			patternGroupSets.add(patterns.toSet);
+			patternGroupSets.add(patternGroup);
 			
-			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
+			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patternGroup, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
 			
-			val	includeGen = new QueryIncludeGenerator(query.name, patternName)
+			val	includeGen = new QueryIncludeGenerator(query.name, patternGroup)
 			generators += includeGen
 		]
 

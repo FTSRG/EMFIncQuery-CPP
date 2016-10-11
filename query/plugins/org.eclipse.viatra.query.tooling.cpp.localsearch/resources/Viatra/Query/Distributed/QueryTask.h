@@ -1,29 +1,36 @@
 
-#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_H__
-#define _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_H__
+#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_6645w436H__
+#define _VIATRA_QUERY_DISTRIBUTED_QUERYTASK_6645w436H__
 
-#include"../Util/HierarchicalID.h"
+#include"TaskID.h"
+#include<mutex>
 
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 
+			struct QueryTaskBase {
+				virtual TaskID createRemoteSubtask() = 0;
+				virtual ~QueryTaskBase() {}
+			};
+
 			template<typename RootedQuery>
 			class QueryResultCollector;
 
-			using TaskID = Util::HierarchicalID<int>;
 			/**
 			* @brief Class for storing a basic task for query processing, ie. continuing a 
 			* query of a pattern body from a given operation
 			*
-			* THREAD SAFETY: Sngle threaded, this object is exclusive to its runner object
+			* THREAD SAFETY: Threadsafe, immutable object
 			*/
 			template<typename RootedQuery>
-			struct QueryTask {
+			struct QueryTask : public QueryTaskBase {
+				using Lock = std::unique_lock<std::mutex>;
+				std::mutex mutex;
 				
 				// Unique Id for the task of a QuerySession
 				TaskID id;
-				TaskID nextTask;
+				TaskID nextSubtaskID;
 
 				// Index of the body to run on
 				int bodyIndex;	
@@ -44,18 +51,21 @@ namespace Viatra {
 					, encodedFrameVector(encodedFrameVector)
 					, collector(collector)
 					, id(taskID)
-					, nextTask(taskID)
+					, nextSubtaskID(taskID)
 				{
-					nextTask.addSubID(1);
+					nextSubtaskID.addSubID(0);
 				}
 
 				~QueryTask()
 				{}
 
-				TaskID nextSubtaskID()
+				// Threadsafe subtask creation
+				TaskID createRemoteSubtask()override
 				{
-					nextTask.step(1);
-					return nextTask;
+					Lock lck(mutex);
+					nextSubtaskID.step(1);
+					collector->addRemoteRunningTask(nextSubtaskID);
+					return nextSubtaskID;
 				}
 
 				QueryTask(const QueryTask<RootedQuery> &) = delete;

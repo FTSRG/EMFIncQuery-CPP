@@ -3,6 +3,7 @@
 
 #include"MessageProtocol.pb.h"
 #include"QueryResultCollector.h"
+#include"QueryTask.h"
 #include"picojson.h"
 
 #include<fstream>
@@ -54,7 +55,7 @@ void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 
 	Network::Buffer buffer(request);
 
-	for (auto & node : nodes)
+	for (auto & node : remoteNodes)
 		throw "Not implemented QueryService.cpp StartRemoteQuerySessions";//	node.second.client->sendRequest(buffer.copy());
 }
 
@@ -65,4 +66,14 @@ void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& ta
 	auto & collectorInfo = localResultCollectors.at(sessionID).at(taskID);
 	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
 
+}
+
+
+// runs on QueryRunner Thread
+void QueryServiceBase::continueQueryRemotely(QueryTaskBase* parentTask, int body, int operation, const std::string& encodedFrameVector)
+{
+	for (auto & name_nodeInfo : remoteNodes) {
+		auto & nodeInfo = name_nodeInfo.second;
+		TaskID taskID = parentTask->createRemoteSubtask();
+	}
 }

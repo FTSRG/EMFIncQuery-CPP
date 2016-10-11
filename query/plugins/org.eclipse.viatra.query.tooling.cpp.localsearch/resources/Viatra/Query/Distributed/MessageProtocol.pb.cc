@@ -158,8 +158,10 @@ void protobuf_AssignDesc_MessageProtocol_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySession, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySession, _is_default_instance_));
   StartQuerySessionResponse_descriptor_ = file->message_type(5);
-  static const int StartQuerySessionResponse_offsets_[1] = {
+  static const int StartQuerySessionResponse_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySessionResponse, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySessionResponse, sessionid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StartQuerySessionResponse, queryid_),
   };
   StartQuerySessionResponse_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -293,19 +295,19 @@ void protobuf_AddDesc_MessageProtocol_2eproto() {
     "itiateConnection\022\020\n\010nodeName\030\001 \001(\t\"-\n\032In"
     "itiateConnectionResponse\022\017\n\007message\030\001 \001("
     "\t\"7\n\021StartQuerySession\022\021\n\tsessionID\030\001 \001("
-    "\003\022\017\n\007queryID\030\002 \001(\005\",\n\031StartQuerySessionR"
-    "esponse\022\017\n\007message\030\001 \001(\t\"\215\001\n\024ContinueQue"
-    "rySession\022\020\n\010nodeName\030\001 \001(\t\022\021\n\tsessionID"
-    "\030\002 \001(\003\022\016\n\006taskID\030\003 \003(\005\022\021\n\tbodyIndex\030\004 \001("
-    "\005\022\026\n\016operationIndex\030\005 \001(\005\022\025\n\rframeAsStri"
-    "ng\030\006 \001(\t\"\221\001\n\034ContinueQuerySessionRespons"
-    "e\022\016\n\006status\030\001 \001(\t\022\021\n\tsessionID\030\002 \001(\003\022\016\n\006"
-    "taskID\030\003 \003(\005\022\026\n\016resultMatchSet\030\004 \001(\t\022\021\n\t"
-    "partIndex\030\005 \001(\005\022\023\n\013isFinalPart\030\006 \001(\010*t\n\007"
-    "MsgType\022\027\n\023START_QUERY_SESSION\020\000\022\033\n\027TERM"
-    "INATE_QUERY_SESSION\020\001\022\032\n\026CONTINUE_QUERY_"
-    "SESSION\020\002\022\027\n\023INITIATE_CONNECTION\020\003b\006prot"
-    "o3", 1202);
+    "\003\022\017\n\007queryID\030\002 \001(\005\"P\n\031StartQuerySessionR"
+    "esponse\022\017\n\007message\030\001 \001(\t\022\021\n\tsessionID\030\002 "
+    "\001(\003\022\017\n\007queryID\030\003 \001(\005\"\215\001\n\024ContinueQuerySe"
+    "ssion\022\020\n\010nodeName\030\001 \001(\t\022\021\n\tsessionID\030\002 \001"
+    "(\003\022\016\n\006taskID\030\003 \003(\005\022\021\n\tbodyIndex\030\004 \001(\005\022\026\n"
+    "\016operationIndex\030\005 \001(\005\022\025\n\rframeAsString\030\006"
+    " \001(\t\"\221\001\n\034ContinueQuerySessionResponse\022\016\n"
+    "\006status\030\001 \001(\t\022\021\n\tsessionID\030\002 \001(\003\022\016\n\006task"
+    "ID\030\003 \003(\005\022\026\n\016resultMatchSet\030\004 \001(\t\022\021\n\tpart"
+    "Index\030\005 \001(\005\022\023\n\013isFinalPart\030\006 \001(\010*t\n\007MsgT"
+    "ype\022\027\n\023START_QUERY_SESSION\020\000\022\033\n\027TERMINAT"
+    "E_QUERY_SESSION\020\001\022\032\n\026CONTINUE_QUERY_SESS"
+    "ION\020\002\022\027\n\023INITIATE_CONNECTION\020\003b\006proto3", 1238);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageProtocol.proto", &protobuf_RegisterTypes);
   QueryRequest::default_instance_ = new QueryRequest();
@@ -2478,6 +2480,8 @@ void StartQuerySession::clear_queryid() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int StartQuerySessionResponse::kMessageFieldNumber;
+const int StartQuerySessionResponse::kSessionIDFieldNumber;
+const int StartQuerySessionResponse::kQueryIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 StartQuerySessionResponse::StartQuerySessionResponse()
@@ -2503,6 +2507,8 @@ void StartQuerySessionResponse::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sessionid_ = GOOGLE_LONGLONG(0);
+  queryid_ = 0;
 }
 
 StartQuerySessionResponse::~StartQuerySessionResponse() {
@@ -2543,7 +2549,28 @@ StartQuerySessionResponse* StartQuerySessionResponse::New(::google::protobuf::Ar
 
 void StartQuerySessionResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:Protobuf.StartQuerySessionResponse)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(StartQuerySessionResponse, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<StartQuerySessionResponse*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(sessionid_, queryid_);
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool StartQuerySessionResponse::MergePartialFromCodedStream(
@@ -2565,6 +2592,36 @@ bool StartQuerySessionResponse::MergePartialFromCodedStream(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "Protobuf.StartQuerySessionResponse.message"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_sessionID;
+        break;
+      }
+
+      // optional int64 sessionID = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_sessionID:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &sessionid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_queryID;
+        break;
+      }
+
+      // optional int32 queryID = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_queryID:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &queryid_)));
+
         } else {
           goto handle_unusual;
         }
@@ -2606,6 +2663,16 @@ void StartQuerySessionResponse::SerializeWithCachedSizes(
       1, this->message(), output);
   }
 
+  // optional int64 sessionID = 2;
+  if (this->sessionid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->sessionid(), output);
+  }
+
+  // optional int32 queryID = 3;
+  if (this->queryid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->queryid(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:Protobuf.StartQuerySessionResponse)
 }
 
@@ -2623,6 +2690,16 @@ void StartQuerySessionResponse::SerializeWithCachedSizes(
         1, this->message(), target);
   }
 
+  // optional int64 sessionID = 2;
+  if (this->sessionid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->sessionid(), target);
+  }
+
+  // optional int32 queryID = 3;
+  if (this->queryid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->queryid(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:Protobuf.StartQuerySessionResponse)
   return target;
 }
@@ -2636,6 +2713,20 @@ int StartQuerySessionResponse::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->message());
+  }
+
+  // optional int64 sessionID = 2;
+  if (this->sessionid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->sessionid());
+  }
+
+  // optional int32 queryID = 3;
+  if (this->queryid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->queryid());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -2670,6 +2761,12 @@ void StartQuerySessionResponse::MergeFrom(const StartQuerySessionResponse& from)
 
     message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
   }
+  if (from.sessionid() != 0) {
+    set_sessionid(from.sessionid());
+  }
+  if (from.queryid() != 0) {
+    set_queryid(from.queryid());
+  }
 }
 
 void StartQuerySessionResponse::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2697,6 +2794,8 @@ void StartQuerySessionResponse::Swap(StartQuerySessionResponse* other) {
 }
 void StartQuerySessionResponse::InternalSwap(StartQuerySessionResponse* other) {
   message_.Swap(&other->message_);
+  std::swap(sessionid_, other->sessionid_);
+  std::swap(queryid_, other->queryid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2754,6 +2853,34 @@ void StartQuerySessionResponse::clear_message() {
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:Protobuf.StartQuerySessionResponse.message)
+}
+
+// optional int64 sessionID = 2;
+void StartQuerySessionResponse::clear_sessionid() {
+  sessionid_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 StartQuerySessionResponse::sessionid() const {
+  // @@protoc_insertion_point(field_get:Protobuf.StartQuerySessionResponse.sessionID)
+  return sessionid_;
+}
+ void StartQuerySessionResponse::set_sessionid(::google::protobuf::int64 value) {
+  
+  sessionid_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.StartQuerySessionResponse.sessionID)
+}
+
+// optional int32 queryID = 3;
+void StartQuerySessionResponse::clear_queryid() {
+  queryid_ = 0;
+}
+ ::google::protobuf::int32 StartQuerySessionResponse::queryid() const {
+  // @@protoc_insertion_point(field_get:Protobuf.StartQuerySessionResponse.queryID)
+  return queryid_;
+}
+ void StartQuerySessionResponse::set_queryid(::google::protobuf::int32 value) {
+  
+  queryid_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.StartQuerySessionResponse.queryID)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

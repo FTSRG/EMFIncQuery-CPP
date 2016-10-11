@@ -17,8 +17,9 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
@@ -27,7 +28,7 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 	
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
-	new(String queryName, String patternName, Set<BoundedPatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators, MatchGenerator matchGenerator, RuntimeQuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, PatternGroupDescriptor patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators, MatchGenerator matchGenerator, RuntimeQuerySpecificationGenerator querySpecification) {
 		super(queryName, patternName, patternGroup, matchGenerator, querySpecification)
 		this.frameGenerators = frameGenerators
 	}
@@ -89,6 +90,30 @@ class RuntimeMatcherGenerator extends MatcherGenerator {
 		
 		}
 	'''
+	
+	override protected compileDistributedQueryStartingPoint(BoundedPatternDescriptor pattern){
+		// TODO: create starting points for bounded query
+		if(pattern.boundParameters.size()==0)
+			'''
+			std::map<int, std::string> distributedStartPoint()
+			{
+				std::map<int, std::string> ret;
+	
+				«FOR patternBody : pattern.patternBodies»
+					«val frame = frameGenerators.get(patternBody)»
+					{
+						«frame.frameName»Vector	vector;
+						vector.push_back(«frame.frameName»{});
+						ret[«frame.index»] = vector.SerializeAsString();
+					}	
+				«ENDFOR»
+				return ret;
+			}
+			'''
+			else
+			'''
+			'''
+		}
 		
 	
 	private def initializeFrame(PatternBodyDescriptor patternBody, Set<PParameter> boundParameters, int bodyNum) '''

@@ -683,12 +683,26 @@ class StartQuerySessionResponse : public ::google::protobuf::Message /* @@protoc
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
+  // optional int64 sessionID = 2;
+  void clear_sessionid();
+  static const int kSessionIDFieldNumber = 2;
+  ::google::protobuf::int64 sessionid() const;
+  void set_sessionid(::google::protobuf::int64 value);
+
+  // optional int32 queryID = 3;
+  void clear_queryid();
+  static const int kQueryIDFieldNumber = 3;
+  ::google::protobuf::int32 queryid() const;
+  void set_queryid(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:Protobuf.StartQuerySessionResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr message_;
+  ::google::protobuf::int64 sessionid_;
+  ::google::protobuf::int32 queryid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_MessageProtocol_2eproto();
   friend void protobuf_AssignDesc_MessageProtocol_2eproto();
@@ -1513,6 +1527,34 @@ inline void StartQuerySessionResponse::set_allocated_message(::std::string* mess
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:Protobuf.StartQuerySessionResponse.message)
+}
+
+// optional int64 sessionID = 2;
+inline void StartQuerySessionResponse::clear_sessionid() {
+  sessionid_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 StartQuerySessionResponse::sessionid() const {
+  // @@protoc_insertion_point(field_get:Protobuf.StartQuerySessionResponse.sessionID)
+  return sessionid_;
+}
+inline void StartQuerySessionResponse::set_sessionid(::google::protobuf::int64 value) {
+  
+  sessionid_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.StartQuerySessionResponse.sessionID)
+}
+
+// optional int32 queryID = 3;
+inline void StartQuerySessionResponse::clear_queryid() {
+  queryid_ = 0;
+}
+inline ::google::protobuf::int32 StartQuerySessionResponse::queryid() const {
+  // @@protoc_insertion_point(field_get:Protobuf.StartQuerySessionResponse.queryID)
+  return queryid_;
+}
+inline void StartQuerySessionResponse::set_queryid(::google::protobuf::int32 value) {
+  
+  queryid_ = value;
+  // @@protoc_insertion_point(field_set:Protobuf.StartQuerySessionResponse.queryID)
 }
 
 // -------------------------------------------------------------------

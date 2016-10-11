@@ -3,24 +3,45 @@
 #include "QueryService.h"
 
 #include "MessageProtocol.pb.h"
+#include "Request.h"
 
-Viatra::Query::Distributed::QueryServer::QueryServer(uint16_t port, QueryServiceBase * service)
+using namespace Viatra::Query::Distributed;
+
+QueryServer::QueryServer(uint16_t port, QueryServiceBase * service)
 	: Network::Server(port)
 	, service(service)
 {
 				
 }
 
-Viatra::Query::Distributed::QueryServer::~QueryServer()
+QueryServer::~QueryServer()
 {
 				
 }
 
-void Viatra::Query::Distributed::QueryServer::accept_connection(Network::Connection * c)
+void QueryServer::sendMatchResults(const Request& rq, const std::string& status, int64_t sessionID, TaskID taskID, const std::string& resultMatchSet)
+{
+	int partIndex = 0;
+	bool isFinalPart = true;
+
+	Protobuf::QueryResponse response;
+	response.set_rqid(rq.rqid);
+	response.set_msgtype(Protobuf::MsgType::CONTINUE_QUERY_SESSION);
+	auto & continueQuerySessionResponse = *response.mutable_continuequerysessionresponse();
+	continueQuerySessionResponse.set_status(status);
+	continueQuerySessionResponse.set_sessionid(sessionID);
+	for(auto id : taskID)
+		continueQuerySessionResponse.add_taskid(id);
+	continueQuerySessionResponse.set_resultmatchset(resultMatchSet);
+	
+	sendMessage(rq.connecton, response);
+}
+
+void QueryServer::accept_connection(Network::Connection * c)
 {
 
 }
-void Viatra::Query::Distributed::QueryServer::process_message(Network::Connection * connection, Network::Buffer message)
+void QueryServer::process_message(Network::Connection * connection, Network::Buffer message)
 {
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.ParseFromArray(message.data(), message.size());
@@ -68,7 +89,7 @@ void Viatra::Query::Distributed::QueryServer::process_message(Network::Connectio
 			}
 			else
 			{
-				service->continueQuery(
+				service->continueQueryLocally(
 					Request{connection, queryRequest.rqid()},
 					request.sessionid(),
 					request.taskid(),

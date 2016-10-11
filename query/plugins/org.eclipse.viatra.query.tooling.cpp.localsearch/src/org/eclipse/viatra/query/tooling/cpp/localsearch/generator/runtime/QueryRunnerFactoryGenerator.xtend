@@ -1,20 +1,17 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
-import java.util.Set
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 
 class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 	
-	protected val Set<Set<BoundedPatternDescriptor>> patternGroupSet
-	protected val String queryGroupName
+	protected val QueryDescriptor query;
 	
 	
-	new(String queryGroupName, Set<Set<BoundedPatternDescriptor>> patternGroupSet) {
-		super(#{queryGroupName.toFirstUpper}, '''QueryRunnerFactory''')
-		this.patternGroupSet = patternGroupSet
-		this.queryGroupName = queryGroupName.toFirstUpper
+	new(QueryDescriptor query) {
+		super(#{query.name.toFirstUpper}, '''QueryRunnerFactory''')
+		this.query = query;
 	}
 	
 	override initialize() {
@@ -24,10 +21,9 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 			includes += new Include('''Viatra/Query/Distributed/QueryRunner.h''')
 			includes += new Include('''Viatra/Query/Distributed/QueryService.h''')
 		
-		for(patternGroup: patternGroupSet)
+		for( patternGroup : query.patternGroups.values )
 		{
-			val pattern = patternGroup.head;
-			includes += new Include('''Viatra/Query/«queryGroupName»/«pattern.name».h''')
+			includes += new Include('''Viatra/Query/«query.name»/«patternGroup.name».h''')
 		}
 	}
 
@@ -40,11 +36,10 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 			static std::shared_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot, Viatra::Query::Distributed::QueryServiceBase * service)
 			{
 				switch(queryID){
-					«FOR patternGroup : patternGroupSet»
-						«val pattern = patternGroup.head»
-						case «pattern.queryID»:
+					«FOR patternGroup : query.patternGroups.values»
+						case «patternGroup.queryID»:
 							return std::make_unique<
-								Viatra::Query::Distributed::QueryRunner<«pattern.name.toFirstUpper»<ModelRoot>>
+								Viatra::Query::Distributed::QueryRunner<«patternGroup.name.toFirstUpper»<ModelRoot>>
 							>(sessionID, modelRoot, service);
 					«ENDFOR»
 				}

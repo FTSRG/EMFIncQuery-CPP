@@ -1,19 +1,23 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
+import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	
+	protected val PatternGroupDescriptor patternGroup;
 	protected val String queryGroupName
 	protected val String patternName
 	
 	
-	new(String queryGroupName, String patternName) {
-		super(#{queryGroupName.toFirstUpper}, '''«patternName.toFirstUpper»''')
+	new(String queryGroupName, PatternGroupDescriptor patternGroup) {
+		super(#{queryGroupName.toFirstUpper}, '''«patternGroup.name.toFirstUpper»''')
 
 		this.queryGroupName = queryGroupName.toFirstUpper
-		
-		this.patternName = patternName.toFirstUpper;
+		this.patternGroup = patternGroup
+		this.patternName = patternGroup.name.toFirstUpper
 	}
 	
 	override initialize() {
@@ -26,7 +30,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	override compileInner() '''
 	
 		template<class ModelRootParam>
-		class «unitName» {
+		class Rooted«unitName» {
 		public:
 			using ModelRoot = ModelRootParam;
 			using Matcher = «patternName»Matcher<ModelRoot>;
@@ -35,6 +39,24 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 			using QueryGroup = «queryGroupName»QueryGroup;
 			
 			static constexpr int queryID = «patternName»QuerySpecification<ModelRoot>::queryID;
+		};
+		
+
+		class «unitName» {
+		public:
+			template<typename ModelRoot>
+			using RootedQuery = Rooted«unitName»<ModelRoot>
+			using ModelRoot = ModelRootParam;
+			using Matcher = «patternName»Matcher<ModelRoot>;
+			using QuerySpecification = «patternName»QuerySpecification<ModelRoot>;
+			using Match = «patternName»Match;
+			using QueryGroup = «queryGroupName»QueryGroup;
+			
+			static constexpr int queryID = «patternName»QuerySpecification<ModelRoot>::queryID;
+			
+			
+			
+			
 		};
 	
 	'''

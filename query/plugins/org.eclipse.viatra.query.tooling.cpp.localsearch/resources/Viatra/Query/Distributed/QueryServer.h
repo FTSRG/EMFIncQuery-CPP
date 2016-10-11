@@ -1,20 +1,17 @@
 
-#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_
-#define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_
+#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_376r45w73566
+#define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVER_376r45w73566
 
 #include "../Util/network.h"
+#include "TaskID.h"
+#include "Request.h"
 
 #include<thread>
 
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
-
-			struct Request{
-				Network::Connection * connecton;
-				int64_t rqid;
-			};
-			
+						
 			class QueryServiceBase;
 
 			class QueryServer : private Network::Server
@@ -38,6 +35,8 @@ namespace Viatra {
 						}
 					));
 				}
+
+				void sendMatchResults(const Request& rq, const std::string& status, int64_t sessionID, TaskID taskID, const std::string& resultMatchSet);
 
 			protected:
 				void accept_connection(Network::Connection * c) override;

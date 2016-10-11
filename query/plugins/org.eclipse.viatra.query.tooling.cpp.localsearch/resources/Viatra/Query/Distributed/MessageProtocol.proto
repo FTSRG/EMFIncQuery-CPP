@@ -50,6 +50,8 @@ message StartQuerySession{
 }
 message StartQuerySessionResponse{
 	string message = 1;		//"OK" or "ERROR: ..."
+	int64 sessionID = 2;
+	int32 queryID = 3;
 }
 
 

@@ -11,15 +11,15 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import com.google.common.collect.Maps
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import java.util.List
 import java.util.Map
-import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
@@ -29,10 +29,10 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	val Map<BoundedPatternDescriptor, Map<PatternBodyDescriptor, List<RuntimeSearchOperationGenerator>>> searchOperations
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
-	new(String queryName, Set<BoundedPatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
+	new(String queryName, PatternGroupDescriptor patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
 		super(queryName, patternGroup)
 		
-		this.searchOperations = Maps::asMap(patternGroup)[pattern |
+		this.searchOperations = Maps::asMap(patternGroup.boundedPatterns)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
 				patternBody.searchOperations.map[op |
 					new RuntimeSearchOperationGenerator(queryName, op, frameGenerators.get(patternBody))

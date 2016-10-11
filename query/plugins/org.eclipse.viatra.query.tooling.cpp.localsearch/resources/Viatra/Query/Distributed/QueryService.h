@@ -1,13 +1,6 @@
 
-#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_
-#define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_
-
-#ifdef _VIATRA_HEADER_ONLY_
-#define VIATRA_FUNCTION inline
-#else
-#define VIATRA_FUNCTION
-#endif
-#define VIATRA_INLINE_FUNCTION inline
+#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_34r12413__
+#define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_34r12413__
 
 #include<memory>
 #include<unordered_set>
@@ -30,6 +23,7 @@ namespace Viatra {
 		namespace Distributed {
 
 			class QueryFutureBase;
+			class QueryTaskBase;
 			class QueryResultCollectorBase;
 
 			// Information struct for a processing node
@@ -71,14 +65,14 @@ namespace Viatra {
 			// Type independent baseclass for QueryService
 			class QueryServiceBase
 			{
-				using Lock = std::unique_lock<mutex>;
 
 			public:
 				QueryServiceBase(const char *configJSON, const char * nodeName);
 				~QueryServiceBase();
 			protected:
-				std::mutex mutex;
-				std::map<std::string, NodeInfo> nodes;
+				using Lock = std::unique_lock<std::recursive_mutex>;
+				std::recursive_mutex mutex;
+				std::map<std::string, NodeInfo> remoteNodes;
 
 				std::string nodeName;
 				std::unique_ptr<QueryServer> server;
@@ -90,7 +84,6 @@ namespace Viatra {
 				std::map< uint64_t, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectors;
 				
 			public:
-				inline static std::unique_lock lock
 
 				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::string destNode)
 				{
@@ -112,24 +105,27 @@ namespace Viatra {
 				std::string initiateConnection(Network::Connection* connection, std::string nodeName)
 				{
 					Lock lck(mutex);
-					if (nodes.find(nodeName) == nodes.end())
+					if (remoteNodes.find(nodeName) == remoteNodes.end())
 						return std::string("ERROR: No node named \"") + nodeName + "\" is part of the configuration in this server";
 				}
 
 				bool checkNodeConnection(std::string nodeName, Network::Connection * connection)
 				{
 					Lock lck(mutex);
-					auto find = nodes.find(nodeName);
-					if (find == nodes.end())
+					auto find = remoteNodes.find(nodeName);
+					if (find == remoteNodes.end())
 						return false;
 					return find->second.connection == connection;
-					
 				}
 				
-				// Start Local Query Session on this node (implementation)
+				// runs on Server Thread
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) = 0;
-				virtual void continueQuery(const std::string &nodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) = 0;
+				// runs on Server Thread
+				virtual void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) = 0;
 				
+				// runs on QueryRunner Thread
+				void continueQueryRemotely(QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
+
 
 			};
 
@@ -188,19 +184,16 @@ namespace Viatra {
 					return "OK";
 				}
 
-				virtual void continueQuery(Request request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
+				virtual void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
 				{
 					Lock lck(mutex);
 					auto runner = queryRunners.at(sessionID);
-					runner->addTask(nodeName, taskID, body, operation, frame);
+					runner->addTask(request, taskID, body, operation, frame);
 				}
 			};
 		}
 	}
 }
 
-#ifdef _VIATRA_HEADER_ONLY_
-#include"QueryService.cpp"
-#endif
 
 #endif

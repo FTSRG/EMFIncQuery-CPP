@@ -26,10 +26,10 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 		val Set<ProtoCompiler> protoCompilers = newHashSet
 		val Set<Set<BoundedPatternDescriptor>> patternGroupSets = newHashSet
 
-		query.patterns.forEach [ name, patterns |
+		query.patternGroups.forEach [ name, patternGroup |
 			val frameGenMap = newHashMap
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name)
-			patterns.forEach[
+			patternGroup.boundedPatterns.forEach[
 				patternBodies.forEach[ patternBody |
 					val matchingFrameGenerator = new MatchingFrameGenerator(query.name, patternName, patternBody.index, patternBody.matchingFrame)
 					frameGenMap.put(patternBody, matchingFrameGenerator)
@@ -37,34 +37,35 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 				]
 			]
 
-			// TODO: WARNING! Incredible Hack Inc! works, but ugly...
-			val matchGen = new MatchGenerator(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			val aMatchingFrame = patternGroup.boundedPatterns.head.patternBodies.head.matchingFrame
+
+			val matchGen = new MatchGenerator(query.name, patternName, aMatchingFrame)
 			generators += matchGen
 			
 			// ... I use this hack too hope it still works
-			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, aMatchingFrame)
 			protoCompilers += protoMatchCompiler
 			
-			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
+			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patternGroup, frameGenMap)
 			generators += querySpec
 			patternGroupSets.add(patterns.toSet);
 			
-			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
+			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patternGroup, frameGenMap, matchGen, querySpec)
 			generators += matcherGen
 			
-			if(patterns.exists[it | 
+			if(patternGroup.boundedPatterns.exists[it | 
 				it.patternBodies.exists[it | 
 					it.PBody.pattern.allAnnotations.exists[it | it.name == "QueryBasedFeature"]
 				]
 				
 			]){
-				val annotations = patterns.map[patternBodies.map[PBody.pattern.allAnnotations].flatten.filter(it | it.name == "QueryBasedFeature")].flatten
+				val annotations = patternGroup.boundedPatterns.map[patternBodies.map[PBody.pattern.allAnnotations].flatten.filter(it | it.name == "QueryBasedFeature")].flatten
 				val featureName = annotations.get(0).getFirstValue("feature") as CharSequence;
-				val updaterGen = new RefAPIGenerator(query.name, patternName, featureName, patterns.toSet, matchGen, matcherGen, querySpec)
+				val updaterGen = new RefAPIGenerator(query.name, patternName, featureName, patternGroup, matchGen, matcherGen, querySpec)
 				generators += updaterGen
 			}
 			
-			val	includeGen = new QueryIncludeGenerator(query.name, patternName)
+			val	includeGen = new QueryIncludeGenerator(query.name, patternGroup)
 			generators += includeGen
 		]
 		
@@ -73,7 +74,7 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator
 		
-		generators += new QueryRunnerFactoryGenerator(query.name, patternGroupSets);
+		generators += new QueryRunnerFactoryGenerator(query);
 		
 
 		generators.forEach[initialize]

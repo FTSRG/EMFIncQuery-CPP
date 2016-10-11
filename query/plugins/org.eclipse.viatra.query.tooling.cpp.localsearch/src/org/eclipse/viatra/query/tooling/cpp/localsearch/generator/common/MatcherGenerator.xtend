@@ -10,14 +10,14 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
@@ -25,12 +25,12 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDesc
 abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val String patternName
-	protected val Set<BoundedPatternDescriptor> patternGroup
+	protected val PatternGroupDescriptor patternGroup
 	protected val MatchGenerator matchGenerator
 	
 	protected val QuerySpecificationGenerator querySpecification
 
-	new(String queryName, String patternName, Set<BoundedPatternDescriptor> patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
 		super(#{queryName}, '''«patternName.toFirstUpper»Matcher''')
 		this.patternName = patternName.toFirstUpper
 		this.patternGroup = patternGroup
@@ -61,14 +61,15 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 				: _model(model), _context(context), _queryRunner(queryRunner) {
 			}
 			«val generatedParamLists = newArrayList»
-			«FOR pattern : patternGroup»
+			«FOR pattern : patternGroup.boundedPatterns»
 				«IF !generatedParamLists.contains(getParamList(pattern))»
 					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
 					«compileGetter(pattern)»
 					«compileDistGetter(pattern)»
+					«compileDistributedQueryStartingPoint(pattern)»
 				«ENDIF»
 			«ENDFOR»
-			
+									
 		private:
 			QueryRunnerT * _queryRunner;
 			const ModelRoot* _model;
@@ -137,6 +138,10 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 		}
 	'''
 	protected abstract def String compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody)
+	
+	
+	protected def compileDistributedQueryStartingPoint(BoundedPatternDescriptor pattern) '''
+	'''
 	
 	protected def fillMatch(MatchingFrameDescriptor matchingFrame) '''
 		«FOR parameter : matchingFrame.parameters»

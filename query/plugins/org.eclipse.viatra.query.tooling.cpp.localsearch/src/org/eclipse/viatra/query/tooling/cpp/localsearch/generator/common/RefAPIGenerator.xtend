@@ -1,9 +1,9 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
-import java.util.Set
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
@@ -19,10 +19,10 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	protected val PVariable trg
 	
 
-	new(String queryName, String patternName, CharSequence featureName, Set<BoundedPatternDescriptor> patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, CharSequence featureName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
 		super(#{queryName}, '''«patternName.toFirstUpper»Derived''')
 		this.name = patternName.toFirstUpper
-		this.pattern = patternGroup.maxBy[it | it.boundParameters.size]
+		this.pattern = patternGroup.boundedPatterns.maxBy[it | it.boundParameters.size]
 		this.matchGenerator = matchGenerator
 		this.matcherGenerator = matcherGenerator
 		this.querySpecification = querySpecification

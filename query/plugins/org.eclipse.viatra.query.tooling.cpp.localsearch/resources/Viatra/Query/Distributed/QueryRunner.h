@@ -1,6 +1,6 @@
 
-#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_
-#define _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_
+#ifndef _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_655365773
+#define _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_655365773
 
 #include"QueryTask.h"
 #include"QueryResultCollector.h"
@@ -46,7 +46,7 @@ namespace Viatra {
 				}
 				bool ready() { return _ready; }
 
-				virtual void addTask(const std::string& nodeName, TaskID taskID, int body, int operation, std::string frame) = 0;
+				virtual void addTask(const Request& request, TaskID taskID, int body, int operation, std::string frame) = 0;
 
 			};
 
@@ -57,15 +57,14 @@ namespace Viatra {
 				using Match = typename RootedQuery::Match;
 				using Matcher = typename RootedQuery::Matcher;
 				using QueryGroup = typename RootedQuery::QueryGroup;
-				using QueryTaskT = QueryTask<RootedQuery>;
 				
 				//std::unordered_set<Util::HierarchicalID<uint64_t>> remoteSubTaskIDs;
-				Util::ConcurrentQueue<QueryTaskT> localTasks;
+				Util::ConcurrentQueue<QueryTask<RootedQuery>> localTasks;
 
 				QueryServiceBase *queryService;
 				Matcher matcher;
 				ModelRoot * modelRoot;
-				QueryTaskT *currentTask;
+				QueryTask<RootedQuery> *currentTask;
 
 			public:
 				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService)
@@ -76,21 +75,24 @@ namespace Viatra {
 				{}
 				
 				// Distribues the query execution to all the other nodes from a given state in the 
-				void PropagateFrameVector(int body, int operation, std::string encodedFrameVector ) {
-					TaskID taskID = currentTask->nextSubtaskID();
-					throw "Unimplemented QueryRunner.h PropagateFrameVector";
+				// Runner Thread
+				void PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector ) {
+					TaskID taskID = currentTask->createSubtask();
+					service->createRemoteSubtasks(currentTask, body, operation, encodedFrameVector);
 				}
-								
-				virtual void addTask(const std::string& destNodeName, TaskID taskID, int body, int operation, std::string frame) override
+				
+				// add a remote incoming task to the query runner for process
+				virtual void addTask(const Request& request, TaskID taskID, int body, int operation, std::string frame) override
 				{
-					auto collector = new QueryResultCollector<RootedQuery>(taskID, destNodeName, queryService, modelRoot);
-					auto shared_collector = std::shared_ptr<QueryResultCollectorBase>(collector);
+					auto collector = new QueryResultCollector<RootedQuery>(taskID, request, queryService, modelRoot);
+					std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
 
-					queryService->addSubResultCollector(sessionID, taskID, shared_collector, destNodeName);
-					QueryTaskT task(taskID, frame, body, operation, collector);
+					queryService->addSubResultCollector(sessionID, taskID, shared_collector, request);
+					QueryTask<RootedQuery> task(taskID, frame, body, operation, collector);
 					localTasks.push(std::move(task));
 				}
 
+				// Run the QueryRunners main processing loop
 				void run()
 				{
 					while (!terminated)
@@ -108,17 +110,27 @@ namespace Viatra {
 					}
 				}
 
-				std::unique_ptr<QueryFutureBase> start() {
+				// start global querying and returns a future to access the results of the query
+				std::unique_ptr<QueryFutureBase> startGlobalQuery() {
 					QueryFuture<RootedQuery> * future = new QueryFuture<RootedQuery>(
 						QueryRunnerBase::shared_from_this()
 						);
-					std::unique_ptr<QueryFutureBase> unique(future);
+					std::unique_ptr<QueryFutureBase> unique(future); 
+
+					std::map<int, std::string> body_frame = matcher.distributedStartPoint();
 
 					runnerThread = std::make_unique<std::thread>([this]() {
 						run();
 					});
 
 					return unique;
+				}
+
+				// starts local query serving
+				std::unique_ptr<QueryFutureBase> startLocalQuery() {
+					runnerThread = std::make_unique<std::thread>([this]() {
+						run();
+					});
 				}
 			};
 					

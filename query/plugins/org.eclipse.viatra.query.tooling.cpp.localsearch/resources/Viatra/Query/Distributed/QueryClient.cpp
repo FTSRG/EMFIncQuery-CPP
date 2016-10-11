@@ -65,8 +65,9 @@ void QueryClient::process_message(Network::Buffer message){
 		case Protobuf::MsgType::START_QUERY_SESSION:
 		{
 			std::string msg = queryResponse.mutable_startquerysessionresponse()->message();
-			if (msg == "OK")
-				state = State::READY;
+			if (msg == "OK") {
+				readyQuerySessions.insert(queryResponse.mutable_startquerysessionresponse()->sessionid());
+			}
 			else
 			{
 				std::cout << "Error while connecting to other server:\n" + msg + "\n" << std::endl;

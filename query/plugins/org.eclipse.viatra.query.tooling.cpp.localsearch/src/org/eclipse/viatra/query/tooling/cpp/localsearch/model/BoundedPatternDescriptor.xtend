@@ -29,9 +29,6 @@ class BoundedPatternDescriptor {
 	
 	val Set<PatternBodyDescriptor> bodies
 	
-	static var nextID = 1;
-	@Accessors
-	val int queryID;
 	
 	new(PQuery query, Set<PatternBodyDescriptor> bodies) {
 		this(query, bodies, #{})
@@ -47,7 +44,6 @@ class BoundedPatternDescriptor {
 
 		this.bodies = bodies
 		this.boundParameters = boundParameters
-		queryID = nextID++;
 	}
 
 	def getPatternBodies() {
