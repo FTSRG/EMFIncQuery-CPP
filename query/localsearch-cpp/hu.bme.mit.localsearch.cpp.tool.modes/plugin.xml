@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
+--><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated Platform -->
+    <package class="PlatformModel.PlatformModelPackage" genModel="model/Platform.genmodel" uri="http://cpp/tool/modes/platform"/>
+  </extension>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated Platform -->
+    <package class="RailRoadModel.RailRoadModelPackage" genModel="model/Platform.genmodel" uri="http://cpp/tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.nearBy" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="RobotPart" feature-name="nearBy" package-nsUri="http://cpp/tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.refSeg" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="RobotPart" feature-name="refSegment" package-nsUri="http://cpp/tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.IDerivedExecutes" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="Node" feature-name="derivedExecutes" package-nsUri="http://cpp/tool/modes/platform"/>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.isDangerous"/>
+    </group>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.nearBy"/>
+    </group>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedReference" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedReference" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedReference">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.IDerivedExecutes"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.refSeg"/>
+    </group>
+  </extension>
+</plugin>
