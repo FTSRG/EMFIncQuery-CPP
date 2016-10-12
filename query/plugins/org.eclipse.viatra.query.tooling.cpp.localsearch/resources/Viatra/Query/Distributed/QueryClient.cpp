@@ -3,6 +3,7 @@
 #include"QueryClient.h"
 
 #include"MessageProtocol.pb.h"
+#include"../Util/Logger.h"
 
 #include<iostream>
 
@@ -14,7 +15,9 @@ QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNod
 {
 	initiateConnection(initiatorNode);
 
-	thread = std::make_unique<std::thread>([this]() {
+	thread = std::make_unique<std::thread>([&]() {
+		Util::Logger::SetThisThreadName(Util::concat("ClientProcessor(", ip, ",", port, ")"));
+
 		Client::run();
 	});
 }

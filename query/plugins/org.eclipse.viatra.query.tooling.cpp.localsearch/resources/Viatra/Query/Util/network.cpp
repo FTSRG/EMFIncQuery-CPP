@@ -53,14 +53,14 @@ namespace Network
 			tcp::socket socket;
 			Server * server;
 
-			VIATRA_FUNCTION Connection(Server * server, tcp::socket socket)
+			Connection(Server * server, tcp::socket socket)
 				: socket(std::move(socket))
 				, server(server)
 			{
 				read_async_msgheader();
 			}
 
-			VIATRA_FUNCTION void read_async_msgheader()
+			void read_async_msgheader()
 			{
 				std::unique_ptr<byte[]> data(new byte[INT_ENCODE_SIZE]);
 				auto dataptr = data.get();
@@ -82,7 +82,7 @@ namespace Network
 				});
 			}
 
-			VIATRA_FUNCTION void read_async_msgbody(int msgSize)
+			void read_async_msgbody(int msgSize)
 			{
 				Buffer msgBuffer(msgSize);
 				
@@ -113,7 +113,7 @@ namespace Network
 		std::vector<std::unique_ptr<Connection>> connections;
 		
 	public: 
-		VIATRA_FUNCTION ServerImpl(Server * server, uint16_t port)
+		ServerImpl(Server * server, uint16_t port)
 			: server(server)
 			, io_service()
 			, nextSocket(io_service)
@@ -122,7 +122,7 @@ namespace Network
 			accept_connection();
 		}
 
-		VIATRA_FUNCTION void accept_connection()
+		void accept_connection()
 		{
 			acceptor.async_accept(nextSocket,
 				[this](std::error_code ec)
@@ -137,7 +137,7 @@ namespace Network
 			});
 		}
 
-		VIATRA_FUNCTION void run()
+		void run()
 		{
 			io_service.run();
 		}
@@ -146,22 +146,22 @@ namespace Network
 
 
 			
-	VIATRA_FUNCTION Server::Server(uint16_t port)
+	Server::Server(uint16_t port)
 		: impl(std::make_unique<ServerImpl>(this, port))
 	{	
 	}
 
-	VIATRA_FUNCTION void Server::run()
+	void Server::run()
 	{
 		impl->run();
 	}
 	
-	VIATRA_FUNCTION Server::~Server()
+	Server::~Server()
 	{
 
 	}
 
-	VIATRA_FUNCTION void Server::sendMessage(Connection * c, Buffer message)
+	void Server::sendMessage(Connection * c, Buffer message)
 	{				
 		asio::async_write(c->socket,
 			asio::buffer(message.framed_data(), message.framed_size()),
@@ -190,16 +190,15 @@ namespace Network
 		
 	public: 
 
-		VIATRA_FUNCTION ClientImpl(Client * client, std::string ip, uint16_t port)
+		ClientImpl(Client * client, std::string ip, uint16_t port)
 			: client(client)
 			, io_service()
 			, socket(io_service)
 		{
-			std::cout << "ClientImpl::ClientImpl()" << std::endl;
 			connect_async(ip, port);
 		}
 
-		VIATRA_FUNCTION void connect_async(const std::string& ip, uint16_t port)
+		void connect_async(const std::string& ip, uint16_t port)
 		{
 			std::stringstream ss;
 			std::string _ip, _port;
@@ -221,7 +220,7 @@ namespace Network
 
 		}
 
-		VIATRA_FUNCTION void read_async_msgheader()
+		void read_async_msgheader()
 		{
 			std::unique_ptr<byte[]> header(new byte[INT_ENCODE_SIZE]);
 			auto dataptr = header.get();
@@ -242,7 +241,7 @@ namespace Network
 			});
 		}
 
-		VIATRA_FUNCTION void read_async_msgbody(int msgSize)
+		void read_async_msgbody(int msgSize)
 		{
 			Buffer buffer(msgSize);
 
@@ -268,24 +267,24 @@ namespace Network
 
 	};
 
-	VIATRA_FUNCTION Client::Client(std::string ip, uint16_t port)
+	Client::Client(std::string ip, uint16_t port)
 		: impl(std::make_unique<ClientImpl>(this, ip, port))
 	{	
 	}
 
 
-	VIATRA_FUNCTION void Client::run()
+	void Client::run()
 	{
 		impl->run();
 	}
 
-	VIATRA_FUNCTION Client::~Client()
+	Client::~Client()
 	{
 
 	}
 
 	
-	VIATRA_FUNCTION void Client::sendMessage(Buffer message)
+	void Client::sendMessage(Buffer message)
 	{
 		asio::async_write(impl->socket,
 			asio::buffer(message.framed_data(), message.framed_size()),

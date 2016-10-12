@@ -30,6 +30,12 @@
     <ClCompile Include="Query\Distributed\QueryClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Query\Distributed\QueryRunnerBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Query\Util\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Query\Distributed\Node.h">
@@ -176,7 +182,10 @@
     <ClInclude Include="Query\Distributed\TaskID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Query\QueryResolver.h">
+    <ClInclude Include="Query\Distributed\QueryRunnerDecl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Util\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

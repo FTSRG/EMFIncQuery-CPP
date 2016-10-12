@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Viatra/Query/MatchSet.h"
+#include"QueryResultCollector.h"
 #include"QueryRunner.h"
 #include"memory"
 
@@ -9,6 +10,9 @@ namespace Viatra{
 		namespace Distributed {
 
 			class QueryFutureBase {
+				// Barát osztály
+				friend class QueryRunnerBase;
+
 				std::shared_ptr<QueryRunnerBase> runner;
 
 			public:
@@ -40,13 +44,18 @@ namespace Viatra{
 				// Doesn't need to be shared since the baseclass keeps it alive
 				QueryRunner<RootedQuery> *concreteRunner;
 
+				std::vector<std::shared_ptr<QueryResultCollector<RootedQuery>>> runner;
+
 			public:
 				QueryFuture(std::shared_ptr<QueryRunnerBase> runner)
 					: QueryFutureBase(runner)
 				{
 					this->concreteRunner = dynamic_cast<QueryRunner<RootedQuery>*>(runner.get());
 				}
-								
+				
+				MatchSet get() {
+				
+				}
 			};
 
 		}

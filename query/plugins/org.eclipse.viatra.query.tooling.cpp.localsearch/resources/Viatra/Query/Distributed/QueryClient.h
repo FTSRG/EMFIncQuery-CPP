@@ -29,7 +29,6 @@ namespace Viatra {
 				std::unordered_set<uint64_t> readyQuerySessions;
 
 				void initiateConnection(std::string initiatorNode);
-				
 				virtual void process_message(Network::Buffer message)override final;
 
 			public:

@@ -12,20 +12,31 @@
 using namespace Viatra::Query::Distributed;
 
 /*
-class QueryServiceBase
 {
-	std::string nodeName;
-	std::unique_ptr<QueryServer> server;
-	std::map<std::string, std::unique_ptr<QueryClient>> clients;
-
-	IDGenerator querySessionIDGenerator;
-	std::map < int, std::unique_ptr<QueryRunnerBase> > queryRunners;
-};
+	"nodes" : [
+		{
+			"name" : "nodeA",
+			"ip" : "127.0.0.1",
+			"port" : 54321,
+			"IDGenStart" : 0,
+			"IDGenMod": 10
+		},
+		...
+	]
+}
 */
 
-QueryServiceBase::QueryServiceBase(const char * configJSON, const char * nodeName)
+QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNodeName)
 {
+	using Util::Logger;
+	Logger::Log("QueryServiceBase");
+
+	if (localNodeName == std::string())
+		throw std::invalid_argument("local Node must be a non-empty string");
 	try {
+
+		Logger::Log("Processing json");
+
 		std::ifstream ifs(configJSON);
 		picojson::value root;
 		std::string err = picojson::parse(root, ifs);
@@ -33,8 +44,71 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * nodeNam
 			throw err;
 		}
 
-		auto elements = root.get("model").get<picojson::value::array>();
+		this->nodeName = "";
+		auto nodeArray = root.get("nodes").get<picojson::value::array>();
+		for (auto & node : nodeArray)
+		{
+			auto name = node.get("name").get<std::string>();
+			auto ip = node.get("ip").get<std::string>();
+			auto port = node.get("port").get<int64_t>();
+			auto IDGenStart = node.get("IDGenStart").get<int64_t>();
+			auto IDGenMod = node.get("IDGenMod").get<int64_t>();
 
+			if (name == localNodeName)
+			{
+				Logger::Log("Local node found:", name);
+				if (this->nodeName != "")
+					throw std::logic_error("The node configuration file contains multiple nodes with the same name");
+				this->nodeName = name;
+				this->querySessionIDGenerator.reconfigurate(IDGenStart, IDGenMod);
+
+				this->server = std::make_unique<QueryServer>((uint16_t)port, this);
+
+			}
+			else
+			{
+				Logger::Log("Remote node found:", name);
+				if (remoteNodes.count(name) > 0)
+					throw std::logic_error("The node configuration file contains multiple nodes with the same name");
+
+				auto & nodeInfo = remoteNodes[name];
+				nodeInfo.name = name;
+				nodeInfo.ip = ip;
+				nodeInfo.port = (uint16_t)port;
+			}
+		}
+
+		Logger::Log("Starting the server...");
+		server->runAsync();
+		Logger::Log("Server started");
+
+		using std::chrono::system_clock;
+		std::chrono::seconds timeout(60);
+		system_clock::time_point start = system_clock::now();
+
+		Logger::Log("Starting the clients...");
+		for (auto & name_node : remoteNodes)
+		{
+			auto & nodeInfo = name_node.second;
+
+			while (true)
+			{
+				try {
+					nodeInfo.client = std::make_unique<QueryClient>(nodeInfo.ip, (uint16_t)nodeInfo.port, this->nodeName);
+					break;
+				}
+				catch (...)
+				{
+					if (system_clock::now() - start > timeout)
+					{
+						server = nullptr;
+						throw;
+					}
+				}
+			}
+		}
+
+		Logger::Log("Clients started...");
 
 	}
 	catch (...)

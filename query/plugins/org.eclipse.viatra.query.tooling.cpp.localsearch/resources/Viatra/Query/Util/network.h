@@ -9,13 +9,6 @@
 #include<memory>
 #include<vector>
 #include <google/protobuf/message.h>
-
-#ifdef _VIATRA_HEADER_ONLY_
-	#define VIATRA_FUNCTION inline
-#else
-	#define VIATRA_FUNCTION
-#endif
-#define VIATRA_INLINE_FUNCTION inline
 	
 namespace Network
 {
@@ -99,15 +92,15 @@ namespace Network
 		Server() = delete;
 
 
-		VIATRA_FUNCTION Server(uint16_t port);
-		VIATRA_FUNCTION virtual ~Server();
+		Server(uint16_t port);
+		virtual ~Server();
 
 		// Run the server on the current thread
-		VIATRA_FUNCTION void run();
+		void run();
 		void sendMessage(Connection * c, Buffer message);
 	protected:
-		VIATRA_FUNCTION virtual void accept_connection(Network::Connection * c) {};
-		VIATRA_FUNCTION virtual void process_message(Connection * c, Buffer message) = 0;
+		virtual void accept_connection(Network::Connection * c) {};
+		virtual void process_message(Connection * c, Buffer message) = 0;
 
 	};
 
@@ -119,21 +112,18 @@ namespace Network
 
 	public:
 		Client() = delete;
-		VIATRA_FUNCTION Client(std::string ip, uint16_t port);
-		VIATRA_FUNCTION virtual ~Client();
+		Client(std::string ip, uint16_t port);
+		virtual ~Client();
 
 		// Run the client on the current thread
-		VIATRA_FUNCTION void run();
-		VIATRA_FUNCTION void sendMessage(Buffer message);
+		void run();
+		void sendMessage(Buffer message);
 	protected:
-		VIATRA_FUNCTION virtual void process_message(Buffer message) = 0;
+		virtual void process_message(Buffer message) = 0;
 
 	};
 }
 
 
-#ifdef _VIATRA_HEADER_ONLY_
-	#include"network.cpp"
-#endif
 
 #endif

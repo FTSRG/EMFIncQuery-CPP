@@ -2,10 +2,13 @@
 #ifndef _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_655365773
 #define _VIATRA_QUERY_DISTRIBUTED_QUERY_RUNNER_H_655365773
 
+#include"QueryRunnerDecl.h"
+
 #include"QueryTask.h"
 #include"QueryResultCollector.h"
 #include"../Util/ConcurrentQueue.h"
 #include"../Util/HierarchicalID.h"
+#include"../Util/Logger.h"
 
 #include<memory>
 #include<atomic>
@@ -14,125 +17,107 @@
 namespace Viatra {
 	namespace Query {
 		namespace Distributed {
-
-			class QueryFutureBase;
-			class QueryServiceBase;
 			
-			class QueryRunnerBase : public std::enable_shared_from_this<QueryRunnerBase>{
-			protected:
-				uint64_t sessionID;
-				std::atomic<bool> terminated;
-				std::atomic<bool> _ready;
-				std::unique_ptr<std::thread> runnerThread;
-
-			public:
-				QueryRunnerBase(uint64_t sessionID) 
-					: sessionID(sessionID)
-				{}
-				virtual ~QueryRunnerBase() 
-				{
-					terminate();
-					join();
-				}
-
-				virtual std::unique_ptr<QueryFutureBase> start() = 0;
-
-				void terminate(){ terminated = true; }
-				void join()	{ 
-					if (runnerThread)
-						runnerThread->join();
-					else
-						throw std::logic_error("Join called on a non-running QueryRunner!");
-				}
-				bool ready() { return _ready; }
-
-				virtual void addTask(const Request& request, TaskID taskID, int body, int operation, std::string frame) = 0;
-
-			};
+			// Distribues the query execution to all the other nodes from a given state
+			// Runner Thread
+			template<typename RootedQuery>
+			void QueryRunner<RootedQuery>::PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector) {
+				TaskID taskID = currentTask->createRemoteSubtask();
+				queryService->continueQueryRemotely(currentTask, body, operation, encodedFrameVector);
+			}
 
 			template<typename RootedQuery>
-			class QueryRunner : public QueryRunnerBase
+			void QueryRunner<RootedQuery>::addStartTask(std::weak_ptr<QueryFutureBase> future, int body, std::string encodedFrameVector) {
+				auto taskID = TaskID::CreateTopLevel(body);
+				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
+				std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
+
+				queryService->registerTopLevelResultCollector(sessionID, taskID, shared_collector, future);
+				topLevelCollectorHolders.push_back(shared_collector);
+				topLevelCollectors.push_back(collector);
+
+				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, collector);
+				// Concurrent queue, so its thread safe to simply push our task
+				localTasks.push(std::move(task));
+			}
+
+			// Run the QueryRunners main processing loop
+			// runs on QueryRunner thread
+			template<typename RootedQuery>
+			void QueryRunner<RootedQuery>::run()
 			{
-				using ModelRoot = typename RootedQuery::ModelRoot;
-				using Match = typename RootedQuery::Match;
-				using Matcher = typename RootedQuery::Matcher;
-				using QueryGroup = typename RootedQuery::QueryGroup;
-				
-				//std::unordered_set<Util::HierarchicalID<uint64_t>> remoteSubTaskIDs;
-				Util::ConcurrentQueue<QueryTask<RootedQuery>> localTasks;
-
-				QueryServiceBase *queryService;
-				Matcher matcher;
-				ModelRoot * modelRoot;
-				QueryTask<RootedQuery> *currentTask;
-
-			public:
-				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService)
-					: QueryRunnerBase(sessionID)
-					, queryService(queryService)
-					, modelRoot(modelRoot)
-					, matcher(modelRoot, QueryGroup::instance()->context(), this)
-				{}
-				
-				// Distribues the query execution to all the other nodes from a given state in the 
-				// Runner Thread
-				void PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector ) {
-					TaskID taskID = currentTask->createSubtask();
-					service->createRemoteSubtasks(currentTask, body, operation, encodedFrameVector);
-				}
-				
-				// add a remote incoming task to the query runner for process
-				virtual void addTask(const Request& request, TaskID taskID, int body, int operation, std::string frame) override
+				while (!terminated)
 				{
-					auto collector = new QueryResultCollector<RootedQuery>(taskID, request, queryService, modelRoot);
-					std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
-
-					queryService->addSubResultCollector(sessionID, taskID, shared_collector, request);
-					QueryTask<RootedQuery> task(taskID, frame, body, operation, collector);
-					localTasks.push(std::move(task));
-				}
-
-				// Run the QueryRunners main processing loop
-				void run()
-				{
-					while (!terminated)
-					{
-						try {
-
-							QueryTaskT task = localTasks.pop(std::chrono::milliseconds(100));
-							currentTask = &task;
-							auto partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
-							task.collector->addLocalMatches(std::move(partialResult));
-							currentTask = nullptr;
-						}
-						catch (Viatra::Query::Util::ConcurrentQueueTimeout&){
-						}
+					try {
+						auto task = std::move(localTasks.pop(std::chrono::milliseconds(100)));
+						currentTask = &task;
+						auto partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
+						task.collector->addLocalMatches(std::move(partialResult));
+						currentTask = nullptr;
+					}
+					catch (Viatra::Query::Util::ConcurrentQueueTimeout&) {
 					}
 				}
+			}
 
-				// start global querying and returns a future to access the results of the query
-				std::unique_ptr<QueryFutureBase> startGlobalQuery() {
-					QueryFuture<RootedQuery> * future = new QueryFuture<RootedQuery>(
-						QueryRunnerBase::shared_from_this()
-						);
-					std::unique_ptr<QueryFutureBase> unique(future); 
+			template<typename RootedQuery>
+			QueryRunner<RootedQuery>::QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService, int queryID)
+				: QueryRunnerBase(sessionID, queryID)
+				, queryService(queryService)
+				, modelRoot(modelRoot)
+				, matcher(modelRoot, QueryGroup::instance()->context(), this)
+			{}
+				
+			// add a remote incoming task to the query runner for process
+			// Custom thread
+			template<typename RootedQuery>
+			void QueryRunner<RootedQuery>::addTask(TaskID taskID, int body, int operation, std::string frame, const Request& request)
+			{
+				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
+				std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
+					
+				queryService->registerSubResultCollector(sessionID, taskID, shared_collector, request);
 
-					std::map<int, std::string> body_frame = matcher.distributedStartPoint();
+				QueryTask<RootedQuery> task(taskID, frame, body, operation, collector);
+				// Concurrent queue, so its thread safe to simply push our task
+				localTasks.push(std::move(task));
+			}
 
-					runnerThread = std::make_unique<std::thread>([this]() {
-						run();
-					});
 
-					return unique;
-				}
+			// start global querying and returns a future to access the results of the query
+			template<typename RootedQuery>
+			void QueryRunner<RootedQuery>::startGlobalQuery( std::weak_ptr<QueryFutureBase> future, typename RootedQuery::BindInfo bindInfo) {
+				if (runnerThread)
+					throw std::logic_error("The query is already running!");
 
-				// starts local query serving
-				std::unique_ptr<QueryFutureBase> startLocalQuery() {
-					runnerThread = std::make_unique<std::thread>([this]() {
-						run();
-					});
-				}
-			};
+				for (auto &body_frame : bindInfo.encodedFrameVector)
+					addStartTask(future, body_frame.first, body_frame.second);
+
+				runnerThread = std::make_unique<std::thread>([this]() {
+					Util::Logger::SetThisThreadName(Util::concat("Runner-", sessionID));
+					run();
+				});
+
+			}
+
+			// starts local query serving
+			template<typename RootedQuery>
+			std::unique_ptr<QueryFutureBase> QueryRunner<RootedQuery>::startLocalQuery() {
+				if (runnerThread)
+					throw std::logic_error("The query is already running!");
+
+				runnerThread = std::make_unique<std::thread>([this]() {
+					Util::Logger::SetThisThreadName(Util::Concat("Runner-", sessionID));
+					run();
+				});
+			}
+
+
+
+			template<typename RootedQuery>
+			bool QueryRunner<RootedQuery>::ready() {
+				throw "kek";
+			}
 					
 		}
 	}

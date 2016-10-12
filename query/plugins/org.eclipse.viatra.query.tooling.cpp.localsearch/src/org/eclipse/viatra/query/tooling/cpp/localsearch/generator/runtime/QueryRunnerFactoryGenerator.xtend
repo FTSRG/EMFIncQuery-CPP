@@ -37,10 +37,12 @@ class QueryRunnerFactoryGenerator extends ViatraQueryHeaderGenerator {
 			{
 				switch(queryID){
 					«FOR patternGroup : query.patternGroups.values»
-						case «patternGroup.queryID»:
+						«FOR boundedPattern : patternGroup.boundedPatterns»
+							case «boundedPattern.queryID»:
+						«ENDFOR»
 							return std::make_unique<
 								Viatra::Query::Distributed::QueryRunner<Rooted«patternGroup.name.toFirstUpper»<ModelRoot>>
-							>(sessionID, modelRoot, service);
+							>(sessionID, modelRoot, service, queryID);
 					«ENDFOR»
 				}
 				throw std::invalid_argument("Cannot instantiate Query runner from the given queryID!");

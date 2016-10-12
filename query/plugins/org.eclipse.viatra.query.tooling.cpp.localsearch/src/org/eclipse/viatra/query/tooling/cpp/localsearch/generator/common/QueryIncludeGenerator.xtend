@@ -24,7 +24,6 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	
 	override initialize() {
 		
-		includes += new Include('''Viatra/Query/QueryResolver.h''')
 		includes += new Include('''Viatra/Query/«queryGroupName»/«patternName»QuerySpecification.h''')
 		includes += new Include('''Viatra/Query/«queryGroupName»/«patternName»Matcher.h''')
 		includes += new Include('''Viatra/Query/«queryGroupName»/«patternName»Match.h''')		
@@ -37,15 +36,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	override compileInner() '''
 	
 		template<class ModelRootParam>
-		class Rooted«unitName» {
-		public:
-			using ModelRoot = ModelRootParam;
-			using Matcher = «patternName»Matcher<ModelRoot>;
-			using QuerySpecification = «patternName»QuerySpecification<ModelRoot>;
-			using Match = «patternName»Match;
-			using QueryGroup = «queryGroupName»QueryGroup;
-		};
-		
+		class Rooted«unitName»;
 
 		class «unitName» {
 		public:
@@ -54,14 +45,13 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 			
 			using Match = «patternName»Match;
 			using QueryGroup = «queryGroupName»QueryGroup;
-		
-			struct BindInfo{
-				const std::map<int, std::string> encodedFrames;
-			};
+			
+			struct BindInfo{ const std::map<int, std::string> encodedFrameVector; };
 			
 			struct Bind{
 				«FOR boundedPattern : patternGroup.boundedPatterns.filter[it.boundParameters.size()>0]»
 					struct «boundedPattern.cppBoundName.toUpperCase»{
+						using QueryClass = «unitName»;
 						static constexpr int queryID = «boundedPattern.queryID»;
 						«bindClassInner(boundedPattern)»
 					};
@@ -70,25 +60,24 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 			
 			struct NoBind{
 				«FOR boundedPattern : patternGroup.boundedPatterns.filter[it.boundParameters.size()==0]»
+					using QueryClass = «unitName»;
 					static constexpr int queryID = «boundedPattern.queryID»;
 					«bindClassInner(boundedPattern)»
 				«ENDFOR»
 			};
-						
-		};
+		};	
 		
-		«closeNamespaces»
-		namespace Viatra {
-			namespace Query {
-				template<typename ModelRoot>
-				struct QueryResolver<::Viatra::Query::«queryGroupName.toFirstUpper»::«patternName», ModelRoot>
-				{
-					using RootedQuery = ::Viatra::Query::«queryGroupName.toFirstUpper»::Rooted«patternName»<ModelRoot>;
-				};
-			}
-		}
-		«openNamespaces»
-	
+		template<class ModelRootParam>
+		class Rooted«unitName» {
+		public:
+			using BindInfo = «unitName»::BindInfo;
+			using ModelRoot = ModelRootParam;
+			using Matcher = «patternName»Matcher<ModelRoot>;
+			using QuerySpecification = «patternName»QuerySpecification<ModelRoot>;
+			using Match = «patternName»Match;
+			using QueryGroup = «queryGroupName»QueryGroup;
+		};
+				
 	'''
 	
 	def bindClassInner(BoundedPatternDescriptor boundedPattern) '''
@@ -104,7 +93,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 					«frameType»Vector frameVector;
 					«FOR param : boundedPattern.boundParameters»
 						«val variable = body.matchingFrame.getVariableFromParameter(param)»
-						frame._«body.matchingFrame.getVariablePosition(variable)» = param.name;
+						frame._«frame.getVariablePosition(variable)» = param.name;
 					«ENDFOR»							
 					frameVector.push_back(frame);
 					encodedFrames[«body.index»] = frameVector.SerializeAsString();

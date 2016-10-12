@@ -40,7 +40,7 @@ namespace Viatra {
 
 				static HierarchicalID<T> CreateTopLevel(T topLevelID)
 				{
-					return HierarchicalID<T>(&topLevelID, &topLevelID+1)
+					return HierarchicalID<T>(&topLevelID, &topLevelID + 1);
 				}
 				
 				auto begin()const { return vec.begin();	}

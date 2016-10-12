@@ -68,8 +68,11 @@ namespace Viatra {
 					return nextSubtaskID;
 				}
 
-				QueryTask(const QueryTask<RootedQuery> &) = delete;
-				QueryTask(QueryTask<RootedQuery> &&) = default;
+				QueryTask() = delete;
+				QueryTask(const QueryTask&) = delete;
+				QueryTask(QueryTask &&) {
+					throw "praise the kek";
+				}
 
 			};
 		}

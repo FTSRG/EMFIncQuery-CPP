@@ -10,8 +10,9 @@
 #include<unordered_set>
 
 #include"../Model/IModelElemService.h"
+#include"../Util/Logger.h"
 
-#include"QueryRunner.h"
+#include"QueryRunnerDecl.h"
 #include"QueryServer.h"
 #include"QueryClient.h"
 #include"IDGenerator.h"
@@ -45,17 +46,15 @@ namespace Viatra {
 				std::shared_ptr<QueryResultCollectorBase> collector;
 				
 				// nodename in case of remote sequests being served
-				std::string nodeName;
+				Request rq;
 				
 				// in case its a top level result collector
-				QueryFutureBase *future;
+				std::weak_ptr<QueryFutureBase> future;
 				
-				
-				
-				CollectorInfo(bool remote, std::shared_ptr<QueryResultCollectorBase> collector, std::string nodeName, QueryFutureBase *future)
+				CollectorInfo(bool remote, std::shared_ptr<QueryResultCollectorBase> collector, const Request& rq, std::weak_ptr<QueryFutureBase> future)
 					: remote(remote)
 					, collector(std::move(collector))
-					, nodeName(std::move(nodeName))
+					, rq(rq)
 					, future(future)
 				{}
 
@@ -64,7 +63,8 @@ namespace Viatra {
 			// Type independent baseclass for QueryService
 			class QueryServiceBase
 			{
-
+				template<typename>
+				friend class QueryRunner;
 			public:
 				QueryServiceBase(const char *configJSON, const char * nodeName);
 				~QueryServiceBase();
@@ -82,18 +82,17 @@ namespace Viatra {
 				// ResultCollectors for remote tasks
 				std::map< uint64_t, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectors;
 				
-			public:
-
-				void addSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
+				void registerTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::weak_ptr<QueryFutureBase> future)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, nullptr);
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{ nullptr, 0 }, future);
 				}
 
-				void addTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, QueryFutureBase *future)
+			public:
+				void registerSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{nullptr, 0}, future);
+					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
 				}
 				
 				// Start Local Query Session on all other node and waiting for the result(stub)
@@ -106,6 +105,7 @@ namespace Viatra {
 					Lock lck(mutex);
 					if (remoteNodes.find(nodeName) == remoteNodes.end())
 						return std::string("ERROR: No node named \"") + nodeName + "\" is part of the configuration in this server";
+					return "OK";
 				}
 
 				bool checkNodeConnection(std::string nodeName, Network::Connection * connection)
@@ -120,10 +120,20 @@ namespace Viatra {
 				// runs on Server Thread
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) = 0;
 				// runs on Server Thread
-				virtual void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) = 0;
-				
+				void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame)
+				{
+					Lock lck(mutex);
+					auto runner = queryRunners.at(sessionID);
+					runner->addTask(taskID, body, operation, frame, request);
+				}
 				// runs on QueryRunner Thread
 				void continueQueryRemotely(QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
+
+				void notifyCollectionDone(uint64_t sessionID, const TaskID& taskID)
+				{
+					//localResultCollectors[sessionID][taskID]->
+					throw "NotImplemented QueryService notifyCollectionDone";
+				}
 
 			};
 
@@ -140,13 +150,15 @@ namespace Viatra {
 				template<template<typename>typename QueryTemplate> using MatchOf = typename QueryTemplate<ModelRoot>::Match;
 				template<template<typename>typename QueryTemplate> using MatcherOf = typename QueryTemplate<ModelRoot>::Matcher;
 				
-				VIATRA_FUNCTION QueryService(const char *configJSON, const char *nodeName)
+				QueryService(const char *configJSON, const char *nodeName)
 					: QueryServiceBase(configJSON, nodeName)
 					, modelRoot(configJSON, nodeName)
 				{
+					Util::Logger::Log("QueryService::construct QueryService");
 				}
-				VIATRA_FUNCTION ~QueryService()
+				~QueryService()
 				{
+					Util::Logger::Log("QueryService::destruct QueryService");
 
 				}
 				
@@ -154,32 +166,40 @@ namespace Viatra {
 				template<
 					class QueryClass, 
 					class BindClass = typename QueryClass::NoBind, 
-					//class RootedQuery = typename QueryResolver<QueryClass, ModelRoot>::RootedQuery
-					class RootedQuery = typename QueryClass::RootedQuery<ModelRoot>
+					class RootedQuery = typename QueryClass::RootedQuery<ModelRoot>,
+					class... PARAMS
 				>
-				std::unique_ptr<QueryFuture<RootedQuery>> RunNewQuery()
+				std::shared_ptr<QueryFuture<RootedQuery>> RunNewQuery(PARAMS... params)
 				{
+					Util::Logger::Log("QueryService::RunNewQuery");
+
+					static_assert(std::is_same<typename BindClass::QueryClass, QueryClass>::value, 
+						"Bind class must be the query-s bind class!");
+					static_assert(std::is_same<typename QueryClass::RootedQuery<ModelRoot>, RootedQuery>::value, 
+						"Do not modify RootedQuery template parameter, use its default type");
+
 					Lock lck(mutex);
-					using RootedQuery = QueryTemplate<ModelRoot>;
 
 					auto sessionID = querySessionIDGenerator.generate();
-					auto queryID = RootedQuery::queryID;
+					auto queryID = BindClass::queryID;
 					
-					startLocalQuerySession(sessionID, queryID);
+					if (queryRunners[sessionID])
+						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator!");
+					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, &modelRoot, this, queryID);
+					queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
+
+					// Start the query runners on the other nodes;
 					startRemoteQuerySessions(sessionID, queryID);
 
-					auto future = queryRunners[sessionID]->start();
+					auto future = std::make_shared<QueryFuture<RootedQuery>>(queryRunner);
+					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), BindClass::BuildFrames(params...));
 
-					std::unique_ptr<QueryFuture<RootedQuery>> ret{
-						dynamic_cast<QueryFuture<RootedQuery>*>(future.get())
-					};
-					// on succesful dynamic cast
-					future.release();
-					return ret;
+					return future;
 				}
 
-				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) override
+				std::string startLocalQuerySession(uint64_t sessionID, int queryID) override
 				{
+					Util::Logger::Log("QueryService::startLocalQuerySession");
 					Lock lck(mutex);
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
@@ -187,13 +207,7 @@ namespace Viatra {
 					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot, this);
 					return "OK";
 				}
-
-				virtual void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame) override
-				{
-					Lock lck(mutex);
-					auto runner = queryRunners.at(sessionID);
-					runner->addTask(request, taskID, body, operation, frame);
-				}
+								
 			};
 		}
 	}

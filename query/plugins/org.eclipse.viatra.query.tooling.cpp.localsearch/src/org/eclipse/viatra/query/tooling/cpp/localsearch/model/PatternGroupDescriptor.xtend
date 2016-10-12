@@ -10,15 +10,11 @@ class PatternGroupDescriptor {
 	@Accessors
 	Set<BoundedPatternDescriptor> boundedPatterns;
 	
-	static int nextID = 1;
-	@Accessors
-	int queryID;
 	
 	new(String name, Iterable<BoundedPatternDescriptor> boundedPatterns)
 	{
 		this.name = name;
 		this.boundedPatterns = boundedPatterns.toSet;
-		queryID = nextID++;
 	}
 	
 }

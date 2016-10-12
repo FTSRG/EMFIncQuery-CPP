@@ -58,9 +58,7 @@ abstract class QuerySpecificationGenerator extends ViatraQueryHeaderGenerator {
 			using Matcher = «patternName»Matcher<ModelRoot>;
 			using Match = «patternName»Match;
 			using QueryGroup = «queryGroupName»QueryGroup;
-			
-			static constexpr int queryID = «patternGroup.queryID»;
-					
+								
 			«FOR pattern : patternGroup.boundedPatterns»
 				«FOR body : pattern.patternBodies»
 					«generatePlan(pattern, body)»

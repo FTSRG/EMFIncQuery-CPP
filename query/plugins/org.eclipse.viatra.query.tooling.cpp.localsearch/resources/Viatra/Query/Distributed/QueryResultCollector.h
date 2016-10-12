@@ -21,14 +21,14 @@ namespace Viatra {
 
 			class QueryResultCollectorBase { 
 			protected:
+				uint64_t sessionID;
 				TaskID taskID;
-				Request request;
 				QueryServiceBase *service;
 
 			public:
-				QueryResultCollectorBase(TaskID taskID, const Request& request, QueryServiceBase *service)
+				QueryResultCollectorBase(uint64_t sessionID, TaskID taskID, QueryServiceBase *service)
 					: taskID(std::move(taskID))
-					, request(request)
+					, sessionID(sessionID)
 					, service(service)
 				{}
 
@@ -57,8 +57,8 @@ namespace Viatra {
 
 			public:
 
-				QueryResultCollector(const TaskID taskID, const Request& request, QueryServiceBase *service, ModelRoot * modelRoot)
-					: QueryResultCollectorBase(taskID, request, service)
+				QueryResultCollector(uint64_t sessionID, const TaskID taskID, QueryServiceBase *service, ModelRoot * modelRoot)
+					: QueryResultCollectorBase(sessionID, taskID, service)
 					, modelRoot(modelRoot)
 				{}
 				~QueryResultCollector() {}
@@ -76,7 +76,7 @@ namespace Viatra {
 						matches.insert(match);
 					finishedLocally = true;
 					if (finished())
-						service.notifyCollectionDone(taskID);
+						service->notifyCollectionDone(sessionID, taskID);
 				}
 
 				void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskID) override
@@ -87,7 +87,7 @@ namespace Viatra {
 					});
 					remoteRunningTasks.erase(taskID);
 					if (finished())
-						service.notifyCollectionDone(taskID);
+						service->notifyCollectionDone(sessionID, taskID);
 						
 				}
 
