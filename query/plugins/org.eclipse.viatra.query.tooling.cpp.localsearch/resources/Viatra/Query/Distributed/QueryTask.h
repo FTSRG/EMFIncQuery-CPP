@@ -39,13 +39,13 @@ namespace Viatra {
 				// The matching frame encoded in a string
 				std::string encodedFrameVector;
 				// The result collector for the matches
-				QueryResultCollector<RootedQuery>* collector;
+				std::weak_ptr<QueryResultCollector<RootedQuery>> collector;
 				
 				QueryTask(	TaskID taskID,
 							std::string encodedFrameVector,
 							int bodyIndex,
 							int operationIndex,
-							QueryResultCollector<RootedQuery>* collector)
+							std::weak_ptr<QueryResultCollector<RootedQuery>> collector)
 					: bodyIndex(bodyIndex)
 					, operationIndex(operationIndex)
 					, encodedFrameVector(encodedFrameVector)
@@ -64,15 +64,24 @@ namespace Viatra {
 				{
 					Lock lck(mutex);
 					nextSubtaskID.step(1);
-					collector->addRemoteRunningTask(nextSubtaskID);
+					
+					if (auto sptr = collector.lock())
+						sptr->addRemoteRunningTask(nextSubtaskID);
+					else
+						throw std::logic_error("QueryTask::createRemoteSubtask -- WARNING - invalidated weak pointer dereference");
 					return nextSubtaskID;
 				}
 
 				QueryTask() = delete;
 				QueryTask(const QueryTask&) = delete;
-				QueryTask(QueryTask &&) {
-					throw "praise the kek";
-				}
+				QueryTask(QueryTask && other)
+					: bodyIndex(std::move(other.bodyIndex))
+					, operationIndex(std::move(other.operationIndex))
+					, encodedFrameVector(std::move(other.encodedFrameVector))
+					, collector(std::move(other.collector))
+					, id(std::move(other.id))
+					, nextSubtaskID(std::move(other.nextSubtaskID))
+				{}
 
 			};
 		}

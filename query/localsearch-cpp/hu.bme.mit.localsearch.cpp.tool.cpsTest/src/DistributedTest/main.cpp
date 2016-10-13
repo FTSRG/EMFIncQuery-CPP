@@ -18,17 +18,19 @@ int server_test(int argc, char **argv);
 int main(int argc, char **argv) {
 	using Logger = Viatra::Query::Util::Logger;
 
-	try {
-		Logger::SetThisThreadName("MAIN THREAD");
-		Logger::Log("Start of main function");
+	Logger::SetThisThreadName("MAIN THREAD");
+	Logger::Log("Start of main function");
 
-	//	return server_test(argc, argv);
+//	return server_test(argc, argv);
 		
-		Viatra::Query::Distributed::QueryService<
-			Viatra::Query::Model::ModelRoot, 
-			Viatra::Query::Distributedquery::QueryRunnerFactory
-		>	service("model.json", argv[1]);
+	Viatra::Query::Distributed::QueryService<
+		Viatra::Query::Model::ModelRoot, 
+		Viatra::Query::Distributedquery::QueryRunnerFactory
+	>	service("model.json", argv[1]);
 		
+
+	try {
+
 		using Viatra::Query::Distributedquery::QueryA;
 	
 		if (argv[1] == std::string("nodeA")) {
@@ -45,7 +47,6 @@ int main(int argc, char **argv) {
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
 
-		
 		Logger::Log("End of main function");
 	}
 	catch (const std::exception& ex)

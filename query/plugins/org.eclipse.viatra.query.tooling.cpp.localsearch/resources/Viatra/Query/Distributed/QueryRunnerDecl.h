@@ -37,6 +37,7 @@ namespace Viatra {
 			public:
 				QueryRunnerBase(uint64_t sessionID, int queryID);
 				virtual ~QueryRunnerBase();
+				virtual void startLocalQueryServing() = 0;
 
 				void terminate();
 				void join();
@@ -88,7 +89,7 @@ namespace Viatra {
 				void startGlobalQuery(std::weak_ptr<QueryFutureBase> future, typename RootedQuery::BindInfo bindInfo);
 
 				// starts local query serving
-				std::unique_ptr<QueryFutureBase> startLocalQuery();
+				void startLocalQueryServing() override;
 			};
 
 		}

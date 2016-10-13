@@ -28,7 +28,7 @@ namespace Viatra {
 				if (runnerThread)
 					runnerThread->join();
 				else
-					throw std::logic_error("Join called on a non-running QueryRunner!");
+					Util::Logger::Log("Join called on a non-running QueryRunner!");
 			}
 
 		}

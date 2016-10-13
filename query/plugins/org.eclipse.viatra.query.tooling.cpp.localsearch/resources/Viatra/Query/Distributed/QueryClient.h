@@ -3,9 +3,11 @@
 #define _VIATRA_QUERY_UTIL_NETWORK_H_
 
 #include"../Util/network.h"
+#include"TaskID.h"
 #include"IDGenerator.h"
 #include<atomic>
 #include<unordered_set>
+#include<string>
 
 namespace Viatra {
 	namespace Query {
@@ -59,6 +61,8 @@ namespace Viatra {
 				}
 
 				void startQuerySession(uint64_t sessionID, int queryID);
+				void continueQuerySession(const std::string& localNodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frameVectorStr);
+
 
 			};
 

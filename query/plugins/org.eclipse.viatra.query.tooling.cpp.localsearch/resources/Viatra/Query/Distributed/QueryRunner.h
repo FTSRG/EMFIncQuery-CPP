@@ -24,7 +24,7 @@ namespace Viatra {
 			void QueryRunner<RootedQuery>::PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector) {
 				Logger::Log("QueryRunner::PropagateFrameVector");
 				TaskID taskID = currentTask->createRemoteSubtask();
-				queryService->continueQueryRemotely(currentTask, body, operation, encodedFrameVector);
+				queryService->continueQueryRemotely(sessionID, currentTask, body, operation, encodedFrameVector);
 			}
 
 			template<typename RootedQuery>
@@ -35,15 +35,15 @@ namespace Viatra {
 				Logger::Log("QueryRunner::addStartTask -- create toplevel result collector");
 				auto taskID = TaskID::CreateTopLevel(body);
 				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
-				std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
+				std::shared_ptr<QueryResultCollector<RootedQuery>> shared_collector(collector);
 
 				Logger::Log("QueryRunner::addStartTask -- registering toplevel result collector");
-				queryService->registerTopLevelResultCollector(sessionID, taskID, shared_collector, future);
+				queryService->registerTopLevelResultCollector(sessionID, taskID, std::static_pointer_cast<QueryResultCollectorBase>(shared_collector), future);
 				topLevelCollectorHolders.push_back(shared_collector);
 				topLevelCollectors.push_back(collector);
 
 				Logger::Log("QueryRunner::addStartTask -- Instantiate task");
-				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, collector);
+				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, shared_collector);
 				// Concurrent queue, so its thread safe to simply push our task
 				localTasks.push(std::move(task));
 			}
@@ -53,19 +53,56 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::run()
 			{
-				Util::Logger::SetThisThreadName(Util::concat("Runner-", sessionID));
-				Logger::Log("QueryRunner::run");
-				while (!terminated)
+				try {
+					Util::Logger::SetThisThreadName(Util::concat("Runner-", sessionID));
+					Logger::Log("QueryRunner::run");
+					while (!terminated)
+					{
+						Logger::Log("QueryRunner::while");
+						Logger::Identer ident2;
+
+						try {
+							Logger::Log("QueryRunner::run -- try to pop task from queue");
+							auto task = std::move(localTasks.pop(std::chrono::milliseconds(100)));
+							Logger::Log("QueryRunner::run -- task obtained");
+
+							currentTask = &task;
+
+							typename Match::MatchSet partialResult;
+							{
+								Logger::Log("QueryRunner::run -- calculating partial result");
+								Logger::Identer ident3;
+								partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
+							}
+
+							currentTask = nullptr;
+							Logger::Log("QueryRunner::run -- add subresult to collector");
+							if (auto sptr = task.collector.lock())
+								sptr->addLocalMatches(std::move(partialResult));
+							else
+								throw std::logic_error("QueryRunner::run -- ERROR: weak pointer was invalidated before usage");
+						}
+						catch (Viatra::Query::Util::ConcurrentQueueTimeout&) {
+							std::this_thread::sleep_for(std::chrono::seconds(1));
+						}
+						Logger::Log("QueryRunner::run -- terminated = ", (bool)terminated);
+					}
+				}
+				catch (const std::exception& ex)
 				{
-					try {
-						auto task = std::move(localTasks.pop(std::chrono::milliseconds(100)));
-						currentTask = &task;
-						auto partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
-						task.collector->addLocalMatches(std::move(partialResult));
-						currentTask = nullptr;
-					}
-					catch (Viatra::Query::Util::ConcurrentQueueTimeout&) {
-					}
+					Logger::Log(ex.what());
+				}
+				catch (const std::string& ex)
+				{
+					Logger::Log(ex);
+				}
+				catch (const char *c)
+				{
+					Logger::Log(c);
+				}
+				catch (...)
+				{
+					Logger::Log("Something catched other than std::exception, string, or const char*");
 				}
 			}
 
@@ -86,11 +123,11 @@ namespace Viatra {
 			{
 				Logger::Log("QueryRunner::addTask");
 				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
-				std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
+				std::shared_ptr<QueryResultCollector<RootedQuery>> shared_collector(collector);
 					
-				queryService->registerSubResultCollector(sessionID, taskID, shared_collector, request);
+				queryService->registerSubResultCollector(sessionID, taskID, std::static_pointer_cast<QueryResultCollectorBase>(shared_collector), request);
 
-				QueryTask<RootedQuery> task(taskID, frame, body, operation, collector);
+				QueryTask<RootedQuery> task(taskID, frame, body, operation, shared_collector);
 				// Concurrent queue, so its thread safe to simply push our task
 				localTasks.push(std::move(task));
 			}
@@ -104,10 +141,12 @@ namespace Viatra {
 				if (runnerThread)
 					throw std::logic_error("The query is already running!");
 
-				Logger::Log("QueryRunner::startGlobalQuery -- Add starting tasks");
-				for (auto &body_frame : bindInfo.encodedFrameVector)
-					addStartTask(future, body_frame.first, body_frame.second);
-
+				{
+					Logger::Log("QueryRunner::startGlobalQuery -- Add starting tasks");
+					Logger::Identer ident2;
+					for (auto &body_frame : bindInfo.encodedFrameVector)
+						addStartTask(future, body_frame.first, body_frame.second);
+				}
 				Logger::Log("QueryRunner::startGlobalQuery -- Starting runner thread");
 				runnerThread = std::make_unique<std::thread>([this]() {
 					run();
@@ -117,7 +156,7 @@ namespace Viatra {
 
 			// starts local query serving
 			template<typename RootedQuery>
-			std::unique_ptr<QueryFutureBase> QueryRunner<RootedQuery>::startLocalQuery() {
+			void QueryRunner<RootedQuery>::startLocalQueryServing(){
 				Logger::Log("QueryRunner::startLocalQuery");
 				Logger::Identer ident;
 				if (runnerThread)

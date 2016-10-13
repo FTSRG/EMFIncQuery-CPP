@@ -21,8 +21,8 @@ namespace Viatra {
 
 			class QueryResultCollectorBase { 
 			protected:
-				using Lock = std::unique_lock<std::mutex>;
-				std::mutex mutex;
+				using Lock = std::unique_lock<std::recursive_mutex>;
+				std::recursive_mutex mutex;
 
 				uint64_t sessionID;
 				TaskID taskID;

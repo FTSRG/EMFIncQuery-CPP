@@ -301,9 +301,9 @@ void protobuf_AddDesc_MessageProtocol_2eproto() {
     "ssion\022\020\n\010nodeName\030\001 \001(\t\022\021\n\tsessionID\030\002 \001"
     "(\003\022\016\n\006taskID\030\003 \003(\005\022\021\n\tbodyIndex\030\004 \001(\005\022\026\n"
     "\016operationIndex\030\005 \001(\005\022\025\n\rframeAsString\030\006"
-    " \001(\t\"\221\001\n\034ContinueQuerySessionResponse\022\016\n"
+    " \001(\014\"\221\001\n\034ContinueQuerySessionResponse\022\016\n"
     "\006status\030\001 \001(\t\022\021\n\tsessionID\030\002 \001(\003\022\016\n\006task"
-    "ID\030\003 \003(\005\022\026\n\016resultMatchSet\030\004 \001(\t\022\021\n\tpart"
+    "ID\030\003 \003(\005\022\026\n\016resultMatchSet\030\004 \001(\014\022\021\n\tpart"
     "Index\030\005 \001(\005\022\023\n\013isFinalPart\030\006 \001(\010*t\n\007MsgT"
     "ype\022\027\n\023START_QUERY_SESSION\020\000\022\033\n\027TERMINAT"
     "E_QUERY_SESSION\020\001\022\032\n\026CONTINUE_QUERY_SESS"
@@ -3080,16 +3080,12 @@ bool ContinueQuerySession::MergePartialFromCodedStream(
         break;
       }
 
-      // optional string frameAsString = 6;
+      // optional bytes frameAsString = 6;
       case 6: {
         if (tag == 50) {
          parse_frameAsString:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_frameasstring()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->frameasstring().data(), this->frameasstring().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "Protobuf.ContinueQuerySession.frameAsString"));
         } else {
           goto handle_unusual;
         }
@@ -3156,13 +3152,9 @@ void ContinueQuerySession::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->operationindex(), output);
   }
 
-  // optional string frameAsString = 6;
+  // optional bytes frameAsString = 6;
   if (this->frameasstring().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->frameasstring().data(), this->frameasstring().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.ContinueQuerySession.frameAsString");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       6, this->frameasstring(), output);
   }
 
@@ -3212,14 +3204,10 @@ void ContinueQuerySession::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->operationindex(), target);
   }
 
-  // optional string frameAsString = 6;
+  // optional bytes frameAsString = 6;
   if (this->frameasstring().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->frameasstring().data(), this->frameasstring().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.ContinueQuerySession.frameAsString");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         6, this->frameasstring(), target);
   }
 
@@ -3259,10 +3247,10 @@ int ContinueQuerySession::ByteSize() const {
         this->operationindex());
   }
 
-  // optional string frameAsString = 6;
+  // optional bytes frameAsString = 6;
   if (this->frameasstring().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->frameasstring());
   }
 
@@ -3492,7 +3480,7 @@ void ContinueQuerySession::clear_operationindex() {
   // @@protoc_insertion_point(field_set:Protobuf.ContinueQuerySession.operationIndex)
 }
 
-// optional string frameAsString = 6;
+// optional bytes frameAsString = 6;
 void ContinueQuerySession::clear_frameasstring() {
   frameasstring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3510,7 +3498,7 @@ void ContinueQuerySession::clear_frameasstring() {
   frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:Protobuf.ContinueQuerySession.frameAsString)
 }
- void ContinueQuerySession::set_frameasstring(const char* value, size_t size) {
+ void ContinueQuerySession::set_frameasstring(const void* value, size_t size) {
   
   frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -3703,16 +3691,12 @@ bool ContinueQuerySessionResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional string resultMatchSet = 4;
+      // optional bytes resultMatchSet = 4;
       case 4: {
         if (tag == 34) {
          parse_resultMatchSet:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_resultmatchset()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->resultmatchset().data(), this->resultmatchset().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "Protobuf.ContinueQuerySessionResponse.resultMatchSet"));
         } else {
           goto handle_unusual;
         }
@@ -3799,13 +3783,9 @@ void ContinueQuerySessionResponse::SerializeWithCachedSizes(
       this->taskid(i), output);
   }
 
-  // optional string resultMatchSet = 4;
+  // optional bytes resultMatchSet = 4;
   if (this->resultmatchset().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->resultmatchset().data(), this->resultmatchset().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.ContinueQuerySessionResponse.resultMatchSet");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->resultmatchset(), output);
   }
 
@@ -3855,14 +3835,10 @@ void ContinueQuerySessionResponse::SerializeWithCachedSizes(
       WriteInt32NoTagToArray(this->taskid(i), target);
   }
 
-  // optional string resultMatchSet = 4;
+  // optional bytes resultMatchSet = 4;
   if (this->resultmatchset().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->resultmatchset().data(), this->resultmatchset().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Protobuf.ContinueQuerySessionResponse.resultMatchSet");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         4, this->resultmatchset(), target);
   }
 
@@ -3898,10 +3874,10 @@ int ContinueQuerySessionResponse::ByteSize() const {
         this->sessionid());
   }
 
-  // optional string resultMatchSet = 4;
+  // optional bytes resultMatchSet = 4;
   if (this->resultmatchset().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->resultmatchset());
   }
 
@@ -4115,7 +4091,7 @@ ContinueQuerySessionResponse::mutable_taskid() {
   return &taskid_;
 }
 
-// optional string resultMatchSet = 4;
+// optional bytes resultMatchSet = 4;
 void ContinueQuerySessionResponse::clear_resultmatchset() {
   resultmatchset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4133,7 +4109,7 @@ void ContinueQuerySessionResponse::clear_resultmatchset() {
   resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:Protobuf.ContinueQuerySessionResponse.resultMatchSet)
 }
- void ContinueQuerySessionResponse::set_resultmatchset(const char* value, size_t size) {
+ void ContinueQuerySessionResponse::set_resultmatchset(const void* value, size_t size) {
   
   resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

@@ -17,8 +17,8 @@ QueryServer::QueryServer(uint16_t port, QueryServiceBase * service)
 
 QueryServer::~QueryServer()
 {
+	stop();
 	Util::Logger::Log("QueryServer::~QueryServer");
-				
 }
 
 void QueryServer::sendMatchResults(const Request& rq, const std::string& status, int64_t sessionID, TaskID taskID, const std::string& resultMatchSet)

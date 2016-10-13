@@ -143,6 +143,11 @@ namespace Network
 			io_service.run();
 		}
 
+		void stop()
+		{
+			io_service.stop();
+		}
+
 	};
 
 
@@ -156,6 +161,13 @@ namespace Network
 	{
 		impl->run();
 	}
+
+
+	void Server::stop()
+	{
+		impl->stop();
+	}
+
 	
 	Server::~Server()
 	{

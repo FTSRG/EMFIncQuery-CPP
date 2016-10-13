@@ -48,18 +48,19 @@ QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNod
 void QueryClient::initiateConnection(std::string initiatorNode)
 {
 	Logger::Log("QueryClient::initiateConnection initiatorNode=", initiatorNode);
+	Logger::Identer();
 	auto rqid = rqidGenerator.generate();
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.set_rqid(rqid);
 	queryRequest.set_msgtype(Protobuf::MsgType::INITIATE_CONNECTION);
 	queryRequest.mutable_initiateconnection()->set_nodename(initiatorNode);
 	sendMessage(Network::Buffer(queryRequest));
-	Logger::Log("QueryClient::initiateConnection done");
 }
 
 void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 {
 	Logger::Log("QueryClient::startQuerySession sessionID=", sessionID, ", queryID=", queryID );
+	Logger::Identer();
 	auto rqid = rqidGenerator.generate();
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.set_rqid(rqid);
@@ -67,7 +68,28 @@ void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 	queryRequest.mutable_startquerysession()->set_sessionid(sessionID);
 	queryRequest.mutable_startquerysession()->set_queryid(queryID);
 	sendMessage(Network::Buffer(queryRequest));
-	Logger::Log("QueryClient::startQuerySession done");	
+}
+
+void QueryClient::continueQuerySession(const std::string& localNodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frameVectorStr)
+{
+	Logger::Log("QueryClient::continueQuerySession");
+	Logger::Identer();
+	auto rqid = rqidGenerator.generate();
+	Protobuf::QueryRequest queryRequest;
+	queryRequest.set_rqid(rqid);
+	queryRequest.set_msgtype(Protobuf::MsgType::CONTINUE_QUERY_SESSION);
+	queryRequest.mutable_continuequerysession()->set_sessionid(sessionID);
+	
+	for(auto id_elem : taskID)
+		queryRequest.mutable_continuequerysession()->add_taskid(id_elem);
+
+
+	queryRequest.mutable_continuequerysession()->set_frameasstring(frameVectorStr);
+	queryRequest.mutable_continuequerysession()->set_bodyindex(body);
+	queryRequest.mutable_continuequerysession()->set_operationindex(operation);
+	queryRequest.mutable_continuequerysession()->set_nodename(localNodeName);
+
+	sendMessage(Network::Buffer(queryRequest));
 }
 
 

@@ -814,13 +814,13 @@ class ContinueQuerySession : public ::google::protobuf::Message /* @@protoc_inse
   ::google::protobuf::int32 operationindex() const;
   void set_operationindex(::google::protobuf::int32 value);
 
-  // optional string frameAsString = 6;
+  // optional bytes frameAsString = 6;
   void clear_frameasstring();
   static const int kFrameAsStringFieldNumber = 6;
   const ::std::string& frameasstring() const;
   void set_frameasstring(const ::std::string& value);
   void set_frameasstring(const char* value);
-  void set_frameasstring(const char* value, size_t size);
+  void set_frameasstring(const void* value, size_t size);
   ::std::string* mutable_frameasstring();
   ::std::string* release_frameasstring();
   void set_allocated_frameasstring(::std::string* frameasstring);
@@ -936,13 +936,13 @@ class ContinueQuerySessionResponse : public ::google::protobuf::Message /* @@pro
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_taskid();
 
-  // optional string resultMatchSet = 4;
+  // optional bytes resultMatchSet = 4;
   void clear_resultmatchset();
   static const int kResultMatchSetFieldNumber = 4;
   const ::std::string& resultmatchset() const;
   void set_resultmatchset(const ::std::string& value);
   void set_resultmatchset(const char* value);
-  void set_resultmatchset(const char* value, size_t size);
+  void set_resultmatchset(const void* value, size_t size);
   ::std::string* mutable_resultmatchset();
   ::std::string* release_resultmatchset();
   void set_allocated_resultmatchset(::std::string* resultmatchset);
@@ -1677,7 +1677,7 @@ inline void ContinueQuerySession::set_operationindex(::google::protobuf::int32 v
   // @@protoc_insertion_point(field_set:Protobuf.ContinueQuerySession.operationIndex)
 }
 
-// optional string frameAsString = 6;
+// optional bytes frameAsString = 6;
 inline void ContinueQuerySession::clear_frameasstring() {
   frameasstring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1695,7 +1695,7 @@ inline void ContinueQuerySession::set_frameasstring(const char* value) {
   frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:Protobuf.ContinueQuerySession.frameAsString)
 }
-inline void ContinueQuerySession::set_frameasstring(const char* value, size_t size) {
+inline void ContinueQuerySession::set_frameasstring(const void* value, size_t size) {
   
   frameasstring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -1813,7 +1813,7 @@ ContinueQuerySessionResponse::mutable_taskid() {
   return &taskid_;
 }
 
-// optional string resultMatchSet = 4;
+// optional bytes resultMatchSet = 4;
 inline void ContinueQuerySessionResponse::clear_resultmatchset() {
   resultmatchset_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1831,7 +1831,7 @@ inline void ContinueQuerySessionResponse::set_resultmatchset(const char* value) 
   resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:Protobuf.ContinueQuerySessionResponse.resultMatchSet)
 }
-inline void ContinueQuerySessionResponse::set_resultmatchset(const char* value, size_t size) {
+inline void ContinueQuerySessionResponse::set_resultmatchset(const void* value, size_t size) {
   
   resultmatchset_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

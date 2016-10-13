@@ -97,6 +97,7 @@ namespace Network
 
 		// Run the server on the current thread
 		void run();
+		void stop();
 		void sendMessage(Connection * c, Buffer message);
 	protected:
 		virtual void accept_connection(Network::Connection * c) {};

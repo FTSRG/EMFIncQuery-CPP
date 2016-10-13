@@ -44,7 +44,7 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNo
 		picojson::value root;
 		std::string err = picojson::parse(root, ifs);
 		if (!err.empty()) {
-			throw err;
+			throw "JSON parse error: " + err;
 		}
 
 		this->nodeName = "";
@@ -160,25 +160,27 @@ void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& ta
 {
 	Logger::Log("QueryServiceBase::acceptRemoteMatchSet");
 	TaskID parent = taskID.parent();
-	auto & collectorInfo = localResultCollectors.at(sessionID).at(taskID);
+	auto & collectorInfo = localResultCollectorInfos.at(sessionID).at(taskID);
 	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
 }
 
 
 // runs on QueryRunner Thread
-void QueryServiceBase::continueQueryRemotely(QueryTaskBase* parentTask, int body, int operation, const std::string& encodedFrameVector)
+void QueryServiceBase::continueQueryRemotely(uint64_t sessionID, QueryTaskBase* parentTask, int body, int operation, const std::string& encodedFrameVector)
 {
 	Logger::Log("QueryServiceBase::continueQueryRemotely");
 	for (auto & name_nodeInfo : remoteNodes) {
 		auto & nodeInfo = name_nodeInfo.second;
 		TaskID taskID = parentTask->createRemoteSubtask();
+		nodeInfo.client->continueQuerySession(nodeName, sessionID, taskID, body, operation, encodedFrameVector);
+
 	}
 }
 
 void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& taskID)
 {
 	Lock lck(mutex);
-	auto & collectorInfo = localResultCollectors[sessionID][taskID];
+	auto & collectorInfo = localResultCollectorInfos[sessionID][taskID];
 	if (collectorInfo->remote)
 	{
 		server->sendMatchResults(collectorInfo->rq, "OK", sessionID, taskID, collectorInfo->collector->matchesAsString());
@@ -189,7 +191,7 @@ void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& ta
 		future->notifyCollectionDone();
 	}
 
-	localResultCollectors[sessionID].erase(taskID);
+	localResultCollectorInfos[sessionID].erase(taskID);
 }
 
 

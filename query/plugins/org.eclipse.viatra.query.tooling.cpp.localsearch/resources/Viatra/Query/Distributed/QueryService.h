@@ -80,19 +80,19 @@ namespace Viatra {
 				std::map< uint64_t , std::shared_ptr<QueryRunnerBase> > queryRunners;
 
 				// ResultCollectors for remote tasks
-				std::map< uint64_t, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectors;
+				std::map< uint64_t /* sessionID*/, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectorInfos;
 				
 				void registerTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::weak_ptr<QueryFutureBase> future)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{ nullptr, 0 }, future);
+					localResultCollectorInfos[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{ nullptr, 0 }, future);
 				}
 
 			public:
 				void registerSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
 				{
 					Lock lck(mutex);
-					localResultCollectors[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
+					localResultCollectorInfos[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
 				}
 				
 				// Start Local Query Session on all other node and waiting for the result(stub)
@@ -127,7 +127,7 @@ namespace Viatra {
 					runner->addTask(taskID, body, operation, frame, request);
 				}
 				// runs on QueryRunner Thread
-				void continueQueryRemotely(QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
+				void continueQueryRemotely(uint64_t sessionID, QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
 
 				// If the collection is done this function will be called
 				void notifyCollectionDone(uint64_t sessionID, const TaskID& taskID);
@@ -211,7 +211,9 @@ namespace Viatra {
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
 
-					queryRunners[sessionID] = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot, this);
+					std::shared_ptr<QueryRunnerBase> queryRunner = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot, this);
+					queryRunners[sessionID] = queryRunner;
+					queryRunner->startLocalQueryServing();
 					return "OK";
 				}
 								

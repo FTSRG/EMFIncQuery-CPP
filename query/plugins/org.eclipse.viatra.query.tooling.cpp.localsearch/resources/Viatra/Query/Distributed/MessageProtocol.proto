@@ -62,7 +62,7 @@ message ContinueQuerySession
 	repeated int32 taskID = 3;
 	int32 bodyIndex = 4;
 	int32 operationIndex = 5;
-	string frameAsString = 6;
+	bytes frameAsString = 6;
 }
 
 message ContinueQuerySessionResponse
@@ -71,7 +71,7 @@ message ContinueQuerySessionResponse
 	int64 sessionID = 2;
 	repeated int32 taskID = 3;
 
-	string resultMatchSet = 4;
+	bytes resultMatchSet = 4;
 	int32 partIndex = 5;	// from 0 to n-1, where the n-1 part is 
 	bool isFinalPart = 6;
 }
