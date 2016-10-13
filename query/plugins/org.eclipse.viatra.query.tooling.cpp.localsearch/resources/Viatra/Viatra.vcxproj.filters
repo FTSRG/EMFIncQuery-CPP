@@ -36,6 +36,9 @@
     <ClCompile Include="Query\Util\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Query\Util\Convert.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Query\Distributed\Node.h">

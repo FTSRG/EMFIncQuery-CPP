@@ -22,6 +22,7 @@
     <ClCompile Include="Query\Distributed\MessageProtocol.pb.cc" />
     <ClCompile Include="Query\Distributed\QueryClient.cpp" />
     <ClCompile Include="Query\Distributed\QueryRunnerBase.cpp" />
+    <ClCompile Include="Query\Util\Convert.h" />
     <ClCompile Include="Query\Util\Logger.cpp" />
     <ClCompile Include="Query\Util\network.cpp" />
     <ClCompile Include="Query\Distributed\QueryServer.cpp" />

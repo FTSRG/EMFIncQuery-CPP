@@ -208,6 +208,8 @@ interface TypeHelper {
 	def String declareType()
 	def String getDefaultValue()
 	
+	def String cppToString(String variableName)
+	
 }
 
 class ClassHelper implements TypeHelper {
@@ -251,6 +253,9 @@ class ClassHelper implements TypeHelper {
 	
 	override declareType() 
 		'''«FQN»*'''
+		
+	override cppToString(String variableName) 
+		'''Viatra::Query::Util::Convert::ToString(«variableName».id())'''
 	
 	
 }
@@ -286,6 +291,9 @@ class EnumHelper implements TypeHelper {
 	override declareType(){ 
 		fqn
 	}
+	
+	override cppToString(String variableName) 
+		'''EnumHelper<«fqn»>::ToString(«variableName»)'''
 }
 
 class PrimitiveTypeHelper implements TypeHelper {
@@ -339,5 +347,8 @@ class PrimitiveTypeHelper implements TypeHelper {
 	override declareType() {
 		name
 	}
+	
+	override cppToString(String variableName) 
+		'''Viatra::Query::Util::Convert::ToString(«variableName»)'''
 	
 }

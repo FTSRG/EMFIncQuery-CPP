@@ -46,6 +46,8 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				default: null
 			}
 		].filterNull
+		includes += new Include("Viatra/Query/Util/Convert.h", true);
+		includes += Include::EnumHelper
 		includes += new Include("stdint.h", true);
 		includes += new Include("vector", true);
 		includes += new Include("proto_gen.pb.h", false);		
@@ -66,7 +68,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				«val pos = matchingFrame.getVariablePosition(param)»
 				«cppHelper.declareType» «pos.variableName» = «cppHelper.defaultValue»;
 			«ENDFOR»
-		
+			«generateToString»
 			«generateFrameSerialization»
 		};
 				
@@ -97,6 +99,36 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			«ENDFOR»
 
 			return pbframe.SerializeAsString();
+		}
+	
+		template<typename ModelRoot>
+		void ParseFromString(std::string str, ModelRoot *mr)
+		{
+			PB_«unitName» pbframe;
+			pbframe.ParseFromString(str);
+	
+			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
+				«val type = matchingFrame.getVariableLooseType(param)»
+				«val name = param.variableName.toString»
+				«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
+			«ENDFOR»
+		}
+		'''
+	def generateToString() '''
+		// Serialization and deserialization
+		
+		std::string toString()
+		{
+			std::string ret = [;
+			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)] SEPARATOR "\nret += ',';"»
+				«val type = matchingFrame.getVariableLooseType(param)»
+				«val cppHelper = CppHelper::getTypeHelper(type)»
+				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
+				ret += "«param.name»=";
+				ret += «cppHelper.cppToString(varName)»
+			«ENDFOR»
+
+			return ret + ']';
 		}
 	
 		template<typename ModelRoot>
