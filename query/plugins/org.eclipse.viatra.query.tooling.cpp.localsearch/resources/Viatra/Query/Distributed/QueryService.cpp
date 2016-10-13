@@ -97,7 +97,7 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNo
 			while (true)
 			{
 				try {
-					nodeInfo.client = std::make_unique<QueryClient>(nodeInfo.ip, (uint16_t)nodeInfo.port, this->nodeName);
+					nodeInfo.client = std::make_unique<QueryClient>(nodeInfo.ip, (uint16_t)nodeInfo.port, this->nodeName, this);
 					break;
 				}
 				catch (...)
@@ -174,3 +174,22 @@ void QueryServiceBase::continueQueryRemotely(QueryTaskBase* parentTask, int body
 		TaskID taskID = parentTask->createRemoteSubtask();
 	}
 }
+
+void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& taskID)
+{
+	Lock lck(mutex);
+	auto & collectorInfo = localResultCollectors[sessionID][taskID];
+	if (collectorInfo->remote)
+	{
+		server->sendMatchResults(collectorInfo->rq, "OK", sessionID, taskID, collectorInfo->collector->matchesAsString());
+	}
+	else
+	{
+		auto future = collectorInfo->future.lock();
+		future->notifyCollectionDone();
+	}
+
+	localResultCollectors[sessionID].erase(taskID);
+}
+
+

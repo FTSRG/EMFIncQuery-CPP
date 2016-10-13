@@ -30,14 +30,19 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::addStartTask(std::weak_ptr<QueryFutureBase> future, int body, std::string encodedFrameVector) {
 				Logger::Log("QueryRunner::addStartTask");
+				Logger::Identer ident;
+
+				Logger::Log("QueryRunner::addStartTask -- create toplevel result collector");
 				auto taskID = TaskID::CreateTopLevel(body);
 				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
 				std::shared_ptr<QueryResultCollectorBase> shared_collector(collector);
 
+				Logger::Log("QueryRunner::addStartTask -- registering toplevel result collector");
 				queryService->registerTopLevelResultCollector(sessionID, taskID, shared_collector, future);
 				topLevelCollectorHolders.push_back(shared_collector);
 				topLevelCollectors.push_back(collector);
 
+				Logger::Log("QueryRunner::addStartTask -- Instantiate task");
 				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, collector);
 				// Concurrent queue, so its thread safe to simply push our task
 				localTasks.push(std::move(task));
@@ -48,8 +53,8 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::run()
 			{
+				Util::Logger::SetThisThreadName(Util::concat("Runner-", sessionID));
 				Logger::Log("QueryRunner::run");
-				Logger::Identer id;
 				while (!terminated)
 				{
 					try {
@@ -95,15 +100,16 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::startGlobalQuery( std::weak_ptr<QueryFutureBase> future, typename RootedQuery::BindInfo bindInfo) {
 				Logger::Log("QueryRunner::startGlobalQuery");
-				Logger::Identer id;
+				Logger::Identer ident;
 				if (runnerThread)
 					throw std::logic_error("The query is already running!");
 
+				Logger::Log("QueryRunner::startGlobalQuery -- Add starting tasks");
 				for (auto &body_frame : bindInfo.encodedFrameVector)
 					addStartTask(future, body_frame.first, body_frame.second);
 
+				Logger::Log("QueryRunner::startGlobalQuery -- Starting runner thread");
 				runnerThread = std::make_unique<std::thread>([this]() {
-					Util::Logger::SetThisThreadName(Util::concat("Runner-", sessionID));
 					run();
 				});
 
@@ -113,11 +119,12 @@ namespace Viatra {
 			template<typename RootedQuery>
 			std::unique_ptr<QueryFutureBase> QueryRunner<RootedQuery>::startLocalQuery() {
 				Logger::Log("QueryRunner::startLocalQuery");
+				Logger::Identer ident;
 				if (runnerThread)
 					throw std::logic_error("The query is already running!");
 
+				Logger::Log("QueryRunner::startLocalQuery -- Starting runner thread");
 				runnerThread = std::make_unique<std::thread>([this]() {
-					Util::Logger::SetThisThreadName(Util::Concat("Runner-", sessionID));
 					run();
 				});
 			}
@@ -128,8 +135,13 @@ namespace Viatra {
 			bool QueryRunner<RootedQuery>::ready() {
 				Logger::Log("QueryRunner::ready");
 				for (auto & collector : topLevelCollectorHolders)
-					if (!collector->finished())
+				{
+					if (!collector->finished()) {
+						Logger::Log("QueryRunner::ready -- false");
 						return false;
+					}
+				}
+				Logger::Log("QueryRunner::ready -- true");
 				return true;
 			}
 					

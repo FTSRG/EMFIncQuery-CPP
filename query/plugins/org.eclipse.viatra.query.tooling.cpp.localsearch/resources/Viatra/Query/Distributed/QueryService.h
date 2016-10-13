@@ -100,7 +100,7 @@ namespace Viatra {
 				
 				void acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet);
 				
-				std::string initiateConnection(Network::Connection* connection, std::string nodeName)
+				std::string process_initiateConnection(Network::Connection* connection, std::string nodeName)
 				{
 					Lock lck(mutex);
 					if (remoteNodes.find(nodeName) == remoteNodes.end())
@@ -129,11 +129,8 @@ namespace Viatra {
 				// runs on QueryRunner Thread
 				void continueQueryRemotely(QueryTaskBase* currentTask, int body, int operation, const std::string& encodedFrameVector);
 
-				void notifyCollectionDone(uint64_t sessionID, const TaskID& taskID)
-				{
-					//localResultCollectors[sessionID][taskID]->
-					throw "NotImplemented QueryService notifyCollectionDone";
-				}
+				// If the collection is done this function will be called
+				void notifyCollectionDone(uint64_t sessionID, const TaskID& taskID);
 
 			};
 
@@ -189,7 +186,7 @@ namespace Viatra {
 
 					Util::Logger::Log("QueryService::RunNewQuery create QueryRunner");
 					if (queryRunners[sessionID])
-						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator!");
+						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator settings!");
 					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, &modelRoot, this, queryID);
 					queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
 
@@ -198,7 +195,11 @@ namespace Viatra {
 					Util::Logger::Log("QueryService::RunNewQuery create Future object");
 					auto future = std::make_shared<QueryFuture<RootedQuery>>(queryRunner);
 
-					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), BindClass::BuildFrames(params...));
+					//Util::Logger::Log("QueryService::RunNewQuery Building frames");
+					auto builtFrames = BindClass::BuildFrames(params...);
+
+					Util::Logger::Log("QueryService::RunNewQuery start Global querying");
+					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), builtFrames);
 
 					return future;
 				}

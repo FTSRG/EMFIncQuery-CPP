@@ -33,7 +33,7 @@ namespace Viatra {
 
 				void runAsync() {
 					thread = std::unique_ptr<std::thread>(new std::thread([this]() {
-						Util::Logger::SetThisThreadName("Server");
+						Util::Logger::SetThisThreadName("SERVER");
 						Util::Logger::Log("Hello from server thread");
 						try{
 							Server::run();

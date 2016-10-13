@@ -102,7 +102,6 @@ namespace Viatra {
 				static void Log(T... args)
 				{
 					Lock lck(mutex);
-					std::cout << "<<<";
 					auto threadName = threadNames()[std::this_thread::get_id()];
 					try {
 						loggerFunc()(
@@ -115,8 +114,17 @@ namespace Viatra {
 						std::cout << concat("LOGGER FUNCTION ERROR(", threadName, ") --- ", args...)  << std::endl;
 						throw;
 					}
-					std::cout << ">>>";
 				}
+
+				template<typename TIME>
+				static void ThreadTest(TIME time)
+				{
+					Log("-------------- THREAD TEST --------------");
+					std::this_thread::sleep_for(time);
+					Log("------------ THREAD TEST END ------------");
+				}
+
+
 			};
 		}
 	}

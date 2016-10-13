@@ -30,8 +30,8 @@ namespace Viatra {
 
 				uint64_t sessionID;
 				int queryID;
-				std::atomic<bool> terminated;
-				std::atomic<bool> _ready;
+				std::atomic<bool> terminated = false;
+				std::atomic<bool> _ready = false;
 				std::unique_ptr<std::thread> runnerThread;
 
 			public:

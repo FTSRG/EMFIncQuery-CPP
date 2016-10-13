@@ -54,23 +54,17 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 	override compileInner() '''
 		
 		class «unitName»Vector;
-	
+
 		struct «unitName» {
 			
 			using PBFrame = PB_«unitName»;
 			using FrameVector = «unitName»Vector;
-			
+			«/* TODO: make initialized and uninitialized constructor */»
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»
-				«IF type instanceof EClass»
-					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
-					«val pos = matchingFrame.getVariablePosition(param)»
-					«typeFQN»* «pos.variableName»;
-				«ELSEIF type instanceof EDataType»
-					«val typeFQN = CppHelper::getTypeHelper(type).FQN»
-					«val pos = matchingFrame.getVariablePosition(param)»
-					«typeFQN» «pos.variableName»;
-				«ENDIF»
+				«val cppHelper = CppHelper::getTypeHelper(type)»
+				«val pos = matchingFrame.getVariablePosition(param)»
+				«cppHelper.declareType» «pos.variableName» = «cppHelper.defaultValue»;
 			«ENDFOR»
 		
 			«generateFrameSerialization»

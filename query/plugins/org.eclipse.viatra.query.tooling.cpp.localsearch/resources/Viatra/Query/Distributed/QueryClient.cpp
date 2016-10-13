@@ -2,6 +2,9 @@
 
 #include"QueryClient.h"
 
+#include"QueryTask.h"
+#include"QueryService.h"
+
 #include"MessageProtocol.pb.h"
 #include"../Util/Logger.h"
 
@@ -11,14 +14,15 @@ using namespace Viatra::Query::Distributed;
 using namespace Viatra::Query::Util;
 
 
-QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNode)
+QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNode, QueryServiceBase * service)
 	: Network::Client(ip, port)
+	, service(service)
 {
 	Logger::Log("QueryClient::QueryClient");
 	initiateConnection(initiatorNode);
 
 	thread = std::make_unique<std::thread>([&]() {
-		Logger::SetThisThreadName(Util::concat("ClientProcessor(", ip, ",", port, ")"));
+		Logger::SetThisThreadName(Util::concat("CLI(", ip, ",", port, ")"));
 		try {
 			Client::run();
 		}
@@ -49,7 +53,7 @@ void QueryClient::initiateConnection(std::string initiatorNode)
 	queryRequest.set_rqid(rqid);
 	queryRequest.set_msgtype(Protobuf::MsgType::INITIATE_CONNECTION);
 	queryRequest.mutable_initiateconnection()->set_nodename(initiatorNode);
-	sendMessage(queryRequest);
+	sendMessage(Network::Buffer(queryRequest));
 	Logger::Log("QueryClient::initiateConnection done");
 }
 
@@ -62,7 +66,7 @@ void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 	queryRequest.set_msgtype(Protobuf::MsgType::START_QUERY_SESSION);
 	queryRequest.mutable_startquerysession()->set_sessionid(sessionID);
 	queryRequest.mutable_startquerysession()->set_queryid(queryID);
-	sendMessage(queryRequest);
+	sendMessage(Network::Buffer(queryRequest));
 	Logger::Log("QueryClient::startQuerySession done");	
 }
 
@@ -72,6 +76,8 @@ void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 //
 void QueryClient::process_message(Network::Buffer message){
 	Logger::Log("QueryClient::process_message");
+	Logger::Identer ident;
+
 	Protobuf::QueryResponse queryResponse;
 	queryResponse.ParseFromArray(message.data(), message.size());
 	switch (queryResponse.msgtype())
@@ -110,6 +116,27 @@ void QueryClient::process_message(Network::Buffer message){
 			{
 				Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::START_QUERY_SESSION -- ERROR");
 				Logger::Log("Error while connecting to other server:\n" , msg , "\n");
+			}
+		}
+		break;
+
+		case Protobuf::MsgType::CONTINUE_QUERY_SESSION:
+		{
+			Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::CONTINUE_QUERY_SESSION");
+			auto continueQuerySessionResponse = queryResponse.mutable_continuequerysessionresponse();
+
+			if (continueQuerySessionResponse->status() == "OK") {
+				Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::CONTINUE_QUERY_SESSION");
+				int64_t sessionID = continueQuerySessionResponse->sessionid();
+				TaskID taskID = continueQuerySessionResponse->taskid();
+				std::string resultMatchSet = continueQuerySessionResponse->resultmatchset();
+				service->acceptRemoteMatchSet(sessionID, taskID, resultMatchSet);
+			}
+			else
+			{
+				Util::Logger::Log(" --------------------------------------------------------");
+				Util::Logger::Log(" ------------ CONTINUE QUERY REQUEST FAILED -------------");
+				Util::Logger::Log(" --------------------------------------------------------");
 			}
 		}
 		break;

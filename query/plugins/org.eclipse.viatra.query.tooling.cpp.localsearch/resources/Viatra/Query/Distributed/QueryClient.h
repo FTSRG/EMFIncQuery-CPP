@@ -11,6 +11,8 @@ namespace Viatra {
 	namespace Query {
 		namespace Distributed {
 			
+			class QueryServiceBase;
+
 			class QueryClient : private Network::Client
 			{
 				enum class State {
@@ -20,12 +22,12 @@ namespace Viatra {
 				};
 
 			private:
+				QueryServiceBase * service;
 				std::unique_ptr<std::thread> thread;
 				IDGenerator rqidGenerator{ 1, 1 };
 				
 				std::atomic<State> state = State::INITIATING; 
 				std::string errorMessage;
-
 
 				using Lock = std::unique_lock<std::mutex>;
 				std::mutex mutex;
@@ -33,9 +35,10 @@ namespace Viatra {
 
 				void initiateConnection(std::string initiatorNode);
 				virtual void process_message(Network::Buffer message)override final;
-
+				
 			public:
-				QueryClient(std::string ip, uint16_t port, std::string initiatorNode);
+
+				QueryClient(std::string ip, uint16_t port, std::string initiatorNode, QueryServiceBase * service);
 				QueryClient(const QueryClient&) = delete;
 				void operator=(const QueryClient&) = delete;
 				~QueryClient()	{}

@@ -48,6 +48,8 @@ void QueryServer::accept_connection(Network::Connection * c)
 void QueryServer::process_message(Network::Connection * connection, Network::Buffer message)
 {
 	Util::Logger::Log("QueryServer::process_message");
+	Util::Logger::Identer ident;
+
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.ParseFromArray(message.data(), message.size());
 		
@@ -56,7 +58,7 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 		case Protobuf::MsgType::INITIATE_CONNECTION: {
 			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::INITIATE_CONNECTION rqid=", queryRequest.rqid());
 			auto & request = queryRequest.initiateconnection();
-			auto responseMessage = service->initiateConnection(connection, request.nodename());
+			auto responseMessage = service->process_initiateConnection(connection, request.nodename());
 				
 			Protobuf::QueryResponse queryResponse;
 			queryResponse.set_rqid(queryRequest.rqid());
@@ -69,6 +71,7 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 
 		case Protobuf::MsgType::START_QUERY_SESSION: {
 			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::START_QUERY_SESSION rqid=", queryRequest.rqid());
+			Util::Logger::Identer ident2;
 			auto & request = queryRequest.startquerysession();
 			auto responseMessage = service->startLocalQuerySession(request.sessionid(), request.queryid());
 

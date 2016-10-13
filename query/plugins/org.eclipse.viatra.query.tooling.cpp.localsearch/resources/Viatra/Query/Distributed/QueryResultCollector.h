@@ -39,6 +39,8 @@ namespace Viatra {
 
 				virtual ~QueryResultCollectorBase() {}
 				virtual void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskId) = 0;
+
+				virtual std::string matchesAsString() = 0;
 				
 				bool finished()
 				{
@@ -60,7 +62,6 @@ namespace Viatra {
 				using MatchSet = typename Match::MatchSet;
 
 			private:
-
 				ModelRoot *modelRoot;			
 				MatchSet matches;
 
@@ -98,6 +99,11 @@ namespace Viatra {
 					if (finished())
 						service->notifyCollectionDone(sessionID, taskID);
 						
+				}
+
+				std::string matchesAsString()override
+				{
+					return matches.SerializeAsString();
 				}
 			};
 			

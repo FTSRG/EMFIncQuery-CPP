@@ -46,7 +46,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 			using Match = «patternName»Match;
 			using QueryGroup = «queryGroupName»QueryGroup;
 			
-			struct BindInfo{ const std::map<int, std::string> encodedFrameVector; };
+			struct BindInfo{ std::map<int, std::string> encodedFrameVector; };
 			
 			struct Bind{
 				«FOR boundedPattern : patternGroup.boundedPatterns.filter[it.boundParameters.size()>0]»
@@ -100,7 +100,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 				}
 			«ENDFOR»				
 			
-			return {std::move(encodedFrames)};
+			return BindInfo{std::move(encodedFrames)};
 		}
 	'''
 	

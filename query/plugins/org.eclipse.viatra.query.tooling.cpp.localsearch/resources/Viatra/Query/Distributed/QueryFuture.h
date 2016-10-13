@@ -8,12 +8,18 @@
 namespace Viatra{
 	namespace Query {
 		namespace Distributed {
+			class QueryRunnerBase;
+			class QueryServiceBase;
 
 			class QueryFutureBase {
 				// Barát osztály
 				friend class QueryRunnerBase;
+				friend class QueryServiceBase;
 
 				std::shared_ptr<QueryRunnerBase> runner;
+				void notifyCollectionDone() {
+					// nothing
+				}
 
 			public:
 				QueryFutureBase() = delete;
@@ -31,6 +37,7 @@ namespace Viatra{
 				bool ready() {
 					return runner->ready();
 				}
+
 
 				virtual ~QueryFutureBase() {}
 			};
@@ -56,6 +63,7 @@ namespace Viatra{
 				MatchSet get() {
 				
 				}
+
 			};
 
 		}
