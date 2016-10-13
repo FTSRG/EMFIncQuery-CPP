@@ -21,9 +21,14 @@ namespace Viatra {
 
 			class QueryResultCollectorBase { 
 			protected:
+				using Lock = std::unique_lock<std::mutex>;
+				std::mutex mutex;
+
 				uint64_t sessionID;
 				TaskID taskID;
 				QueryServiceBase *service;
+				std::unordered_set<TaskID> remoteRunningTasks;
+				std::atomic<bool> finishedLocally = false;
 
 			public:
 				QueryResultCollectorBase(uint64_t sessionID, TaskID taskID, QueryServiceBase *service)
@@ -34,6 +39,15 @@ namespace Viatra {
 
 				virtual ~QueryResultCollectorBase() {}
 				virtual void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskId) = 0;
+				
+				bool finished()
+				{
+					if (!finishedLocally)
+						return false;
+
+					Lock lck(mutex);
+					return remoteRunningTasks.empty();
+				}
 			};
 
 			// RootedQuery = QueryClass<ModelRoot>
@@ -46,14 +60,9 @@ namespace Viatra {
 				using MatchSet = typename Match::MatchSet;
 
 			private:
-				using Lock = std::unique_lock<std::mutex>;
-				std::mutex mutex;
 
-				ModelRoot *modelRoot;
-			
+				ModelRoot *modelRoot;			
 				MatchSet matches;
-				std::unordered_set<TaskID> remoteRunningTasks;
-				std::atomic<bool> finishedLocally = false;
 
 			public:
 
@@ -90,17 +99,6 @@ namespace Viatra {
 						service->notifyCollectionDone(sessionID, taskID);
 						
 				}
-
-				bool finished()
-				{
-					if (!finishedLocally)
-						return false;
-
-					Lock lck(mutex);
-					return remoteRunningTasks.empty();
-				}
-
-
 			};
 			
 		}

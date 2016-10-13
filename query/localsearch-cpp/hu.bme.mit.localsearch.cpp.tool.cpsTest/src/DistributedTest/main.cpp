@@ -21,14 +21,15 @@ int main(int argc, char **argv) {
 		Logger::SetThisThreadName("MAIN THREAD");
 		Logger::Log("Start of main function");
 
-		//return server_test(argc, argv)
+	//	return server_test(argc, argv);
 		
 		Viatra::Query::Distributed::QueryService<
 			Viatra::Query::Model::ModelRoot, 
 			Viatra::Query::Distributedquery::QueryRunnerFactory
 		>	service("model.json", argv[1]);
 		
-		auto result = service.RunNewQuery<Viatra::Query::Distributedquery::QueryB>();
+		using Viatra::Query::Distributedquery::QueryB;
+		auto result = service.RunNewQuery<QueryB, QueryB::NoBind>();
 
 		Logger::Log("Middle of main function");
 		while (!result->ready())

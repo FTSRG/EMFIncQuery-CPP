@@ -116,7 +116,10 @@ namespace Viatra {
 
 			template<typename RootedQuery>
 			bool QueryRunner<RootedQuery>::ready() {
-				throw "kek";
+				for (auto & collector : topLevelCollectorHolders)
+					if (!collector->finished())
+						return false;
+				return true;
 			}
 					
 		}

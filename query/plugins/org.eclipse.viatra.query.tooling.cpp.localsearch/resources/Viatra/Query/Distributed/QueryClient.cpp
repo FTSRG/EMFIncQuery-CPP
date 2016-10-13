@@ -8,6 +8,7 @@
 #include<iostream>
 
 using namespace Viatra::Query::Distributed;
+using namespace Viatra::Query::Util;
 
 
 QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNode)
@@ -16,32 +17,52 @@ QueryClient::QueryClient(std::string ip, uint16_t port, std::string initiatorNod
 	initiateConnection(initiatorNode);
 
 	thread = std::make_unique<std::thread>([&]() {
-		Util::Logger::SetThisThreadName(Util::concat("ClientProcessor(", ip, ",", port, ")"));
-
-		Client::run();
+		Logger::SetThisThreadName(Util::concat("ClientProcessor(", ip, ",", port, ")"));
+		try {
+			Client::run();
+		}
+		catch (const std::exception& ex)
+		{
+			std::cout << ex.what();
+		}
+		catch (const std::string& ex)
+		{
+			std::cout << ex;
+		}
+		catch (const char *c)
+		{
+			std::cout << c;
+		}
+		catch (...)
+		{
+			std::cout << "Something catched other than std::exception, string, or const char*";
+		}
 	});
 }
 
 void QueryClient::initiateConnection(std::string initiatorNode)
 {
+	Logger::Log("QueryClient::initiateConnection initiatorNode=", initiatorNode);
 	auto rqid = rqidGenerator.generate();
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.set_rqid(rqid);
 	queryRequest.set_msgtype(Protobuf::MsgType::INITIATE_CONNECTION);
 	queryRequest.mutable_initiateconnection()->set_nodename(initiatorNode);
 	sendMessage(queryRequest);
+	Logger::Log("QueryClient::initiateConnection done");
 }
 
 void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 {
+	Logger::Log("QueryClient::startQuerySession sessionID=", sessionID, ", queryID=", queryID );
 	auto rqid = rqidGenerator.generate();
-
 	Protobuf::QueryRequest queryRequest;
 	queryRequest.set_rqid(rqid);
 	queryRequest.set_msgtype(Protobuf::MsgType::START_QUERY_SESSION);
 	queryRequest.mutable_startquerysession()->set_sessionid(sessionID);
 	queryRequest.mutable_startquerysession()->set_queryid(queryID);
 	sendMessage(queryRequest);
+	Logger::Log("QueryClient::startQuerySession done");
 	
 }
 
@@ -53,12 +74,16 @@ void QueryClient::process_message(Network::Buffer message){
 	{
 		case Protobuf::MsgType::INITIATE_CONNECTION: 
 		{
-			std::string msg = queryResponse.mutable_initiateconnectionresponse()->message();
+			auto initiateConnectionResponse = queryResponse.mutable_initiateconnectionresponse();
+			std::string msg = initiateConnectionResponse->message();
 			if (msg == "OK")
+			{
+				Logger::Log("Initiating connection was succesful!");
 				state = State::READY;
+			}
 			else
 			{
-				std::cout << "Error while connecting to other server:\n" + msg + "\n" << std::endl;
+				Logger::Log("Error while connecting to other server:\n" , msg , "\n");
 				errorMessage = msg;
 				state = State::ERROR;
 			}

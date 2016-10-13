@@ -5,11 +5,13 @@
 #include"QueryResultCollector.h"
 #include"QueryTask.h"
 #include"picojson.h"
+#include"../Util/Logger.h"
 
 #include<fstream>
 
 
 using namespace Viatra::Query::Distributed;
+using namespace Viatra::Query::Util;
 
 /*
 {
@@ -124,13 +126,12 @@ QueryServiceBase::~QueryServiceBase()
 
 void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 {
-	Protobuf::QueryRequest request;
-	request.set_rqid(0);
-
-	Network::Buffer buffer(request);
-
-	for (auto & node : remoteNodes)
-		throw "Not implemented QueryService.cpp StartRemoteQuerySessions";//	node.second.client->sendRequest(buffer.copy());
+	Logger::Log("QueryServiceBase::startRemoteQuerySessions");	
+	for (auto & name_node : remoteNodes)
+	{
+		auto & node = name_node.second;
+		node.client->startQuerySession(sessionID, queryID);
+	}		
 }
 
 
@@ -139,7 +140,6 @@ void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& ta
 	TaskID parent = taskID.parent();
 	auto & collectorInfo = localResultCollectors.at(sessionID).at(taskID);
 	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
-
 }
 
 

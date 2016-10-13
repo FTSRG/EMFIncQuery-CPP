@@ -182,7 +182,11 @@ namespace Viatra {
 
 					auto sessionID = querySessionIDGenerator.generate();
 					auto queryID = BindClass::queryID;
-					
+
+					Util::Logger::Log("QueryService::RunNewQuery sessionID=", sessionID, ", queryID=", queryID);
+
+
+					Util::Logger::Log("QueryService::RunNewQuery create QueryRunner");
 					if (queryRunners[sessionID])
 						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator!");
 					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, &modelRoot, this, queryID);
@@ -194,6 +198,7 @@ namespace Viatra {
 					auto future = std::make_shared<QueryFuture<RootedQuery>>(queryRunner);
 					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), BindClass::BuildFrames(params...));
 
+					Util::Logger::Log("QueryService::RunNewQuery ends");
 					return future;
 				}
 

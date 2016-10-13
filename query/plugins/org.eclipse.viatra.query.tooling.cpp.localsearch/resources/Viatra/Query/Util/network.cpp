@@ -39,9 +39,7 @@ namespace Network
 	void Buffer::calculate_header() {
 		encodeInt(len, buf.get());
 	}
-
-
-
+	
 	// 
 	// 
 	//		Server implementation
@@ -71,7 +69,7 @@ namespace Network
 				{
 					if (ec || length != INT_ENCODE_SIZE)
 					{
-						std::cout << "Error: ( ec || length != INT_ENCODE_SIZE ) with ec=" << ec << std::endl;
+						std::cout << "Connection::read_async_msgheader - Error: ( ec || length != INT_ENCODE_SIZE ) with ec=" << ec << std::endl;
 						socket.close();
 						return;
 					}
@@ -86,13 +84,16 @@ namespace Network
 			{
 				Buffer msgBuffer(msgSize);
 				
+				auto data = msgBuffer.data();
+				auto size = msgBuffer.size();
+
 				asio::async_read(socket,
-					asio::buffer(msgBuffer.data(), msgBuffer.size()),
+					asio::buffer(data, size),
 					[this, msgBuffer = std::move(msgBuffer), msgSize](std::error_code ec, std::size_t length) mutable
 				{
 					if (ec || length != msgSize)
 					{
-						std::cout << "Error: ( ec || length != msgSize ) witch ec=" << ec << std::endl;
+						std::cout << "Connection::read_async_msgbody - Error: ( ec || length != msgSize ) with ec=" << ec << std::endl;
 						socket.close();
 						return;
 					}
@@ -163,12 +164,14 @@ namespace Network
 
 	void Server::sendMessage(Connection * c, Buffer message)
 	{				
+		auto framedData = message.framed_data();
+		auto framedSize = message.framed_size();
 		asio::async_write(c->socket,
-			asio::buffer(message.framed_data(), message.framed_size()),
+			asio::buffer(framedData, framedSize),
 			[this, store_message = std::move(message)](std::error_code ec, std::size_t length)
 			{
 				if (ec) {
-					std::cout << "Error during sending message " << ec ;
+					std::cout << "Server::sendMessage - Error during sending message, ec=" << ec ;
 				}
 			});
 		
@@ -212,7 +215,7 @@ namespace Network
 			asio::connect(socket, tcp::resolver::iterator(endpoint_iterator), ec);
 			
 			if (ec) {
-				std::cout << "Error during connection: " << ec << std::endl;
+				std::cout << "Error during connection ClientImpl::connect_async ec=" << ec << std::endl;
 				throw std::string("Error during connection" );
 			}
 
@@ -231,6 +234,7 @@ namespace Network
 			{
 				if (ec || length != INT_ENCODE_SIZE)
 				{
+					std::cout << "ClientImpl::read_async_msgheader error" << std::endl;
 					socket.close();
 					return;
 				}
@@ -245,12 +249,16 @@ namespace Network
 		{
 			Buffer buffer(msgSize);
 
+			auto bufferData = buffer.data();
+			auto bufferSize = buffer.size();
+
 			asio::async_read(socket,
-				asio::buffer(buffer.data(), buffer.size()),
+				asio::buffer(bufferData, bufferSize),
 				[this, messageBuffer = std::move(buffer), msgSize](std::error_code ec, std::size_t length) mutable
 			{
 				if (ec || length != msgSize)
 				{
+					std::cout << "ClientImpl::read_async_msgbody error" << std::endl;
 					socket.close();
 					return;
 				}
@@ -286,12 +294,14 @@ namespace Network
 	
 	void Client::sendMessage(Buffer message)
 	{
+		auto messageFramedData = message.framed_data();
+		auto messageFramedSize = message.framed_size();
 		asio::async_write(impl->socket,
-			asio::buffer(message.framed_data(), message.framed_size()),
+			asio::buffer(messageFramedData, messageFramedSize),
 			[this, keep_message_alive = std::move(message)](std::error_code ec, std::size_t length)
 		{
 			if (ec) {
-				std::cout << "Error during sending message " << ec << std::endl;
+				std::cout << "Error during sending message Client::sendMessage" << ec << std::endl;
 			}
 		});
 

@@ -9,6 +9,7 @@
 #include "QueryRunnerDecl.h"
 
 #include<thread>
+#include<iostream>
 
 namespace Viatra {
 	namespace Query {
@@ -31,12 +32,29 @@ namespace Viatra {
 				~QueryServer();
 
 				void runAsync() {
-					thread = std::unique_ptr<std::thread>(
-						new std::thread([this]() {
-							Util::Logger::SetThisThreadName("Server");
-							Util::Logger::Log("Hello from server thread");
+					thread = std::unique_ptr<std::thread>(new std::thread([this]() {
+						Util::Logger::SetThisThreadName("Server");
+						Util::Logger::Log("Hello from server thread");
+						try{
 							Server::run();
 						}
+						catch (const std::exception& ex)
+						{
+							std::cout << ex.what();
+						}
+						catch (const std::string& ex)
+						{
+							std::cout << ex;
+						}
+						catch (const char *c)
+						{
+							std::cout << c;
+						}
+						catch (...)
+						{
+							std::cout << "Something catched other than std::exception, string, or const char*";
+						}
+					}
 					));
 				}
 				
