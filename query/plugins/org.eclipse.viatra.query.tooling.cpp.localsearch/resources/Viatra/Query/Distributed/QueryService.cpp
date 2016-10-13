@@ -31,7 +31,8 @@ using namespace Viatra::Query::Util;
 QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNodeName)
 {
 	using Util::Logger;
-	Logger::Log("QueryServiceBase");
+	Logger::Log("QueryServiceBase::QueryServiceBase");
+	Logger::Identer id;
 
 	if (localNodeName == std::string())
 		throw std::invalid_argument("local Node must be a non-empty string");
@@ -115,8 +116,10 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNo
 	}
 	catch (...)
 	{
+		Logger::Log("QueryServiceBase::QueryServiceBase - Exception caught, rethrow");
 		throw;
 	}
+	Logger::Log("QueryServiceBase::QueryServiceBase ends");
 }
 
 QueryServiceBase::~QueryServiceBase()
@@ -126,17 +129,36 @@ QueryServiceBase::~QueryServiceBase()
 
 void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 {
-	Logger::Log("QueryServiceBase::startRemoteQuerySessions");	
+	Logger::Log("QueryServiceBase::startRemoteQuerySessions");
+	Logger::Identer id;
 	for (auto & name_node : remoteNodes)
 	{
 		auto & node = name_node.second;
 		node.client->startQuerySession(sessionID, queryID);
 	}		
+
+	auto readyAll = [this, sessionID]() {
+		for (auto & name_node : remoteNodes)
+		{
+			auto & node = name_node.second;
+			if (!node.client->isQuerySessionReady(sessionID))
+				return false;
+		}
+		return true;
+	};
+
+	Logger::Log("QueryServiceBase::startRemoteQuerySessions - Waiting for query sessions to start");
+	while (!readyAll()) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+	Logger::Log("QueryServiceBase::startRemoteQuerySessions - Waiting for query sessions to start... done");
+
 }
 
 
 void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet)
 {
+	Logger::Log("QueryServiceBase::acceptRemoteMatchSet");
 	TaskID parent = taskID.parent();
 	auto & collectorInfo = localResultCollectors.at(sessionID).at(taskID);
 	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
@@ -146,6 +168,7 @@ void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& ta
 // runs on QueryRunner Thread
 void QueryServiceBase::continueQueryRemotely(QueryTaskBase* parentTask, int body, int operation, const std::string& encodedFrameVector)
 {
+	Logger::Log("QueryServiceBase::continueQueryRemotely");
 	for (auto & name_nodeInfo : remoteNodes) {
 		auto & nodeInfo = name_nodeInfo.second;
 		TaskID taskID = parentTask->createRemoteSubtask();

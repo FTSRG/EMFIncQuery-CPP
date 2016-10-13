@@ -29,12 +29,20 @@ int main(int argc, char **argv) {
 		>	service("model.json", argv[1]);
 		
 		using Viatra::Query::Distributedquery::QueryB;
-		auto result = service.RunNewQuery<QueryB, QueryB::NoBind>();
+	
+		if (argv[1] == std::string("nodeA")) {
+			Logger::Log("int main(...) - if (argv[1] == std::string(\"nodeA\"))");
+			auto result = service.RunNewQuery<QueryB, QueryB::NoBind>();
+			while (!result->ready())
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
+		else
+		{
+			for (;;)
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
 
-		Logger::Log("Middle of main function");
-		while (!result->ready())
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-
+		
 		Logger::Log("End of main function");
 	}
 	catch (const std::exception& ex)

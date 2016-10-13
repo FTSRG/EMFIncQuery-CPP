@@ -6,6 +6,7 @@
 #include"Request.h"
 #include"../Util/ConcurrentQueue.h"
 #include"../Util/HierarchicalID.h"
+#include"../Util/Logger.h"
 
 #include<memory>
 #include<atomic>
@@ -25,6 +26,8 @@ namespace Viatra {
 
 			class QueryRunnerBase : public std::enable_shared_from_this<QueryRunnerBase> {
 			protected:
+				using Logger = Viatra::Query::Util::Logger;
+
 				uint64_t sessionID;
 				int queryID;
 				std::atomic<bool> terminated;

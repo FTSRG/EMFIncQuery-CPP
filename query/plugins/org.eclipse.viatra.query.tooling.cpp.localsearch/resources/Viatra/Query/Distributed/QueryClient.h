@@ -26,6 +26,9 @@ namespace Viatra {
 				std::atomic<State> state = State::INITIATING; 
 				std::string errorMessage;
 
+
+				using Lock = std::unique_lock<std::mutex>;
+				std::mutex mutex;
 				std::unordered_set<uint64_t> readyQuerySessions;
 
 				void initiateConnection(std::string initiatorNode);
@@ -40,10 +43,12 @@ namespace Viatra {
 				bool ready() { return state == State::READY; }
 
 				bool isQuerySessionReady(int64_t sessionID) {
+					Lock lck(mutex);
 					return readyQuerySessions.count(sessionID) > 0;
 				}
 
-				bool error(std::string& errorMessage) { 
+				bool error(std::string& errorMessage) {
+					Lock lck(mutex);
 					if (state != State::ERROR)
 						return false;
 					errorMessage = this->errorMessage;

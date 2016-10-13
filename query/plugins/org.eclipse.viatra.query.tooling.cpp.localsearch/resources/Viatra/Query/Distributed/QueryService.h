@@ -172,6 +172,7 @@ namespace Viatra {
 				std::shared_ptr<QueryFuture<RootedQuery>> RunNewQuery(PARAMS... params)
 				{
 					Util::Logger::Log("QueryService::RunNewQuery");
+					Util::Logger::Identer ident;
 
 					static_assert(std::is_same<typename BindClass::QueryClass, QueryClass>::value, 
 						"Bind class must be the query-s bind class!");
@@ -192,13 +193,13 @@ namespace Viatra {
 					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, &modelRoot, this, queryID);
 					queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
 
-					// Start the query runners on the other nodes;
 					startRemoteQuerySessions(sessionID, queryID);
 
+					Util::Logger::Log("QueryService::RunNewQuery create Future object");
 					auto future = std::make_shared<QueryFuture<RootedQuery>>(queryRunner);
+
 					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), BindClass::BuildFrames(params...));
 
-					Util::Logger::Log("QueryService::RunNewQuery ends");
 					return future;
 				}
 

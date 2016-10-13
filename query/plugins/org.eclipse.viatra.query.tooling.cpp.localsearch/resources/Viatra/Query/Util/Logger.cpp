@@ -4,11 +4,18 @@
 #include<iostream>
 #include<mutex>
 
-std::mutex Viatra::Query::Util::Logger::mutex;
+std::recursive_mutex Viatra::Query::Util::Logger::mutex;
+int Viatra::Query::Util::Logger::nextUnnamedID;
 
 std::map<std::thread::id, std::string>& Viatra::Query::Util::Logger::threadNames()
 {
 	static std::map<std::thread::id, std::string> map; 
+	return map;
+}
+
+std::map<std::thread::id, std::string>& Viatra::Query::Util::Logger::threadIdents()
+{
+	static std::map<std::thread::id, std::string> map;
 	return map;
 }
 
