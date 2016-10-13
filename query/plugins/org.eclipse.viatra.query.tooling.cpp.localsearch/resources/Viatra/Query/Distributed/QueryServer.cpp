@@ -86,13 +86,16 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 		break;
 		
 		case Protobuf::MsgType::CONTINUE_QUERY_SESSION: {
-			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION rqid=", queryRequest.rqid());
 			auto & request = queryRequest.continuequerysession();
-
+			TaskID taskID = request.taskid();
+			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION taskID=", taskID);
+			
+			/*
 			bool nodeAndConnectionMatches = service->checkNodeConnection(request.nodename(), connection);
 
 			if ( !nodeAndConnectionMatches)
 			{
+				Util::Logger::Log("QueryServer::process_message -- ERROR: Nodename not matching with the connection");
 				Protobuf::QueryResponse queryResponse;
 				queryResponse.set_rqid(queryRequest.rqid());
 				queryResponse.set_msgtype(queryRequest.msgtype());
@@ -100,16 +103,17 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 
 			}
 			else
-			{
-				service->continueQueryLocally(
-					Request{connection, queryRequest.rqid()},
-					request.sessionid(),
-					request.taskid(),
-					request.bodyindex(),
-					request.operationindex(),
-					request.frameasstring()
-					);
-			}
+			{*/
+			Util::Logger::Log("QueryServer::process_message -- service->continueQueryLocally");
+			service->continueQueryLocally(
+				Request{connection, queryRequest.rqid()},
+				request.sessionid(),
+				request.taskid(),
+				request.bodyindex(),
+				request.operationindex(),
+				request.frameasstring()
+				);
+			
 		}
 
 		break;

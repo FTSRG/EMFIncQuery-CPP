@@ -36,90 +36,96 @@ QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNo
 
 	if (localNodeName == std::string())
 		throw std::invalid_argument("local Node must be a non-empty string");
-	try {
 
-		Logger::Log("Processing json");
+	Logger::Log("Processing json");
 
-		std::ifstream ifs(configJSON);
-		picojson::value root;
-		std::string err = picojson::parse(root, ifs);
-		if (!err.empty()) {
-			throw "JSON parse error: " + err;
-		}
-
-		this->nodeName = "";
-		auto nodeArray = root.get("nodes").get<picojson::value::array>();
-		for (auto & node : nodeArray)
-		{
-			auto name = node.get("name").get<std::string>();
-			auto ip = node.get("ip").get<std::string>();
-			auto port = node.get("port").get<int64_t>();
-			auto IDGenStart = node.get("IDGenStart").get<int64_t>();
-			auto IDGenMod = node.get("IDGenMod").get<int64_t>();
-
-			if (name == localNodeName)
-			{
-				Logger::Log("Local node found:", name);
-				if (this->nodeName != "")
-					throw std::logic_error("The node configuration file contains multiple nodes with the same name");
-				this->nodeName = name;
-				this->querySessionIDGenerator.reconfigurate(IDGenStart, IDGenMod);
-
-				this->server = std::make_unique<QueryServer>((uint16_t)port, this);
-
-			}
-			else
-			{
-				Logger::Log("Remote node found:", name);
-				if (remoteNodes.count(name) > 0)
-					throw std::logic_error("The node configuration file contains multiple nodes with the same name");
-
-				auto & nodeInfo = remoteNodes[name];
-				nodeInfo.name = name;
-				nodeInfo.ip = ip;
-				nodeInfo.port = (uint16_t)port;
-			}
-		}
-
-		Logger::Log("Starting the server...");
-		server->runAsync();
-		Logger::Log("Server started");
-
-		using std::chrono::system_clock;
-		std::chrono::seconds timeout(60);
-		system_clock::time_point start = system_clock::now();
-
-		Logger::Log("Starting the clients...");
-		for (auto & name_node : remoteNodes)
-		{
-			auto & nodeInfo = name_node.second;
-
-			while (true)
-			{
-				try {
-					nodeInfo.client = std::make_unique<QueryClient>(nodeInfo.ip, (uint16_t)nodeInfo.port, this->nodeName, this);
-					break;
-				}
-				catch (...)
-				{
-					if (system_clock::now() - start > timeout)
-					{
-						server = nullptr;
-						throw;
-					}
-				}
-			}
-		}
-
-		Logger::Log("Clients started...");
-
+	std::ifstream ifs(configJSON);
+	picojson::value root;
+	std::string err = picojson::parse(root, ifs);
+	if (!err.empty()) {
+		throw "JSON parse error: " + err;
 	}
-	catch (...)
+
+	this->nodeName = "";
+	auto nodeArray = root.get("nodes").get<picojson::value::array>();
+	for (auto & node : nodeArray)
 	{
-		Logger::Log("QueryServiceBase::QueryServiceBase - Exception caught, rethrow");
-		throw;
+		auto name = node.get("name").get<std::string>();
+		auto ip = node.get("ip").get<std::string>();
+		auto port = node.get("port").get<int64_t>();
+		auto IDGenStart = node.get("IDGenStart").get<int64_t>();
+		auto IDGenMod = node.get("IDGenMod").get<int64_t>();
+
+		if (name == localNodeName)
+		{
+			Logger::Log("Local node found:", name);
+			if (this->nodeName != "")
+				throw std::logic_error("The node configuration file contains multiple nodes with the same name");
+			this->nodeName = name;
+			this->querySessionIDGenerator.reconfigurate(IDGenStart, IDGenMod);
+
+			this->server = std::make_unique<QueryServer>((uint16_t)port, this);
+
+		}
+		else
+		{
+			Logger::Log("Remote node found:", name);
+			if (remoteNodes.count(name) > 0)
+				throw std::logic_error("The node configuration file contains multiple nodes with the same name");
+
+			auto & nodeInfo = remoteNodes[name];
+			nodeInfo.name = name;
+			nodeInfo.ip = ip;
+			nodeInfo.port = (uint16_t)port;
+		}
 	}
-	Logger::Log("QueryServiceBase::QueryServiceBase ends");
+
+}
+
+void QueryServiceBase::start()
+{
+	Logger::Log("Starting the server...");
+	server->runAsync();
+	Logger::Log("Server started");
+
+	using std::chrono::system_clock;
+	std::chrono::seconds timeout(60);
+	system_clock::time_point start = system_clock::now();
+
+	Logger::Log("Starting the clients...");
+	for (auto & name_node : remoteNodes)
+	{
+		auto & nodeInfo = name_node.second;
+
+		while (true)
+		{
+			try {
+				nodeInfo.client = std::make_unique<QueryClient>(nodeInfo.ip, (uint16_t)nodeInfo.port, this->nodeName, this);
+				break;
+			}
+			catch (...)
+			{
+				if (system_clock::now() - start > timeout)
+				{
+					server = nullptr;
+					throw;
+				}
+			}
+		}
+	}
+	Logger::Log("Waiting for client response");
+	for (auto & name_node : remoteNodes)
+	{
+		auto & nodeInfo = name_node.second;
+
+		while (!nodeInfo.client->ready())
+		{
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+			if (system_clock::now() - start > timeout)
+				std::string("Waiting for clients timeouted");			
+		}
+	}
+	Logger::Log("Clients started...");
 }
 
 QueryServiceBase::~QueryServiceBase()

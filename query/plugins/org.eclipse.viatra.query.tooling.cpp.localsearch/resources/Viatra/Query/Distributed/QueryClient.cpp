@@ -68,11 +68,12 @@ void QueryClient::startQuerySession(uint64_t sessionID, int queryID)
 	queryRequest.mutable_startquerysession()->set_sessionid(sessionID);
 	queryRequest.mutable_startquerysession()->set_queryid(queryID);
 	sendMessage(Network::Buffer(queryRequest));
+	waitingQuerySessions.insert(sessionID);
 }
 
 void QueryClient::continueQuerySession(const std::string& localNodeName, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frameVectorStr)
 {
-	Logger::Log("QueryClient::continueQuerySession");
+	Logger::Log("QueryClient::continueQuerySession sessionID=", sessionID, ", taskID=", taskID);
 	Logger::Identer();
 	auto rqid = rqidGenerator.generate();
 	Protobuf::QueryRequest queryRequest;
@@ -132,7 +133,7 @@ void QueryClient::process_message(Network::Buffer message){
 				Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::START_QUERY_SESSION -- OK");
 
 				Lock lck(mutex);
-				readyQuerySessions.insert(queryResponse.mutable_startquerysessionresponse()->sessionid());
+				waitingQuerySessions.erase(queryResponse.mutable_startquerysessionresponse()->sessionid());
 			}
 			else
 			{

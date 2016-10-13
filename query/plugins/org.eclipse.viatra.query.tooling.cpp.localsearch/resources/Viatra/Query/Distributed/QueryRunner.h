@@ -29,6 +29,7 @@ namespace Viatra {
 
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::addStartTask(std::weak_ptr<QueryFutureBase> future, int body, std::string encodedFrameVector) {
+				Lock lck(futureMutex);
 				Logger::Log("QueryRunner::addStartTask");
 				Logger::Identer ident;
 
@@ -64,7 +65,7 @@ namespace Viatra {
 						try {
 							Logger::Log("QueryRunner::run -- try to pop task from queue");
 							auto task = std::move(localTasks.pop(std::chrono::milliseconds(100)));
-							Logger::Log("QueryRunner::run -- task obtained");
+							Logger::Log("QueryRunner::run -- task obtained id=", task.id);
 
 							currentTask = &task;
 
@@ -121,6 +122,7 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::addTask(TaskID taskID, int body, int operation, std::string frame, const Request& request)
 			{
+				Lock lck(futureMutex);
 				Logger::Log("QueryRunner::addTask");
 				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
 				std::shared_ptr<QueryResultCollector<RootedQuery>> shared_collector(collector);
@@ -172,6 +174,7 @@ namespace Viatra {
 
 			template<typename RootedQuery>
 			bool QueryRunner<RootedQuery>::ready() {
+				Lock lck(futureMutex);
 				Logger::Log("QueryRunner::ready");
 				for (auto & collector : topLevelCollectorHolders)
 				{

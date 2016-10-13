@@ -2,11 +2,12 @@
 #ifndef _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_34r12413__
 #define _VIATRA_QUERY_DISTRIBUTED_QUERYSERVICE_H_34r12413__
 
-#include<memory>
-#include<unordered_set>
-#include<mutex>
+
 #include<map>
+#include<mutex>
+#include<atomic>
 #include<future>
+#include<memory>
 #include<unordered_set>
 
 #include"../Model/IModelElemService.h"
@@ -35,7 +36,7 @@ namespace Viatra {
 				// The client for the server on the remote node
 				std::unique_ptr<QueryClient> client;
 				// The Connection in our server to the remote node
-				Network::Connection * connection;
+			//	std::atomic<Network::Connection*> connection = nullptr;
 			};
 
 			// Information struct about the collection of results of a subtask
@@ -69,6 +70,8 @@ namespace Viatra {
 				QueryServiceBase(const char *configJSON, const char * nodeName);
 				~QueryServiceBase();
 			protected:
+				using Logger = Util::Logger;
+
 				using Lock = std::unique_lock<std::recursive_mutex>;
 				std::recursive_mutex mutex;
 				std::map<std::string, NodeInfo> remoteNodes;
@@ -89,6 +92,8 @@ namespace Viatra {
 				}
 
 			public:
+				void start();
+
 				void registerSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
 				{
 					Lock lck(mutex);
@@ -108,20 +113,22 @@ namespace Viatra {
 					return "OK";
 				}
 
+				/***
 				bool checkNodeConnection(std::string nodeName, Network::Connection * connection)
 				{
 					Lock lck(mutex);
 					auto find = remoteNodes.find(nodeName);
 					if (find == remoteNodes.end())
 						return false;
-					return find->second.connection == connection;
-				}
+					
+				}*/
 				
 				// runs on Server Thread
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) = 0;
 				// runs on Server Thread
 				void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame)
 				{
+					Logger::Log("QueryServiceBase::continueQueryLocally");
 					Lock lck(mutex);
 					auto runner = queryRunners.at(sessionID);
 					runner->addTask(taskID, body, operation, frame, request);

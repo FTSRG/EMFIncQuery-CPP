@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
 		Viatra::Query::Distributedquery::QueryRunnerFactory
 	>	service("model.json", argv[1]);
 		
+	service.start();
 
 	try {
 

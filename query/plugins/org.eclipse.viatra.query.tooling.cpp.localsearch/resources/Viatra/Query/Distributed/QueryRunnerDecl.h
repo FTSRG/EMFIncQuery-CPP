@@ -34,6 +34,9 @@ namespace Viatra {
 				std::atomic<bool> _ready = false;
 				std::unique_ptr<std::thread> runnerThread;
 
+				using Lock = std::unique_lock<std::mutex>;
+				std::mutex futureMutex;
+
 			public:
 				QueryRunnerBase(uint64_t sessionID, int queryID);
 				virtual ~QueryRunnerBase();
@@ -83,6 +86,7 @@ namespace Viatra {
 				// Custom thread
 				virtual void addTask(TaskID taskID, int body, int operation, std::string frame, const Request& request) override;
 
+				// custom thread
 				virtual bool ready()override;
 
 				// start global querying and returns a future to access the results of the query

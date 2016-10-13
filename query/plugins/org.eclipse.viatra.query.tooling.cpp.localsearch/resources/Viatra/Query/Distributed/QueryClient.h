@@ -33,7 +33,7 @@ namespace Viatra {
 
 				using Lock = std::unique_lock<std::mutex>;
 				std::mutex mutex;
-				std::unordered_set<uint64_t> readyQuerySessions;
+				std::unordered_set<uint64_t> waitingQuerySessions;
 
 				void initiateConnection(std::string initiatorNode);
 				virtual void process_message(Network::Buffer message)override final;
@@ -49,7 +49,7 @@ namespace Viatra {
 
 				bool isQuerySessionReady(int64_t sessionID) {
 					Lock lck(mutex);
-					return readyQuerySessions.count(sessionID) > 0;
+					return waitingQuerySessions.count(sessionID) == 0;
 				}
 
 				bool error(std::string& errorMessage) {
