@@ -74,6 +74,8 @@ namespace Viatra {
 
 				using Lock = std::unique_lock<std::recursive_mutex>;
 				std::recursive_mutex mutex;
+
+				// This map is fixed after construction, only the value's fields changes
 				std::map<std::string, NodeInfo> remoteNodes;
 
 				std::string nodeName;
@@ -83,7 +85,10 @@ namespace Viatra {
 				std::map< uint64_t , std::shared_ptr<QueryRunnerBase> > queryRunners;
 
 				// ResultCollectors for remote tasks
-				std::map< uint64_t /* sessionID*/, std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > > localResultCollectorInfos;
+				std::map< 
+					uint64_t /* sessionID*/, 
+					std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > 
+				> localResultCollectorInfos;
 				
 				void registerTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::weak_ptr<QueryFutureBase> future)
 				{

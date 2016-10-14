@@ -151,9 +151,13 @@ void QueryClient::process_message(Network::Buffer message){
 			if (continueQuerySessionResponse->status() == "OK") {
 				Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::CONTINUE_QUERY_SESSION");
 				int64_t sessionID = continueQuerySessionResponse->sessionid();
+				Logger::Log("QueryClient::process_message -- aaaa");
 				TaskID taskID = continueQuerySessionResponse->taskid();
+				Logger::Log("QueryClient::process_message -- sssss");
 				std::string resultMatchSet = continueQuerySessionResponse->resultmatchset();
+				Logger::Log("QueryClient::process_message -- dddd");
 				service->acceptRemoteMatchSet(sessionID, taskID, resultMatchSet);
+				Logger::Log("QueryClient::process_message -- eeee");
 			}
 			else
 			{

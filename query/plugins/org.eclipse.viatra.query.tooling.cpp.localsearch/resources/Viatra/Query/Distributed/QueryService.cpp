@@ -164,10 +164,28 @@ void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 
 void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet)
 {
-	Logger::Log("QueryServiceBase::acceptRemoteMatchSet");
+	Lock lck;
 	TaskID parent = taskID.parent();
-	auto & collectorInfo = localResultCollectorInfos.at(sessionID).at(taskID);
-	collectorInfo->collector->addRemoteMatches(encodedMatchSet, taskID);
+
+	Logger::Log("QueryServiceBase::acceptRemoteMatchSet", taskID, " --> ", parent);
+	Logger::ThreadTest(std::chrono::seconds(5));
+
+	auto & it = localResultCollectorInfos.find(sessionID);
+
+	if (it == localResultCollectorInfos.end())
+	{
+		Logger::Log("There is no such session so processing the incoming match result is impossible");
+		throw std::logic_error("There is no such session so processing the incoming match result is impossible");
+	}
+	auto & collectorInfoIt = it->second.find(parent);
+	if (collectorInfoIt == it->second.end())
+	{
+		Logger::Log("The parent task is not in the collector map, so it cannot be processsed");
+		throw std::logic_error("The parent task is not in the collector map, so it cannot be processsed");
+	}
+
+
+	collectorInfoIt->second->collector->addRemoteMatches(encodedMatchSet, taskID);
 }
 
 
@@ -176,8 +194,8 @@ void QueryServiceBase::continueQueryRemotely(uint64_t sessionID, QueryTaskBase* 
 {
 	Logger::Log("QueryServiceBase::continueQueryRemotely");
 	for (auto & name_nodeInfo : remoteNodes) {
-		auto & nodeInfo = name_nodeInfo.second;
 		TaskID taskID = parentTask->createRemoteSubtask();
+		auto & nodeInfo = name_nodeInfo.second;
 		nodeInfo.client->continueQuerySession(nodeName, sessionID, taskID, body, operation, encodedFrameVector);
 
 	}

@@ -23,7 +23,6 @@ namespace Viatra {
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector) {
 				Logger::Log("QueryRunner::PropagateFrameVector");
-				TaskID taskID = currentTask->createRemoteSubtask();
 				queryService->continueQueryRemotely(sessionID, currentTask, body, operation, encodedFrameVector);
 			}
 
