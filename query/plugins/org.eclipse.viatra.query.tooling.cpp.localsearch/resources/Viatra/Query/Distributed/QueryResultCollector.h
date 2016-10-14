@@ -89,17 +89,22 @@ namespace Viatra {
 						service->notifyCollectionDone(sessionID, taskID);
 				}
 
-				void addRemoteMatches(const std::string& encodedMatches, const TaskID& taskID) override
+				void addRemoteMatches(const std::string& encodedMatches, const TaskID& childTaskID) override
 				{
 					Lock lck(mutex);
 					Util::Logger::Log("QueryResultCollector::addRemoteMatches");
+					Util::Logger::Identer ident;
+
 					MatchSet::ParseFromStringCallback(encodedMatches, modelRoot, [this](const Match& match) {
 						matches.insert(match);
 					});
-					Util::Logger::Log("QueryResultCollector::addRemoteMatches - erasing taskid from remote matches");
-					remoteRunningTasks.erase(taskID);
-					if (finished())
+					Util::Logger::Log("QueryResultCollector::addRemoteMatches - erasing taskid(", childTaskID, ") from remote matches");
+					remoteRunningTasks.erase(childTaskID);
+					if (finished()) {
+						Util::Logger::Log("collector is finished, notify service");
 						service->notifyCollectionDone(sessionID, taskID);
+					}
+						
 						
 				}
 

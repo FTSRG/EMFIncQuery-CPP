@@ -204,13 +204,18 @@ void QueryServiceBase::continueQueryRemotely(uint64_t sessionID, QueryTaskBase* 
 void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& taskID)
 {
 	Lock lck(mutex);
-	auto & collectorInfo = localResultCollectorInfos[sessionID][taskID];
+	Util::Logger::Log("QueryServiceBase::notifyCollectionDone");
+	Util::Logger::Identer();
+
+	auto & collectorInfo = localResultCollectorInfos[sessionID].at(taskID);
 	if (collectorInfo->remote)
 	{
+		Util::Logger::Log("server->sendMatchResults");
 		server->sendMatchResults(collectorInfo->rq, "OK", sessionID, taskID, collectorInfo->collector->matchesAsString());
 	}
 	else
 	{
+		Util::Logger::Log("notify future");
 		auto future = collectorInfo->future.lock();
 		future->notifyCollectionDone();
 	}
