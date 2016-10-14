@@ -45,6 +45,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		includes += oneOfTheMatchingFrames.allTypes.map[strictType].map[
 			switch it {
 				EClass: Include::fromEClass(it)
+				EEnum: Include::fromEEnum(it)
 				EDataType: if(it.name.toLowerCase.contains("string")) new Include("string", true)
 				default: null
 			}

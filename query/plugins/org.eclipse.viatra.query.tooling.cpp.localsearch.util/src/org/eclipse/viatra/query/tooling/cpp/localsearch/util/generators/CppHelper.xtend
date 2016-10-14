@@ -53,6 +53,12 @@ class CppHelper {
 				new IncludeHelper(it)
 			])
 			
+	static val LoadingCache<EEnum, IncludeHelper> enumIncludeCache = CacheBuilder.newBuilder.maximumSize(1000).
+	expireAfterWrite(1, TimeUnit.MINUTES).build(
+		[
+			new IncludeHelper(it)
+		])
+			
 	static val LoadingCache<EClassifier, TypeHelper> typeCache = CacheBuilder.newBuilder.maximumSize(1000).
 		expireAfterWrite(1, TimeUnit.MINUTES).build(
 			[
@@ -79,9 +85,14 @@ class CppHelper {
 		includeCache.get(eClass)
 	}
 	
+	def static getEnumIncludeHelper(EEnum eEnum) {
+		enumIncludeCache.get(eEnum)
+	}
+	
 	def static getTypeHelper(EClassifier classifier) {
 		typeCache.get(classifier)
 	}
+	
 }
 
 class GuardHelper {
@@ -186,10 +197,17 @@ class AssociationHelper {
 
 class IncludeHelper {
 	
-	val EClass namedElement
+	val ENamedElement namedElement
 	val String stringRepresentation
 	
 	new(EClass namedElement) {
+		this.namedElement = namedElement
+		
+		val ns = NamespaceHelper::getNamespaceHelper(namedElement)
+		stringRepresentation = '''«ns.toString('/')»/«namedElement.name.h»'''
+	}
+	
+	new(EEnum namedElement) {
 		this.namedElement = namedElement
 		
 		val ns = NamespaceHelper::getNamespaceHelper(namedElement)

@@ -12,6 +12,7 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EEnum
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
@@ -42,12 +43,12 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 		includes += matchingFrame.allTypes.map[looseType].map[
 			switch it {
 				EClass: Include::fromEClass(it)
+				EEnum: Include::fromEEnum(it)
 				EDataType: if(it.name.toLowerCase.contains("string")) new Include("string", true)
 				default: null
 			}
 		].filterNull
 		includes += new Include("Viatra/Query/Util/Convert.h", true);
-		includes += Include::EnumHelper
 		includes += new Include("stdint.h", true);
 		includes += new Include("vector", true);
 		includes += new Include("proto_gen.pb.h", false);		
@@ -115,7 +116,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 		}
 		'''
 	def generateToString() '''
-		// Serialization and deserialization
+		// toString
 		
 		std::string toString()
 		{
