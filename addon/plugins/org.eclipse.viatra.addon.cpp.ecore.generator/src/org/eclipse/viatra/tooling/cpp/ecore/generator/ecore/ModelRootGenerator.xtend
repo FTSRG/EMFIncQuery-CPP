@@ -191,7 +191,7 @@ class ModelRootGenerator {
 														for(size_t i = 0 ; i < as_array.size() ; ++i)
 														{
 															«IF attribType instanceof EEnum»
-																as_vector[i] = EnumHelper<«attribTypeFQN»>::ParseFromString(as_array[i].get<«jsonType»>());
+																as_vector[i] = ::«pack.name»::EnumHelper<«attribTypeFQN»>::ParseFromString(as_array[i].get<«jsonType»>());
 															«ELSEIF attribType.name == "EChar"»
 																as_vector[i] = as_array[i].get<«jsonType»>()[0];
 															«ELSE»
@@ -204,7 +204,7 @@ class ModelRootGenerator {
 													if( attrib_elem.is<«jsonType»>() )
 													{
 														«IF attribType instanceof EEnum»
-															modelElement->«attribHelper.setterName»( EnumHelper<«attribTypeFQN»>::ParseFromString(attrib_elem.get<«jsonType»>()) );
+															modelElement->«attribHelper.setterName»( ::«pack.name»::EnumHelper<«attribTypeFQN»>::ParseFromString(attrib_elem.get<«jsonType»>()) );
 														«ELSEIF attribType.name == "EChar"»
 															modelElement->«attribHelper.setterName»( attrib_elem.get<«jsonType»>()[0] );
 														«ELSE»
