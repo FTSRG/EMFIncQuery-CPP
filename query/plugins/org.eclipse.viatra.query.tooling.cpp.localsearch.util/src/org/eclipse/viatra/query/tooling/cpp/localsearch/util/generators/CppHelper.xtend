@@ -273,7 +273,7 @@ class ClassHelper implements TypeHelper {
 		'''«FQN»*'''
 		
 	override cppToString(String variableName) 
-		'''Viatra::Query::Util::Convert::ToString(«variableName»->id())'''
+		'''(«variableName» == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(«variableName»->id()))'''
 	
 	
 }

@@ -72,8 +72,9 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 		case Protobuf::MsgType::START_QUERY_SESSION: {
 			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::START_QUERY_SESSION rqid=", queryRequest.rqid());
 			Util::Logger::Identer ident2;
-			auto & request = queryRequest.startquerysession();
-			auto responseMessage = service->startLocalQuerySession(request.sessionid(), request.queryid());
+			auto & startQuerySession = queryRequest.startquerysession();
+			Util::Logger::Log("case Protobuf::MsgType::START_QUERY_SESSION queryID=", startQuerySession.queryid(), ", sessionID=", startQuerySession.sessionid());
+			auto responseMessage = service->startLocalQuerySession(startQuerySession.sessionid(), startQuerySession.queryid());
 
 			Protobuf::QueryResponse queryResponse;
 			queryResponse.set_rqid(queryRequest.rqid());

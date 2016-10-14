@@ -33,6 +33,8 @@ int main(int argc, char **argv) {
 	try {
 
 		using Viatra::Query::Distributedquery::QueryA;
+		using Viatra::Query::Distributedquery::QueryB;
+		using Viatra::Query::Distributedquery::QueryC;
 	
 		if (argv[1] == std::string("nodeA")) {
 			Logger::Log("int main(...) -- if (argv[1] == std::string(\"nodeA\"))");

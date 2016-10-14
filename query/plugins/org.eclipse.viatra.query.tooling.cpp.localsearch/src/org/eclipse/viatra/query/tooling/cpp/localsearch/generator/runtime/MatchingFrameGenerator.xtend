@@ -117,15 +117,21 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 	def generateToString() '''
 		// toString
 		
-		std::string toString()
+		std::string toString() const
 		{
+			«var first = true»
 			std::string ret = "[";
-			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)] SEPARATOR "\nret += ',';"»
+			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»
 				«val cppHelper = CppHelper::getTypeHelper(type)»
 				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
+				«IF first»
 				ret += "«param.name»=";
+				«ELSE»
+				ret += ",«param.name»=";
+				«ENDIF»
 				ret += «cppHelper.cppToString(varName)»;
+				«first = false»
 			«ENDFOR»
 
 			return ret + ']';

@@ -96,7 +96,7 @@ public:
 	{
 		if (_subFrames != nullptr)
 			(*_subFrames)[_operationIndex].push_back(frame);
-		return false;
+		return true;	// querying simply continues locally too
 	}
 
 };
