@@ -32,19 +32,30 @@ class EEnumGenerator {
 		«val guard = CppHelper::getGuardHelper(Joiner.on('_').join(NamespaceHelper::getNamespaceHelper(eenum)) + '_' + eenum.name)»
 		«guard.start»
 		
+		#include"EnumHelper.h"
+		#include<string>
+		
 		«val ns = NamespaceHelper::getNamespaceHelper(eenum)»
 		«FOR namespaceFragment : ns»
 			namespace «namespaceFragment» {
 		«ENDFOR»	
-			
-			enum «eenum.name» : int {
-				«eenum.getELiterals().map[toLiteralValueForm].join(",\n")»				
-			};
-			
+		
+		enum «eenum.name» : int {
+			«eenum.getELiterals().map[toLiteralValueForm].join(",\n")»				
+		};
+
+		«eenum.specializeEnumHelper»
+		
+		«val fqn = CppHelper::getTypeHelper(eenum).FQN»
+		inline const char* ToString(«fqn» value)
+		{
+			return EnumHelper<«fqn»>::ToString(value);
+		}
+
 		«FOR namespaceFragment : ns»
 			} /* namespace «namespaceFragment» */
 		«ENDFOR»
-		
+
 		«guard.end»
 		'''
 		
@@ -64,9 +75,15 @@ class EEnumGenerator {
 		
 		#include<string>
 		
+		«val ns = NamespaceHelper::getNamespaceHelper(enums.head)»
+		«FOR namespaceFragment : ns»
+			namespace «namespaceFragment» {
+		«ENDFOR»	
+		
+		
 		template<typename T>
 		struct EnumHelper{
-			static std::string ToString(T t)
+			static const char* ToString(T t)
 			{
 				throw "EnumHelper undefined for type";
 			}
@@ -77,17 +94,18 @@ class EEnumGenerator {
 			}
 		};
 		
-		«enums.map[compileEnumHelperEnum].join(",\n")»
+		«FOR namespaceFragment : ns»
+			} /* namespace «namespaceFragment» */
+		«ENDFOR»
 		
 		«guard.end»
 		'''
 	
-	static def compileEnumHelperEnum(EEnum eenum) '''
+	static def specializeEnumHelper(EEnum eenum) '''
 		«val fqn = CppHelper::getTypeHelper(eenum).FQN»
-		#include "«eenum.name».h"
 		template<>
 		struct EnumHelper< «fqn»> {
-			static std::string ToString(«fqn» x)
+			static const char* ToString(«fqn» x)
 			{
 				switch (x)
 				{

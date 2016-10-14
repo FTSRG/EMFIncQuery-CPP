@@ -88,7 +88,6 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 	
 	def generateFrameSerialization() '''
 		// Serialization and deserialization
-		
 		std::string SerializeAsString()
 		{
 			PB_«unitName» pbframe;
@@ -98,16 +97,16 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
 				«ProtobufHelper::setProtobufVar("pbframe", "", varName, type)»
 			«ENDFOR»
-
+			
 			return pbframe.SerializeAsString();
 		}
-	
+			
 		template<typename ModelRoot>
 		void ParseFromString(std::string str, ModelRoot *mr)
 		{
 			PB_«unitName» pbframe;
 			pbframe.ParseFromString(str);
-	
+			
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
 				«val type = matchingFrame.getVariableLooseType(param)»
 				«val name = param.variableName.toString»
@@ -120,29 +119,16 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 		
 		std::string toString()
 		{
-			std::string ret = [;
+			std::string ret = "[";
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)] SEPARATOR "\nret += ',';"»
 				«val type = matchingFrame.getVariableLooseType(param)»
 				«val cppHelper = CppHelper::getTypeHelper(type)»
 				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
 				ret += "«param.name»=";
-				ret += «cppHelper.cppToString(varName)»
+				ret += «cppHelper.cppToString(varName)»;
 			«ENDFOR»
 
 			return ret + ']';
-		}
-	
-		template<typename ModelRoot>
-		void ParseFromString(std::string str, ModelRoot *mr)
-		{
-			PB_«unitName» pbframe;
-			pbframe.ParseFromString(str);
-	
-			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-				«val type = matchingFrame.getVariableLooseType(param)»
-				«val name = param.variableName.toString»
-				«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
-			«ENDFOR»
 		}
 		'''
 

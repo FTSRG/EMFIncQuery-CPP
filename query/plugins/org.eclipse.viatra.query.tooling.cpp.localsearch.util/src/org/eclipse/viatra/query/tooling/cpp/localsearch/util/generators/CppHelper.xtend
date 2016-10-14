@@ -273,7 +273,7 @@ class ClassHelper implements TypeHelper {
 		'''«FQN»*'''
 		
 	override cppToString(String variableName) 
-		'''Viatra::Query::Util::Convert::ToString(«variableName».id())'''
+		'''Viatra::Query::Util::Convert::ToString(«variableName»->id())'''
 	
 	
 }
@@ -311,7 +311,7 @@ class EnumHelper implements TypeHelper {
 	}
 	
 	override cppToString(String variableName) 
-		'''EnumHelper<«fqn»>::ToString(«variableName»)'''
+		'''ToString(«variableName»)'''
 }
 
 class PrimitiveTypeHelper implements TypeHelper {
@@ -367,6 +367,10 @@ class PrimitiveTypeHelper implements TypeHelper {
 	}
 	
 	override cppToString(String variableName) 
-		'''Viatra::Query::Util::Convert::ToString(«variableName»)'''
-	
+	{
+		if("EString".equals(eDataType.name))
+			'''«variableName»'''
+		else
+			'''Viatra::Query::Util::Convert::ToString(«variableName»)'''
+	}
 }
