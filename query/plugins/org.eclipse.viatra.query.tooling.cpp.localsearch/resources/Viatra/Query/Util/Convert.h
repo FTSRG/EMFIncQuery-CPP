@@ -13,13 +13,11 @@ namespace Viatra {
 
 				static inline std::string ToString(int i)
 				{
-					Util::Logger::Log("inner ToString begin");
 					const int n = 100;
 					char buffer[n];
 					char *ptr = buffer;
 
 					std::string ret(ptr, snprintf(ptr, n-1, "%d", i));
-					Util::Logger::Log("inner ToString end");
 					return ret;
 				}
 
