@@ -25,7 +25,7 @@ namespace Viatra {
 				Logger::Log("QueryRunner::PropagateFrameVector");
 				queryService->continueQueryRemotely(sessionID, currentTask, body, operation, encodedFrameVector);
 			}
-
+			
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::addStartTask(std::weak_ptr<QueryFutureBase> future, int body, std::string encodedFrameVector) {
 				Lock lck(futureMutex);
@@ -39,8 +39,7 @@ namespace Viatra {
 
 				Logger::Log("QueryRunner::addStartTask -- registering toplevel result collector");
 				queryService->registerTopLevelResultCollector(sessionID, taskID, std::static_pointer_cast<QueryResultCollectorBase>(shared_collector), future);
-				topLevelCollectorHolders.push_back(shared_collector);
-				topLevelCollectors.push_back(collector);
+				topLevelCollectors.push_back(shared_collector);
 
 				Logger::Log("QueryRunner::addStartTask -- Instantiate task");
 				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, shared_collector);
@@ -133,7 +132,6 @@ namespace Viatra {
 				localTasks.push(std::move(task));
 			}
 
-
 			// start global querying and returns a future to access the results of the query
 			template<typename RootedQuery>
 			void QueryRunner<RootedQuery>::startGlobalQuery( std::weak_ptr<QueryFutureBase> future, typename RootedQuery::BindInfo bindInfo) {
@@ -169,21 +167,42 @@ namespace Viatra {
 				});
 			}
 
+			template<typename RootedQuery>
+			typename QueryRunner<RootedQuery>::MatchSet QueryRunner<RootedQuery>::getResultMatchSet()
+			{
+				Lock lck(futureMutex);
+				Util::Logger::Log("readyCV.wait(...);");
+				readyCV.wait(lck, [this] {
+					Util::Logger::Log("Ready predicate wake");
+					return _ready.load(); 
+				});
 
+				MatchSet ret;
+				for (auto && collector : topLevelCollectors)
+				{
+					MatchSet matchSet(collector->obtainMatches());
+					for (auto && match : matchSet)
+						ret.insert(match);
+				}
+
+				Util::Logger::Log("readyCV.wait(...); ready!");
+				return ret;
+			}
 
 			template<typename RootedQuery>
-			bool QueryRunner<RootedQuery>::ready() {
-				Lock lck(futureMutex);
-				Logger::Log("QueryRunner::ready");
-				for (auto & collector : topLevelCollectorHolders)
+			void QueryRunner<RootedQuery>::notifyCollectionDone() {
 				{
-					if (!collector->finished()) {
-						Logger::Log("QueryRunner::ready -- false");
-						return false;
-					}
+					Lock lck(futureMutex);
+
+					bool calculated_ready = true;
+					for (auto & collector : topLevelCollectors)
+						if (!collector->finished())
+							calculated_ready = false;
+
+					_ready.store(calculated_ready);
 				}
-				Logger::Log("QueryRunner::ready -- true");
-				return true;
+				if(_ready)
+					readyCV.notify_one();
 			}
 					
 		}

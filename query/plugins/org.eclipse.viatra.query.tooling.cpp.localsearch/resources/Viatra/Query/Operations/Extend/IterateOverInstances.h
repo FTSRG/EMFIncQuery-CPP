@@ -92,7 +92,7 @@ public:
 		, _subFrames(subFrames)
 	{}
 	
-	virtual bool check(MatchingFrame& frame, const Matcher::ISearchContext& context)
+	virtual bool check(MatchingFrame& frame, const Matcher::ISearchContext& context) override
 	{
 		if (_subFrames != nullptr)
 			(*_subFrames)[_operationIndex].push_back(frame);

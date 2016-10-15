@@ -131,7 +131,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 				ret += ",«param.name»=";
 				«ENDIF»
 				ret += «cppHelper.cppToString(varName)»;
-				«first = false»
+				«val noPrint = first = false»
 			«ENDFOR»
 
 			return ret + ']';

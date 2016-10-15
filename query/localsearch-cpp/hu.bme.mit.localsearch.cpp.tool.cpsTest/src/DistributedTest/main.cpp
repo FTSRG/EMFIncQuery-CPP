@@ -41,8 +41,16 @@ int main(int argc, char **argv) {
 			auto result = service.RunNewQuery<QueryA, QueryA::NoBind>();
 
 			Logger::Log("int main(...) -- future obtained");
-			while (!result->ready())
-				std::this_thread::sleep_for(std::chrono::seconds(1));
+			Logger::Log("int main(...) -- waiting for results");
+			auto matchSet = result->get();
+
+			Logger::Log("int main(...) -- Results are:");
+			for (auto && elem : matchSet)
+			{
+				Logger::Log("int main(...) -- Results are:");
+				Logger::Log(elem.toString());
+			}
+
 		}
 		else
 		{

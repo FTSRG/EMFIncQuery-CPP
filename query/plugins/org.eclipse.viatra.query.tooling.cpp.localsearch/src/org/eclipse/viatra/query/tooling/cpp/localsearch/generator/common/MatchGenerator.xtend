@@ -10,16 +10,17 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
+import com.google.common.collect.ImmutableList
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EEnum
 import org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
-import com.google.common.collect.ImmutableList
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -53,6 +54,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("stdint.h", true);
 		includes += new Include("proto_gen.pb.h", false);
 		includes += new Include("Viatra/Query/MatchSet.h", false);
+		includes += new Include("Viatra/Query/Util/Convert.h", false);
 	}
 
 	override compileInner() '''	
@@ -67,6 +69,8 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 			«equals(oneOfTheMatchingFrames.parameters)»
 			
 			«serializationOfMatch(oneOfTheMatchingFrames.parameters)»
+			
+			«generateToString(oneOfTheMatchingFrames.parameters)»
 		};
 
 		«closeNamespaces»
@@ -158,6 +162,30 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		}
 
 	'''
+	
+	def generateToString(ImmutableList<PParameter> paramlist) '''
+		// toString
+		
+		std::string toString() const
+		{
+			«var first = true»
+			std::string ret = "[";
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val cppHelper = CppHelper::getTypeHelper(type)»
+				«IF first»
+				ret += "«param.name»=";
+				«ELSE»
+				ret += ",«param.name»=";
+				«ENDIF»
+				ret += «cppHelper.cppToString(param.name)»;
+				«val noPrint = first = false»
+			«ENDFOR»
+
+			return ret + ']';
+		}
+		'''
+	
 					
 	def getMatchName() {
 		return unitName

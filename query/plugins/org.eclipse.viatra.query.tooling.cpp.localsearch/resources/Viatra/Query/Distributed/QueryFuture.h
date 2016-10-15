@@ -3,7 +3,8 @@
 #include"Viatra/Query/MatchSet.h"
 #include"QueryResultCollector.h"
 #include"QueryRunner.h"
-#include"memory"
+#include<memory>
+#include<condition_variable>
 
 namespace Viatra{
 	namespace Query {
@@ -17,9 +18,6 @@ namespace Viatra{
 				friend class QueryServiceBase;
 
 				std::shared_ptr<QueryRunnerBase> runner;
-				void notifyCollectionDone() {
-					// nothing
-				}
 
 			public:
 				QueryFutureBase() = delete;
@@ -37,8 +35,6 @@ namespace Viatra{
 				bool ready() {
 					return runner->ready();
 				}
-
-
 				virtual ~QueryFutureBase() {}
 			};
 
@@ -48,20 +44,26 @@ namespace Viatra{
 				using Match = typename RootedQuery::Match;
 				using MatchSet = typename Match::MatchSet;
 
-				// Doesn't need to be shared since the baseclass keeps it alive
-				QueryRunner<RootedQuery> *concreteRunner;
+				using Lock = std::unique_lock<std::mutex>;
+				std::mutex readyMutex;
+				std::condition_variable readyCV;
 
-				std::vector<std::shared_ptr<QueryResultCollector<RootedQuery>>> runner;
+				std::shared_ptr<QueryRunner<RootedQuery>> concreteRunner;
 
 			public:
-				QueryFuture(std::shared_ptr<QueryRunnerBase> runner)
-					: QueryFutureBase(runner)
+				QueryFuture(std::shared_ptr<QueryRunner<RootedQuery>> runner)
+					: QueryFutureBase(std::static_pointer_cast<QueryRunnerBase>(runner))
 				{
-					this->concreteRunner = dynamic_cast<QueryRunner<RootedQuery>*>(runner.get());
+					this->concreteRunner = runner;
+				}
+
+
+				virtual void notifyCollectionDone() {
+					readyCV.notify_all();
 				}
 				
 				MatchSet get() {
-				
+					return concreteRunner->getResultMatchSet();
 				}
 
 			};

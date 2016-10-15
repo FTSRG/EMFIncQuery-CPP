@@ -105,11 +105,16 @@ namespace Viatra {
 						service->notifyCollectionDone(sessionID, taskID);
 					}
 						
-						
+				}
+
+				MatchSet obtainMatches() {
+					Lock(lck);
+					return std::move(matches);
 				}
 
 				std::string matchesAsString()override
 				{
+					Lock(lck);
 					return matches.SerializeAsString();
 				}
 			};

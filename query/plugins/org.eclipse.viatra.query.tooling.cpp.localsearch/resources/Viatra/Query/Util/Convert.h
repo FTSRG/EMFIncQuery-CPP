@@ -4,6 +4,7 @@
 
 #include<string>
 #include<string.h>
+#include"Viatra/Query/Util/Logger.h"
 
 namespace Viatra {
 	namespace Query {
@@ -12,11 +13,14 @@ namespace Viatra {
 
 				static inline std::string ToString(int i)
 				{
+					Util::Logger::Log("inner ToString begin");
 					const int n = 100;
 					char buffer[n];
 					char *ptr = buffer;
 
-					return std::string(ptr, ptr + snprintf(ptr, n-1, "%d", i));
+					std::string ret(ptr, snprintf(ptr, n-1, "%d", i));
+					Util::Logger::Log("inner ToString end");
+					return ret;
 				}
 
 				static inline std::string ToString(double f, int width = -1, int prec = 3)
@@ -26,9 +30,9 @@ namespace Viatra {
 					char *ptr = buffer;
 
 					if(width > 0)
-						return std::string(ptr, ptr + snprintf(ptr, n - 1, "%*.*F", width, prec, f));
+						return std::string(ptr, snprintf(ptr, n - 1, "%*.*F", width, prec, f));
 					else
-						return std::string(ptr, ptr + snprintf(ptr, n - 1, "%.*F", prec, f));
+						return std::string(ptr, snprintf(ptr, n - 1, "%.*F", prec, f));
 				}
 
 				static inline std::string ToString(float f, int width = -1, int prec = 3)

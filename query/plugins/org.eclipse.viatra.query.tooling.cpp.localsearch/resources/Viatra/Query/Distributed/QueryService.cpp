@@ -168,7 +168,6 @@ void QueryServiceBase::acceptRemoteMatchSet(uint64_t sessionID, const TaskID& ta
 	TaskID parent = taskID.parent();
 
 	Logger::Log("QueryServiceBase::acceptRemoteMatchSet", taskID, " --> ", parent);
-	Logger::ThreadTest(std::chrono::seconds(5));
 
 	auto & it = localResultCollectorInfos.find(sessionID);
 
@@ -215,9 +214,9 @@ void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& ta
 	}
 	else
 	{
-		Util::Logger::Log("notify future");
+		Util::Logger::Log("notifying runner that a collector is done");
 		auto future = collectorInfo->future.lock();
-		future->notifyCollectionDone();
+		queryRunners[sessionID]->notifyCollectionDone();
 	}
 
 	localResultCollectorInfos[sessionID].erase(taskID);
