@@ -29,7 +29,7 @@ namespace Extend {
 		* @param bind The function used to bind the variable in a frame.
 		* @param clazz The id of the type to be iterated.
 		*/
-		GlobalIterateOverInstances(int operationIndex, std::map<int, typename MatchingFrame::FrameVector> *subFrames, Getter getter)
+		DistributeIfNotPresent(int operationIndex, std::map<int, typename MatchingFrame::FrameVector> *subFrames, Getter getter)
 			: _operationIndex(operationIndex)
 			, _subFrames(subFrames)
 			, _getter(getter)
@@ -37,7 +37,7 @@ namespace Extend {
 
 		virtual bool check(MatchingFrame& frame, const Matcher::ISearchContext& context) override
 		{
-			if (frame.*_getter.present())
+			if ((frame.*_getter)->present())
 			{
 				return true;	// Simply continue
 			}
@@ -51,12 +51,11 @@ namespace Extend {
 
 	};
 
-	template<typename MatchingFrame>
-	GlobalIterateOverInstances<MatchingFrame>* create_GlobalIterateOverInstances(int _operationIndex, std::map<int, typename MatchingFrame::FrameVector> *_subFrames)
+	template<typename MatchingFrame, typename Type>
+	DistributeIfNotPresent<MatchingFrame, Type>* create_DistributeIfNotPresent(int operationIndex, std::map<int, typename MatchingFrame::FrameVector> *subFrames, Type MatchingFrame::* getter)
 	{
-		return new GlobalIterateOverInstances<MatchingFrame>(_operationIndex, _subFrames);
+		return new DistributeIfNotPresent<MatchingFrame, Type>(operationIndex, subFrames, getter);
 	}
-
 
 
 }

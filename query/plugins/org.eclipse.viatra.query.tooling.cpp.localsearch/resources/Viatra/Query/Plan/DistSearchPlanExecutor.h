@@ -152,6 +152,7 @@ namespace Viatra {
 				init(frame);
 				while (_currentOperation >= _startOperationIndex && _currentOperation <= upperBound) {
 					if (operations[_currentOperation]->execute(frame, _context)) {
+						Util::Logger::Log("Operation executed(", _currentOperation, ") frame=", frame.toString());
 						_currentOperation++;
 						if (_currentOperation <= upperBound)
 							operations[_currentOperation]->on_initialize(frame, _context);

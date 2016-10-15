@@ -48,6 +48,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 
 /**
  * @author Robert Doczi
@@ -81,7 +82,9 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 
 	override acceptContainmentCheck(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey) {
 		val structrualFeature = (inputKey as EStructuralFeatureInstancesKey).wrappedKey
-
+		
+		searchOperations += new DistributeIfNotPresentDescriptor(matchingFrame, searchOperations.size()+1, sourceVariable);
+		
 		// one to one
 		if(structrualFeature.upperBound == 1)
 			searchOperations += new CheckSingleNavigationDescriptor(matchingFrame, sourceVariable, targetVariable, structrualFeature)
@@ -108,6 +111,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	}
 
 	private def createNavigationOperation(PVariable sourceVariable, PVariable targetVariable, EStructuralFeature structrualFeature) {
+		searchOperations += new DistributeIfNotPresentDescriptor(matchingFrame, searchOperations.size()+1, sourceVariable);
 		// one to one
 		if(structrualFeature.upperBound == 1)
 			searchOperations += new ExtendSingleNavigationDescriptor(matchingFrame, sourceVariable, targetVariable, structrualFeature)

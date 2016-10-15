@@ -85,9 +85,11 @@ template<class SrcType, class TrgType, class Member, class MatchingFrame>
 inline void NavigateSingleAssociation<SrcType, TrgType, Member, MatchingFrame>::on_initialize(MatchingFrame& frame,
 	const Matcher::ISearchContext&) {
 		_objectHolder.clear();
-		auto target = ((static_cast<Member*>(frame.*_getSrc))->*_navigate)();
-		if(!Util::IsNull<decltype(target)>::check(target))
-			_objectHolder.push_back(target);
+		if ((frame.*_getSrc)->present()) {
+			auto target = ((static_cast<Member*>(frame.*_getSrc))->*_navigate)();
+			if (!Util::IsNull<decltype(target)>::check(target))
+				_objectHolder.push_back(target);
+		}
 		ExtendOperation<TrgType, std::list<TrgType>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
 }
 
@@ -98,8 +100,16 @@ inline NavigateMultiAssociation<SrcType, TrgType, Collection, Member, MatchingFr
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
 inline void NavigateMultiAssociation<SrcType, TrgType, Collection, Member, MatchingFrame>::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext&) {
+	if (frame.*_getSrc->present())
+	{
 		auto& data = ((static_cast<Member*>(frame.*_getSrc))->*_navigate)();
 		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(std::cbegin(data), std::cend(data));
+	}
+	else
+	{
+		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(Container::const_iterator{}, Container::const_iterator{});
+	}
+	
 }
 
 

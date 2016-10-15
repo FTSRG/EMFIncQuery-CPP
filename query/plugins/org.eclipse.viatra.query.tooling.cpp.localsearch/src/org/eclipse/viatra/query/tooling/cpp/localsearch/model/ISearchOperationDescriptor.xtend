@@ -145,7 +145,13 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 	public static val String NAME = "GlobalIterateOverInstances"
 	val int nextOperationIndex;
+}
 
+@Data class DistributeIfNotPresentDescriptor extends AbstractSearchOperationDescriptor {
+
+	public static val String NAME = "DistributeIfNotPresent"
+	val int nextOperationIndex;
+	val PVariable variable
 }
 
 @Data class LocalExtendInstanceOfDescriptor extends InstanceOfDescriptor {

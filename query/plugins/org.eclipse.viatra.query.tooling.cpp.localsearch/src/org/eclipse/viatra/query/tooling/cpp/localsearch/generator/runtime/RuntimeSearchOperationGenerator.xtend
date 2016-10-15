@@ -34,6 +34,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 
 /**
  * @author Robert Doczi
@@ -133,6 +134,10 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	
 	private dispatch def compileOperation(LocalExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
 		return '''create_«LocalExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
+	}
+	
+	private dispatch def compileOperation(DistributeIfNotPresentDescriptor operation, StringBuilder setupCode) {
+		return '''create_«DistributeIfNotPresentDescriptor::NAME»<«frameGenerator.frameName»>(«operation.nextOperationIndex», subFrames, «operation.variable.toGetter»)'''
 	}
 	
 	private dispatch def compileOperation(ExtendSingleNavigationDescriptor operation, StringBuilder setupCode) {

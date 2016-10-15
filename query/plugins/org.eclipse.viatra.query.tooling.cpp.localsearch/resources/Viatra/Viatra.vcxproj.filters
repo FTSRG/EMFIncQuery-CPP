@@ -191,6 +191,12 @@
     <ClInclude Include="Query\Util\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Query\Operations\Distributed\GlobalIterateOverInstances.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Query\Operations\Distributed\DistributeIfNotPresent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Query\Distributed\MessageProtocol.proto" />

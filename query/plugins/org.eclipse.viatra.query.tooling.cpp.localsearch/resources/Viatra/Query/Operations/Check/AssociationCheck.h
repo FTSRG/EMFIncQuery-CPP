@@ -90,6 +90,8 @@ inline SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>::SingleAs
 template<class SrcType, class TrgType, class Member, class MatchingFrame>
 inline bool SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>::check(MatchingFrame& frame,
         const Matcher::ISearchContext&) {
+	if (!(frame.*_src)->present())
+		return false;
     SrcType src = frame.*_src;
     TrgType trg = frame.*_trg;
     return trg == ((static_cast<Member*>(src))->*_navigate)();
@@ -102,7 +104,9 @@ inline MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
 inline bool MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame>::check(MatchingFrame& frame, const Matcher::ISearchContext&) {
-    auto src = frame.*_src;
+	if (!(frame.*_src)->present())
+		return false;
+	auto src = frame.*_src;
     auto trg = frame.*_trg;;
     auto data = ((static_cast<Member*>(src))->*_navigate)();
     return std::find(data.begin(), data.end(), trg) != data.end();
