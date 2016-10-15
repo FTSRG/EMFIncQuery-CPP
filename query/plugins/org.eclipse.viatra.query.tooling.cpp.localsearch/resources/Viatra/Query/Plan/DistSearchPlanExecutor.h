@@ -37,10 +37,6 @@ namespace Viatra {
 				*/
 				class iterator {
 				public:
-					/**
-					* Creates a new iterator instance.
-					*/
-					iterator();
 
 					/**
 					* Creates a new iterator instance prepared with an initial frame.
@@ -199,11 +195,6 @@ namespace Viatra {
 				else {
 					// TODO: Error handling
 				}
-			}
-
-			template<class MatchingFrame>
-			inline DistSearchPlanExecutor<MatchingFrame>::iterator::iterator()
-				: DistSearchPlanExecutor(nullptr, false, 0, 0) {
 			}
 
 			template<class MatchingFrame>
