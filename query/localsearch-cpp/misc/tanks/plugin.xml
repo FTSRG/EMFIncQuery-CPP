@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
+--><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated model -->
+    <package class="factory.FactoryPackage" genModel="model/model.genmodel" uri="http://factory.ecore/tanks"/>
+  </extension>
+  <extension id="tanks.queries.Query" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:tanks.queries.Query" id="tanks.queries.Query">
+      <query-specification fqn="tanks.queries.szilard"/>
+    </group>
+  </extension>
+</plugin>

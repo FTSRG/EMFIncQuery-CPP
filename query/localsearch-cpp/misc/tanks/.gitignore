@@ -1,0 +1,7 @@
+/bin/
+/emf-gen/
+/src-gen/
+/.settings/
+*.o
+*.jpg
+*.aird
