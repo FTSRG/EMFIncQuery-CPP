@@ -39,13 +39,12 @@ class PlanCompiler {
 	
 	val PQueryFlattener flattener
 	val PBodyNormalizer normalizer
-	val LocalSearchRuntimeBasedStrategy strategy
 	val Map<PQuery, List<PBody>> compiledBodies
 	val Set<MatcherReference> dependencies
 	val MatchingFrameRegistry frameRegistry
     val LocalSearchHints configuration
 	
-	//extension val LocalSearchRuntimeBasedStrategy strategy	
+	extension val LocalSearchRuntimeBasedStrategy strategy	
 	extension val POperationCompiler compiler
     
 	
