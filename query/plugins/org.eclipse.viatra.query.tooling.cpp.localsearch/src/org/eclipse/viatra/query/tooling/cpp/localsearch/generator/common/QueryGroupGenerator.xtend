@@ -13,7 +13,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
-import javax.sound.sampled.BooleanControl.Type
 
 /**
  * @author Robert Doczi

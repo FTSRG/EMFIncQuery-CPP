@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.apache.log4j.Logger
 import org.eclipse.viatra.query.runtime.emf.EMFQueryMetaContext
 import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHints
-import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchPlannerStrategy
+import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBasedStrategy
 import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.annotations.PAnnotation
 import org.eclipse.viatra.query.runtime.matchers.psystem.annotations.ParameterReference
@@ -31,7 +31,6 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.rewriters.PBodyNormaliz
 import org.eclipse.viatra.query.runtime.matchers.psystem.rewriters.PQueryFlattener
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBasedStrategy
 
 /**
  * @author Robert Doczi
