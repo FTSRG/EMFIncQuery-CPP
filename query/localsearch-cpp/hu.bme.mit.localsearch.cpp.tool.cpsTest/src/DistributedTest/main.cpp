@@ -47,7 +47,6 @@ int main(int argc, char **argv) {
 			Logger::Log("int main(...) -- Results are:");
 			for (auto && elem : matchSet)
 			{
-				Logger::Log("int main(...) -- Results are:");
 				Logger::Log(elem.toString());
 			}
 

@@ -81,8 +81,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		
 				
 		class «unitName»Set 
-			: public Viatra::Query::MatchSet
-			, private std::unordered_set<«unitName»>
+			: private std::unordered_set<«unitName»>
 		{
 			public:
 			«FOR using : #["insert", "clear", "empty", "size", "begin", "end" ]»

@@ -118,7 +118,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 	protected abstract def String compileContinueDistQuery(BoundedPatternDescriptor descriptor, PatternBodyDescriptor descriptor2)
 	
 	protected def compileGetter(BoundedPatternDescriptor pattern) '''
-		std::unordered_set<«patternName»Match> matches(«getParamList(pattern)») const {
+		std::unordered_set<«patternName»Match> matches«pattern.cppBoundName.underScoredIfNotEmpty»(«getParamList(pattern)») const {
 			««« TODO: Move using statements
 			using ::Viatra::Query::Matcher::ISearchContext;
 			using ::Viatra::Query::Plan::SearchPlan;
@@ -137,6 +137,10 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 			return matches;
 		}
 	'''
+	
+	def underScoredIfNotEmpty(String s)
+	'''«IF s.empty»«ELSE»_«s»«ENDIF»'''
+	
 	protected abstract def String compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody)
 	
 	
