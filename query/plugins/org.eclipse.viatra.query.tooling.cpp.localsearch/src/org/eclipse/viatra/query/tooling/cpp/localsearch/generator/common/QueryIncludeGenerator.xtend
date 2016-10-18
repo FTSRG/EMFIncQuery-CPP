@@ -50,7 +50,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 			
 			struct Bind{
 				«FOR boundedPattern : patternGroup.boundedPatterns.filter[it.boundParameters.size()>0]»
-					struct «boundedPattern.cppBoundName.toUpperCase»{
+					struct «boundedPattern.cppBoundName»{
 						using QueryClass = «unitName»;
 						static constexpr int queryID = «boundedPattern.queryID»;
 						«bindClassInner(boundedPattern)»
@@ -93,7 +93,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 					«frameType»Vector frameVector;
 					«FOR param : boundedPattern.boundParameters»
 						«val variable = body.matchingFrame.getVariableFromParameter(param)»
-						frame._«frame.getVariablePosition(variable)» = param.name;
+						frame._«frame.getVariablePosition(variable)» = «param.name»;
 					«ENDFOR»							
 					frameVector.push_back(frame);
 					encodedFrames[«body.index»] = frameVector.SerializeAsString();

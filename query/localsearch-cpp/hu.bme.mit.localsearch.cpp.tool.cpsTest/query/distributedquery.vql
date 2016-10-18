@@ -2,10 +2,13 @@ package hu.bme.mit.localsearch.cpp.tool.cpstest.query
 
 import "http://org.eclipse.viatra/model/cps"
 
+
+@Bind(parameters={state})
 pattern QueryA(h1 : HostInstance, pw, state)
 {	
 	ApplicationInstance.dbPassword(a1, pw);
 	ApplicationInstance.state(a1, state);
+	
 	HostInstance.communicateWith(h1, h2);
 	ApplicationInstance.allocatedTo(a1, h1);
 	ApplicationInstance.allocatedTo(a2, h2);	
@@ -16,6 +19,8 @@ pattern QueryB(a1, h1)
 	ApplicationInstance.allocatedTo(a1, h1);	
 }
 
+@Bind(parameters={a1})
+@Bind(parameters={a2})
 pattern QueryC(a1 : ApplicationInstance, a2 : ApplicationInstance)
 {
 	a1 == a2;
