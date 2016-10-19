@@ -1,7 +1,6 @@
 /bin/
 /emf-gen/
 /src-gen/
-/cpp-gen/
 /.settings/
 *.o
 *.jpg

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Tartaly" InternalType="">
+  <VirtualDirectory Name="model">
+    <VirtualDirectory Name="factory">
+      <File Name="model/factory/Anyag.cpp"/>
+      <File Name="model/factory/Anyag.h"/>
+      <File Name="model/factory/Folyekony.cpp"/>
+      <File Name="model/factory/Folyekony.h"/>
+      <File Name="model/factory/Goz.cpp"/>
+      <File Name="model/factory/Goz.h"/>
+      <File Name="model/factory/Halmazallapot.cpp"/>
+      <File Name="model/factory/Halmazallapot.h"/>
+      <File Name="model/factory/Szilard.cpp"/>
+      <File Name="model/factory/Szilard.h"/>
+      <File Name="model/factory/Tartaly.cpp"/>
+      <File Name="model/factory/Tartaly.h"/>
+      <File Name="model/factory/Viz.cpp"/>
+      <File Name="model/factory/Viz.h"/>
+    </VirtualDirectory>
+    <File Name="model/factory_decl.h"/>
+    <File Name="model/factory_def.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Viatra">
+    <VirtualDirectory Name="Query">
+      <VirtualDirectory Name="Operations">
+        <VirtualDirectory Name="Check">
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/AssociationCheck.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/CheckExpression.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/CheckOperation.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/ConstantValueCheck.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/InequalityCheck.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/InstanceOfCheck.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/NACOperation.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/PatternMatchCounterCheck.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Check/TransitiveClosureCheck.h"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="Extend">
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Extend/ConstantValueExtend.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Extend/ExtendOperation.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Extend/IterateOverInstances.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Extend/NavigateAssociation.h"/>
+          <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/Extend/PatternMatchCounterExtend.h"/>
+        </VirtualDirectory>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/AllOperations.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/ISearchOperation.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Query">
+        <File Name="Viatra/Query/Query/QueryQueryGroup.h"/>
+        <File Name="Viatra/Query/Query/SzilardDerived.h"/>
+        <File Name="Viatra/Query/Query/SzilardFrame_0.h"/>
+        <File Name="Viatra/Query/Query/SzilardMatch.h"/>
+        <File Name="Viatra/Query/Query/SzilardMatcher.h"/>
+        <File Name="Viatra/Query/Query/SzilardQuerySpecification.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Test">
+        <File Name="Viatra/Query/Test/TestFrame_0.h"/>
+        <File Name="Viatra/Query/Test/TestMatch.h"/>
+        <File Name="Viatra/Query/Test/TestMatcher.h"/>
+        <File Name="Viatra/Query/Test/TestQueryGroup.h"/>
+        <File Name="Viatra/Query/Test/TestQuerySpecification.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Distributed">
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Distributed/Node.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Distributed/QueryService.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Matcher">
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Matcher/ClassHelper.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Matcher/IClassHelper.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Matcher/ISearchContext.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Matcher/ModelIndex.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Model">
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Model/IModelElemService.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Model/LocalElement.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Model/MetaData.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Model/ModelElement.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Model/RemoteElement.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Plan">
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Plan/SearchPlan.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Plan/SearchPlanExecutor.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Util">
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Util/Defs.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Util/IsNull.h"/>
+        <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Util/Optional.h"/>
+      </VirtualDirectory>
+      <File Name="../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/QueryEngine.h"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Dynamic Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="MinGW ( TDM-GCC-32 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Debug" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="MinGW ( TDM-GCC-32 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
