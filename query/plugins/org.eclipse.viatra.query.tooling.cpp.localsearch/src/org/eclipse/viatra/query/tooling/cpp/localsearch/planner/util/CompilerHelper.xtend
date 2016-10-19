@@ -134,7 +134,7 @@ class CompilerHelper {
 					.head
 	}
 
-	private static def EClassifier getLeastStrictType(PVariable pVar) {
+	public static def EClassifier getLeastStrictType(PVariable pVar) {
 		var Set<EClassifier> possibleTypes = pVar.getReferringConstraintsOfType(typeof(TypeConstraint)).
 			filter([constraint |
 				{

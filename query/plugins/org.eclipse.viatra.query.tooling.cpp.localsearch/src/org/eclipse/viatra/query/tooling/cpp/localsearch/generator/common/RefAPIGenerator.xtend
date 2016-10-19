@@ -1,9 +1,12 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import java.util.Set
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.runtime.localsearch.exceptions.LocalSearchException
 
 class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
@@ -14,7 +17,9 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val QuerySpecificationGenerator querySpecification
 	protected val CharSequence featureName
+	protected val int arity
 	protected val PVariable src
+	protected val EClass srcClassifier
 	protected val PVariable srcID
 	protected val PVariable trg
 	
@@ -32,6 +37,10 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 		this.src = this.pattern.patternBodies.head.PBody.allVariables.get(0)
 		this.srcID = this.pattern.patternBodies.head.PBody.allVariables.get(1)
 		this.trg = this.pattern.patternBodies.head.PBody.allVariables.get(2)
+		
+		this.srcClassifier = CompilerHelper::getLeastStrictType(this.src) as EClass
+		if(this.srcClassifier == null) throw new LocalSearchException("Query Based Feature doesn't exists")
+		this.arity = this.srcClassifier.getEStructuralFeature(this.featureName.toString).upperBound
 	}
 	
 	override initialize() {
@@ -65,22 +74,29 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 			auto srcIt = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 	
-			if(srcIt == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found.");
+			if(srcIt == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found.");
 	
 			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
 			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
 	
+			
+			«IF arity != 1 »
 			std::vector< «trgPointerType» > newDerivedList;
-	
+				
 			for(auto match : matches){
 				if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.«trg.name»)) newDerivedList.push_back(match.«trg.name»);
 			}
-	
 			(*srcIt)->«featureName».clear();
 			(*srcIt)->«featureName».insert((*srcIt)->«featureName».begin(), newDerivedList.begin(), newDerivedList.end());
-	
+			«ELSE»
+			«trgPointerType» newDerivedMember = nullptr;
+			for(auto match : matches){
+				newDerivedMember = match.«trg.name»;
+			}
+			if(newDerivedMember != nullptr) (*srcIt)->«featureName» = newDerivedMember;
+			«ENDIF»
 			/*
 			* Critical Section END
 			*/

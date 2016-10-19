@@ -44,8 +44,8 @@ class DerivedRefGeneratorContext extends LocalsearchGeneratorOutputProvider {
 				]
 				
 			]){
-				val annotations = patterns.map[patternBodies.map[PBody.pattern.allAnnotations].flatten.filter(it | it.name == "QueryBasedFeature")].flatten
-				val featureName = annotations.get(0).getFirstValue("feature") as CharSequence;
+				val annotations = patterns.map[patternBodies.map[PBody.pattern.allAnnotations].flatten.filter(it | it.name == "QueryBasedFeature")].flatten.get(0)
+				val featureName = annotations.getFirstValue("feature") as CharSequence;
 				val updaterGen = new RefAPIGenerator(query.name, patternName, featureName, patterns.toSet, matchGen, matcherGen, querySpec)
 				generators += updaterGen
 			}
