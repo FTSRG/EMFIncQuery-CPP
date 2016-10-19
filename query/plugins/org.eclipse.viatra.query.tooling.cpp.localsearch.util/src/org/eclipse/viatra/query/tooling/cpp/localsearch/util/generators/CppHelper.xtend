@@ -119,7 +119,7 @@ class AttributeHelper {
 		 «cppType» «memberName» = «typeHelper.defaultValue»;
 	'''
 
-	def memberName() '''_«attr.name»'''
+	def memberName() '''«attr.name»'''
 
 	def getterName() '''«attr.name»'''
 	
@@ -154,7 +154,7 @@ class AssociationHelper {
 		 «cppType» «memberName»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
 	'''
 
-	def memberName() '''_«association.name»'''
+	def memberName() '''«association.name»'''
 
 	def getterName() '''«association.name»'''
 	
