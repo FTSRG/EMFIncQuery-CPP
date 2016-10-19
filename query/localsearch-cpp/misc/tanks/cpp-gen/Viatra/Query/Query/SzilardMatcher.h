@@ -35,9 +35,9 @@ public:
 			for (auto&& frame : exec) {
 				SzilardMatch match;
 			
-				match.tank = static_cast<::factory::Tank*>(frame._0);
-				match.tankID = static_cast<int>(frame._1);
-				match.allapot = static_cast<::factory::Szilard*>(frame._2);
+				match.tartaly = static_cast<::factory::Tartaly*>(frame._0);
+				match.tartalyID = static_cast<int>(frame._1);
+				match.dAllapot = static_cast<::factory::Szilard*>(frame._2);
 				match.allapotID = static_cast<int>(frame._3);
 				match.homerseklet = static_cast<double>(frame._4);
 			
@@ -48,7 +48,7 @@ public:
 	
 		return matches;
 	}
-	std::unordered_set<SzilardMatch> matches(int tankID, int allapotID, double homerseklet) const {
+	std::unordered_set<SzilardMatch> matches(int tartalyID, int allapotID, double homerseklet) const {
 					using ::Viatra::Query::Matcher::ISearchContext;
 		using ::Viatra::Query::Plan::SearchPlan;
 		using ::Viatra::Query::Plan::SearchPlanExecutor;
@@ -57,9 +57,9 @@ public:
 		std::unordered_set<SzilardMatch> matches;
 	
 		{
-			auto sp = SzilardQuerySpecification<ModelRoot>::get_plan_tankID_allapotID_homerseklet__0(_model);
+			auto sp = SzilardQuerySpecification<ModelRoot>::get_plan_tartalyID_allapotID_homerseklet__0(_model);
 			SzilardFrame_0 frame;
-			frame._1 = tankID;
+			frame._1 = tartalyID;
 			frame._3 = allapotID;
 			frame._4 = homerseklet;
 			
@@ -69,9 +69,9 @@ public:
 			for (auto&& frame : exec) {
 				SzilardMatch match;
 			
-				match.tank = static_cast<::factory::Tank*>(frame._0);
-				match.tankID = static_cast<int>(frame._1);
-				match.allapot = static_cast<::factory::Szilard*>(frame._2);
+				match.tartaly = static_cast<::factory::Tartaly*>(frame._0);
+				match.tartalyID = static_cast<int>(frame._1);
+				match.dAllapot = static_cast<::factory::Szilard*>(frame._2);
 				match.allapotID = static_cast<int>(frame._3);
 				match.homerseklet = static_cast<double>(frame._4);
 			

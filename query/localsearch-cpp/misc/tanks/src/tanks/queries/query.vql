@@ -3,12 +3,13 @@ package tanks.queries
 import "http://factory.ecore/tanks"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
-@Bind(parameters={tankID, allapotID, homerseklet})
+@Bind(parameters={tartalyID, allapotID, homerseklet})
 @QueryBasedFeature(feature = "allapot")
-pattern szilard(tank, tankID : EInt, allapot : Szilard, allapotID : EInt, homerseklet : EDouble){
+pattern szilard(tartaly : Tartaly, tartalyID : EInt, dAllapot : Szilard, allapotID : EInt, homerseklet : EDouble){
 	Viz(viz);
-	Tank.tarol(tank, viz);
-	Tank.ID(tank, tankID);
-	Szilard.ID(allapot, allapotID);
+	Tartaly.tarol(tartaly, viz);
+	Tartaly.ID(tartaly, tartalyID);
+	Szilard.ID(dAllapot, allapotID);
 	check(homerseklet < 0);
 }
+

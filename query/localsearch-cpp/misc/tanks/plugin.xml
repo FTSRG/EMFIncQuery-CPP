@@ -9,4 +9,12 @@
       <query-specification fqn="tanks.queries.szilard"/>
     </group>
   </extension>
+  <extension id="tanks.queries.Test" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:tanks.queries.Test" id="tanks.queries.Test">
+      <query-specification fqn="tanks.queries.test"/>
+    </group>
+  </extension>
+  <extension id="extension.derived.tanks.queries.szilard" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="Tartaly" feature-name="allapot" package-nsUri="http://factory.ecore/tanks"/>
+  </extension>
 </plugin>

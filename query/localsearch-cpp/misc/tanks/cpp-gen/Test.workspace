@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="Test" Database="">
   <Project Name="Tank" Path="Tank/Tank.project" Active="Yes"/>
+  <Project Name="Tartaly" Path="Tartaly.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="Tank" ConfigName="Debug"/>
+      <Project Name="Tartaly" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="Tank" ConfigName="Release"/>
+      <Project Name="Tartaly" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

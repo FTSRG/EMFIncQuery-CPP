@@ -1,0 +1,7 @@
+package tanks.queries
+
+import "http://factory.ecore/tanks"
+
+pattern test(tartaly, allapot){
+	Tartaly.allapot(tartaly, allapot);
+}

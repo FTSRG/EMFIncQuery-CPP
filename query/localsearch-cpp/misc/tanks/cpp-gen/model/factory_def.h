@@ -1,7 +1,7 @@
 #ifndef _FACTORY_DEF_H_
 #define _FACTORY_DEF_H_
 
-#include "factory/Tank.h"
+#include "factory/Tartaly.h"
 #include "factory/Anyag.h"
 #include "factory/Viz.h"
 #include "factory/Halmazallapot.h"

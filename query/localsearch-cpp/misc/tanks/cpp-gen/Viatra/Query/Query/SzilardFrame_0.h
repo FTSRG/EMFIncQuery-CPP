@@ -4,7 +4,7 @@
 		
 #include "factory/Anyag.h"
 #include "factory/Szilard.h"
-#include "factory/Tank.h"
+#include "factory/Tartaly.h"
 
 namespace Viatra {
 namespace Query {
@@ -13,7 +13,7 @@ namespace Query {
 struct SzilardFrame_0 {
 	
 	
-	::factory::Tank* _0;
+	::factory::Tartaly* _0;
 	
 	
 	int _1;

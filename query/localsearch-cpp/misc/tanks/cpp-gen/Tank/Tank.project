@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="Tank" InternalType="Console">
-  <VirtualDirectory Name="model">
-    <VirtualDirectory Name="factory">
-      <File Name="../model/factory/Anyag.cpp"/>
-      <File Name="../model/factory/Anyag.h"/>
-      <File Name="../model/factory/Folyekony.cpp"/>
-      <File Name="../model/factory/Folyekony.h"/>
-      <File Name="../model/factory/Goz.cpp"/>
-      <File Name="../model/factory/Goz.h"/>
-      <File Name="../model/factory/Halmazallapot.cpp"/>
-      <File Name="../model/factory/Halmazallapot.h"/>
-      <File Name="../model/factory/Szilard.cpp"/>
-      <File Name="../model/factory/Szilard.h"/>
-      <File Name="../model/factory/Tank.cpp"/>
-      <File Name="../model/factory/Tank.h"/>
-      <File Name="../model/factory/Viz.cpp"/>
-      <File Name="../model/factory/Viz.h"/>
-    </VirtualDirectory>
-    <File Name="../model/factory_decl.h"/>
-    <File Name="../model/factory_def.h"/>
-  </VirtualDirectory>
   <VirtualDirectory Name="Viatra">
     <VirtualDirectory Name="Query">
       <VirtualDirectory Name="Operations">
@@ -44,14 +24,7 @@
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/AllOperations.h"/>
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Operations/ISearchOperation.h"/>
       </VirtualDirectory>
-      <VirtualDirectory Name="Query">
-        <File Name="../Viatra/Query/Query/QueryQueryGroup.h"/>
-        <File Name="../Viatra/Query/Query/SzilardFrame_0.h"/>
-        <File Name="../Viatra/Query/Query/SzilardInputUpdater.h"/>
-        <File Name="../Viatra/Query/Query/SzilardMatch.h"/>
-        <File Name="../Viatra/Query/Query/SzilardMatcher.h"/>
-        <File Name="../Viatra/Query/Query/SzilardQuerySpecification.h"/>
-      </VirtualDirectory>
+      <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/QueryEngine.h"/>
       <VirtualDirectory Name="Distributed">
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Distributed/Node.h"/>
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Distributed/QueryService.h"/>
@@ -78,11 +51,99 @@
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Util/IsNull.h"/>
         <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/Util/Optional.h"/>
       </VirtualDirectory>
-      <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/Viatra/Query/QueryEngine.h"/>
+      <VirtualDirectory Name="Query">
+        <File Name="../Viatra/Query/Query/QueryQueryGroup.h"/>
+        <File Name="../Viatra/Query/Query/SzilardDerived.h"/>
+        <File Name="../Viatra/Query/Query/SzilardFrame_0.h"/>
+        <File Name="../Viatra/Query/Query/SzilardMatch.h"/>
+        <File Name="../Viatra/Query/Query/SzilardMatcher.h"/>
+        <File Name="../Viatra/Query/Query/SzilardQuerySpecification.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Test">
+        <File Name="../Viatra/Query/Test/TestFrame_0.h"/>
+        <File Name="../Viatra/Query/Test/TestMatch.h"/>
+        <File Name="../Viatra/Query/Test/TestMatcher.h"/>
+        <File Name="../Viatra/Query/Test/TestQueryGroup.h"/>
+        <File Name="../Viatra/Query/Test/TestQuerySpecification.h"/>
+      </VirtualDirectory>
     </VirtualDirectory>
+  </VirtualDirectory>
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[cpp;c;h;hpp;xrc;wxcp;fbp]]>
+    </Extensions>
+    <Topleveldir>../Tank</Topleveldir>
+  </Reconciliation>
+  <VirtualDirectory Name="model">
+    <VirtualDirectory Name="factory">
+      <File Name="../model/factory/Anyag.cpp"/>
+      <File Name="../model/factory/Anyag.h"/>
+      <File Name="../model/factory/Folyekony.cpp"/>
+      <File Name="../model/factory/Folyekony.h"/>
+      <File Name="../model/factory/Goz.cpp"/>
+      <File Name="../model/factory/Goz.h"/>
+      <File Name="../model/factory/Halmazallapot.cpp"/>
+      <File Name="../model/factory/Halmazallapot.h"/>
+      <File Name="../model/factory/Szilard.cpp"/>
+      <File Name="../model/factory/Szilard.h"/>
+      <File Name="../model/factory/Viz.cpp"/>
+      <File Name="../model/factory/Viz.h"/>
+      <File Name="../model/factory/Tartaly.cpp"/>
+      <File Name="../model/factory/Tartaly.h"/>
+    </VirtualDirectory>
+    <File Name="../model/factory_decl.h"/>
+    <File Name="../model/factory_def.h"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="ecore">
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAnnotation.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAnnotation.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAttribute.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAttribute.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClass.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClass.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClassifier.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClassifier.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EDataType.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EDataType.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnum.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnum.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnumLiteral.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnumLiteral.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EFactory.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EFactory.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EGenericType.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EGenericType.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EModelElement.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EModelElement.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ENamedElement.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ENamedElement.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EObject.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EObject.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EOperation.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EOperation.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EPackage.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EPackage.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EParameter.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EParameter.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EReference.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EReference.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStringToStringMapEntry.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStringToStringMapEntry.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStructuralFeature.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStructuralFeature.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypedElement.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypedElement.h"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypeParameter.cpp"/>
+    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypeParameter.h"/>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -111,15 +172,15 @@
       </Debugger>
       <PreBuild/>
       <PostBuild/>
-      <CustomBuild Enabled="no">
+      <CustomBuild Enabled="yes">
         <RebuildCommand/>
         <CleanCommand/>
-        <BuildCommand/>
+        <BuildCommand>make</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>
         <ThirdPartyToolName>None</ThirdPartyToolName>
-        <WorkingDirectory/>
+        <WorkingDirectory>E:\GitHub\EMFIncQuery-CPP\query\localsearch-cpp\misc\tanks\cpp-gen</WorkingDirectory>
       </CustomBuild>
       <AdditionalRules>
         <CustomPostBuild/>
@@ -173,49 +234,6 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="src">
-    <File Name="main.cpp"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="ecore">
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAnnotation.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAnnotation.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAttribute.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EAttribute.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClass.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClass.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClassifier.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EClassifier.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EDataType.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EDataType.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnum.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnum.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnumLiteral.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EEnumLiteral.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EFactory.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EFactory.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EGenericType.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EGenericType.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EModelElement.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EModelElement.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ENamedElement.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ENamedElement.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EObject.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EObject.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EOperation.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EOperation.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EPackage.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EPackage.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EParameter.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EParameter.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EReference.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EReference.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStringToStringMapEntry.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStringToStringMapEntry.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStructuralFeature.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/EStructuralFeature.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypedElement.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypedElement.h"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypeParameter.cpp"/>
-    <File Name="../../../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/ecore/ETypeParameter.h"/>
-  </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

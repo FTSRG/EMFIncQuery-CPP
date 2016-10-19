@@ -3,7 +3,7 @@
 
 namespace factory {
 
-	class Tank;
+	class Tartaly;
 	class Anyag;
 	class Viz;
 	class Halmazallapot;
