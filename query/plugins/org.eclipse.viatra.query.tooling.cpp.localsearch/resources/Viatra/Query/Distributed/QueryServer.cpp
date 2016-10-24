@@ -58,7 +58,7 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 		case Protobuf::MsgType::INITIATE_CONNECTION: {
 			Util::Logger::Log("QueryServer::process_message case Protobuf::MsgType::INITIATE_CONNECTION rqid=", queryRequest.rqid());
 			auto & request = queryRequest.initiateconnection();
-			auto responseMessage = service->process_initiateConnection(connection, request.nodename());
+			auto responseMessage = service->acceptInitiateConnection(connection, request.nodename());
 				
 			Protobuf::QueryResponse queryResponse;
 			queryResponse.set_rqid(queryRequest.rqid());
@@ -106,7 +106,7 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 			else
 			{*/
 			Util::Logger::Log("QueryServer::process_message -- service->continueQueryLocally");
-			service->continueQueryLocally(
+			service->acceptContinueQuery(
 				Request{connection, queryRequest.rqid()},
 				request.sessionid(),
 				request.taskid(),
