@@ -254,12 +254,15 @@ class ModelRootGenerator {
 	
 	static val PRIMITIVE_TO_JSONTYPE = #{
 		"EString" -> "::std::string",
+		"String" -> "::std::string",
 		"EInt" -> "int64_t",
 		"ELong" -> "int64_t",
 		"EDouble" -> "double",
 		"EFloat" -> "double",
 		"EShort" -> "int64_t",
 		"EChar" -> "std::string",
+		"boolean" -> "bool",
+		"Boolean" -> "bool",
 		"EBoolean" -> "bool"
 	}
 	

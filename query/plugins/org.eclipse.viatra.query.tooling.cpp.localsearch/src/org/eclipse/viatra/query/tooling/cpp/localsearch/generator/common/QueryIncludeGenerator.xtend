@@ -105,7 +105,7 @@ class QueryIncludeGenerator extends ViatraQueryHeaderGenerator {
 	'''
 	
 	def BuildFramesParamList(Set<PParameter> parameters, MatchingFrameDescriptor aMatchingFrame){
-		return '''«FOR param:parameters»«param.cppForwardType(aMatchingFrame)» «param.name»«ENDFOR»'''
+		return '''«FOR param:parameters SEPARATOR ", "»«param.cppForwardType(aMatchingFrame)» «param.name»«ENDFOR»'''
 	}
 	
 	def cppForwardType(PParameter parameter, MatchingFrameDescriptor aMatchingFrame) 
