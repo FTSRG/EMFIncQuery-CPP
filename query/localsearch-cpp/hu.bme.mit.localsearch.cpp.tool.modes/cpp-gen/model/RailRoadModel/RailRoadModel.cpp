@@ -1,12 +1,12 @@
 #include "RailRoadModel.h"
 
-#include "RailRoadModel/RailRoadElement.h"
-#include "RailRoadModel/Train.h"
-#include "RailRoadModel/Path.h"
+#include "railRoadModel/RailRoadElement.h"
+#include "railRoadModel/Train.h"
+#include "railRoadModel/Path.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IRailRoadModel*> LocalRailRoadModel::_instances__x__x__x__x__x__x__x;
 
@@ -27,25 +27,25 @@ LocalRailRoadModel::~LocalRailRoadModel() {
 }
 		
 
-void LocalRailRoadModel::set_segments(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) {
-	segments = newVal;				
+void LocalRailRoadModel::set_segments(std::vector< ::railRoadModel::IRailRoadElement* > newVal) {
+	_segments = newVal;				
 }
-const std::vector< ::RailRoadModel::IRailRoadElement* >& LocalRailRoadModel::segments() const  {
-	return segments;
-}
-
-void LocalRailRoadModel::set_trains(std::vector< ::RailRoadModel::ITrain* > newVal) {
-	trains = newVal;				
-}
-const std::vector< ::RailRoadModel::ITrain* >& LocalRailRoadModel::trains() const  {
-	return trains;
+const std::vector< ::railRoadModel::IRailRoadElement* >& LocalRailRoadModel::get_segments() const  {
+	return _segments;
 }
 
-void LocalRailRoadModel::set_paths(std::vector< ::RailRoadModel::IPath* > newVal) {
-	paths = newVal;				
+void LocalRailRoadModel::set_trains(std::vector< ::railRoadModel::ITrain* > newVal) {
+	_trains = newVal;				
 }
-const std::vector< ::RailRoadModel::IPath* >& LocalRailRoadModel::paths() const  {
-	return paths;
+const std::vector< ::railRoadModel::ITrain* >& LocalRailRoadModel::get_trains() const  {
+	return _trains;
+}
+
+void LocalRailRoadModel::set_paths(std::vector< ::railRoadModel::IPath* > newVal) {
+	_paths = newVal;				
+}
+const std::vector< ::railRoadModel::IPath* >& LocalRailRoadModel::get_paths() const  {
+	return _paths;
 }
 
 
@@ -64,27 +64,27 @@ RemoteRailRoadModel::~RemoteRailRoadModel() {
 }
 
 
-void RemoteRailRoadModel::set_segments(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) {
+void RemoteRailRoadModel::set_segments(std::vector< ::railRoadModel::IRailRoadElement* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::IRailRoadElement* >& RemoteRailRoadModel::segments() const {
+const std::vector< ::railRoadModel::IRailRoadElement* >& RemoteRailRoadModel::get_segments() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemoteRailRoadModel::set_trains(std::vector< ::RailRoadModel::ITrain* > newVal) {
+void RemoteRailRoadModel::set_trains(std::vector< ::railRoadModel::ITrain* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::ITrain* >& RemoteRailRoadModel::trains() const {
+const std::vector< ::railRoadModel::ITrain* >& RemoteRailRoadModel::get_trains() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemoteRailRoadModel::set_paths(std::vector< ::RailRoadModel::IPath* > newVal) {
+void RemoteRailRoadModel::set_paths(std::vector< ::railRoadModel::IPath* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::IPath* >& RemoteRailRoadModel::paths() const {
+const std::vector< ::railRoadModel::IPath* >& RemoteRailRoadModel::get_paths() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

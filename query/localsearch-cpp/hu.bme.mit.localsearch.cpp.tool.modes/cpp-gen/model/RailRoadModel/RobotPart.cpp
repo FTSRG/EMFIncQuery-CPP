@@ -1,11 +1,11 @@
 #include "RobotPart.h"
 
-#include "RailRoadModel/Train.h"
-#include "RailRoadModel/Segment.h"
+#include "railRoadModel/Train.h"
+#include "railRoadModel/Segment.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IRobotPart*> LocalRobotPart::_instances__x__x__x__x__x__x__x;
 
@@ -27,25 +27,25 @@ LocalRobotPart::~LocalRobotPart() {
 }
 		
 void LocalRobotPart::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalRobotPart::id() const {
-	return id;
-}
-
-
-void LocalRobotPart::set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) {
-	nearBy = newVal;				
-}
-const std::vector< ::RailRoadModel::ITrain* >& LocalRobotPart::nearBy() const  {
-	return nearBy;
+int LocalRobotPart::get_id() const {
+	return _id;
 }
 
-void LocalRobotPart::set_refSegment(std::vector< ::RailRoadModel::ISegment* > newVal) {
-	refSegment = newVal;				
+
+void LocalRobotPart::set_nearBy(std::vector< ::railRoadModel::ITrain* > newVal) {
+	_nearBy = newVal;				
 }
-const std::vector< ::RailRoadModel::ISegment* >& LocalRobotPart::refSegment() const  {
-	return refSegment;
+const std::vector< ::railRoadModel::ITrain* >& LocalRobotPart::get_nearBy() const  {
+	return _nearBy;
+}
+
+void LocalRobotPart::set_refSegment(std::vector< ::railRoadModel::ISegment* > newVal) {
+	_refSegment = newVal;				
+}
+const std::vector< ::railRoadModel::ISegment* >& LocalRobotPart::get_refSegment() const  {
+	return _refSegment;
 }
 
 
@@ -67,25 +67,25 @@ RemoteRobotPart::~RemoteRobotPart() {
 void RemoteRobotPart::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteRobotPart::id() const {
+int RemoteRobotPart::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
-void RemoteRobotPart::set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) {
+void RemoteRobotPart::set_nearBy(std::vector< ::railRoadModel::ITrain* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::ITrain* >& RemoteRobotPart::nearBy() const {
+const std::vector< ::railRoadModel::ITrain* >& RemoteRobotPart::get_nearBy() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemoteRobotPart::set_refSegment(std::vector< ::RailRoadModel::ISegment* > newVal) {
+void RemoteRobotPart::set_refSegment(std::vector< ::railRoadModel::ISegment* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::ISegment* >& RemoteRobotPart::refSegment() const {
+const std::vector< ::railRoadModel::ISegment* >& RemoteRobotPart::get_refSegment() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

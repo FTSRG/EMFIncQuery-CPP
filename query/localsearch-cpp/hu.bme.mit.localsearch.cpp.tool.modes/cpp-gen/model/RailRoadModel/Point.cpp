@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IPoint*> LocalPoint::_instances__x__x__x__x__x__x__x;
 
@@ -24,17 +24,17 @@ LocalPoint::~LocalPoint() {
 }
 		
 void LocalPoint::set_x(double newVal) {
-	x = newVal;				
+	_x = newVal;				
 }
-double LocalPoint::x() const {
-	return x;
+double LocalPoint::get_x() const {
+	return _x;
 }
 
 void LocalPoint::set_y(double newVal) {
-	y = newVal;				
+	_y = newVal;				
 }
-double LocalPoint::y() const {
-	return y;
+double LocalPoint::get_y() const {
+	return _y;
 }
 
 
@@ -56,18 +56,18 @@ RemotePoint::~RemotePoint() {
 void RemotePoint::set_x(double newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-double RemotePoint::x() const {
+double RemotePoint::get_x() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 void RemotePoint::set_y(double newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-double RemotePoint::y() const {
+double RemotePoint::get_y() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

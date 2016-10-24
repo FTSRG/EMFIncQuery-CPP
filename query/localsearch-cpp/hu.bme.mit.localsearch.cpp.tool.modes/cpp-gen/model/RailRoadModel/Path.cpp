@@ -1,10 +1,10 @@
 #include "Path.h"
 
-#include "RailRoadModel/RailRoadElement.h"
+#include "railRoadModel/RailRoadElement.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IPath*> LocalPath::_instances__x__x__x__x__x__x__x;
 
@@ -25,25 +25,25 @@ LocalPath::~LocalPath() {
 }
 		
 
-void LocalPath::set_from(::RailRoadModel::IRailRoadElement* newVal) {
-	from = newVal;				
+void LocalPath::set_from(::railRoadModel::IRailRoadElement* newVal) {
+	_from = newVal;				
 }
-::RailRoadModel::IRailRoadElement* LocalPath::from() const  {
-	return from;
-}
-
-void LocalPath::set_via(::RailRoadModel::IRailRoadElement* newVal) {
-	via = newVal;				
-}
-::RailRoadModel::IRailRoadElement* LocalPath::via() const  {
-	return via;
+::railRoadModel::IRailRoadElement* LocalPath::get_from() const  {
+	return _from;
 }
 
-void LocalPath::set_to(::RailRoadModel::IRailRoadElement* newVal) {
-	to = newVal;				
+void LocalPath::set_via(::railRoadModel::IRailRoadElement* newVal) {
+	_via = newVal;				
 }
-::RailRoadModel::IRailRoadElement* LocalPath::to() const  {
-	return to;
+::railRoadModel::IRailRoadElement* LocalPath::get_via() const  {
+	return _via;
+}
+
+void LocalPath::set_to(::railRoadModel::IRailRoadElement* newVal) {
+	_to = newVal;				
+}
+::railRoadModel::IRailRoadElement* LocalPath::get_to() const  {
+	return _to;
 }
 
 
@@ -62,27 +62,27 @@ RemotePath::~RemotePath() {
 }
 
 
-void RemotePath::set_from(::RailRoadModel::IRailRoadElement* newVal) {
+void RemotePath::set_from(::railRoadModel::IRailRoadElement* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::IRailRoadElement* RemotePath::from() const {
+::railRoadModel::IRailRoadElement* RemotePath::get_from() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemotePath::set_via(::RailRoadModel::IRailRoadElement* newVal) {
+void RemotePath::set_via(::railRoadModel::IRailRoadElement* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::IRailRoadElement* RemotePath::via() const {
+::railRoadModel::IRailRoadElement* RemotePath::get_via() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemotePath::set_to(::RailRoadModel::IRailRoadElement* newVal) {
+void RemotePath::set_to(::railRoadModel::IRailRoadElement* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::IRailRoadElement* RemotePath::to() const {
+::railRoadModel::IRailRoadElement* RemotePath::get_to() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_ROBOTMODEL_H_
 #define RAILROADMODEL_ROBOTMODEL_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IRobotModel;
 class RemoteRobotModel;
@@ -42,8 +42,8 @@ public:
 	}
 
 	
-	virtual void set_robots(std::vector< ::RailRoadModel::IRobot* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::IRobot* >& robots() const = 0;
+	virtual void set_robots(std::vector< ::railRoadModel::IRobot* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::IRobot* >& get_robots() const = 0;
 };
 
 
@@ -61,8 +61,8 @@ public:
 	}
 
 	
-	void set_robots(std::vector< ::RailRoadModel::IRobot* > newVal) override;
-	const std::vector< ::RailRoadModel::IRobot* >& robots() const override;
+	void set_robots(std::vector< ::railRoadModel::IRobot* > newVal) override;
+	const std::vector< ::railRoadModel::IRobot* >& get_robots() const override;
 };
 
 class LocalRobotModel : 
@@ -73,7 +73,7 @@ private:
 	static std::list<IRobotModel*> _instances__x__x__x__x__x__x__x;
 			
 	
-	std::vector< ::RailRoadModel::IRobot* > robots;
+	std::vector< ::railRoadModel::IRobot* > _robots;
 	
 public:
 	LocalRobotModel(Viatra::Query::Model::id_t id);
@@ -90,11 +90,11 @@ public:
 	}
 
 	
-	void set_robots(std::vector< ::RailRoadModel::IRobot* > newVal) override;
-	const std::vector< ::RailRoadModel::IRobot* >& robots() const override;
+	void set_robots(std::vector< ::railRoadModel::IRobot* > newVal) override;
+	const std::vector< ::railRoadModel::IRobot* >& get_robots() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_ROBOTMODEL_H_ */

@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IState*> LocalState::_instances__x__x__x__x__x__x__x;
 
@@ -24,10 +24,10 @@ LocalState::~LocalState() {
 }
 		
 void LocalState::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalState::id() const {
-	return id;
+int LocalState::get_id() const {
+	return _id;
 }
 
 
@@ -49,11 +49,11 @@ RemoteState::~RemoteState() {
 void RemoteState::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteState::id() const {
+int RemoteState::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

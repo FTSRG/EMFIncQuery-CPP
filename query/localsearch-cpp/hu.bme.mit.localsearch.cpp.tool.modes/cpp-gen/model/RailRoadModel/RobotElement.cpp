@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IRobotElement*> LocalRobotElement::_instances__x__x__x__x__x__x__x;
 
@@ -24,10 +24,10 @@ LocalRobotElement::~LocalRobotElement() {
 }
 		
 void LocalRobotElement::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalRobotElement::id() const {
-	return id;
+int LocalRobotElement::get_id() const {
+	return _id;
 }
 
 
@@ -49,11 +49,11 @@ RemoteRobotElement::~RemoteRobotElement() {
 void RemoteRobotElement::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteRobotElement::id() const {
+int RemoteRobotElement::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

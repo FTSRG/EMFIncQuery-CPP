@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_RAILROADELEMENT_H_
 #define RAILROADMODEL_RAILROADELEMENT_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IRailRoadElement;
 class RemoteRailRoadElement;
@@ -42,10 +42,10 @@ public:
 	}
 
 	virtual void set_id(int newVal) = 0;
-	virtual int id() const = 0;
+	virtual int get_id() const = 0;
 	
-	virtual void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::IPoint* >& points() const = 0;
+	virtual void set_points(std::vector< ::railRoadModel::IPoint* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::IPoint* >& get_points() const = 0;
 };
 
 
@@ -63,10 +63,10 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 };
 
 class LocalRailRoadElement : 
@@ -76,9 +76,9 @@ class LocalRailRoadElement :
 private:
 	static std::list<IRailRoadElement*> _instances__x__x__x__x__x__x__x;
 			
-	int id = 0;
+	int _id = 0;
 	
-	std::vector< ::RailRoadModel::IPoint* > points;
+	std::vector< ::railRoadModel::IPoint* > _points;
 	
 public:
 	LocalRailRoadElement(Viatra::Query::Model::id_t id);
@@ -95,14 +95,14 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_RAILROADELEMENT_H_ */

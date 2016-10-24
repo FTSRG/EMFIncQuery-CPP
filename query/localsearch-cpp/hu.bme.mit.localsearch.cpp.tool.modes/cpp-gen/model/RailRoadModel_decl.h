@@ -1,7 +1,7 @@
 #ifndef _RAILROADMODEL_DECL_H_
 #define _RAILROADMODEL_DECL_H_
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 	class ITrain;
 	class IRailRoadElement;
@@ -19,7 +19,7 @@ namespace RailRoadModel {
 	class IRobotModel;
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 
 

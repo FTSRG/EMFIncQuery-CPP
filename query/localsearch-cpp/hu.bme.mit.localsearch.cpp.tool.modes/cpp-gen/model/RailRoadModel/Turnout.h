@@ -1,9 +1,9 @@
 #ifndef RAILROADMODEL_TURNOUT_H_
 #define RAILROADMODEL_TURNOUT_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
-#include "RailRoadModel/RailRoadElement.h"
+#include "railRoadModel/RailRoadElement.h"
 
 #include <string>
 #include <list>
@@ -14,7 +14,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class ITurnout;
 class RemoteTurnout;
@@ -44,17 +44,17 @@ public:
 		return type_id;
 	}
 
-	virtual void set_currentlyDivergent( newVal) = 0;
-	virtual  currentlyDivergent() const = 0;
+	virtual void set_currentlyDivergent(bool newVal) = 0;
+	virtual bool get_currentlyDivergent() const = 0;
 	
-	virtual void set_top(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* top() const = 0;
-	virtual void set_straight(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* straight() const = 0;
-	virtual void set_divergent(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* divergent() const = 0;
-	virtual void set_currentState(::RailRoadModel::IState* newVal) = 0;
-	virtual ::RailRoadModel::IState* currentState() const = 0;
+	virtual void set_top(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_top() const = 0;
+	virtual void set_straight(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_straight() const = 0;
+	virtual void set_divergent(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_divergent() const = 0;
+	virtual void set_currentState(::railRoadModel::IState* newVal) = 0;
+	virtual ::railRoadModel::IState* get_currentState() const = 0;
 };
 
 
@@ -71,21 +71,21 @@ public:
 		return ITurnout::type_id;
 	}
 
-	void set_currentlyDivergent( newVal) override;
-	 currentlyDivergent() const override;
+	void set_currentlyDivergent(bool newVal) override;
+	bool get_currentlyDivergent() const override;
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
-	void set_top(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* top() const override;
-	void set_straight(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* straight() const override;
-	void set_divergent(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* divergent() const override;
-	void set_currentState(::RailRoadModel::IState* newVal) override;
-	::RailRoadModel::IState* currentState() const override;
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_top(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_top() const override;
+	void set_straight(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_straight() const override;
+	void set_divergent(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_divergent() const override;
+	void set_currentState(::railRoadModel::IState* newVal) override;
+	::railRoadModel::IState* get_currentState() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 };
 
 class LocalTurnout : 
@@ -95,14 +95,14 @@ class LocalTurnout :
 private:
 	static std::list<ITurnout*> _instances__x__x__x__x__x__x__x;
 			
-	 currentlyDivergent = ;
-	int id = 0;
+	bool _currentlyDivergent = false;
+	int _id = 0;
 	
-	::RailRoadModel::IRailRoadElement* top = nullptr;
-	::RailRoadModel::IRailRoadElement* straight = nullptr;
-	::RailRoadModel::IRailRoadElement* divergent = nullptr;
-	::RailRoadModel::IState* currentState = nullptr;
-	std::vector< ::RailRoadModel::IPoint* > points;
+	::railRoadModel::IRailRoadElement* _top = nullptr;
+	::railRoadModel::IRailRoadElement* _straight = nullptr;
+	::railRoadModel::IRailRoadElement* _divergent = nullptr;
+	::railRoadModel::IState* _currentState = nullptr;
+	std::vector< ::railRoadModel::IPoint* > _points;
 	
 public:
 	LocalTurnout(Viatra::Query::Model::id_t id);
@@ -118,30 +118,30 @@ public:
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
-	void set_currentlyDivergent( newVal) override;
-	 currentlyDivergent() const override;
+	void set_currentlyDivergent(bool newVal) override;
+	bool get_currentlyDivergent() const override;
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
-	void set_top(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* top() const override;
+	void set_top(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_top() const override;
 	
-	void set_straight(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* straight() const override;
+	void set_straight(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_straight() const override;
 	
-	void set_divergent(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* divergent() const override;
+	void set_divergent(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_divergent() const override;
 	
-	void set_currentState(::RailRoadModel::IState* newVal) override;
-	::RailRoadModel::IState* currentState() const override;
+	void set_currentState(::railRoadModel::IState* newVal) override;
+	::railRoadModel::IState* get_currentState() const override;
 	
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_TURNOUT_H_ */

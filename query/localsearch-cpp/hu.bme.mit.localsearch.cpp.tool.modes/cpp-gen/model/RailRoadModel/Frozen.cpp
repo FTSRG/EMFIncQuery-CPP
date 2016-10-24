@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IFrozen*> LocalFrozen::_instances__x__x__x__x__x__x__x;
 
@@ -25,10 +25,10 @@ LocalFrozen::~LocalFrozen() {
 }
 		
 void LocalFrozen::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalFrozen::id() const {
-	return id;
+int LocalFrozen::get_id() const {
+	return _id;
 }
 
 
@@ -51,11 +51,11 @@ RemoteFrozen::~RemoteFrozen() {
 void RemoteFrozen::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteFrozen::id() const {
+int RemoteFrozen::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

@@ -1,9 +1,9 @@
 #ifndef RAILROADMODEL_OPERATIONAL_H_
 #define RAILROADMODEL_OPERATIONAL_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
-#include "RailRoadModel/State.h"
+#include "railRoadModel/State.h"
 
 #include <string>
 #include <list>
@@ -14,7 +14,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IOperational;
 class RemoteOperational;
@@ -62,7 +62,7 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
 };
 
@@ -73,7 +73,7 @@ class LocalOperational :
 private:
 	static std::list<IOperational*> _instances__x__x__x__x__x__x__x;
 			
-	int id = 0;
+	int _id = 0;
 	
 	
 public:
@@ -91,11 +91,11 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_OPERATIONAL_H_ */

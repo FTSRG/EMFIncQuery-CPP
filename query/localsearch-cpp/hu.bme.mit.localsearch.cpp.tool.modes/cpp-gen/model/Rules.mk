@@ -9,7 +9,7 @@ sp				:= $(sp).x
 dirstack_$(sp)	:= $(d)
 d				:= $(dir)
 
-dir	:= $(d)/RailRoadModel
+dir	:= $(d)/railRoadModel
 include $(dir)/Rules.mk
 
 SOURCES_$(d)	:= $(wildcard $(d)/*.cpp)

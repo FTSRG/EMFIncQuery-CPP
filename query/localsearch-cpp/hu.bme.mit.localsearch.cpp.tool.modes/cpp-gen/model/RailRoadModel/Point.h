@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_POINT_H_
 #define RAILROADMODEL_POINT_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IPoint;
 class RemotePoint;
@@ -42,9 +42,9 @@ public:
 	}
 
 	virtual void set_x(double newVal) = 0;
-	virtual double x() const = 0;
+	virtual double get_x() const = 0;
 	virtual void set_y(double newVal) = 0;
-	virtual double y() const = 0;
+	virtual double get_y() const = 0;
 	
 };
 
@@ -63,9 +63,9 @@ public:
 	}
 
 	void set_x(double newVal) override;
-	double x() const override;
+	double get_x() const override;
 	void set_y(double newVal) override;
-	double y() const override;
+	double get_y() const override;
 	
 };
 
@@ -76,8 +76,8 @@ class LocalPoint :
 private:
 	static std::list<IPoint*> _instances__x__x__x__x__x__x__x;
 			
-	double x = 0.0;
-	double y = 0.0;
+	double _x = 0.0;
+	double _y = 0.0;
 	
 	
 public:
@@ -95,14 +95,14 @@ public:
 	}
 
 	void set_x(double newVal) override;
-	double x() const override;
+	double get_x() const override;
 
 	void set_y(double newVal) override;
-	double y() const override;
+	double get_y() const override;
 
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_POINT_H_ */

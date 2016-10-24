@@ -1,10 +1,10 @@
 #include "RailRoadElement.h"
 
-#include "RailRoadModel/Point.h"
+#include "railRoadModel/Point.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IRailRoadElement*> LocalRailRoadElement::_instances__x__x__x__x__x__x__x;
 
@@ -25,18 +25,18 @@ LocalRailRoadElement::~LocalRailRoadElement() {
 }
 		
 void LocalRailRoadElement::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalRailRoadElement::id() const {
-	return id;
+int LocalRailRoadElement::get_id() const {
+	return _id;
 }
 
 
-void LocalRailRoadElement::set_points(std::vector< ::RailRoadModel::IPoint* > newVal) {
-	points = newVal;				
+void LocalRailRoadElement::set_points(std::vector< ::railRoadModel::IPoint* > newVal) {
+	_points = newVal;				
 }
-const std::vector< ::RailRoadModel::IPoint* >& LocalRailRoadElement::points() const  {
-	return points;
+const std::vector< ::railRoadModel::IPoint* >& LocalRailRoadElement::get_points() const  {
+	return _points;
 }
 
 
@@ -57,18 +57,18 @@ RemoteRailRoadElement::~RemoteRailRoadElement() {
 void RemoteRailRoadElement::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteRailRoadElement::id() const {
+int RemoteRailRoadElement::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
-void RemoteRailRoadElement::set_points(std::vector< ::RailRoadModel::IPoint* > newVal) {
+void RemoteRailRoadElement::set_points(std::vector< ::railRoadModel::IPoint* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::IPoint* >& RemoteRailRoadElement::points() const {
+const std::vector< ::railRoadModel::IPoint* >& RemoteRailRoadElement::get_points() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

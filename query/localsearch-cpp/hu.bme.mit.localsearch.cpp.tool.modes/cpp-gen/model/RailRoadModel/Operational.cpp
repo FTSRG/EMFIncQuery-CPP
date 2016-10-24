@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IOperational*> LocalOperational::_instances__x__x__x__x__x__x__x;
 
@@ -25,10 +25,10 @@ LocalOperational::~LocalOperational() {
 }
 		
 void LocalOperational::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalOperational::id() const {
-	return id;
+int LocalOperational::get_id() const {
+	return _id;
 }
 
 
@@ -51,11 +51,11 @@ RemoteOperational::~RemoteOperational() {
 void RemoteOperational::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteOperational::id() const {
+int RemoteOperational::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

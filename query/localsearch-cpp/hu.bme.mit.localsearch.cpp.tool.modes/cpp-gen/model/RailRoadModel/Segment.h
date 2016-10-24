@@ -1,9 +1,9 @@
 #ifndef RAILROADMODEL_SEGMENT_H_
 #define RAILROADMODEL_SEGMENT_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
-#include "RailRoadModel/RailRoadElement.h"
+#include "railRoadModel/RailRoadElement.h"
 
 #include <string>
 #include <list>
@@ -14,7 +14,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class ISegment;
 class RemoteSegment;
@@ -44,11 +44,11 @@ public:
 		return type_id;
 	}
 
-	virtual void set_isEnabled( newVal) = 0;
-	virtual  isEnabled() const = 0;
+	virtual void set_isEnabled(bool newVal) = 0;
+	virtual bool get_isEnabled() const = 0;
 	
-	virtual void set_connectedTo(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::IRailRoadElement* >& connectedTo() const = 0;
+	virtual void set_connectedTo(std::vector< ::railRoadModel::IRailRoadElement* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::IRailRoadElement* >& get_connectedTo() const = 0;
 };
 
 
@@ -65,15 +65,15 @@ public:
 		return ISegment::type_id;
 	}
 
-	void set_isEnabled( newVal) override;
-	 isEnabled() const override;
+	void set_isEnabled(bool newVal) override;
+	bool get_isEnabled() const override;
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
-	void set_connectedTo(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) override;
-	const std::vector< ::RailRoadModel::IRailRoadElement* >& connectedTo() const override;
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_connectedTo(std::vector< ::railRoadModel::IRailRoadElement* > newVal) override;
+	const std::vector< ::railRoadModel::IRailRoadElement* >& get_connectedTo() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 };
 
 class LocalSegment : 
@@ -83,11 +83,11 @@ class LocalSegment :
 private:
 	static std::list<ISegment*> _instances__x__x__x__x__x__x__x;
 			
-	 isEnabled = ;
-	int id = 0;
+	bool _isEnabled = false;
+	int _id = 0;
 	
-	std::vector< ::RailRoadModel::IRailRoadElement* > connectedTo;
-	std::vector< ::RailRoadModel::IPoint* > points;
+	std::vector< ::railRoadModel::IRailRoadElement* > _connectedTo;
+	std::vector< ::railRoadModel::IPoint* > _points;
 	
 public:
 	LocalSegment(Viatra::Query::Model::id_t id);
@@ -103,21 +103,21 @@ public:
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
-	void set_isEnabled( newVal) override;
-	 isEnabled() const override;
+	void set_isEnabled(bool newVal) override;
+	bool get_isEnabled() const override;
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
-	void set_connectedTo(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) override;
-	const std::vector< ::RailRoadModel::IRailRoadElement* >& connectedTo() const override;
+	void set_connectedTo(std::vector< ::railRoadModel::IRailRoadElement* > newVal) override;
+	const std::vector< ::railRoadModel::IRailRoadElement* >& get_connectedTo() const override;
 	
-	void set_points(std::vector< ::RailRoadModel::IPoint* > newVal) override;
-	const std::vector< ::RailRoadModel::IPoint* >& points() const override;
+	void set_points(std::vector< ::railRoadModel::IPoint* > newVal) override;
+	const std::vector< ::railRoadModel::IPoint* >& get_points() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_SEGMENT_H_ */

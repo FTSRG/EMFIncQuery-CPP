@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_RAILROADMODEL_H_
 #define RAILROADMODEL_RAILROADMODEL_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IRailRoadModel;
 class RemoteRailRoadModel;
@@ -42,12 +42,12 @@ public:
 	}
 
 	
-	virtual void set_segments(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::IRailRoadElement* >& segments() const = 0;
-	virtual void set_trains(std::vector< ::RailRoadModel::ITrain* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::ITrain* >& trains() const = 0;
-	virtual void set_paths(std::vector< ::RailRoadModel::IPath* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::IPath* >& paths() const = 0;
+	virtual void set_segments(std::vector< ::railRoadModel::IRailRoadElement* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::IRailRoadElement* >& get_segments() const = 0;
+	virtual void set_trains(std::vector< ::railRoadModel::ITrain* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::ITrain* >& get_trains() const = 0;
+	virtual void set_paths(std::vector< ::railRoadModel::IPath* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::IPath* >& get_paths() const = 0;
 };
 
 
@@ -65,12 +65,12 @@ public:
 	}
 
 	
-	void set_segments(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) override;
-	const std::vector< ::RailRoadModel::IRailRoadElement* >& segments() const override;
-	void set_trains(std::vector< ::RailRoadModel::ITrain* > newVal) override;
-	const std::vector< ::RailRoadModel::ITrain* >& trains() const override;
-	void set_paths(std::vector< ::RailRoadModel::IPath* > newVal) override;
-	const std::vector< ::RailRoadModel::IPath* >& paths() const override;
+	void set_segments(std::vector< ::railRoadModel::IRailRoadElement* > newVal) override;
+	const std::vector< ::railRoadModel::IRailRoadElement* >& get_segments() const override;
+	void set_trains(std::vector< ::railRoadModel::ITrain* > newVal) override;
+	const std::vector< ::railRoadModel::ITrain* >& get_trains() const override;
+	void set_paths(std::vector< ::railRoadModel::IPath* > newVal) override;
+	const std::vector< ::railRoadModel::IPath* >& get_paths() const override;
 };
 
 class LocalRailRoadModel : 
@@ -81,9 +81,9 @@ private:
 	static std::list<IRailRoadModel*> _instances__x__x__x__x__x__x__x;
 			
 	
-	std::vector< ::RailRoadModel::IRailRoadElement* > segments;
-	std::vector< ::RailRoadModel::ITrain* > trains;
-	std::vector< ::RailRoadModel::IPath* > paths;
+	std::vector< ::railRoadModel::IRailRoadElement* > _segments;
+	std::vector< ::railRoadModel::ITrain* > _trains;
+	std::vector< ::railRoadModel::IPath* > _paths;
 	
 public:
 	LocalRailRoadModel(Viatra::Query::Model::id_t id);
@@ -100,17 +100,17 @@ public:
 	}
 
 	
-	void set_segments(std::vector< ::RailRoadModel::IRailRoadElement* > newVal) override;
-	const std::vector< ::RailRoadModel::IRailRoadElement* >& segments() const override;
+	void set_segments(std::vector< ::railRoadModel::IRailRoadElement* > newVal) override;
+	const std::vector< ::railRoadModel::IRailRoadElement* >& get_segments() const override;
 	
-	void set_trains(std::vector< ::RailRoadModel::ITrain* > newVal) override;
-	const std::vector< ::RailRoadModel::ITrain* >& trains() const override;
+	void set_trains(std::vector< ::railRoadModel::ITrain* > newVal) override;
+	const std::vector< ::railRoadModel::ITrain* >& get_trains() const override;
 	
-	void set_paths(std::vector< ::RailRoadModel::IPath* > newVal) override;
-	const std::vector< ::RailRoadModel::IPath* >& paths() const override;
+	void set_paths(std::vector< ::railRoadModel::IPath* > newVal) override;
+	const std::vector< ::railRoadModel::IPath* >& get_paths() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_RAILROADMODEL_H_ */

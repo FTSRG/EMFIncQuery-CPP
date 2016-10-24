@@ -1,9 +1,9 @@
 #ifndef RAILROADMODEL_ROBOTPART_H_
 #define RAILROADMODEL_ROBOTPART_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
-#include "RailRoadModel/RobotElement.h"
+#include "railRoadModel/RobotElement.h"
 
 #include <string>
 #include <list>
@@ -14,7 +14,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IRobotPart;
 class RemoteRobotPart;
@@ -45,10 +45,10 @@ public:
 	}
 
 	
-	virtual void set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::ITrain* >& nearBy() const = 0;
-	virtual void set_refSegment(std::vector< ::RailRoadModel::ISegment* > newVal) = 0;
-	virtual const std::vector< ::RailRoadModel::ISegment* >& refSegment() const = 0;
+	virtual void set_nearBy(std::vector< ::railRoadModel::ITrain* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::ITrain* >& get_nearBy() const = 0;
+	virtual void set_refSegment(std::vector< ::railRoadModel::ISegment* > newVal) = 0;
+	virtual const std::vector< ::railRoadModel::ISegment* >& get_refSegment() const = 0;
 };
 
 
@@ -66,12 +66,12 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
-	void set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) override;
-	const std::vector< ::RailRoadModel::ITrain* >& nearBy() const override;
-	void set_refSegment(std::vector< ::RailRoadModel::ISegment* > newVal) override;
-	const std::vector< ::RailRoadModel::ISegment* >& refSegment() const override;
+	void set_nearBy(std::vector< ::railRoadModel::ITrain* > newVal) override;
+	const std::vector< ::railRoadModel::ITrain* >& get_nearBy() const override;
+	void set_refSegment(std::vector< ::railRoadModel::ISegment* > newVal) override;
+	const std::vector< ::railRoadModel::ISegment* >& get_refSegment() const override;
 };
 
 class LocalRobotPart : 
@@ -81,10 +81,10 @@ class LocalRobotPart :
 private:
 	static std::list<IRobotPart*> _instances__x__x__x__x__x__x__x;
 			
-	int id = 0;
+	int _id = 0;
 	
-	std::vector< ::RailRoadModel::ITrain* > nearBy;
-	std::vector< ::RailRoadModel::ISegment* > refSegment;
+	std::vector< ::railRoadModel::ITrain* > _nearBy;
+	std::vector< ::railRoadModel::ISegment* > _refSegment;
 	
 public:
 	LocalRobotPart(Viatra::Query::Model::id_t id);
@@ -101,17 +101,17 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
-	void set_nearBy(std::vector< ::RailRoadModel::ITrain* > newVal) override;
-	const std::vector< ::RailRoadModel::ITrain* >& nearBy() const override;
+	void set_nearBy(std::vector< ::railRoadModel::ITrain* > newVal) override;
+	const std::vector< ::railRoadModel::ITrain* >& get_nearBy() const override;
 	
-	void set_refSegment(std::vector< ::RailRoadModel::ISegment* > newVal) override;
-	const std::vector< ::RailRoadModel::ISegment* >& refSegment() const override;
+	void set_refSegment(std::vector< ::railRoadModel::ISegment* > newVal) override;
+	const std::vector< ::railRoadModel::ISegment* >& get_refSegment() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_ROBOTPART_H_ */

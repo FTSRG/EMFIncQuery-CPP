@@ -2,7 +2,7 @@
 #include "ModelRoot.h"
 
 #include<fstream>
-#include"RailRoadModel_def.h"
+#include"railRoadModel_def.h"
 
 #define PICOJSON_USE_INT64
 #include<picojson.h>
@@ -39,60 +39,60 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 
 			if (type == "Train")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteTrain(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalTrain(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteTrain(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalTrain(id));
 			else if (type == "RailRoadElement")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRailRoadElement(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRailRoadElement(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRailRoadElement(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRailRoadElement(id));
 			else if (type == "Turnout")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteTurnout(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalTurnout(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteTurnout(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalTurnout(id));
 			else if (type == "Point")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemotePoint(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalPoint(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemotePoint(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalPoint(id));
 			else if (type == "RailRoadModel")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRailRoadModel(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRailRoadModel(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRailRoadModel(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRailRoadModel(id));
 			else if (type == "Segment")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteSegment(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalSegment(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteSegment(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalSegment(id));
 			else if (type == "Path")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemotePath(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalPath(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemotePath(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalPath(id));
 			else if (type == "RobotPart")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRobotPart(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRobotPart(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRobotPart(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRobotPart(id));
 			else if (type == "RobotElement")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRobotElement(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRobotElement(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRobotElement(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRobotElement(id));
 			else if (type == "State")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteState(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalState(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteState(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalState(id));
 			else if (type == "Frozen")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteFrozen(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalFrozen(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteFrozen(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalFrozen(id));
 			else if (type == "Operational")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteOperational(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalOperational(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteOperational(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalOperational(id));
 			else if (type == "Robot")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRobot(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRobot(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRobot(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRobot(id));
 			else if (type == "RobotModel")
 				modelElements[id] = is_remote
-					? dynamic_cast<ModelElement*>(new ::RailRoadModel::RemoteRobotModel(id, node))
-					: dynamic_cast<ModelElement*>(new ::RailRoadModel::LocalRobotModel(id));
+					? dynamic_cast<ModelElement*>(new ::railRoadModel::RemoteRobotModel(id, node))
+					: dynamic_cast<ModelElement*>(new ::railRoadModel::LocalRobotModel(id));
 			else 
 
 				throw std::string("ModelElement type cannot be read");
@@ -110,9 +110,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 			if( !is_remote )
 			{
 				switch( modelElements[id]->get_type_id() ){
-					case ::RailRoadModel::ITrain::type_id :
+					case ::railRoadModel::ITrain::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::ITrain*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::ITrain*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -122,7 +122,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_currentlyOn(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("previouslyOn");
@@ -130,7 +130,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_previouslyOn(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							attrib_elem = elem.get("x");
@@ -154,9 +154,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IRailRoadElement::type_id :
+					case ::railRoadModel::IRailRoadElement::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -166,11 +166,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IPoint*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IPoint*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IPoint*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IPoint*>(modelElements[id]);
 								}
 								modelElement->set_points(as_vector);
 							}
@@ -183,9 +183,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::ITurnout::type_id :
+					case ::railRoadModel::ITurnout::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::ITurnout*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::ITurnout*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -195,7 +195,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_top(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("straight");
@@ -203,7 +203,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_straight(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("divergent");
@@ -211,7 +211,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_divergent(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("currentState");
@@ -219,7 +219,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_currentState(
-									dynamic_cast<::RailRoadModel::IState*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IState*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("points");
@@ -227,19 +227,19 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IPoint*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IPoint*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IPoint*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IPoint*>(modelElements[id]);
 								}
 								modelElement->set_points(as_vector);
 							}
 							attrib_elem = elem.get("currentlyDivergent");
 							
-							if( attrib_elem.is<>() )
+							if( attrib_elem.is<bool>() )
 							{
-								modelElement->set_currentlyDivergent( ()attrib_elem.get<>() );
+								modelElement->set_currentlyDivergent( (bool)attrib_elem.get<bool>() );
 							}
 							attrib_elem = elem.get("id");
 							
@@ -250,9 +250,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IPoint::type_id :
+					case ::railRoadModel::IPoint::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IPoint*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IPoint*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -272,9 +272,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IRailRoadModel::type_id :
+					case ::railRoadModel::IRailRoadModel::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRailRoadModel*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRailRoadModel*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -284,11 +284,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IRailRoadElement*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IRailRoadElement*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[id]);
 								}
 								modelElement->set_segments(as_vector);
 							}
@@ -297,11 +297,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::ITrain*> as_vector(as_array.size());
+								std::vector<::railRoadModel::ITrain*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::ITrain*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::ITrain*>(modelElements[id]);
 								}
 								modelElement->set_trains(as_vector);
 							}
@@ -310,20 +310,20 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IPath*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IPath*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IPath*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IPath*>(modelElements[id]);
 								}
 								modelElement->set_paths(as_vector);
 							}
 						}
 						break;
 						
-					case ::RailRoadModel::ISegment::type_id :
+					case ::railRoadModel::ISegment::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::ISegment*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::ISegment*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -333,11 +333,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IRailRoadElement*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IRailRoadElement*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[id]);
 								}
 								modelElement->set_connectedTo(as_vector);
 							}
@@ -346,19 +346,19 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IPoint*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IPoint*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IPoint*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IPoint*>(modelElements[id]);
 								}
 								modelElement->set_points(as_vector);
 							}
 							attrib_elem = elem.get("isEnabled");
 							
-							if( attrib_elem.is<>() )
+							if( attrib_elem.is<bool>() )
 							{
-								modelElement->set_isEnabled( ()attrib_elem.get<>() );
+								modelElement->set_isEnabled( (bool)attrib_elem.get<bool>() );
 							}
 							attrib_elem = elem.get("id");
 							
@@ -369,9 +369,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IPath::type_id :
+					case ::railRoadModel::IPath::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IPath*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IPath*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -381,7 +381,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_from(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("via");
@@ -389,7 +389,7 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_via(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 							ref_elem = elem.get("to");
@@ -397,15 +397,15 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<int64_t>() )
 							{
 								modelElement->set_to(
-									dynamic_cast<::RailRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
+									dynamic_cast<::railRoadModel::IRailRoadElement*>(modelElements[(int32_t)ref_elem.get<int64_t>()])
 								);
 							}
 						}
 						break;
 						
-					case ::RailRoadModel::IRobotPart::type_id :
+					case ::railRoadModel::IRobotPart::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRobotPart*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRobotPart*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -415,11 +415,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::ITrain*> as_vector(as_array.size());
+								std::vector<::railRoadModel::ITrain*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::ITrain*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::ITrain*>(modelElements[id]);
 								}
 								modelElement->set_nearBy(as_vector);
 							}
@@ -428,11 +428,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::ISegment*> as_vector(as_array.size());
+								std::vector<::railRoadModel::ISegment*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::ISegment*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::ISegment*>(modelElements[id]);
 								}
 								modelElement->set_refSegment(as_vector);
 							}
@@ -445,9 +445,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IRobotElement::type_id :
+					case ::railRoadModel::IRobotElement::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRobotElement*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRobotElement*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -461,9 +461,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IState::type_id :
+					case ::railRoadModel::IState::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IState*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IState*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -477,9 +477,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IFrozen::type_id :
+					case ::railRoadModel::IFrozen::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IFrozen*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IFrozen*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -493,9 +493,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IOperational::type_id :
+					case ::railRoadModel::IOperational::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IOperational*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IOperational*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -509,9 +509,9 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 						}
 						break;
 						
-					case ::RailRoadModel::IRobot::type_id :
+					case ::railRoadModel::IRobot::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRobot*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRobot*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -521,20 +521,20 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IRobotPart*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IRobotPart*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IRobotPart*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IRobotPart*>(modelElements[id]);
 								}
 								modelElement->set_robotParts(as_vector);
 							}
 						}
 						break;
 						
-					case ::RailRoadModel::IRobotModel::type_id :
+					case ::railRoadModel::IRobotModel::type_id :
 						{	
-							auto * modelElement = dynamic_cast<::RailRoadModel::IRobotModel*>(modelElements[id]);
+							auto * modelElement = dynamic_cast<::railRoadModel::IRobotModel*>(modelElements[id]);
 							picojson::value ref_elem;
 							picojson::value attrib_elem;
 							picojson::array as_array;
@@ -544,11 +544,11 @@ ModelRoot::ModelRoot(const char * configjson, const char * localNodeName)
 							if( ref_elem.is<picojson::array>() )
 							{
 								as_array = ref_elem.get<picojson::array>();	
-								std::vector<::RailRoadModel::IRobot*> as_vector(as_array.size());
+								std::vector<::railRoadModel::IRobot*> as_vector(as_array.size());
 								for(size_t i = 0 ; i < as_array.size() ; ++i)
 								{
 									int32_t id = (int32_t)as_array[i].get<int64_t>();
-									as_vector[i] = dynamic_cast<::RailRoadModel::IRobot*>(modelElements[id]);
+									as_vector[i] = dynamic_cast<::railRoadModel::IRobot*>(modelElements[id]);
 								}
 								modelElement->set_robots(as_vector);
 							}

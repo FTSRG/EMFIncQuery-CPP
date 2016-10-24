@@ -1,10 +1,10 @@
 #include "Train.h"
 
-#include "RailRoadModel/RailRoadElement.h"
+#include "railRoadModel/RailRoadElement.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<ITrain*> LocalTrain::_instances__x__x__x__x__x__x__x;
 
@@ -25,39 +25,39 @@ LocalTrain::~LocalTrain() {
 }
 		
 void LocalTrain::set_x(double newVal) {
-	x = newVal;				
+	_x = newVal;				
 }
-double LocalTrain::x() const {
-	return x;
+double LocalTrain::get_x() const {
+	return _x;
 }
 
 void LocalTrain::set_y(double newVal) {
-	y = newVal;				
+	_y = newVal;				
 }
-double LocalTrain::y() const {
-	return y;
+double LocalTrain::get_y() const {
+	return _y;
 }
 
 void LocalTrain::set_id(int newVal) {
-	id = newVal;				
+	_id = newVal;				
 }
-int LocalTrain::id() const {
-	return id;
-}
-
-
-void LocalTrain::set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) {
-	currentlyOn = newVal;				
-}
-::RailRoadModel::IRailRoadElement* LocalTrain::currentlyOn() const  {
-	return currentlyOn;
+int LocalTrain::get_id() const {
+	return _id;
 }
 
-void LocalTrain::set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) {
-	previouslyOn = newVal;				
+
+void LocalTrain::set_currentlyOn(::railRoadModel::IRailRoadElement* newVal) {
+	_currentlyOn = newVal;				
 }
-::RailRoadModel::IRailRoadElement* LocalTrain::previouslyOn() const  {
-	return previouslyOn;
+::railRoadModel::IRailRoadElement* LocalTrain::get_currentlyOn() const  {
+	return _currentlyOn;
+}
+
+void LocalTrain::set_previouslyOn(::railRoadModel::IRailRoadElement* newVal) {
+	_previouslyOn = newVal;				
+}
+::railRoadModel::IRailRoadElement* LocalTrain::get_previouslyOn() const  {
+	return _previouslyOn;
 }
 
 
@@ -78,39 +78,39 @@ RemoteTrain::~RemoteTrain() {
 void RemoteTrain::set_x(double newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-double RemoteTrain::x() const {
+double RemoteTrain::get_x() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 void RemoteTrain::set_y(double newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-double RemoteTrain::y() const {
+double RemoteTrain::get_y() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 void RemoteTrain::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteTrain::id() const {
+int RemoteTrain::get_id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
-void RemoteTrain::set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) {
+void RemoteTrain::set_currentlyOn(::railRoadModel::IRailRoadElement* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::IRailRoadElement* RemoteTrain::currentlyOn() const {
+::railRoadModel::IRailRoadElement* RemoteTrain::get_currentlyOn() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
-void RemoteTrain::set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) {
+void RemoteTrain::set_previouslyOn(::railRoadModel::IRailRoadElement* newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-::RailRoadModel::IRailRoadElement* RemoteTrain::previouslyOn() const {
+::railRoadModel::IRailRoadElement* RemoteTrain::get_previouslyOn() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

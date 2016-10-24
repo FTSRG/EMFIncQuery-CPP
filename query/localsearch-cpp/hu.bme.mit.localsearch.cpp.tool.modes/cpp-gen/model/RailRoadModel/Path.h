@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_PATH_H_
 #define RAILROADMODEL_PATH_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IPath;
 class RemotePath;
@@ -42,12 +42,12 @@ public:
 	}
 
 	
-	virtual void set_from(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* from() const = 0;
-	virtual void set_via(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* via() const = 0;
-	virtual void set_to(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* to() const = 0;
+	virtual void set_from(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_from() const = 0;
+	virtual void set_via(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_via() const = 0;
+	virtual void set_to(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_to() const = 0;
 };
 
 
@@ -65,12 +65,12 @@ public:
 	}
 
 	
-	void set_from(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* from() const override;
-	void set_via(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* via() const override;
-	void set_to(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* to() const override;
+	void set_from(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_from() const override;
+	void set_via(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_via() const override;
+	void set_to(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_to() const override;
 };
 
 class LocalPath : 
@@ -81,9 +81,9 @@ private:
 	static std::list<IPath*> _instances__x__x__x__x__x__x__x;
 			
 	
-	::RailRoadModel::IRailRoadElement* from = nullptr;
-	::RailRoadModel::IRailRoadElement* via = nullptr;
-	::RailRoadModel::IRailRoadElement* to = nullptr;
+	::railRoadModel::IRailRoadElement* _from = nullptr;
+	::railRoadModel::IRailRoadElement* _via = nullptr;
+	::railRoadModel::IRailRoadElement* _to = nullptr;
 	
 public:
 	LocalPath(Viatra::Query::Model::id_t id);
@@ -100,17 +100,17 @@ public:
 	}
 
 	
-	void set_from(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* from() const override;
+	void set_from(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_from() const override;
 	
-	void set_via(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* via() const override;
+	void set_via(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_via() const override;
 	
-	void set_to(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* to() const override;
+	void set_to(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_to() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_PATH_H_ */

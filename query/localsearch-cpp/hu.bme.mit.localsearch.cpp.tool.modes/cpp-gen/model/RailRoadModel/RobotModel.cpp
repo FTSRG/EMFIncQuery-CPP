@@ -1,10 +1,10 @@
 #include "RobotModel.h"
 
-#include "RailRoadModel/Robot.h"
+#include "railRoadModel/Robot.h"
 
 #include <algorithm>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 std::list<IRobotModel*> LocalRobotModel::_instances__x__x__x__x__x__x__x;
 
@@ -25,11 +25,11 @@ LocalRobotModel::~LocalRobotModel() {
 }
 		
 
-void LocalRobotModel::set_robots(std::vector< ::RailRoadModel::IRobot* > newVal) {
-	robots = newVal;				
+void LocalRobotModel::set_robots(std::vector< ::railRoadModel::IRobot* > newVal) {
+	_robots = newVal;				
 }
-const std::vector< ::RailRoadModel::IRobot* >& LocalRobotModel::robots() const  {
-	return robots;
+const std::vector< ::railRoadModel::IRobot* >& LocalRobotModel::get_robots() const  {
+	return _robots;
 }
 
 
@@ -48,13 +48,13 @@ RemoteRobotModel::~RemoteRobotModel() {
 }
 
 
-void RemoteRobotModel::set_robots(std::vector< ::RailRoadModel::IRobot* > newVal) {
+void RemoteRobotModel::set_robots(std::vector< ::railRoadModel::IRobot* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-const std::vector< ::RailRoadModel::IRobot* >& RemoteRobotModel::robots() const {
+const std::vector< ::railRoadModel::IRobot* >& RemoteRobotModel::get_robots() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */

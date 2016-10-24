@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_ROBOTELEMENT_H_
 #define RAILROADMODEL_ROBOTELEMENT_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class IRobotElement;
 class RemoteRobotElement;
@@ -42,7 +42,7 @@ public:
 	}
 
 	virtual void set_id(int newVal) = 0;
-	virtual int id() const = 0;
+	virtual int get_id() const = 0;
 	
 };
 
@@ -61,7 +61,7 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
 };
 
@@ -72,7 +72,7 @@ class LocalRobotElement :
 private:
 	static std::list<IRobotElement*> _instances__x__x__x__x__x__x__x;
 			
-	int id = 0;
+	int _id = 0;
 	
 	
 public:
@@ -90,11 +90,11 @@ public:
 	}
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_ROBOTELEMENT_H_ */

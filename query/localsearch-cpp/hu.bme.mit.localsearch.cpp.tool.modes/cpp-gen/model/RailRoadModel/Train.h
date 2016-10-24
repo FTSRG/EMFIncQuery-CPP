@@ -1,7 +1,7 @@
 #ifndef RAILROADMODEL_TRAIN_H_
 #define RAILROADMODEL_TRAIN_H_
 
-#include "RailRoadModel_decl.h"
+#include "railRoadModel_decl.h"
 
 
 #include <string>
@@ -13,7 +13,7 @@
 #include <Viatra/Query/Model/LocalElement.h>
 #include <Viatra/Query/Model/IModelElemService.h>
 
-namespace RailRoadModel {
+namespace railRoadModel {
 
 class ITrain;
 class RemoteTrain;
@@ -42,16 +42,16 @@ public:
 	}
 
 	virtual void set_x(double newVal) = 0;
-	virtual double x() const = 0;
+	virtual double get_x() const = 0;
 	virtual void set_y(double newVal) = 0;
-	virtual double y() const = 0;
+	virtual double get_y() const = 0;
 	virtual void set_id(int newVal) = 0;
-	virtual int id() const = 0;
+	virtual int get_id() const = 0;
 	
-	virtual void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* currentlyOn() const = 0;
-	virtual void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) = 0;
-	virtual ::RailRoadModel::IRailRoadElement* previouslyOn() const = 0;
+	virtual void set_currentlyOn(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_currentlyOn() const = 0;
+	virtual void set_previouslyOn(::railRoadModel::IRailRoadElement* newVal) = 0;
+	virtual ::railRoadModel::IRailRoadElement* get_previouslyOn() const = 0;
 };
 
 
@@ -69,16 +69,16 @@ public:
 	}
 
 	void set_x(double newVal) override;
-	double x() const override;
+	double get_x() const override;
 	void set_y(double newVal) override;
-	double y() const override;
+	double get_y() const override;
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 	
-	void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* currentlyOn() const override;
-	void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* previouslyOn() const override;
+	void set_currentlyOn(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_currentlyOn() const override;
+	void set_previouslyOn(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_previouslyOn() const override;
 };
 
 class LocalTrain : 
@@ -88,12 +88,12 @@ class LocalTrain :
 private:
 	static std::list<ITrain*> _instances__x__x__x__x__x__x__x;
 			
-	double x = 0.0;
-	double y = 0.0;
-	int id = 0;
+	double _x = 0.0;
+	double _y = 0.0;
+	int _id = 0;
 	
-	::RailRoadModel::IRailRoadElement* currentlyOn = nullptr;
-	::RailRoadModel::IRailRoadElement* previouslyOn = nullptr;
+	::railRoadModel::IRailRoadElement* _currentlyOn = nullptr;
+	::railRoadModel::IRailRoadElement* _previouslyOn = nullptr;
 	
 public:
 	LocalTrain(Viatra::Query::Model::id_t id);
@@ -110,23 +110,23 @@ public:
 	}
 
 	void set_x(double newVal) override;
-	double x() const override;
+	double get_x() const override;
 
 	void set_y(double newVal) override;
-	double y() const override;
+	double get_y() const override;
 
 	void set_id(int newVal) override;
-	int id() const override;
+	int get_id() const override;
 
 	
-	void set_currentlyOn(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* currentlyOn() const override;
+	void set_currentlyOn(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_currentlyOn() const override;
 	
-	void set_previouslyOn(::RailRoadModel::IRailRoadElement* newVal) override;
-	::RailRoadModel::IRailRoadElement* previouslyOn() const override;
+	void set_previouslyOn(::railRoadModel::IRailRoadElement* newVal) override;
+	::railRoadModel::IRailRoadElement* get_previouslyOn() const override;
 	
 };
 
-} /* namespace RailRoadModel */
+} /* namespace railRoadModel */
 
 #endif /*  RAILROADMODEL_TRAIN_H_ */
