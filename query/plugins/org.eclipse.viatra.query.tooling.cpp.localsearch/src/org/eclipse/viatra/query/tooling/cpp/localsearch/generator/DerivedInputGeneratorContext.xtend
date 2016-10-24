@@ -16,6 +16,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoCompiler
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtoGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufMatchCompiler
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufMatchingFrameCompiler
 
 class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 
@@ -33,6 +34,10 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 					val matchingFrameGenerator = new MatchingFrameGenerator(query.name, patternName, patternBody.index, patternBody.matchingFrame)
 					frameGenMap.put(patternBody, matchingFrameGenerator)
 					generators += matchingFrameGenerator
+					
+					val protoMatchingFrameCompiler
+						= new ProtobufMatchingFrameCompiler(query.name, patternName, patternBody.index, patternBody.matchingFrame)
+					protoCompilers += protoMatchingFrameCompiler
 				]
 			]
 			
