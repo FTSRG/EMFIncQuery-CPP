@@ -51,6 +51,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 				default: null
 			}
 		].filterNull
+		includes += new Include("unordered_set", true);
 		includes += new Include("stdint.h", true);
 		includes += new Include("proto_gen.pb.h", false);
 		includes += new Include("Viatra/Query/MatchSet.h", false);
