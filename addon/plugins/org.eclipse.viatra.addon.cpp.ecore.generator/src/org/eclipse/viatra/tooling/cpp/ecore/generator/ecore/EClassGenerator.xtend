@@ -19,12 +19,16 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelpe
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.NamespaceHelper
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
+import java.util.ArrayList
+import org.eclipse.emf.ecore.EAttribute
 
 /**
  * @author Robert Doczi
  */
 class EClassGenerator {
 	
+	public static val instanceVariable = "_instances__x__x__x__x__x__x__x";
+		
 	public static int id = 0;
 	
 
