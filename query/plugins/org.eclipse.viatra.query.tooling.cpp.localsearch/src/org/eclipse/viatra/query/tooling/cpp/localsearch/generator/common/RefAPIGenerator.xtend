@@ -1,9 +1,12 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.viatra.query.runtime.localsearch.exceptions.LocalSearchException
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 
 class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
@@ -14,13 +17,15 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val QuerySpecificationGenerator querySpecification
 	protected val CharSequence featureName
+	protected val int arity
 	protected val PVariable src
+	protected val EClass srcClassifier
 	protected val PVariable srcID
 	protected val PVariable trg
 	
 
 	new(String queryName, String patternName, CharSequence featureName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
-		super(#{queryName}, '''«patternName.toFirstUpper»Derived''')
+		super(#{queryName}, '''«patternName.toFirstUpper»RefUpdater''')
 		this.name = patternName.toFirstUpper
 		this.pattern = patternGroup.boundedPatterns.maxBy[it | it.boundParameters.size]
 		this.matchGenerator = matchGenerator
@@ -32,6 +37,10 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 		this.src = this.pattern.patternBodies.head.PBody.allVariables.get(0)
 		this.srcID = this.pattern.patternBodies.head.PBody.allVariables.get(1)
 		this.trg = this.pattern.patternBodies.head.PBody.allVariables.get(2)
+		
+		this.srcClassifier = CompilerHelper::getLeastStrictType(this.src) as EClass
+		if(this.srcClassifier == null) throw new LocalSearchException("Query Based Feature doesn't exists")
+		this.arity = this.srcClassifier.getEStructuralFeature(this.featureName.toString).upperBound
 	}
 	
 	override initialize() {
@@ -47,12 +56,11 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	«val srcType = srcPointerType.subSequence(0,srcPointerType.length-1)»
 	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
-	template<class ModelRoot>
-	struct «name»Update{
+	struct «name»RefUpdate{
 		/*
 		 * It is generated for update a reference collection in src's environment.
 		 */
-		static void update(ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(Viatra::Query::Model::ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory
@@ -60,27 +68,36 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 			 */
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
-				return src->id == «srcID.name»;
+				return src->get_id() == «srcID.name»;
 			};
 	
 			auto srcIt = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 	
-			if(srcIt == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found.");
+			if(srcIt == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found in RefUpdater");
 	
 			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
-			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
-	
-			std::vector< «trgPointerType» > newDerivedList;
-	
-			for(auto match : matches){
-				if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.«trg.name»)) newDerivedList.push_back(match.«trg.name»);
+			
+			if(matches.size() > 0){ 
+			
+				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
+				
+				«IF arity != 1 »
+				std::vector< «trgPointerType» > newDerivedList;
+				
+				for(auto match : matches){
+					if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.«trg.name»)) newDerivedList.push_back(match.«trg.name»);
+				}
+				(*srcIt)->set_«featureName»(std::move(newDerivedList));
+				«ELSE»
+				«trgPointerType» newDerivedMember = nullptr;
+				for(auto match : matches){
+					newDerivedMember = match.«trg.name»;
+				}
+				if(newDerivedMember != nullptr) (*srcIt)->set_«featureName»(newDerivedMember);
+				«ENDIF»
 			}
-	
-			(*srcIt)->«featureName».clear();
-			(*srcIt)->«featureName».insert((*srcIt)->«featureName».begin(), newDerivedList.begin(), newDerivedList.end());
-	
 			/*
 			* Critical Section END
 			*/
