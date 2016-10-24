@@ -100,7 +100,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 				«ELSE»
 				(*srcObj)->set_«featureName»(*trgObj);
 		}
-		else if((*trgObj) == (*srcObj)->get_«featureName»()) (*srcObj)->set«featureName»(nullptr);
+		else if((*trgObj) == (*srcObj)->get_«featureName»()) (*srcObj)->set_«featureName»(nullptr);
 				«ENDIF»
 			/*
 			* Critical Section END
