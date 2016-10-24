@@ -9,4 +9,4 @@
 *.workspace
 *.out
 *.supp
-/cpp-gen/.codelite/*
+cpp-gen/.codelite/*
