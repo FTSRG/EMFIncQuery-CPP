@@ -57,12 +57,11 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	«val srcType = srcPointerType.subSequence(0,srcPointerType.length-1)»
 	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
-	template<class ModelRoot>
 	struct «name»RefUpdate{
 		/*
 		 * It is generated for update a reference collection in src's environment.
 		 */
-		static void update(ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(Viatra::Query::Model::ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory

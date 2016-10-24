@@ -58,14 +58,13 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	«val srcType = srcPointerType.subSequence(0,srcPointerType.length-1)»
 	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
-	template<class ModelRoot>
 	struct «name»InputUpdater{
 		/*
 		 * It is generated for only sending vector coordinates into the model instance. 
 		 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
 		 * If that isn't guaranteed this code crashes in compile time.
 		 */
-		static void update(ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(::Viatra::Query::Model::ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory
@@ -96,12 +95,13 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 				auto tempTrg = std::find_if((*srcObj)->«featureName»().begin(), (*srcObj)->«featureName»().end(), trgIDPredicate);
 				
 				if(tempTrg == (*srcObj)->«featureName»().end()) (*srcObj)->«featureName»().push_back(*trgObj);
-			}else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
+				}
+				else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
 				«ELSE»
-				
+				(*srcObj)->set_«featureName»(*trgObj);
+			}
+			else if((*trgObj) == (*srcObj)->«featureName»()) (*srcObj)->set«featureName»(nullptr);
 				«ENDIF»
-			
-			
 			/*
 			* Critical Section END
 			*/
