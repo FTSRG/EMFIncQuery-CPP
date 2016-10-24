@@ -137,7 +137,7 @@ class AttributeHelper {
 
 	def memberName() '''_«attr.name»'''
 
-	def getterName() '''«attr.name»'''
+	def getterName() '''get_«attr.name»'''
 	
 	def setterName() '''set_«attr.name»'''
 	
@@ -176,7 +176,7 @@ class AssociationHelper {
 
 	def memberName() '''_«association.name»'''
 
-	def getterName() '''«association.name»'''
+	def getterName() '''get_«association.name»'''
 	
 	def setterName() '''set_«association.name»'''
 
