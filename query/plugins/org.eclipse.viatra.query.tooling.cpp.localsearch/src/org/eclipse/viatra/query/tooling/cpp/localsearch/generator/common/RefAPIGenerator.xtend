@@ -7,7 +7,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHea
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.runtime.localsearch.exceptions.LocalSearchException
-
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
