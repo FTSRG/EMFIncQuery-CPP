@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RailroadStudy", "RailroadStudy.vcxproj", "{1F28E096-A20B-4854-B624-268737A32020}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Viatra", "..\..\..\..\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources\Viatra\Viatra.vcxproj", "{446411A1-C253-4CE5-92EF-F8A682AF8DDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F28E096-A20B-4854-B624-268737A32020}.Debug|x64.ActiveCfg = Debug|x64
+		{1F28E096-A20B-4854-B624-268737A32020}.Debug|x64.Build.0 = Debug|x64
+		{1F28E096-A20B-4854-B624-268737A32020}.Debug|x86.ActiveCfg = Debug|Win32
+		{1F28E096-A20B-4854-B624-268737A32020}.Debug|x86.Build.0 = Debug|Win32
+		{1F28E096-A20B-4854-B624-268737A32020}.Release|x64.ActiveCfg = Release|x64
+		{1F28E096-A20B-4854-B624-268737A32020}.Release|x64.Build.0 = Release|x64
+		{1F28E096-A20B-4854-B624-268737A32020}.Release|x86.ActiveCfg = Release|Win32
+		{1F28E096-A20B-4854-B624-268737A32020}.Release|x86.Build.0 = Release|Win32
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Debug|x64.ActiveCfg = Debug|x64
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Debug|x64.Build.0 = Debug|x64
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Debug|x86.ActiveCfg = Debug|Win32
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Debug|x86.Build.0 = Debug|Win32
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Release|x64.ActiveCfg = Release|x64
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Release|x64.Build.0 = Release|x64
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Release|x86.ActiveCfg = Release|Win32
+		{446411A1-C253-4CE5-92EF-F8A682AF8DDC}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

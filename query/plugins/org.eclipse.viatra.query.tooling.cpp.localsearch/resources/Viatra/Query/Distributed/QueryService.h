@@ -165,10 +165,10 @@ namespace Viatra {
 				{
 					Util::Logger::Log("QueryService::construct QueryService");
 				}
+
 				~QueryService()
 				{
 					Util::Logger::Log("QueryService::destruct QueryService");
-
 				}
 				
 				// usage: queryService.RunNewQuery<QueryName>()
