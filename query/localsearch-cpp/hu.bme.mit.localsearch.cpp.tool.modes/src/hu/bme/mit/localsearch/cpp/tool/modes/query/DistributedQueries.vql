@@ -1,9 +1,9 @@
 package hu.bme.mit.localsearch.cpp.tool.modes.query
 
-import "http://cpp/tool/modes/platform"
-import "http://cpp/tool/modes/model"
+//import "http://cpp/tool/modes/platform"
+import "http://tool/modes/model"
 
-pattern isDangerous(rp, tr){
-	RobotPart.nearBy(rp, tr);
-}
-
+//pattern isDangerous(rp, tr){
+//	RobotPart.nearBy(rp, tr);
+//}
+//
