@@ -39,11 +39,7 @@ public:
 		sp.add_operation(create_NavigateSingleAssociation(&SzilardFrame_0::_0, &SzilardFrame_0::_1, &::factory::Tartaly::ID));
 		sp.add_operation(create_CheckExpression<SzilardFrame_0>(
 			[](double homerseklet){
-				// Please implement the following 
-				// <XFeatureCallImplCustom> < <XNumberLiteralImpl>
-				//
-				
-				static_assert(false, "Please implement the Check expression");	
+				return homerseklet < 0;
 			},
 			&SzilardFrame_0::_4
 		)
@@ -64,11 +60,7 @@ public:
 		
 		sp.add_operation(create_CheckExpression<SzilardFrame_0>(
 			[](double homerseklet){
-				// Please implement the following 
-				// <XFeatureCallImplCustom> < <XNumberLiteralImpl>
-				//
-				
-				static_assert(false, "Please implement the Check expression");	
+				return homerseklet < 0;
 			},
 			&SzilardFrame_0::_4
 		)

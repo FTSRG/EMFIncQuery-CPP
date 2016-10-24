@@ -5,3 +5,8 @@
 *.o
 *.jpg
 *.aird
+*.project
+*.workspace
+*.out
+*.supp
+/cpp-gen/.codelite/*

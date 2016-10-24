@@ -25,7 +25,7 @@ struct SzilardUpdate{
 		 */
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::factory::Tartaly >::type, ModelRoot>::instances(&modelRoot);
 		auto srcIDPredicate = [tartalyID](const ::factory::Tartaly* src){
-			return src->id == tartalyID;
+			return src->ID == tartalyID;
 		};
 
 		auto srcIt = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
