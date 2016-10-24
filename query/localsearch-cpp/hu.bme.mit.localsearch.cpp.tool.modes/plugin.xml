@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
 --><plugin>
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <!-- @generated Platform -->
-    <package class="PlatformModel.PlatformModelPackage" genModel="model/Platform.genmodel" uri="http://cpp/tool/modes/platform"/>
-  </extension>
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <!-- @generated Platform -->
-    <package class="RailRoadModel.RailRoadModelPackage" genModel="model/Platform.genmodel" uri="http://cpp/tool/modes/model"/>
-  </extension>
-  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
-    <wellbehaving-derived-feature classifier-name="Turnout" feature-name="currentState" package-nsUri="http://tool/modes/model"/>
-  </extension>
   <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" point="org.eclipse.viatra.query.runtime.queryspecification">
     <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput">
       <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI"/>
     </group>
+  </extension>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated model -->
+    <package class="railRoadModel.RailRoadModelPackage" genModel="model/model.genmodel" uri="http://tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="Turnout" feature-name="currentState" package-nsUri="http://tool/modes/model"/>
   </extension>
 </plugin>

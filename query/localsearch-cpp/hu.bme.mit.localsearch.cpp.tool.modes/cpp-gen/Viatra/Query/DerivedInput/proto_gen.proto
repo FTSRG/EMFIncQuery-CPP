@@ -1,0 +1,15 @@
+syntax = "proto3";
+	
+message PB_FrozenStateAPIMatch {
+	int32 turnout = 1;
+	int32 turnoutID = 2;
+	int32 frozen = 3;
+	int32 stateID = 4;
+	double turnoutTemp = 5;
+};
+
+message PB_FrozenStateAPIMatchSet {
+				
+	repeated PB_FrozenStateAPIMatch matches = 1;
+};
+

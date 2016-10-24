@@ -6,11 +6,11 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: RailRoadModel,
- RailRoadModel.impl,
- RailRoadModel.util,
- hu.bme.mit.localsearch.cpp.tool.modes.query,
- hu.bme.mit.localsearch.cpp.tool.modes.query.util
+Export-Package: hu.bme.mit.localsearch.cpp.tool.modes.query,
+ hu.bme.mit.localsearch.cpp.tool.modes.query.util,
+ railRoadModel,
+ railRoadModel.impl,
+ railRoadModel.util
 Require-Bundle: org.eclipse.viatra.addon.querybasedfeatures.runtime,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
