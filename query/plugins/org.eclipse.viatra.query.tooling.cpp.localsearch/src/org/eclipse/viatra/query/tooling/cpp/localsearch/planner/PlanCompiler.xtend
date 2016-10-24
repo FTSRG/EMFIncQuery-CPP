@@ -19,8 +19,10 @@ import java.util.Set
 import java.util.concurrent.atomic.AtomicInteger
 import org.apache.log4j.Logger
 import org.eclipse.viatra.query.runtime.emf.EMFQueryMetaContext
-import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHints
+import org.eclipse.viatra.query.runtime.localsearch.matcher.integration.LocalSearchHintKeys
+import org.eclipse.viatra.query.runtime.localsearch.plan.PlannerConfiguration
 import org.eclipse.viatra.query.runtime.localsearch.planner.LocalSearchRuntimeBasedStrategy
+import org.eclipse.viatra.query.runtime.localsearch.planner.cost.impl.VariableBindingBasedCostFunction
 import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.annotations.PAnnotation
 import org.eclipse.viatra.query.runtime.matchers.psystem.annotations.ParameterReference
@@ -42,9 +44,9 @@ class PlanCompiler {
 	val Map<PQuery, List<PBody>> compiledBodies
 	val Set<MatcherReference> dependencies
 	val MatchingFrameRegistry frameRegistry
-    val LocalSearchHints configuration
+    val PlannerConfiguration configuration
 	
-	extension val LocalSearchRuntimeBasedStrategy strategy	
+	extension val	LocalSearchRuntimeBasedStrategy strategy	
 	extension val POperationCompiler compiler
     
 	
@@ -54,8 +56,15 @@ class PlanCompiler {
 		this.compiledBodies = newHashMap
 		this.dependencies = newHashSet
 		this.frameRegistry = new MatchingFrameRegistry
-		this.strategy = new LocalSearchRuntimeBasedStrategy()
-		this.configuration = LocalSearchHints::getDefaultNoBase()
+		this.configuration = new PlannerConfiguration(#{
+		    LocalSearchHintKeys.ALLOW_INVERSE_NAVIGATION -> false,
+		    LocalSearchHintKeys.USE_BASE_INDEX -> false,
+		    LocalSearchHintKeys.PLANNER_COST_FUNCTION -> new VariableBindingBasedCostFunction
+		})
+		
+		this.strategy = new LocalSearchRuntimeBasedStrategy(configuration.allowInverse, configuration.useBase) [ context |
+		    configuration.costFunction.apply(context)
+		]
 		this.compiler = new POperationCompiler
 	}
 	
@@ -118,7 +127,7 @@ class PlanCompiler {
 												 .toSet
 
 			val acceptor = new CPPSearchOperationAcceptor(counter.getAndIncrement, frameRegistry)
-			strategy.plan(pBody, Logger::getLogger(PlanCompiler), boundPVariables, EMFQueryMetaContext.INSTANCE, null, configuration)
+			pBody.plan(Logger::getLogger(PlanCompiler), boundPVariables, EMFQueryMetaContext.INSTANCE, null, configuration)
 				 .compile(pBody, boundPVariables, acceptor)
 			dependencies += acceptor.dependencies
 			patternBodyStubs.add( acceptor.patternBodyStub)
