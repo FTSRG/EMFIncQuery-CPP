@@ -34,7 +34,7 @@ public:
 		sp.add_operation(create_GlobalIterateOverInstances<IsDangerousFrame_0>(1, subFrames));
 		sp.add_operation(create_LocalIterateOverInstances(&IsDangerousFrame_0::_0, ::railRoadModel::IRobotPart::get_static_type_id(), model));
 		sp.add_operation(create_DistributeIfNotPresent<IsDangerousFrame_0>(3, subFrames, &IsDangerousFrame_0::_0));
-		sp.add_operation(create_NavigateMultiAssociation(&IsDangerousFrame_0::_0, &IsDangerousFrame_0::_1, &::railRoadModel::IRobotPart::nearBy));
+		sp.add_operation(create_NavigateMultiAssociation(&IsDangerousFrame_0::_0, &IsDangerousFrame_0::_1, &::railRoadModel::IRobotPart::get_nearBy));
 		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_0, ::railRoadModel::IRobotPart::get_static_type_id()));
 		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_1, ::railRoadModel::ITrain::get_static_type_id()));
 		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_0, ::railRoadModel::IRobotPart::get_static_type_id()));

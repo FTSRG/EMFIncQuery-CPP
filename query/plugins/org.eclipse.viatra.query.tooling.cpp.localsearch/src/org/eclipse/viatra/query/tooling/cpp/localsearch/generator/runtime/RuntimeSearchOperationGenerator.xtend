@@ -159,7 +159,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 	
 	private def toNavigator(EClass type, String name) {
-		'''&«type.toCppName»::«name»'''		
+		'''&«type.toCppName»::get_«name»'''		
 	}
 
 	private def toGetterTarget(CharSequence variableName, BinaryTransitiveClosureDescriptor operation){

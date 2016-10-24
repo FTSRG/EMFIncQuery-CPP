@@ -19,8 +19,8 @@ public:
 	static std::shared_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot, Viatra::Query::Distributed::QueryServiceBase * service)
 	{
 		switch(queryID){
+			case 4:
 			case 5:
-			case 6:
 				return std::make_unique<
 					Viatra::Query::Distributed::QueryRunner<RootedFrozenStateAPI<ModelRoot>>
 				>(sessionID, modelRoot, service, queryID);

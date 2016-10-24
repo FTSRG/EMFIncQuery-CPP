@@ -77,7 +77,7 @@ private:
 					.forClass(::railRoadModel::IRobotModel::type_id).noSuper()
 					.build() } {
 	}
-			
+
 	::Viatra::Query::Matcher::ISearchContext _isc;
 };
 

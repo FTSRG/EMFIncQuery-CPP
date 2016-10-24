@@ -4,9 +4,9 @@
 #include <stdint.h>
 #include <unordered_set>
 		
+#include "PB_DistributedQueries.pb.h"
 #include "Viatra/Query/MatchSet.h"
 #include "Viatra/Query/Util/Convert.h"
-#include "proto_gen.pb.h"
 #include "railRoadModel/RobotPart.h"
 #include "railRoadModel/Train.h"
 

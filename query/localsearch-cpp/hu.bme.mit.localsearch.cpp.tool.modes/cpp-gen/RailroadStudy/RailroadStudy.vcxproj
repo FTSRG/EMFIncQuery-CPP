@@ -172,8 +172,8 @@
     <ClCompile Include="model\RailRoadModel\State.cpp" />
     <ClCompile Include="model\RailRoadModel\Train.cpp" />
     <ClCompile Include="model\RailRoadModel\Turnout.cpp" />
-    <ClCompile Include="Viatra\Query\DerivedInput\proto_gen.pb.cc" />
-    <ClCompile Include="Viatra\Query\DistributedQueries\proto_gen.pb.cc" />
+    <ClCompile Include="Viatra\Query\DerivedInput\PB_DerivedInput.pb.cc" />
+    <ClCompile Include="Viatra\Query\DistributedQueries\PB_DistributedQueries.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="model\ModelRoot.h" />
@@ -200,7 +200,7 @@
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatch.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatcher.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIQuerySpecification.h" />
-    <ClInclude Include="Viatra\Query\DerivedInput\proto_gen.pb.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\PB_DerivedInput.pb.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\QueryRunnerFactory.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\DistributedQueriesQueryGroup.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerous.h" />
@@ -208,13 +208,13 @@
     <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousMatch.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousMatcher.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousQuerySpecification.h" />
-    <ClInclude Include="Viatra\Query\DistributedQueries\proto_gen.pb.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\PB_DistributedQueries.pb.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\QueryRunnerFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model\Rules.mk" />
-    <None Include="Viatra\Query\DerivedInput\proto_gen.proto" />
-    <None Include="Viatra\Query\DistributedQueries\proto_gen.proto" />
+    <None Include="Viatra\Query\DerivedInput\PB_DerivedInput.proto" />
+    <None Include="Viatra\Query\DistributedQueries\PB_DistributedQueries.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -100,14 +100,14 @@ inline NavigateMultiAssociation<SrcType, TrgType, Collection, Member, MatchingFr
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
 inline void NavigateMultiAssociation<SrcType, TrgType, Collection, Member, MatchingFrame>::on_initialize(MatchingFrame& frame, const Matcher::ISearchContext&) {
-	if (frame.*_getSrc->present())
+	if ((frame.*_getSrc)->present())
 	{
 		auto& data = ((static_cast<Member*>(frame.*_getSrc))->*_navigate)();
 		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(std::cbegin(data), std::cend(data));
 	}
 	else
 	{
-		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(Container::const_iterator{}, Container::const_iterator{});
+		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(Collection::const_iterator{}, Collection::const_iterator{});
 	}
 	
 }

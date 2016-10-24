@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <vector>
 		
-#include "proto_gen.pb.h"
+#include "PB_DistributedQueries.pb.h"
 #include "railRoadModel/RobotPart.h"
 #include "railRoadModel/Train.h"
 

@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <vector>
 		
-#include "proto_gen.pb.h"
+#include "PB_DerivedInput.pb.h"
 #include "railRoadModel/Frozen.h"
 #include "railRoadModel/Turnout.h"
 
