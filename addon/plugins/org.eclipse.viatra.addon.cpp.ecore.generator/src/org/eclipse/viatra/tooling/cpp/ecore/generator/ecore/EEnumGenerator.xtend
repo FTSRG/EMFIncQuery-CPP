@@ -32,19 +32,30 @@ class EEnumGenerator {
 		«val guard = CppHelper::getGuardHelper(Joiner.on('_').join(NamespaceHelper::getNamespaceHelper(eenum)) + '_' + eenum.name)»
 		«guard.start»
 		
+		#include"EnumHelper.h"
+		#include<string>
+		
 		«val ns = NamespaceHelper::getNamespaceHelper(eenum)»
 		«FOR namespaceFragment : ns»
 			namespace «namespaceFragment» {
 		«ENDFOR»	
-			
-			enum «eenum.name» : int {
-				«eenum.getELiterals().map[toLiteralValueForm].join(",\n")»				
-			};
-			
+		
+		enum «eenum.name» : int {
+			«eenum.getELiterals().map[toLiteralValueForm].join(",\n")»				
+		};
+
+		«eenum.specializeEnumHelper»
+		
+		«val fqn = CppHelper::getTypeHelper(eenum).FQN»
+		inline const char* ToString(«fqn» value)
+		{
+			return EnumHelper<«fqn»>::ToString(value);
+		}
+
 		«FOR namespaceFragment : ns»
 			} /* namespace «namespaceFragment» */
 		«ENDFOR»
-		
+
 		«guard.end»
 		'''
 		
@@ -64,25 +75,37 @@ class EEnumGenerator {
 		
 		#include<string>
 		
+		«val ns = NamespaceHelper::getNamespaceHelper(enums.head)»
+		«FOR namespaceFragment : ns»
+			namespace «namespaceFragment» {
+		«ENDFOR»	
+		
+		
 		template<typename T>
 		struct EnumHelper{
-			static std::string ToString(T t)
+			static const char* ToString(T t)
 			{
-				throw "To String method undefined for type";
+				throw "EnumHelper undefined for type";
+			}
+			
+			static T ParseFromString(const std::string& str)
+			{
+				throw "EnumHelper undefined for type";
 			}
 		};
 		
-		«enums.map[compileEnumHelperEnum].join(",\n")»
+		«FOR namespaceFragment : ns»
+			} /* namespace «namespaceFragment» */
+		«ENDFOR»
 		
 		«guard.end»
 		'''
 	
-	static def compileEnumHelperEnum(EEnum eenum) '''
+	static def specializeEnumHelper(EEnum eenum) '''
 		«val fqn = CppHelper::getTypeHelper(eenum).FQN»
-		#include "«eenum.name».h"
 		template<>
 		struct EnumHelper< «fqn»> {
-			static std::string ToString(«fqn» x)
+			static const char* ToString(«fqn» x)
 			{
 				switch (x)
 				{
@@ -93,6 +116,16 @@ class EEnumGenerator {
 					default:
 						throw "To String method undefined for enum";
 				}
+			}
+			
+			static «fqn» ParseFromString(const std::string& str)
+			{
+				«FOR literal : eenum.ELiterals»
+					if(str == "«literal.name»")
+						return «fqn»::«literal.name»;
+				«ENDFOR»
+					
+				throw "EnumHelper ParseFromString method: input string cannot be interpreted.";
 			}
 		};
 	'''

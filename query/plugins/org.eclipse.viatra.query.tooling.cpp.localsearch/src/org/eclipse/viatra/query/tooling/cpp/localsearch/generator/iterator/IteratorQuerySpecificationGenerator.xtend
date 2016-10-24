@@ -11,20 +11,20 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.iterator
 
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
-import java.util.Set
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
  */
 class IteratorQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	
-	new(String queryName, Set<PatternDescriptor> patternGroup) {
+	new(String queryName, PatternGroupDescriptor patternGroup) {
 		super(queryName, patternGroup)
 	}
 	
-	override generatePlan(PatternDescriptor pattern, PatternBodyDescriptor patternBody) ''''''
+	override generatePlan(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) ''''''
 	
 		
 }

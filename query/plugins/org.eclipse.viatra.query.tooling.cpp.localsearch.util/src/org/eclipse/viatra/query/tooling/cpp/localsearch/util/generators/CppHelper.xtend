@@ -17,11 +17,12 @@ import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EDataType
-import org.eclipse.emf.ecore.EReference
-
-import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
 import org.eclipse.emf.ecore.EEnum
 import org.eclipse.emf.ecore.ENamedElement
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtend.lib.annotations.Accessors
+
+import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
 
 /**
  * @author Robert Doczi
@@ -52,6 +53,12 @@ class CppHelper {
 				new IncludeHelper(it)
 			])
 			
+	static val LoadingCache<EEnum, IncludeHelper> enumIncludeCache = CacheBuilder.newBuilder.maximumSize(1000).
+	expireAfterWrite(1, TimeUnit.MINUTES).build(
+		[
+			new IncludeHelper(it)
+		])
+			
 	static val LoadingCache<EClassifier, TypeHelper> typeCache = CacheBuilder.newBuilder.maximumSize(1000).
 		expireAfterWrite(1, TimeUnit.MINUTES).build(
 			[
@@ -78,9 +85,14 @@ class CppHelper {
 		includeCache.get(eClass)
 	}
 	
+	def static getEnumIncludeHelper(EEnum eEnum) {
+		enumIncludeCache.get(eEnum)
+	}
+	
 	def static getTypeHelper(EClassifier classifier) {
 		typeCache.get(classifier)
 	}
+	
 }
 
 class GuardHelper {
@@ -102,6 +114,8 @@ class GuardHelper {
 
 class AttributeHelper {
 	val EAttribute attr
+
+	@Accessors(PUBLIC_GETTER)
 	val boolean multiple
 	
 	val TypeHelper typeHelper
@@ -114,6 +128,8 @@ class AttributeHelper {
 	}
 	
 	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»>«ELSE»«typeHelper.getFQN»«ENDIF»'''
+	
+	def returnType() '''«IF multiple»const «cppType»&«ELSE»«cppType»«ENDIF»'''
 
 	def declaration() '''
 		 «cppType» «memberName» = «typeHelper.defaultValue»;
@@ -137,8 +153,10 @@ class AttributeHelper {
 
 class AssociationHelper {
 	val EReference association
+	@Accessors(PUBLIC_GETTER)
 	val boolean multiple
 
+	@Accessors(PUBLIC_GETTER)
 	val TypeHelper typeHelper
 
 	new(EReference association) {
@@ -149,6 +167,8 @@ class AssociationHelper {
 	}
 
 	def cppType() '''«IF multiple»std::vector< «typeHelper.getFQN»* >«ELSE»«typeHelper.getFQN»*«ENDIF»'''
+	
+	def returnType() '''«IF multiple»const «cppType»&«ELSE»«cppType»«ENDIF»'''
 
 	def declaration() '''
 		 «cppType» «memberName»«IF !multiple» = «typeHelper.defaultValue»«ENDIF»;
@@ -177,10 +197,17 @@ class AssociationHelper {
 
 class IncludeHelper {
 	
-	val EClass namedElement
+	val ENamedElement namedElement
 	val String stringRepresentation
 	
 	new(EClass namedElement) {
+		this.namedElement = namedElement
+		
+		val ns = NamespaceHelper::getNamespaceHelper(namedElement)
+		stringRepresentation = '''«ns.toString('/')»/«namedElement.name.h»'''
+	}
+	
+	new(EEnum namedElement) {
 		this.namedElement = namedElement
 		
 		val ns = NamespaceHelper::getNamespaceHelper(namedElement)
@@ -196,7 +223,10 @@ interface TypeHelper {
 	
 	def String getName()
 	def String getFQN()
+	def String declareType()
 	def String getDefaultValue()
+	
+	def String cppToString(String variableName)
 	
 }
 
@@ -212,12 +242,24 @@ class ClassHelper implements TypeHelper {
 		
 		val ns = NamespaceHelper::getNamespaceHelper(eClass)
 		this.name = eClass.name
-		this.fqn = '''::«ns.toString»::«name»'''
+		this.fqn = '''::«ns.toString»::«genInterfaceName»'''
 	}
 	
 	override getName() {
 		name
-	}	
+	}
+	
+	def genInterfaceName() {
+		"I"+getName
+	}
+	
+	def genRemoteName() {
+		"Remote"+getName
+	}
+	
+	def genLocalName() {
+		"Local"+getName
+	}
 	
 	override getFQN() {
 		fqn
@@ -226,6 +268,13 @@ class ClassHelper implements TypeHelper {
 	override getDefaultValue() {
 		'''nullptr'''
 	}
+	
+	override declareType() 
+		'''«FQN»*'''
+		
+	override cppToString(String variableName) 
+		'''(«variableName» == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(«variableName»->id()))'''
+	
 	
 }
 
@@ -257,6 +306,12 @@ class EnumHelper implements TypeHelper {
 		'''«this.fqn»::«(eEnum.defaultValue as ENamedElement).name»'''
 	}
 	
+	override declareType(){ 
+		fqn
+	}
+	
+	override cppToString(String variableName) 
+		'''ToString(«variableName»)'''
 }
 
 class PrimitiveTypeHelper implements TypeHelper {
@@ -305,5 +360,17 @@ class PrimitiveTypeHelper implements TypeHelper {
 	
 	override getDefaultValue() {
 		defaultValue
+	}
+	
+	override declareType() {
+		name
+	}
+	
+	override cppToString(String variableName) 
+	{
+		if("EString".equals(eDataType.name))
+			'''«variableName»'''
+		else
+			'''Viatra::Query::Util::Convert::ToString(«variableName»)'''
 	}
 }

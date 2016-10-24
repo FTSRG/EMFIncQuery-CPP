@@ -9,13 +9,18 @@ namespace Viatra {
 	namespace Query {
 		namespace Model {
 
-			using id_t = uint64_t;
-
+			using id_t = int32_t;
+			
 			class ModelElement
 			{
 			public:
 				bool present() { return _present; }
 				id_t id() { return _id; }
+
+				virtual ~ModelElement()
+				{}
+
+				virtual unsigned short get_type_id() = 0;
 
 			protected:
 				id_t _id;
@@ -29,8 +34,5 @@ namespace Viatra {
 		}
 	}
 }
-
-
-
 
 #endif

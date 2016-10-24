@@ -12,7 +12,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator
 
 import com.google.common.base.CaseFormat
 import java.util.List
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.InputUpdaterAPIGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.iterator.IteratorMatcherGenerator
@@ -27,17 +26,17 @@ class IteratorGeneratorContext extends LocalsearchGeneratorOutputProvider {
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
 
-		query.patterns.forEach [name, patterns |
+		query.patternGroups.forEach [name, patternGroup |
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name.substring(name.lastIndexOf('.')+1))
 
 			// TODO: WARNING! Incredible Hack Inc! works, but ugly...
-			val matchGen = new MatchGenerator(query.name, patternName, patterns.head.patternBodies.head.matchingFrame)
+			val matchGen = new MatchGenerator(query.name, patternName, patternGroup.boundedPatterns.head.patternBodies.head.matchingFrame)
 			generators += matchGen
 			
-			val querySpec = new IteratorQuerySpecificationGenerator(query.name, patterns.toSet)
+			val querySpec = new IteratorQuerySpecificationGenerator(query.name, patternGroup)
 			generators += querySpec
 			
-			val matcherGen = new IteratorMatcherGenerator(query.name, patternName, patterns.toSet, matchGen, querySpec)
+			val matcherGen = new IteratorMatcherGenerator(query.name, patternName, patternGroup, matchGen, querySpec)
 			generators += matcherGen
 		]
 

@@ -1,0 +1,34 @@
+
+{
+	"nodes" : [
+		{
+			"name" : "nodeA",
+			"ip" : "127.0.0.1",
+			"port" : 54321,
+			"IDGenStart" : 0,
+			"IDGenMod": 10
+		}
+		,
+		{
+			"name" : "nodeB",
+			"ip" : "127.0.0.1" ,
+			"port" : 54322,
+			"IDGenStart" : 1,
+			"IDGenMod": 10
+		}
+	],
+	
+	"model" : [
+		{":id": 0, ":node": "nodeA", ":type": "HostInstance", "communicatesWith" :    [1] },
+		{":id": 1, ":node": "nodeA", ":type": "HostInstance", "communicatesWith" : [0, 2] },
+		{":id": 2, ":node": "nodeA", ":type": "HostInstance", "communicatesWith" : [1, 3] },
+		{":id": 3, ":node": "nodeB", ":type": "HostInstance", "communicatesWith" : [2, 4] },
+		{":id": 4, ":node": "nodeB", ":type": "HostInstance", "communicatesWith" : [3]    },
+		
+		
+		{":id": 5, ":node": "nodeA", ":type": "ApplicationInstance", "allocatedTo" : [1] },
+		{":id": 6, ":node": "nodeA", ":type": "ApplicationInstance", "allocatedTo" : [2] },
+		{":id": 7, ":node": "nodeB", ":type": "ApplicationInstance", "allocatedTo" : [3] }
+	]
+
+}

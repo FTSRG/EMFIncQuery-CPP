@@ -15,6 +15,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.BaseGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.emf.ecore.EEnum
 
 /**
  * @author Robert Doczi
@@ -58,6 +59,10 @@ class Include extends BaseGenerator {
 	
 	static def fromEClass(EClass eClass) {
 		return new Include(CppHelper::getIncludeHelper(eClass).toString)
+	}
+	
+	static def fromEEnum(EEnum eEnum) {
+		return new Include(CppHelper::getEnumIncludeHelper(eEnum).toString)
 	}
 	
 }

@@ -1,1 +1,0 @@
-return sqrt(pow(robX-trX,2)+pow(robY-trY,2)+pow(robZ-trZ,2)) < 5;

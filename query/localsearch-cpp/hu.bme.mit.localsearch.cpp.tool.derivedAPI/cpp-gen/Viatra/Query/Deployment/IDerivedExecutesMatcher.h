@@ -36,9 +36,9 @@ public:
 			for (auto&& frame : exec) {
 				IDerivedExecutesMatch match;
 			
-				match.node = static_cast<::PlatformModel::Node*>(frame._0);
+				match.node = static_cast<::PlatformModel::INode*>(frame._0);
 				match.nodeID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 			
 				matches.insert(match);
@@ -53,9 +53,9 @@ public:
 			for (auto&& frame : exec) {
 				IDerivedExecutesMatch match;
 			
-				match.node = static_cast<::PlatformModel::Node*>(frame._0);
+				match.node = static_cast<::PlatformModel::INode*>(frame._0);
 				match.nodeID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 			
 				matches.insert(match);
@@ -84,9 +84,9 @@ public:
 			for (auto&& frame : exec) {
 				IDerivedExecutesMatch match;
 			
-				match.node = static_cast<::PlatformModel::Node*>(frame._0);
+				match.node = static_cast<::PlatformModel::INode*>(frame._0);
 				match.nodeID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 			
 				matches.insert(match);
@@ -104,9 +104,9 @@ public:
 			for (auto&& frame : exec) {
 				IDerivedExecutesMatch match;
 			
-				match.node = static_cast<::PlatformModel::Node*>(frame._0);
+				match.node = static_cast<::PlatformModel::INode*>(frame._0);
 				match.nodeID = static_cast<int>(frame._1);
-				match.train = static_cast<::RailRoadModel::Train*>(frame._2);
+				match.train = static_cast<::RailRoadModel::ITrain*>(frame._2);
 				match.trainID = static_cast<int>(frame._3);
 			
 				matches.insert(match);

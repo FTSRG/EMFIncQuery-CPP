@@ -21,4 +21,6 @@ interface IGenerator {
 	def CharSequence compile(StringBuilder setupCode)
 	
 	def String getFileName()
+	
+	def void postGenerationTask(String folderPath)
 }

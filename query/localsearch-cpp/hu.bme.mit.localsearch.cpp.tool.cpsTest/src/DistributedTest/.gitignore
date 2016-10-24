@@ -3,7 +3,12 @@
 /iterator/
 /runtime/
 /model/
+/Viatra/Query/Distributedquery/
+/Viatra/Query/Cpsquery/
 /x64/
 /.vs/
-/Viatra/
-/.vs/
+/Release/
+/Debug/
+/dev.txt
+/DistributedTest.sdf
+/DistributedTest.opensdf

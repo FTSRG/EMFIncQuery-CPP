@@ -23,16 +23,18 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterCheckDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounterExtendDescription
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 
 /**
  * @author Robert Doczi
@@ -126,8 +128,16 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		return '''create_«ExtendConstantValueDescriptor::NAME»(«operation.variable.toGetter», «TypeUtil::getCppValue(valueKey)»)'''
 	}
 	
-	private dispatch def compileOperation(ExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
-		return '''create_«ExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
+	private dispatch def compileOperation(GlobalExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
+		return '''create_«GlobalExtendInstanceOfDescriptor::NAME»<«frameGenerator.frameName»>(«operation.nextOperationIndex», subFrames)'''
+	}
+	
+	private dispatch def compileOperation(LocalExtendInstanceOfDescriptor operation, StringBuilder setupCode) {
+		return '''create_«LocalExtendInstanceOfDescriptor::NAME»(«operation.variable.toSetter», «operation.key.toTypeID», model)'''
+	}
+	
+	private dispatch def compileOperation(DistributeIfNotPresentDescriptor operation, StringBuilder setupCode) {
+		return '''create_«DistributeIfNotPresentDescriptor::NAME»<«frameGenerator.frameName»>(«operation.nextOperationIndex», subFrames, «operation.variable.toGetter»)'''
 	}
 	
 	private dispatch def compileOperation(ExtendSingleNavigationDescriptor operation, StringBuilder setupCode) {
@@ -145,7 +155,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 	}
 
 	private def toTypeID(EClassifier key) {
-		'''«CppHelper::getTypeHelper(key).FQN»::type_id'''
+		'''«CppHelper::getTypeHelper(key).FQN»::get_static_type_id()'''
 	}
 	
 	private def toNavigator(EClass type, String name) {

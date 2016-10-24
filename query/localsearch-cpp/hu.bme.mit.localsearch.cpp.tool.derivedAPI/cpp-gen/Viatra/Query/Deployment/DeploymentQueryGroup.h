@@ -34,16 +34,16 @@ public:
 private:
 	DeploymentQueryGroup()
 		: _isc{ ::Viatra::Query::Matcher::ClassHelper::builder()
-					.forClass(::PlatformModel::Node::type_id).noSuper()
-					.forClass(::RailRoadModel::Train::type_id).noSuper()
-					.forClass(::RailRoadModel::RailRoadElement::type_id).noSuper()
-					.forClass(::RailRoadModel::Point::type_id).noSuper()
-					.forClass(::RailRoadModel::RailRoadModel::type_id).noSuper()
-					.forClass(::RailRoadModel::Segment::type_id).setSuper(::RailRoadModel::RailRoadElement::type_id)
-					.forClass(::RailRoadModel::RobotElement::type_id).noSuper()
-					.forClass(::RailRoadModel::Robot::type_id).setSuper(::RailRoadModel::RobotElement::type_id)
-					.forClass(::RailRoadModel::RobotPart::type_id).setSuper(::RailRoadModel::RobotElement::type_id)
-					.forClass(::RailRoadModel::RobotModel::type_id).noSuper()
+					.forClass(::PlatformModel::INode::type_id).noSuper()
+					.forClass(::RailRoadModel::ITrain::type_id).noSuper()
+					.forClass(::RailRoadModel::IRailRoadElement::type_id).noSuper()
+					.forClass(::RailRoadModel::IPoint::type_id).noSuper()
+					.forClass(::RailRoadModel::IRailRoadModel::type_id).noSuper()
+					.forClass(::RailRoadModel::ISegment::type_id).setSuper(::RailRoadModel::IRailRoadElement::type_id)
+					.forClass(::RailRoadModel::IRobotElement::type_id).noSuper()
+					.forClass(::RailRoadModel::IRobot::type_id).setSuper(::RailRoadModel::IRobotElement::type_id)
+					.forClass(::RailRoadModel::IRobotPart::type_id).setSuper(::RailRoadModel::IRobotElement::type_id)
+					.forClass(::RailRoadModel::IRobotModel::type_id).noSuper()
 					.build() } {
 	}
 
@@ -56,12 +56,55 @@ private:
 
 namespace Viatra {
 	namespace Query {
+		
+	class Any{
+	private:
+		class ContainerBase{
+		public:
+			virtual ~ContainerBase(){}
+		};
+		
+		template<typename T>
+		class Container : public ContainerBase{
+		public:
+			T data;
+			Container(T const &modelRoot) : data(modelRoot) {}
+		};
+		
+		ContainerBase* pdata;
+	public:
+		Any() :pdata(nullptr){}
+		Any(Any const &to_copy) = delete;
+		Any& operator(Any const& to_copy) = delete;
+		~Any() { delete pdata; }
+		
+		//must implement T copy cstr properly
+		template <typename T>
+		void set(T const &modelRoot){
+			ContainerBase *newpdata = new Container<T>(modelRoot);
+			delete pdata;
+			pdata = newpdata;
+		}
+		
+		template <typename T>
+		T& get(){
+			return dynamic_cast<Container<T>&>(*pdata).data;
+		}
+		
+		template <typename T>
+		T const & get() const {
+			return dynamic_cast<Container<T>&>(*pdata).data;
+		}
+	};
 
     struct ModelRoot
   	{
   		ModelRoot(){}
 
   		~ModelRoot(){}
+  		
+  		Any root;
+  		
   	};
 
 	template<typename T>

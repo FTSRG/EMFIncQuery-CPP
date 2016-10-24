@@ -10,7 +10,8 @@ std::list<IRailRoadElement*> LocalRailRoadElement::_instances__x__x__x__x__x__x_
 
 
 
-		
+
+
 LocalRailRoadElement::LocalRailRoadElement(Viatra::Query::Model::id_t id)
 	: Viatra::Query::Model::ModelElement(id, true)
 	, Viatra::Query::Model::LocalElement(id)
@@ -26,25 +27,26 @@ LocalRailRoadElement::~LocalRailRoadElement() {
 void LocalRailRoadElement::set_id(int newVal) {
 	_id = newVal;				
 }
-int LocalRailRoadElement::id() {
+int LocalRailRoadElement::id() const {
 	return _id;
 }
 
 
-void LocalRailRoadElement::set_points(std::vector< ::RailRoadModel::Point* > newVal) {
+void LocalRailRoadElement::set_points(std::vector< ::RailRoadModel::IPoint* > newVal) {
 	_points = newVal;				
 }
-std::vector< ::RailRoadModel::Point* > LocalRailRoadElement::points() {
+const std::vector< ::RailRoadModel::IPoint* >& LocalRailRoadElement::points() const  {
 	return _points;
 }
 
 
-		
+
+
 RemoteRailRoadElement::RemoteRailRoadElement(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv)
 : Viatra::Query::Model::ModelElement(id, false)
 , Viatra::Query::Model::RemoteElement(id)
 , IRailRoadElement(id, true)
-	{
+{
 	//_instances__x__x__x__x__x__x__x.push_back(this);
 }
 
@@ -55,17 +57,18 @@ RemoteRailRoadElement::~RemoteRailRoadElement() {
 void RemoteRailRoadElement::set_id(int newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-int RemoteRailRoadElement::id() {
+int RemoteRailRoadElement::id() const {
 	throw "Unimplemented feature of Remote Class";	
 }
 
 
-void RemoteRailRoadElement::set_points(std::vector< ::RailRoadModel::Point* > newVal) {
+void RemoteRailRoadElement::set_points(std::vector< ::RailRoadModel::IPoint* > newVal) {
 	throw "Unimplemented feature of Remote Class";			
 }
-std::vector< ::RailRoadModel::Point* > RemoteRailRoadElement::points() {
+const std::vector< ::RailRoadModel::IPoint* >& RemoteRailRoadElement::points() const {
 	throw "Unimplemented feature of Remote Class";	
 }
+
 
 
 } /* namespace RailRoadModel */

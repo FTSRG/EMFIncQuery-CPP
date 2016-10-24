@@ -34,3 +34,8 @@
 #include "Extend/NavigateAssociation.h"
 #include "Extend/PatternMatchCounterExtend.h"
 #include "Extend/ConstantValueExtend.h"
+
+
+//distributed
+#include "Distributed/DistributeIfNotPresent.h"
+#include "Distributed/GlobalIterateOverInstances.h"

@@ -44,10 +44,6 @@ public:
      */
     class iterator {
     public:
-        /**
-         * Creates a new iterator instance.
-         */
-        iterator();
 
 		/**
 		* Creates a new iterator instance prepared with an initial frame.
@@ -201,11 +197,6 @@ inline void SearchPlanExecutor<MatchingFrame>::init(MatchingFrame& frame) {
     } else {
         // TODO: Error handling
     }
-}
-
-template<class MatchingFrame>
-inline SearchPlanExecutor<MatchingFrame>::iterator::iterator()
-	: SearchPlanExecutor(nullptr, false) {
 }
 
 template<class MatchingFrame>

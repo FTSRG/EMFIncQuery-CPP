@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.model
 
+import java.util.Map
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.HashMap
 
 /**
  * @author Robert Doczi
@@ -22,27 +24,33 @@ class QueryDescriptor {
 	@Accessors(PUBLIC_GETTER)
 	val String name
 
-	val Set<PatternDescriptor> patterns
+	val Set<BoundedPatternDescriptor> everyBoundedPatternInTheFile
+	
+	@Accessors
+	val Map<String, PatternGroupDescriptor> patternGroups
+	
+	@Accessors
 	val Set<EClass> classes
 
-	new(String name, Set<PatternDescriptor> patterns, Set<EClass> classes) {
+	new(String name, Set<BoundedPatternDescriptor> everyBoundedPatternInTheFile, Set<EClass> classes) {
 		this.name = name
 
-		this.patterns = patterns
+		this.everyBoundedPatternInTheFile = everyBoundedPatternInTheFile
 		this.classes = classes
+		
+		patternGroups = new HashMap
+		everyBoundedPatternInTheFile.groupBy[it.name].forEach[patternGroupName, set |
+			patternGroups.put(patternGroupName, new PatternGroupDescriptor(patternGroupName, set))
+		]
 	}
 
-	def getPatterns() {
-		patterns.groupBy[it.name].unmodifiableView
-	}
-
-	def getClasses() {
-		classes.unmodifiableView
+	private def getPatternGroupsAsSets() {
+		everyBoundedPatternInTheFile.groupBy[it.name].unmodifiableView
 	}
 	
 	override toString() '''
 		Query<«name»>:
-			«FOR pattern : patterns»
+			«FOR pattern : everyBoundedPatternInTheFile»
 				«pattern»
 			«ENDFOR»		
 	'''

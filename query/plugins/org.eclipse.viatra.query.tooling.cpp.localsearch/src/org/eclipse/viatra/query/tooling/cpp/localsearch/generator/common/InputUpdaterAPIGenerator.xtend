@@ -1,14 +1,14 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
-import java.util.Set
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val String name
-	protected val PatternDescriptor pattern
+	protected val BoundedPatternDescriptor pattern
 	protected val MatchGenerator matchGenerator
 	protected val MatcherGenerator matcherGenerator
 	
@@ -20,10 +20,10 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	protected val PVariable trgID
 	
 
-	new(String queryName, String patternName, CharSequence featureName, Set<PatternDescriptor> patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, CharSequence featureName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
 		super(#{queryName}, '''«patternName.toFirstUpper»InputUpdater''')
 		this.name = patternName.toFirstUpper
-		this.pattern = patternGroup.maxBy[it | it.boundParameters.size]
+		this.pattern = patternGroup.boundedPatterns.maxBy[it | it.boundParameters.size]
 		this.matchGenerator = matchGenerator
 		this.matcherGenerator = matcherGenerator
 		this.querySpecification = querySpecification
@@ -41,7 +41,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("algorithm", true)
 		includes += new Include("Viatra/Query/QueryEngine.h")
 		includes += new Include("Viatra/Query/Matcher/ModelIndex.h")
-		includes += new Include('''Viatra/Query/«querySpecification.queryName»/«name»Matcher.h''')
+		includes += new Include('''Viatra/Query/«querySpecification.queryGroupName»/«name»Matcher.h''')
 	}
 	
 	override compileInner() '''

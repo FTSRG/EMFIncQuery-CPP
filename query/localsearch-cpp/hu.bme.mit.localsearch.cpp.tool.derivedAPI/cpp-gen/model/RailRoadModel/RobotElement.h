@@ -26,30 +26,27 @@ class IRobotElement :
 public:
 	using RemoteImplementation = RemoteRobotElement;
 	using LocalImplementation = LocalRobotElement;
-
 	IRobotElement(Viatra::Query::Model::id_t id, bool present)
 		: ModelElement(id, present)
 	{}
 
 	virtual ~IRobotElement() {}
-	static constexpr unsigned short type_id = 10;
-	
-	virtual unsigned short get_type_id() const {
+	static constexpr unsigned short type_id = 5;
+				
+	static constexpr unsigned short get_type_id() {
 		return type_id;
 	}
 
 	virtual void set_id(int newVal) = 0;
-	virtual int id() = 0;
-
-				
-	virtual void set_position(::RailRoadModel::Point* newVal) = 0;
-	virtual ::RailRoadModel::Point* position() = 0;
-};
+	virtual int id() const = 0;
 	
+	virtual void set_position(::RailRoadModel::IPoint* newVal) = 0;
+	virtual ::RailRoadModel::IPoint* position() const = 0;
+};
 
 
 class RemoteRobotElement : 
-													public Viatra::Query::Model::RemoteElement, 
+	public Viatra::Query::Model::RemoteElement, 
 	public IRobotElement
 {
 public:
@@ -58,48 +55,39 @@ public:
 	virtual ~RemoteRobotElement();
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 	
-				
-	void set_position(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* position() override;
+	void set_position(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* position() const override;
 };
-	
 
 class LocalRobotElement : 
-													public virtual Viatra::Query::Model::LocalElement, 
+	public virtual Viatra::Query::Model::LocalElement, 
 	public IRobotElement
 {
 private:
 	static std::list<IRobotElement*> _instances__x__x__x__x__x__x__x;
 			
 	int _id = 0;
-				
-	::RailRoadModel::Point* _position = nullptr;
+	
+	::RailRoadModel::IPoint* _position = nullptr;
 	
 public:
 	LocalRobotElement(Viatra::Query::Model::id_t id);
 	virtual ~LocalRobotElement();
-	static const unsigned short type_id = 11;
-	
-	virtual unsigned short get_type_id() const {
-		return type_id;
-	}
-	
-	inline static std::list<IRobotElement*> Instances()
+	inline static std::list<IRobotElement*>& Instances()
 	{
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 
-				
-	void set_position(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* position() override;
+	
+	void set_position(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* position() const override;
 	
 };
-	
 
 } /* namespace RailRoadModel */
 

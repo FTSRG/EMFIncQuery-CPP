@@ -27,6 +27,48 @@ class EClassGenerator {
 	
 	public static int id = 0;
 	
+
+	static def genInterfaceName(EClass clazz) {
+		"I"+clazz.name
+	}
+	
+	static def genRemoteName(EClass clazz) {
+		"Remote"+clazz.name
+	}
+	
+	static def genLocalName(EClass clazz) {
+		"Local"+clazz.name
+	}
+	
+	
+	/**
+	 * Returns all the inherited and contained EReference
+	 */
+	public static def List<EReference> getAllEReference(EClass clazz) {
+		var List<EReference> assoc = new ArrayList<EReference>();
+		
+		assoc += clazz.getEReferences;
+		for( parent : clazz.getEAllSuperTypes )
+			assoc += parent.getEReferences
+			
+		return assoc
+	}
+	
+	
+	/**
+	 * Returns all the inherited and contained EAttribute
+	 */
+	public static def List<EAttribute> getAllEAttribute(EClass clazz) {
+		var List<EAttribute> attrib = new ArrayList<EAttribute>();
+		
+		attrib += clazz.getEAttributes;
+				
+		for( parent : clazz.getEAllSuperTypes)
+			attrib += parent.getEAttributes;
+			
+		return attrib
+	}
+
 	static def generateClass(EClass clazz, FileSystemAccess fsa) {
 		fsa.generateFile(clazz.name.h, clazz.compileHeader)
 		fsa.generateFile(clazz.name.cpp, clazz.compileSource)
@@ -56,32 +98,114 @@ class EClassGenerator {
 		
 		class «clazz.name» «FOR parent : clazz.getEGenericSuperTypes.map[getEClassifier] BEFORE ": " SEPARATOR ", "»public «parent.name»«ENDFOR» {
 		public:
-			«clazz.name»();
-			virtual ~«clazz.name»();
-			static std::list<«clazz.name»*> _instances;
-			static const unsigned short type_id = «id++»;
+			using RemoteImplementation = «clazz.genRemoteName»;
+			using LocalImplementation = «clazz.genLocalName»;
+			«clazz.genInterfaceName»(Viatra::Query::Model::id_t id, bool present)
+				: ModelElement(id, present)
+				«FOR base : clazz.getESuperTypes»
+					, «base.genInterfaceName»(id, present)
+				«ENDFOR»
+			{}
+		
+			virtual ~«clazz.genInterfaceName»() {}
+			static constexpr unsigned short type_id = «id++»;
+						
+			static constexpr unsigned short get_static_type_id() {
+				return type_id;
+			}
 			
-			virtual unsigned short get_type_id() const {
+			unsigned short get_type_id() override {
 				return type_id;
 			}
 		
 			«FOR a : clazz.getEAttributes»
 				«val ah = CppHelper::getAttributeHelper(a)»
-				«ah.declaration»
+
+				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
+				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
 			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
-				«ah.declaration»
+				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
+				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
 		};
 		
-		«FOR namespaceFragment : ns»
-			} /* namespace «namespaceFragment» */
-		«ENDFOR»
+		class «clazz.genRemoteName» : 
+			public Viatra::Query::Model::RemoteElement, 
+			public «clazz.genInterfaceName»
+		{
+		public:
+			«clazz.genRemoteName»(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv);
+			
+			virtual ~«clazz.genRemoteName»();
+			
+			unsigned short get_type_id() override {
+				return «clazz.genInterfaceName»::type_id;
+			}
+
+			«FOR a : clazz.getAllEAttribute»
+				«val ah = CppHelper::getAttributeHelper(a)»
+				void «ah.setterName»(«ah.cppType» newVal) override;
+				«ah.returnType» «ah.getterName»() const override;
+			«ENDFOR»
+			
+			«FOR a : clazz.getAllEReference»
+				«val ah = CppHelper::getAssociationHelper(a)»
+				void «ah.setterName»(«ah.cppType» newVal) override;
+				«ah.returnType» «ah.getterName»() const override;
+			«ENDFOR»
+		};
+	'''
+	
+	static def compileLocalClassCode(EClass clazz) '''		
+		class «clazz.genLocalName» : 
+			public virtual Viatra::Query::Model::LocalElement, 
+			public «clazz.genInterfaceName»
+		{
+		private:
+			static std::list<«clazz.genInterfaceName»*> «instanceVariable»;
+					
+			«FOR a : clazz.getAllEAttribute»
+				«val ah = CppHelper::getAttributeHelper(a)»
+				«ah.declaration»
+			«ENDFOR»
+			
+			«FOR a : clazz.getAllEReference»
+				«val ah = CppHelper::getAssociationHelper(a)»
+				«ah.declaration»
+			«ENDFOR»
+			
+		public:
+			«clazz.genLocalName»(Viatra::Query::Model::id_t id);
+			
+			unsigned short get_type_id() override {
+				return «clazz.genInterfaceName»::type_id;
+			}
+
+						
+			virtual ~«clazz.genLocalName»();
+			inline static std::list<«clazz.genInterfaceName»*>& Instances()
+			{
+				return «instanceVariable»;				
+			}
 		
-		«guard.end»
+			«FOR a : clazz.getAllEAttribute»
+				«val ah = CppHelper::getAttributeHelper(a)»
+				void «ah.setterName»(«ah.cppType» newVal) override;
+				«ah.returnType» «ah.getterName»() const override;
+
+			«ENDFOR»
+			
+			«FOR a : clazz.getAllEReference»
+				«val ah = CppHelper::getAssociationHelper(a)»
+				void «ah.setterName»(«ah.cppType» newVal) override;
+				«ah.returnType» «ah.getterName»() const override;
+				
+			«ENDFOR»
+		};
 	'''
 
 	static def compileSource(EClass clazz) '''
@@ -110,6 +234,68 @@ class EClassGenerator {
 		«clazz.name»::~«clazz.name»() {
 			_instances.remove(this);
 		}
+				
+		«FOR a : clazz.getAllEAttribute»
+			«val ah = CppHelper::getAttributeHelper(a)»
+			void «clazz.genLocalName»::«ah.setterName»(«ah.cppType» newVal) {
+				«ah.memberName» = newVal;				
+			}
+			«ah.returnType» «clazz.genLocalName»::«ah.getterName»() const {
+				return «ah.memberName»;
+			}
+
+		«ENDFOR»
+		
+		«FOR a : clazz.getAllEReference»
+			«val ah = CppHelper::getAssociationHelper(a)»
+			void «clazz.genLocalName»::«ah.setterName»(«ah.cppType» newVal) {
+				«ah.memberName» = newVal;				
+			}
+			«ah.returnType» «clazz.genLocalName»::«ah.getterName»() const  {
+				return «ah.memberName»;
+			}
+			
+		«ENDFOR»
+		
+		«/* Remote Class implementation */»
+
+		«clazz.genRemoteName»::«clazz.genRemoteName»(Viatra::Query::Model::id_t id, Viatra::Query::Model::IModelElemService* serv)
+		: Viatra::Query::Model::ModelElement(id, false)
+		, Viatra::Query::Model::RemoteElement(id)
+		«FOR base : clazz.getESuperTypes»
+			, «base.genInterfaceName»(id, false)
+		«ENDFOR»
+		, «clazz.genInterfaceName»(id, true)
+		{
+			//«instanceVariable».push_back(this);
+		}
+		
+		«clazz.genRemoteName»::~«clazz.genRemoteName»() {
+			//«instanceVariable».remove(this);
+		}
+
+		«FOR a : clazz.getAllEAttribute»
+			«val ah = CppHelper::getAttributeHelper(a)»
+			void «clazz.genRemoteName»::«ah.setterName»(«ah.cppType» newVal) {
+				throw "Unimplemented feature of Remote Class";			
+			}
+			«ah.returnType» «clazz.genRemoteName»::«ah.getterName»() const {
+				throw "Unimplemented feature of Remote Class";	
+			}
+
+		«ENDFOR»
+		
+		«FOR a : clazz.getAllEReference»
+			«val ah = CppHelper::getAssociationHelper(a)»
+			void «clazz.genRemoteName»::«ah.setterName»(«ah.cppType» newVal) {
+				throw "Unimplemented feature of Remote Class";			
+			}
+			«ah.returnType» «clazz.genRemoteName»::«ah.getterName»() const {
+				throw "Unimplemented feature of Remote Class";	
+			}
+			
+		«ENDFOR»		
+		
 		
 		«FOR namespaceFragment : ns»
 			} /* namespace «namespaceFragment» */

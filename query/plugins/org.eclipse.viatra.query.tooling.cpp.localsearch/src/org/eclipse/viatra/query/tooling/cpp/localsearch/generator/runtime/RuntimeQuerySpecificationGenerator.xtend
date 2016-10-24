@@ -11,28 +11,28 @@
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime
 
 import com.google.common.collect.Maps
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import java.util.List
 import java.util.Map
-import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
  */
 class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	
-	val Map<PatternDescriptor, Map<PatternBodyDescriptor, List<RuntimeSearchOperationGenerator>>> searchOperations
+	val Map<BoundedPatternDescriptor, Map<PatternBodyDescriptor, List<RuntimeSearchOperationGenerator>>> searchOperations
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
-	new(String queryName, Set<PatternDescriptor> patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
+	new(String queryName, PatternGroupDescriptor patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
 		super(queryName, patternGroup)
 		
-		this.searchOperations = Maps::asMap(patternGroup)[pattern |
+		this.searchOperations = Maps::asMap(patternGroup.boundedPatterns)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
 				patternBody.searchOperations.map[op |
 					new RuntimeSearchOperationGenerator(queryName, op, frameGenerators.get(patternBody))
@@ -62,13 +62,13 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	
 	var generatedPlanList = newArrayList
 	
-	override generatePlan(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+	override generatePlan(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		«val uniqueName = NameUtils::getPlanName(pattern) + patternBody.index»
 		«IF !generatedPlanList.contains(uniqueName)»
 		«val youShallNotPrint = generatedPlanList.add(uniqueName)»
 		«val bodyNum = patternBody.index»
 		«val frame = frameGenerators.get(patternBody)»
-		static ::Viatra::Query::Plan::SearchPlan<«frame.frameName»> get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(const ModelRoot* model) {
+		static ::Viatra::Query::Plan::SearchPlan<«frame.frameName»> get_plan_«NameUtils::getPlanName(pattern)»__«bodyNum»(const ModelRoot* model, std::map<int,«frame.frameName»Vector>* subFrames = nullptr) {
 			using namespace ::Viatra::Query::Operations::Check;
 			using namespace ::Viatra::Query::Operations::Extend;
 		

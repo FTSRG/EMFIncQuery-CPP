@@ -10,12 +10,16 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
+import com.google.common.collect.ImmutableList
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EEnum
 import org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.proto.ProtobufHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
@@ -42,26 +46,146 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		includes += oneOfTheMatchingFrames.allTypes.map[strictType].map[
 			switch it {
 				EClass: Include::fromEClass(it)
+				EEnum: Include::fromEEnum(it)
 				EDataType: if(it.name.toLowerCase.contains("string")) new Include("string", true)
 				default: null
 			}
 		].filterNull
+		includes += new Include("stdint.h", true);
+		includes += new Include("proto_gen.pb.h", false);
+		includes += new Include("Viatra/Query/MatchSet.h", false);
+		includes += new Include("Viatra/Query/Util/Convert.h", false);
 	}
 
-	override compileInner() '''		
+	override compileInner() '''	
+		class «unitName»Set;
+		
 		struct «unitName» {
+			
+			using MatchSet = «unitName»Set;
 			
 			«fields(oneOfTheMatchingFrames.parameters)»
 			
 			«equals(oneOfTheMatchingFrames.parameters)»
 			
-		};		
-	'''
-	
-	override compileOuter() '''
+			«serializationOfMatch(oneOfTheMatchingFrames.parameters)»
+			
+			«generateToString(oneOfTheMatchingFrames.parameters)»
+		};
+
+		«closeNamespaces»
+		
 		«hash(oneOfTheMatchingFrames.parameters)»
+		
+		«openNamespaces»
+		
+				
+		class «unitName»Set 
+			: private std::unordered_set<«unitName»>
+		{
+			public:
+			«FOR using : #["insert", "clear", "empty", "size", "begin", "end" ]»
+				using std::unordered_set<«unitName»>::«using»;
+			«ENDFOR»
+			
+			«serializationOfMatchSet(oneOfTheMatchingFrames.parameters)»
+		};
 	'''
 	
+	def serializationOfMatch(ImmutableList<PParameter> paramlist) '''
+		// Serialization and deserialization
+		
+		std::string SerializeAsString()
+		{
+			PB_«unitName» pbMatch;
+			
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val varName = param.name»
+				«ProtobufHelper::setProtobufVar("pbMatch", "", varName, type)»
+			«ENDFOR»
+			
+			return pbMatch.SerializeAsString();
+		}
+		
+		template<typename ModelRoot>
+		void ParseFromString(std::string str, ModelRoot *mr)
+		{
+			PB_«unitName» pbMatch;
+			pbMatch.ParseFromString(str);
+				
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val varName = param.name»
+				«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbMatch", "mr")»
+			«ENDFOR»
+		}
+		'''
+		
+		def serializationOfMatchSet(ImmutableList<PParameter> paramlist) '''
+		
+		// Serialization and deserialization
+		
+		template<typename ModelRoot, typename Action>
+		static void ParseFromStringCallback( const std::string& serialized_data, ModelRoot * mr, Action action )
+		{
+			PB_«unitName»Set pbMsgSet;
+			pbMsgSet.ParseFromString(serialized_data);
+			
+			«unitName» match;
+			for (auto & pbMatch : pbMsgSet.matches())
+			{
+				«FOR param : paramlist»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+					«val varName = param.name»
+					match.«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbMatch", "mr")»
+				«ENDFOR»
+				
+				action(match);
+			}
+		}
+		
+		std::string SerializeAsString()
+		{
+			PB_«unitName»Set pbMatchSet;
+			
+			for(auto& storedMatch: *this){
+				auto & pbMatch = *pbMatchSet.add_matches();
+				«FOR param : paramlist»
+					«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+					«val varName = param.name»				
+					«ProtobufHelper::setProtobufVar("pbMatch", "storedMatch.", varName, type)»
+				«ENDFOR»
+			}
+			return pbMatchSet.SerializeAsString();
+		}
+
+	'''
+	
+	def generateToString(ImmutableList<PParameter> paramlist) '''
+		// toString
+		
+		std::string toString() const
+		{
+			«var first = true»
+			std::string ret = "[";
+			«FOR param : paramlist»
+				«val type = oneOfTheMatchingFrames.getVariableStrictType(oneOfTheMatchingFrames.getVariableFromParameter(param))»
+				«val cppHelper = CppHelper::getTypeHelper(type)»
+				«IF first»
+				ret += "«param.name»=";
+				«ELSE»
+				ret += ",«param.name»=";
+				«ENDIF»
+				ret += «cppHelper.cppToString(param.name)»;
+				«val noPrint = first = false»
+			«ENDFOR»
+
+			return ret + ']';
+		}
+		'''
+	
+					
 	def getMatchName() {
 		return unitName
 	}
@@ -97,11 +221,11 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		
 		template<> struct hash<«qualifiedName»> {
 			size_t operator()(const «qualifiedName»& match) const {
-				return 
-					«FOR parameter : parameters SEPARATOR '^'»
-						«parameter.toHash»
-					«ENDFOR»
-				;
+				size_t h = 0;
+				«FOR parameter : parameters SEPARATOR "\nh*=31;" »
+					h+=«parameter.toHash»;
+				«ENDFOR»
+				return h;
 			}
 		};
 				
@@ -109,10 +233,11 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		'''
 	}
 	
-	private def toHash(PParameter parameter) {
-		'''«val looseType = oneOfTheMatchingFrames.getVariableLooseType(oneOfTheMatchingFrames.getVariableFromParameter(parameter))»
-		«IF looseType instanceof EEnumImpl»match.«parameter.name»
-		«ELSE»std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)«ENDIF»'''
+	private def toHash(PParameter parameter){
+		val looseType = oneOfTheMatchingFrames.getVariableLooseType(oneOfTheMatchingFrames.getVariableFromParameter(parameter));
+		if(looseType instanceof EEnumImpl)
+			return '''match.«parameter.name»'''
+		else 
+			return '''std::hash<decltype(match.«parameter.name»)>()(match.«parameter.name»)'''
 	}
-
 }

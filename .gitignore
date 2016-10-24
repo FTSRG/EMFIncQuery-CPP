@@ -6,3 +6,10 @@ query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/x6
 query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/x64/Debug/vc140.idb
 *.pdb
 query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/UnitTestCpp/UnitTestCpp.opensdf
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/Debug/DistributedTest.ilk
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/Debug/DistributedTest.ilk
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/Debug/vc140.idb
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/Debug/DistributedTest.ilk
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/DistributedTest.opensdf
+*.sdf
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.cpsTest/src/DistributedTest/Debug/vc140.idb

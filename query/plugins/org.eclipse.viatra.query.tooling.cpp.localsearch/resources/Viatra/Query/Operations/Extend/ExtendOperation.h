@@ -45,7 +45,7 @@ public:
             _bind(member) {
     }
 
-    void on_backtrack(MatchingFrame&, const Matcher::ISearchContext&) {
+    virtual void on_backtrack(MatchingFrame&, const Matcher::ISearchContext&) {
         //_binder(frame, NULL);
     }
 
@@ -56,7 +56,7 @@ public:
      *
      * @return **True** if the binding was successful, **False** if there are no more values to bound.
      */
-    bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) {
+    virtual bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) {
         if (_it != _end) {
             const SrcType next = *_it;
             _it++;
@@ -74,10 +74,10 @@ protected:
      * @param begin The iterator pointing to the beginning of the collection.
      * @param end The iterator pointing to the end of the collection.
      */
-    void set_data(typename Container::const_iterator begin, typename Container::const_iterator end) {
-        _it = begin;
+     void set_data(typename Container::const_iterator begin, typename Container::const_iterator end) {
+ 		    _it = begin;
         _end = end;
-    }
+ 	  }
 
     /**
      * @var The pointer to the function used to bind the value in the frame.

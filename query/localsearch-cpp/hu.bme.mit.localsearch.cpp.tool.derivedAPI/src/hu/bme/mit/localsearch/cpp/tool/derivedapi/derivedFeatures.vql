@@ -24,10 +24,10 @@ pattern refSeg(robotPart : RobotPart, robotPartID, segment : Segment, segmentID,
 	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && sX > 10 && sY > 10 && sZ > 10);
 }
 
-@Bind(parameters={seg})
-pattern assignedToCamera(cam, seg){
-	Camera.responsibleFor(cam, seg);
-}
+//@Bind(parameters={seg})
+//pattern assignedToCamera(cam, seg){
+//	Camera.responsibleFor(cam, seg);
+//}
 
 pattern nearByTest(robot, train){
 	RobotPart.nearBy(robot, train);	

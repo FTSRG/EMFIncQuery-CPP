@@ -5,7 +5,7 @@ import "http://cpp/tool/derivedapi";
 
 @Bind(parameters={nodeID})
 @QueryBasedFeature(feature="derivedExecutes")
-pattern IDerivedExecutes(node, nodeID, train, trainID){
+pattern IDerivedExecutes(node: Node, nodeID, train : Train, trainID){
 	Node.executes(node, segment);
 	Train.currentlyOn(train, segment);
 	Node.id(node, nodeID);

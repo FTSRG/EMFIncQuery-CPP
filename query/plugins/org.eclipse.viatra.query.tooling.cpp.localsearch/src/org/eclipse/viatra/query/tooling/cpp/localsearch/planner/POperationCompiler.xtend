@@ -13,7 +13,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 import java.util.List
 import java.util.Map
 import java.util.Set
-import javax.activation.UnsupportedDataTypeException
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey
@@ -27,6 +26,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
@@ -39,7 +39,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation
 
 /**
  * @author Robert Doczi

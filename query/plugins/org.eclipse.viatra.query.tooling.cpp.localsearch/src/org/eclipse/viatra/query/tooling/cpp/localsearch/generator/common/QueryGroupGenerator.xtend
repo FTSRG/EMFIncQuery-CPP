@@ -13,7 +13,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
-import javax.sound.sampled.BooleanControl.Type
 
 /**
  * @author Robert Doczi
@@ -73,24 +72,5 @@ class QueryGroupGenerator extends ViatraQueryHeaderGenerator {
 		
 			::Viatra::Query::Matcher::ISearchContext _isc;
 		};
-	'''
-	
-	override compileOuter() '''
-		namespace Viatra {
-			namespace Query {
-				
-			struct ModelRoot{
-				
-			};
-		
-			template<typename T>
-			struct ModelIndex<T, ModelRoot> {
-				static const std::list<T*>& instances(const ModelRoot* modelRoot)
-				{
-					return T::_instances;
-				}
-			};
-			}
-		}
 	'''
 }

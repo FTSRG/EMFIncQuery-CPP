@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Query\Distributed\MessageProtocol.pb.cc" />
+    <ClCompile Include="Query\Distributed\QueryClient.cpp" />
+    <ClCompile Include="Query\Distributed\QueryRunnerBase.cpp" />
+    <ClCompile Include="Query\Util\Convert.h" />
+    <ClCompile Include="Query\Util\Logger.cpp" />
+    <ClCompile Include="Query\Util\network.cpp" />
+    <ClCompile Include="Query\Distributed\QueryServer.cpp" />
+    <ClCompile Include="Query\Distributed\QueryService.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Query\Distributed\IDGenerator.h" />
+    <ClInclude Include="Query\Distributed\MessageProtocol.pb.h" />
+    <ClInclude Include="Query\Distributed\QueryFuture.h" />
+    <ClInclude Include="Query\Distributed\QueryResultCollector.h" />
+    <ClInclude Include="Query\Distributed\QueryRunnerDecl.h" />
+    <ClInclude Include="Query\Distributed\Request.h" />
+    <ClInclude Include="Query\Distributed\TaskID.h" />
+    <ClInclude Include="Query\MatchSet.h" />
+    <ClInclude Include="Query\Operations\Distributed\DistributeIfNotPresent.h" />
+    <ClInclude Include="Query\Operations\Distributed\GlobalIterateOverInstances.h" />
+    <ClInclude Include="Query\Util\BufferedSet.h" />
+    <ClInclude Include="Query\Util\HierarchicalID.h" />
+    <ClInclude Include="Query\Util\Logger.h" />
+    <ClInclude Include="Query\Util\network.h" />
+    <ClInclude Include="Query\Distributed\QueryClient.h" />
+    <ClInclude Include="Query\Distributed\QueryRunner.h" />
+    <ClInclude Include="Query\Distributed\QueryServer.h" />
+    <ClInclude Include="Query\Distributed\QueryService.h" />
+    <ClInclude Include="Query\Distributed\QueryTask.h" />
+    <ClInclude Include="Query\Matcher\ClassHelper.h" />
+    <ClInclude Include="Query\Matcher\IClassHelper.h" />
+    <ClInclude Include="Query\Matcher\ISearchContext.h" />
+    <ClInclude Include="Query\Matcher\ModelIndex.h" />
+    <ClInclude Include="Query\Model\IModelElemService.h" />
+    <ClInclude Include="Query\Model\LocalElement.h" />
+    <ClInclude Include="Query\Model\MetaData.h" />
+    <ClInclude Include="Query\Model\ModelElement.h" />
+    <ClInclude Include="Query\Model\RemoteElement.h" />
+    <ClInclude Include="Query\Operations\AllOperations.h" />
+    <ClInclude Include="Query\Operations\Check\AssociationCheck.h" />
+    <ClInclude Include="Query\Operations\Check\CheckExpression.h" />
+    <ClInclude Include="Query\Operations\Check\CheckOperation.h" />
+    <ClInclude Include="Query\Operations\Check\ConstantValueCheck.h" />
+    <ClInclude Include="Query\Operations\Check\InequalityCheck.h" />
+    <ClInclude Include="Query\Operations\Check\InstanceOfCheck.h" />
+    <ClInclude Include="Query\Operations\Check\NACOperation.h" />
+    <ClInclude Include="Query\Operations\Check\PatternMatchCounterCheck.h" />
+    <ClInclude Include="Query\Operations\Check\TransitiveClosureCheck.h" />
+    <ClInclude Include="Query\Operations\Extend\ConstantValueExtend.h" />
+    <ClInclude Include="Query\Operations\Extend\ExtendOperation.h" />
+    <ClInclude Include="Query\Operations\Extend\IterateOverInstances.h" />
+    <ClInclude Include="Query\Operations\Extend\NavigateAssociation.h" />
+    <ClInclude Include="Query\Operations\Extend\PatternMatchCounterExtend.h" />
+    <ClInclude Include="Query\Operations\ISearchOperation.h" />
+    <ClInclude Include="Query\Plan\SearchPlan.h" />
+    <ClInclude Include="Query\Plan\SearchPlanExecutor.h" />
+    <ClInclude Include="Query\QueryEngine.h" />
+    <ClInclude Include="Query\Util\ConcurrentQueue.h" />
+    <ClInclude Include="Query\Util\Defs.h" />
+    <ClInclude Include="Query\Util\IsNull.h" />
+    <ClInclude Include="Query\Util\Optional.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Query\Distributed\CompileProtobuf.bat" />
+    <None Include="Query\Distributed\MessageProtocol.proto" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{446411A1-C253-4CE5-92EF-F8A682AF8DDC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Viatra</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)..\</OutDir>
+    <TargetName>viatrad</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\protobuf-3.0.0\src\;</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)..\</OutDir>
+    <TargetName>viatra</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\libraries\protobuf-3.0.0\src\;</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

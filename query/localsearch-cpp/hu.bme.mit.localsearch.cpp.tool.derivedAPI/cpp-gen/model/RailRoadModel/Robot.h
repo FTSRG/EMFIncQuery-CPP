@@ -28,28 +28,26 @@ class IRobot :
 public:
 	using RemoteImplementation = RemoteRobot;
 	using LocalImplementation = LocalRobot;
-
 	IRobot(Viatra::Query::Model::id_t id, bool present)
 		: ModelElement(id, present)
 		, IRobotElement(id, present)
 	{}
 
 	virtual ~IRobot() {}
-	static constexpr unsigned short type_id = 12;
-	
-	virtual unsigned short get_type_id() const {
+	static constexpr unsigned short type_id = 6;
+				
+	static constexpr unsigned short get_type_id() {
 		return type_id;
 	}
 
-				
-	virtual void set_parts(std::vector< ::RailRoadModel::RobotPart* > newVal) = 0;
-	virtual std::vector< ::RailRoadModel::RobotPart* > parts() = 0;
-};
 	
+	virtual void set_parts(std::vector< ::RailRoadModel::IRobotPart* > newVal) = 0;
+	virtual const std::vector< ::RailRoadModel::IRobotPart* >& parts() const = 0;
+};
 
 
 class RemoteRobot : 
-													public Viatra::Query::Model::RemoteElement, 
+	public Viatra::Query::Model::RemoteElement, 
 	public IRobot
 {
 public:
@@ -58,54 +56,45 @@ public:
 	virtual ~RemoteRobot();
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 	
-				
-	void set_parts(std::vector< ::RailRoadModel::RobotPart* > newVal) override;
-	std::vector< ::RailRoadModel::RobotPart* > parts() override;
-	void set_position(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* position() override;
+	void set_parts(std::vector< ::RailRoadModel::IRobotPart* > newVal) override;
+	const std::vector< ::RailRoadModel::IRobotPart* >& parts() const override;
+	void set_position(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* position() const override;
 };
-	
 
 class LocalRobot : 
-													public virtual Viatra::Query::Model::LocalElement, 
+	public virtual Viatra::Query::Model::LocalElement, 
 	public IRobot
 {
 private:
 	static std::list<IRobot*> _instances__x__x__x__x__x__x__x;
 			
 	int _id = 0;
-				
-	std::vector< ::RailRoadModel::RobotPart* > _parts;
-	::RailRoadModel::Point* _position = nullptr;
+	
+	std::vector< ::RailRoadModel::IRobotPart* > _parts;
+	::RailRoadModel::IPoint* _position = nullptr;
 	
 public:
 	LocalRobot(Viatra::Query::Model::id_t id);
 	virtual ~LocalRobot();
-	static const unsigned short type_id = 13;
-	
-	virtual unsigned short get_type_id() const {
-		return type_id;
-	}
-	
-	inline static std::list<IRobot*> Instances()
+	inline static std::list<IRobot*>& Instances()
 	{
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 
-				
-	void set_parts(std::vector< ::RailRoadModel::RobotPart* > newVal) override;
-	std::vector< ::RailRoadModel::RobotPart* > parts() override;
 	
-	void set_position(::RailRoadModel::Point* newVal) override;
-	::RailRoadModel::Point* position() override;
+	void set_parts(std::vector< ::RailRoadModel::IRobotPart* > newVal) override;
+	const std::vector< ::RailRoadModel::IRobotPart* >& parts() const override;
+	
+	void set_position(::RailRoadModel::IPoint* newVal) override;
+	::RailRoadModel::IPoint* position() const override;
 	
 };
-	
 
 } /* namespace RailRoadModel */
 

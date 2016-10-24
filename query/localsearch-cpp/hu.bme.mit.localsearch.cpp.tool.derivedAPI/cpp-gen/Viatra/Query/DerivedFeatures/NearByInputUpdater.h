@@ -32,23 +32,23 @@ struct NearByInputUpdate{
 		modelRoot.resourceMutex.lock();
 		modelRoot.criticalBegin();
 					
-		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::RobotPart >::type, ModelRoot>::instances(&modelRoot);
-		auto srcIDPredicate = [robotPartID](const ::RailRoadModel::RobotPart* src){
+		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::IRobotPart >::type, ModelRoot>::instances(&modelRoot);
+		auto srcIDPredicate = [robotPartID](const ::RailRoadModel::IRobotPart* src){
 			return src->id == robotPartID;
 		};
 		
 		auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 		
-		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::RailRoadModel::RobotPart ID not found");
+		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::RailRoadModel::IRobotPart ID not found");
 		
-		auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::Train >::type, ModelRoot>::instances(&modelRoot);
-		auto trgIDPredicate = [trainID](const ::RailRoadModel::Train* trg){
+		auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::RailRoadModel::ITrain >::type, ModelRoot>::instances(&modelRoot);
+		auto trgIDPredicate = [trainID](const ::RailRoadModel::ITrain* trg){
 			return trg->id == trainID;
 		};
 		
 		auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 		
-		if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("::RailRoadModel::Train ID not found");
+		if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("::RailRoadModel::ITrain ID not found");
 		
 		auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 		auto nearByMatcher = engine.template matcher< NearByQuerySpecification >();

@@ -26,35 +26,31 @@ class INode :
 public:
 	using RemoteImplementation = RemoteNode;
 	using LocalImplementation = LocalNode;
-
 	INode(Viatra::Query::Model::id_t id, bool present)
 		: ModelElement(id, present)
 	{}
 
 	virtual ~INode() {}
 	static constexpr unsigned short type_id = 0;
-	
-	virtual unsigned short get_type_id() const {
+				
+	static constexpr unsigned short get_type_id() {
 		return type_id;
 	}
 
 	virtual void set_id(int newVal) = 0;
-	virtual int id() = 0;
-
+	virtual int id() const = 0;
 	virtual void set_responsibleFor(std::vector< int> newVal) = 0;
-	virtual std::vector< int> responsibleFor() = 0;
-
-				
-	virtual void set_executes(std::vector< ::RailRoadModel::Segment* > newVal) = 0;
-	virtual std::vector< ::RailRoadModel::Segment* > executes() = 0;
-	virtual void set_derivedExecutes(std::vector< ::RailRoadModel::Train* > newVal) = 0;
-	virtual std::vector< ::RailRoadModel::Train* > derivedExecutes() = 0;
-};
+	virtual const std::vector< int>& responsibleFor() const = 0;
 	
+	virtual void set_executes(std::vector< ::RailRoadModel::ISegment* > newVal) = 0;
+	virtual const std::vector< ::RailRoadModel::ISegment* >& executes() const = 0;
+	virtual void set_derivedExecutes(std::vector< ::RailRoadModel::ITrain* > newVal) = 0;
+	virtual const std::vector< ::RailRoadModel::ITrain* >& derivedExecutes() const = 0;
+};
 
 
 class RemoteNode : 
-													public Viatra::Query::Model::RemoteElement, 
+	public Viatra::Query::Model::RemoteElement, 
 	public INode
 {
 public:
@@ -63,20 +59,18 @@ public:
 	virtual ~RemoteNode();
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 	void set_responsibleFor(std::vector< int> newVal) override;
-	std::vector< int> responsibleFor() override;
+	const std::vector< int>& responsibleFor() const override;
 	
-				
-	void set_executes(std::vector< ::RailRoadModel::Segment* > newVal) override;
-	std::vector< ::RailRoadModel::Segment* > executes() override;
-	void set_derivedExecutes(std::vector< ::RailRoadModel::Train* > newVal) override;
-	std::vector< ::RailRoadModel::Train* > derivedExecutes() override;
+	void set_executes(std::vector< ::RailRoadModel::ISegment* > newVal) override;
+	const std::vector< ::RailRoadModel::ISegment* >& executes() const override;
+	void set_derivedExecutes(std::vector< ::RailRoadModel::ITrain* > newVal) override;
+	const std::vector< ::RailRoadModel::ITrain* >& derivedExecutes() const override;
 };
-	
 
 class LocalNode : 
-													public virtual Viatra::Query::Model::LocalElement, 
+	public virtual Viatra::Query::Model::LocalElement, 
 	public INode
 {
 private:
@@ -84,39 +78,32 @@ private:
 			
 	int _id = 0;
 	std::vector< int> _responsibleFor = 0;
-				
-	std::vector< ::RailRoadModel::Segment* > _executes;
-	std::vector< ::RailRoadModel::Train* > _derivedExecutes;
+	
+	std::vector< ::RailRoadModel::ISegment* > _executes;
+	std::vector< ::RailRoadModel::ITrain* > _derivedExecutes;
 	
 public:
 	LocalNode(Viatra::Query::Model::id_t id);
 	virtual ~LocalNode();
-	static const unsigned short type_id = 1;
-	
-	virtual unsigned short get_type_id() const {
-		return type_id;
-	}
-	
-	inline static std::list<INode*> Instances()
+	inline static std::list<INode*>& Instances()
 	{
 		return _instances__x__x__x__x__x__x__x;				
 	}
 
 	void set_id(int newVal) override;
-	int id() override;
+	int id() const override;
 
 	void set_responsibleFor(std::vector< int> newVal) override;
-	std::vector< int> responsibleFor() override;
+	const std::vector< int>& responsibleFor() const override;
 
-				
-	void set_executes(std::vector< ::RailRoadModel::Segment* > newVal) override;
-	std::vector< ::RailRoadModel::Segment* > executes() override;
 	
-	void set_derivedExecutes(std::vector< ::RailRoadModel::Train* > newVal) override;
-	std::vector< ::RailRoadModel::Train* > derivedExecutes() override;
+	void set_executes(std::vector< ::RailRoadModel::ISegment* > newVal) override;
+	const std::vector< ::RailRoadModel::ISegment* >& executes() const override;
+	
+	void set_derivedExecutes(std::vector< ::RailRoadModel::ITrain* > newVal) override;
+	const std::vector< ::RailRoadModel::ITrain* >& derivedExecutes() const override;
 	
 };
-	
 
 } /* namespace PlatformModel */
 

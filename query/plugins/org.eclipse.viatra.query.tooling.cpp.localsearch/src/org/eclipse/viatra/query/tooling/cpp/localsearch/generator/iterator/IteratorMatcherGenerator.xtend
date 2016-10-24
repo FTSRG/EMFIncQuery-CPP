@@ -12,28 +12,28 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.iterator
 
 import com.google.common.collect.Maps
 import java.util.Map
-import java.util.Set
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.Include
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUtils
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BinaryTransitiveClosureDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
  */
 class IteratorMatcherGenerator extends MatcherGenerator {
 	
-	val Map<PatternDescriptor, Map<PatternBodyDescriptor, IteratorSearchOperationGenerator>> searchOperations
+	val Map<BoundedPatternDescriptor, Map<PatternBodyDescriptor, IteratorSearchOperationGenerator>> searchOperations
 	
-	new(String queryName, String patternName, Set<PatternDescriptor> patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
 		super(queryName, patternName, patternGroup, matchGenerator, querySpecification)
-		this.searchOperations = Maps::asMap(patternGroup)[pattern |
+		this.searchOperations = Maps::asMap(patternGroup.boundedPatterns)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
 				val sog = new IteratorSearchOperationGenerator(patternBody.searchOperations, matchGenerator, patternBody.matchingFrame)
 				sog.initialize
@@ -62,7 +62,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			]
 	}
 	
-	override protected compilePlanExecution(PatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
+	override protected compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody) '''
 		auto _classHelper = &_context->get_class_helper();		
 		«assignParamsToVariables(pattern)»		
 		«val sog = searchOperations.get(pattern).get(patternBody)»
@@ -73,7 +73,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 		«executionCode»
 	'''
 	
-	def assignParamsToVariables(PatternDescriptor pattern) {
+	def assignParamsToVariables(BoundedPatternDescriptor pattern) {
 		val matchingFrame = pattern.patternBodies.head.matchingFrame
 		'''«FOR param : pattern.boundParameters»
 		«val varName = NameUtils::getPurgedName(param.toPVariable(matchingFrame))»
@@ -93,7 +93,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			}
 		
 		«val generatedParamLists = newArrayList»
-			«FOR pattern : patternGroup»
+			«FOR pattern : patternGroup.boundedPatterns»
 				«IF !generatedParamLists.contains(getParamList(pattern))»
 					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
 					«compileGetter(pattern)»
@@ -101,7 +101,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			«ENDFOR»
 			
 		private:
-			«FOR pattern : patternGroup»
+			«FOR pattern : patternGroup.boundedPatterns»
 				«FOR patternBody : pattern.patternBodies»
 					«FOR operation : patternBody.searchOperations»
 						«compileAdditionalFields(operation)»
@@ -111,7 +111,7 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 			const ModelRoot* _model;
 			const ::Viatra::Query::Matcher::ISearchContext* _context;
 		};
-		«FOR pattern : patternGroup»
+		«FOR pattern : patternGroup.boundedPatterns»
 			«FOR patternBody : pattern.patternBodies»
 				«FOR operation : patternBody.searchOperations»
 					«compileAdditionFunctions(operation)»
@@ -164,6 +164,10 @@ class IteratorMatcherGenerator extends MatcherGenerator {
 	}
 	«ENDIF»
 	'''
+	
+	override protected compileContinueDistQuery(BoundedPatternDescriptor descriptor, PatternBodyDescriptor descriptor2) {
+		throw new UnsupportedOperationException("Distribution not implemented to iterator based approach");
+	}
 	
 	
 	

@@ -38,7 +38,7 @@ template<class SrcType, class TrgType, class Member, class MatchingFrame>
 class SingleAssociationCheck: public CheckOperation<MatchingFrame> {
     typedef SrcType MatchingFrame::* SrcGetter; /** @typedef The type of the member pointer for getting the source from the frame. */
     typedef TrgType MatchingFrame::* TrgGetter; /** @typedef The type of the member pointer for getting the target from the frame. */
-    typedef TrgType Member::* Navigator; /** @typedef The type of the member pointer for navigating from source to target. */
+    typedef TrgType (Member::*Navigator)() const; /** @typedef The type of the member pointer for navigating from source to target. */
 public:
     SingleAssociationCheck(SrcGetter src, TrgGetter trg, Navigator navigate);
 
@@ -68,7 +68,7 @@ template<class SrcType, class TrgType, class Collection, class Member, class Mat
 class MultiAssociationCheck: public CheckOperation<MatchingFrame> {
 	typedef SrcType MatchingFrame::* SrcGetter; /** @typedef The type of the member pointer for getting the source from the frame. */
 	typedef TrgType MatchingFrame::* TrgGetter; /** @typedef The type of the member pointer for getting the target from the frame. */
-	typedef Collection Member::* Navigator; /** @typedef The type of the member pointer for navigating from source to target. */
+	typedef const Collection& (Member::*Navigator)() const; /** @typedef The type of the member pointer for navigating from source to target. */
 public:
     MultiAssociationCheck(SrcGetter getSrc, TrgGetter getTrg, Navigator navigate);
 
@@ -90,9 +90,11 @@ inline SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>::SingleAs
 template<class SrcType, class TrgType, class Member, class MatchingFrame>
 inline bool SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>::check(MatchingFrame& frame,
         const Matcher::ISearchContext&) {
+	if (!(frame.*_src)->present())
+		return false;
     SrcType src = frame.*_src;
     TrgType trg = frame.*_trg;
-    return trg == static_cast<Member*>(src)->*_navigate;
+    return trg == ((static_cast<Member*>(src))->*_navigate)();
 }
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
@@ -102,19 +104,21 @@ inline MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
 inline bool MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame>::check(MatchingFrame& frame, const Matcher::ISearchContext&) {
-    auto src = frame.*_src;
+	if (!(frame.*_src)->present())
+		return false;
+	auto src = frame.*_src;
     auto trg = frame.*_trg;;
-    const Collection& data = static_cast<Member*>(src)->*_navigate;
+    auto data = ((static_cast<Member*>(src))->*_navigate)();
     return std::find(data.begin(), data.end(), trg) != data.end();
 }
 
 template<class SrcType, class TrgType, class Member, class MatchingFrame>
-inline SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>* create_SingleAssociationCheck(SrcType MatchingFrame::* src, TrgType MatchingFrame::* trg, TrgType Member::* navigator){
+inline SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>* create_SingleAssociationCheck(SrcType MatchingFrame::* src, TrgType MatchingFrame::* trg, TrgType (Member::*navigator)() const){
 	return new SingleAssociationCheck<SrcType, TrgType, Member, MatchingFrame>(src, trg, navigator);
 }
 
 template<class SrcType, class TrgType, class Collection, class Member, class MatchingFrame>
-inline MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame>* create_MultiAssociationCheck(SrcType MatchingFrame::* src, TrgType MatchingFrame::* trg, Collection Member::* navigator){
+inline MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame>* create_MultiAssociationCheck(SrcType MatchingFrame::* src, TrgType MatchingFrame::* trg, const Collection& (Member::*navigator)() const){
 	return new MultiAssociationCheck<SrcType, TrgType, Collection, Member, MatchingFrame>(src, trg, navigator);
 }
 

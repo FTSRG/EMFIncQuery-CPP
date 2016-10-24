@@ -10,29 +10,29 @@
  *******************************************************************************/
 package org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common
 
-import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
 /**
  * @author Robert Doczi
  */
 abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 	
-	protected val String name
-	protected val Set<PatternDescriptor> patternGroup
+	protected val String patternName
+	protected val PatternGroupDescriptor patternGroup
 	protected val MatchGenerator matchGenerator
 	
 	protected val QuerySpecificationGenerator querySpecification
 
-	new(String queryName, String patternName, Set<PatternDescriptor> patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
+	new(String queryName, String patternName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, QuerySpecificationGenerator querySpecification) {
 		super(#{queryName}, '''«patternName.toFirstUpper»Matcher''')
-		this.name = patternName.toFirstUpper
+		this.patternName = patternName.toFirstUpper
 		this.patternGroup = patternGroup
 		this.matchGenerator = matchGenerator
 		this.querySpecification = querySpecification
@@ -46,38 +46,86 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("unordered_set", true)
 		// TODO: this is only required for the using statement, however this should be moved from here as it is not generally necessary
 		includes += new Include("Viatra/Query/Plan/SearchPlanExecutor.h")
+		includes += new Include("Viatra/Query/Distributed/QueryRunner.h", false);
 	}
 	
 	override compileInner() '''
+		template<typename>class Rooted«patternName»;
+				
 		template<class ModelRoot>
 		class «unitName» {
+			using QueryRunnerT = ::Viatra::Query::Distributed::QueryRunner<Rooted«patternName»<ModelRoot>>;
 		public:
-			«unitName»(const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context) 
-				: _model(model), _context(context) {
+			«unitName»(
+			const ModelRoot* model, const ::Viatra::Query::Matcher::ISearchContext* context, QueryRunnerT * queryRunner) 
+				: _model(model), _context(context), _queryRunner(queryRunner) {
 			}
-		«val generatedParamLists = newArrayList»
-			«FOR pattern : patternGroup»
+			«val generatedParamLists = newArrayList»
+			«FOR pattern : patternGroup.boundedPatterns»
 				«IF !generatedParamLists.contains(getParamList(pattern))»
 					«val youShallNotPrint = generatedParamLists.add(getParamList(pattern))»
 					«compileGetter(pattern)»
+					«compileDistGetter(pattern)»
+					«compileDistributedQueryStartingPoint(pattern)»
 				«ENDIF»
 			«ENDFOR»
-			
+									
 		private:
+			QueryRunnerT * _queryRunner;
 			const ModelRoot* _model;
 			const ::Viatra::Query::Matcher::ISearchContext* _context;
 		};
 	'''
+	//Generate another function to unbounded plans. For distributed plan execution continue.
+	def String compileDistGetter(BoundedPatternDescriptor pattern) '''
+		«IF !pattern.bound»
+			«FOR patternBody : pattern.patternBodies»
+				«compileContinueDistQuery(pattern, patternBody)»
+				
+			«ENDFOR»
+			
+		«patternName»MatchSet continueExec(std::string strFrameVector, int bodyID, int startOpIndex){
+			switch(bodyID){
+				«FOR patternBody : pattern.patternBodies»
+					«val bodyNum = patternBody.index»
+					case «bodyNum»: {
+						«patternName»MatchSet resultSet;
+						
+						// TODO: optimize by using a simple array/vector
+						std::map<int, «patternName»Frame_«bodyNum»Vector> frameVectors;
+						
+						// For each frame
+						«patternName»Frame_«bodyNum»Vector::ParseFromStringCallback( strFrameVector, _model, [&](«patternName»Frame_«bodyNum»& frame){
+							continue_«bodyNum»(frame, startOpIndex, resultSet, frameVectors);														
+						});
+						// frameVectors are now update with possible subtask needed to be done
+						for (auto & op_pbframe : frameVectors)
+						{
+							_queryRunner->PropagateFrameVector(bodyID, op_pbframe.first, op_pbframe.second.SerializeAsString());
+						}
+					
+						return resultSet;
+					}
+				«ENDFOR»
+				default:
+					throw "Matcher continue function has an unidentified bodyID";
+				break;
+			}
+		}
+		«ENDIF»
+	'''
 	
-	protected def compileGetter(PatternDescriptor pattern) '''
-		std::unordered_set<«name»Match> matches(«getParamList(pattern)») const {
+	protected abstract def String compileContinueDistQuery(BoundedPatternDescriptor descriptor, PatternBodyDescriptor descriptor2)
+	
+	protected def compileGetter(BoundedPatternDescriptor pattern) '''
+		std::unordered_set<«patternName»Match> matches«pattern.cppBoundName.underScoredIfNotEmpty»(«getParamList(pattern)») const {
 			««« TODO: Move using statements
 			using ::Viatra::Query::Matcher::ISearchContext;
 			using ::Viatra::Query::Plan::SearchPlan;
 			using ::Viatra::Query::Plan::SearchPlanExecutor;
 			using ::Viatra::Query::Matcher::ClassHelper;
 		
-			std::unordered_set<«name»Match> matches;
+			std::unordered_set<«patternName»Match> matches;
 		
 			«FOR patternBody : pattern.patternBodies»
 				{
@@ -90,7 +138,14 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 		}
 	'''
 	
-	protected abstract def String compilePlanExecution(PatternDescriptor pattern, PatternBodyDescriptor patternBody)
+	def underScoredIfNotEmpty(String s)
+	'''«IF s.empty»«ELSE»_«s»«ENDIF»'''
+	
+	protected abstract def String compilePlanExecution(BoundedPatternDescriptor pattern, PatternBodyDescriptor patternBody)
+	
+	
+	protected def compileDistributedQueryStartingPoint(BoundedPatternDescriptor pattern) '''
+	'''
 	
 	protected def fillMatch(MatchingFrameDescriptor matchingFrame) '''
 		«FOR parameter : matchingFrame.parameters»
@@ -99,7 +154,7 @@ abstract class MatcherGenerator extends ViatraQueryHeaderGenerator {
 		«ENDFOR»
 	'''
 	
-	protected def getParamList(PatternDescriptor pattern) {
+	protected def getParamList(BoundedPatternDescriptor pattern) {
 		val matchingFrame = pattern.patternBodies.head.matchingFrame
 		pattern.boundParameters.map[
 			val variable = it.toPVariable(matchingFrame);
