@@ -26,7 +26,7 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 
 	new(String queryName, String patternName, CharSequence featureName, PatternGroupDescriptor patternGroup, MatchGenerator matchGenerator, MatcherGenerator matcherGenerator, QuerySpecificationGenerator querySpecification) {
-		super(#{queryName}, '''«patternName.toFirstUpper»Derived''')
+		super(#{queryName}, '''«patternName.toFirstUpper»RefUpdater''')
 		this.name = patternName.toFirstUpper
 		this.pattern = patternGroup.boundedPatterns.maxBy[it | it.boundParameters.size]
 		this.matchGenerator = matchGenerator
@@ -58,7 +58,7 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
 	template<class ModelRoot>
-	struct «name»Update{
+	struct «name»RefUpdate{
 		/*
 		 * It is generated for update a reference collection in src's environment.
 		 */

@@ -4,6 +4,9 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.ViatraQueryHeaderGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.runtime.localsearch.exceptions.LocalSearchException
 
 class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	
@@ -14,7 +17,9 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 	protected val QuerySpecificationGenerator querySpecification
 	protected val CharSequence featureName
+	protected val int arity
 	protected val PVariable src
+	protected val EClass srcClassifier
 	protected val PVariable srcID
 	protected val PVariable trg
 	protected val PVariable trgID
@@ -34,6 +39,10 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 		this.srcID = this.pattern.patternBodies.head.PBody.allVariables.get(1)
 		this.trg = this.pattern.patternBodies.head.PBody.allVariables.get(2)
 		this.trgID = this.pattern.patternBodies.head.PBody.allVariables.get(3)
+		
+		this.srcClassifier = CompilerHelper::getLeastStrictType(this.src) as EClass
+		if(this.srcClassifier == null) throw new LocalSearchException("Query Based Feature doesn't exists")
+		this.arity = this.srcClassifier.getEStructuralFeature(this.featureName.toString).upperBound
 	}
 	
 	override initialize() {
@@ -50,7 +59,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 	«val trgPointerType = matcherGenerator.type(trg,matchGenerator.oneOfTheMatchingFrames)»
 	«val trgType = trgPointerType.subSequence(0,trgPointerType.length-1)»
 	template<class ModelRoot>
-	struct «name»InputUpdate{
+	struct «name»InputUpdater{
 		/*
 		 * It is generated for only sending vector coordinates into the model instance. 
 		 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
@@ -61,14 +70,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Critical Section START
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
-			 */
-			
-			int thId = modelRoot.getID();
-			modelRoot.getTicket(thID);
-			modelRoot.wait();
-			modelRoot.resourceMutex.lock();
-			modelRoot.criticalBegin();
-						
+			 */						
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
 				return src->id == «srcID.name»;
@@ -77,6 +79,10 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 			
 			if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found");
+			
+			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
+			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
+			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
 			
 			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
 			auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
@@ -87,17 +93,13 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			
 			if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found");
 			
-			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
-			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
-			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
+			
 			
 			auto tempTrg = std::find_if((*srcObj)->«featureName».begin(), (*srcObj)->«featureName».end(), trgIDPredicate);
 			
 			if(matches.size() > 0){	if(tempTrg == (*srcObj)->«featureName».end()) (*srcObj)->«featureName».push_back(*trgObj);}
 			else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
 			
-			modelRoot.criticalEnd();
-			resourceMutex.unlock();
 			/*
 			* Critical Section END
 			*/

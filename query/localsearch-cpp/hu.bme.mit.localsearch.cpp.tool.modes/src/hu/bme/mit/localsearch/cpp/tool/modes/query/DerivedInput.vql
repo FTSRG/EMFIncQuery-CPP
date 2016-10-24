@@ -1,13 +1,21 @@
 package hu.bme.mit.localsearch.cpp.tool.modes.query
 
-import "http://cpp/tool/modes/platform"
-import "http://cpp/tool/modes/model"
+//import "http://cpp/tool/modes/platform"
+import "http://tool/modes/model"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
-@Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
-@QueryBasedFeature(feature = "nearBy")
-pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
-	RobotPart.id(robotPart, robotPartID);
-	Train.id(train,trainID);
-	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
+//@Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
+//@QueryBasedFeature(feature = "nearBy")
+//pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
+//	RobotPart.id(robotPart, robotPartID);
+//	Train.id(train,trainID);
+//	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
+//}
+
+@Bind(parameters={turnoutID, stateID, turnoutTemp})
+@QueryBasedFeature(feature = "currentState")
+pattern frozenStateAPI(turnout : Turnout, turnoutID : EInt, frozen : Frozen, stateID : EInt, turnoutTemp : EDouble){
+	Turnout.id(turnout, turnoutID);
+	Frozen.id(frozen, stateID);
+	check(turnoutTemp < -20);
 }
