@@ -41,6 +41,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Query\Distributed\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Query\Distributed\QueryClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -73,7 +73,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 */						
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
-				return src->id == «srcID.name»;
+				return src->id() == «srcID.name»;
 			};
 			
 			auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
@@ -83,22 +83,24 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
+			if(matches.size() > 0){	
+				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
+				auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
+					return trg->id() == «trgID.name»;
+				};
+				
+				auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
+				
+				if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found in InputUpdater");
+				«IF arity != 1»
+				auto tempTrg = std::find_if((*srcObj)->«featureName»().begin(), (*srcObj)->«featureName»().end(), trgIDPredicate);
+				
+				if(tempTrg == (*srcObj)->«featureName»().end()) (*srcObj)->«featureName»().push_back(*trgObj);
+			}else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
+				«ELSE»
+				
+				«ENDIF»
 			
-			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
-			auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
-				return trg->id == «trgID.name»;
-			};
-			
-			auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
-			
-			if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found");
-			
-			
-			
-			auto tempTrg = std::find_if((*srcObj)->«featureName».begin(), (*srcObj)->«featureName».end(), trgIDPredicate);
-			
-			if(matches.size() > 0){	if(tempTrg == (*srcObj)->«featureName».end()) (*srcObj)->«featureName».push_back(*trgObj);}
-			else if(tempTrg != (*srcObj)->«featureName».end()) (*srcObj)->«featureName».erase(tempTrg);
 			
 			/*
 			* Critical Section END

@@ -70,34 +70,36 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 			 */
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
-				return src->id == «srcID.name»;
+				return src->id() == «srcID.name»;
 			};
 	
 			auto srcIt = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 	
-			if(srcIt == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found.");
+			if(srcIt == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found in RefUpdater");
 	
 			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
-			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
-	
 			
-			«IF arity != 1 »
-			std::vector< «trgPointerType» > newDerivedList;
+			if(matches.size() > 0){ 
+			
+				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
 				
-			for(auto match : matches){
-				if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.«trg.name»)) newDerivedList.push_back(match.«trg.name»);
+				«IF arity != 1 »
+				std::vector< «trgPointerType» > newDerivedList;
+				
+				for(auto match : matches){
+					if(newDerivedList.end() == std::find(newDerivedList.begin(), newDerivedList.end(), match.«trg.name»)) newDerivedList.push_back(match.«trg.name»);
+				}
+				(*srcIt)->set_«featureName»(std::move(newDerivedList));
+				«ELSE»
+				«trgPointerType» newDerivedMember = nullptr;
+				for(auto match : matches){
+					newDerivedMember = match.«trg.name»;
+				}
+				if(newDerivedMember != nullptr) (*srcIt)->set_«featureName»(newDerivedMember);
+				«ENDIF»
 			}
-			(*srcIt)->«featureName».clear();
-			(*srcIt)->«featureName».insert((*srcIt)->«featureName».begin(), newDerivedList.begin(), newDerivedList.end());
-			«ELSE»
-			«trgPointerType» newDerivedMember = nullptr;
-			for(auto match : matches){
-				newDerivedMember = match.«trg.name»;
-			}
-			if(newDerivedMember != nullptr) (*srcIt)->«featureName» = newDerivedMember;
-			«ENDIF»
 			/*
 			* Critical Section END
 			*/

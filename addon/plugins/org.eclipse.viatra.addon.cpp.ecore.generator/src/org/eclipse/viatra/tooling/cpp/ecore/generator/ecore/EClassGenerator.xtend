@@ -11,7 +11,9 @@
 package org.eclipse.viatra.tooling.cpp.ecore.generator.ecore
 
 import com.google.common.base.Joiner
+import java.util.ArrayList
 import java.util.List
+import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.FileSystemAccess
@@ -19,8 +21,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelpe
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.NamespaceHelper
 
 import static extension org.eclipse.viatra.query.tooling.cpp.localsearch.util.fs.PathUtils.*
-import java.util.ArrayList
-import org.eclipse.emf.ecore.EAttribute
 
 /**
  * @author Robert Doczi
@@ -31,7 +31,6 @@ class EClassGenerator {
 		
 	public static int id = 0;
 	
-
 	static def genInterfaceName(EClass clazz) {
 		"I"+clazz.name
 	}
@@ -72,7 +71,8 @@ class EClassGenerator {
 			
 		return attrib
 	}
-
+	
+		
 	static def generateClass(EClass clazz, FileSystemAccess fsa) {
 		fsa.generateFile(clazz.name.h, clazz.compileHeader)
 		fsa.generateFile(clazz.name.cpp, clazz.compileSource)
@@ -94,13 +94,42 @@ class EClassGenerator {
 		#include <list>
 		#include <vector>
 		
+		#include <Viatra/Query/Model/ModelElement.h>
+		#include <Viatra/Query/Model/RemoteElement.h>
+		#include <Viatra/Query/Model/LocalElement.h>
+		#include <Viatra/Query/Model/IModelElemService.h>
+		
 		«FOR namespaceFragment : ns»
 			namespace «namespaceFragment» {
 		«ENDFOR»	
 		
+		class «clazz.genInterfaceName»;
+		class «clazz.genRemoteName»;
+		class «clazz.genLocalName»;
+		
+		«compileInterfaceCode(clazz)»
+		
+		«compileRemoteClassCode(clazz)»
+		
+		«compileLocalClassCode(clazz)»
+		
+		«FOR namespaceFragment : ns»
+			} /* namespace «namespaceFragment» */
+		«ENDFOR»
+		
+		«guard.end»
+	'''
+
+	
+	static def compileInterfaceCode(EClass clazz) '''
 		«val List<EReference> assoc = clazz.getEReferences.toList»
 		
-		class «clazz.name» «FOR parent : clazz.getEGenericSuperTypes.map[getEClassifier] BEFORE ": " SEPARATOR ", "»public «parent.name»«ENDFOR» {
+		class «clazz.genInterfaceName» : 
+			«FOR parent : clazz.getESuperTypes»
+				public virtual «parent.genInterfaceName»,
+			«ENDFOR» 
+			public virtual Viatra::Query::Model::ModelElement
+		{
 		public:
 			using RemoteImplementation = «clazz.genRemoteName»;
 			using LocalImplementation = «clazz.genLocalName»;
@@ -124,11 +153,9 @@ class EClassGenerator {
 		
 			«FOR a : clazz.getEAttributes»
 				«val ah = CppHelper::getAttributeHelper(a)»
-
 				virtual void «ah.setterName»(«ah.cppType» newVal) = 0;
 				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
-			««« TODO this does not work with if there are multiple Ecore files referenced in model
 			
 			«FOR a : assoc»
 				«val ah = CppHelper::getAssociationHelper(a)»
@@ -136,6 +163,9 @@ class EClassGenerator {
 				virtual «ah.returnType» «ah.getterName»() const = 0;
 			«ENDFOR»
 		};
+	'''
+	
+	static def compileRemoteClassCode(EClass clazz) '''
 		
 		class «clazz.genRemoteName» : 
 			public Viatra::Query::Model::RemoteElement, 
@@ -211,7 +241,7 @@ class EClassGenerator {
 			«ENDFOR»
 		};
 	'''
-
+	
 	static def compileSource(EClass clazz) '''
 		#include "«clazz.name».h"
 		
@@ -228,15 +258,25 @@ class EClassGenerator {
 			namespace «namespaceFragment» {
 		«ENDFOR»	
 		
-		std::list<«clazz.name»*> «clazz.name»::_instances;
-		«»
-		«clazz.name»::«clazz.name»()«IF !assoc.empty»
-				«FOR a : assoc.filter[it.upperBound == 1] BEFORE ': ' SEPARATOR ','»«a.name»(nullptr)«ENDFOR»«ENDIF» {
-			_instances.push_back(this);
+		std::list<«clazz.genInterfaceName»*> «clazz.genLocalName»::«instanceVariable»;
+		
+		
+		
+		«/* Local Class implementation */»
+		
+		«clazz.genLocalName»::«clazz.genLocalName»(Viatra::Query::Model::id_t id)
+			: Viatra::Query::Model::ModelElement(id, true)
+			, Viatra::Query::Model::LocalElement(id)
+			«FOR base : clazz.getESuperTypes»
+				, «base.genInterfaceName»(id, true)
+			«ENDFOR»
+			, «clazz.genInterfaceName»(id, true)
+		{
+			«instanceVariable».push_back(this);
 		}
 		
-		«clazz.name»::~«clazz.name»() {
-			_instances.remove(this);
+		«clazz.genLocalName»::~«clazz.genLocalName»() {
+			«instanceVariable».remove(this);
 		}
 				
 		«FOR a : clazz.getAllEAttribute»

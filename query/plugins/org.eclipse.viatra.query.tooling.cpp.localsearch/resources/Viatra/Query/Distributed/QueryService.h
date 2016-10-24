@@ -40,7 +40,7 @@ namespace Viatra {
 			};
 
 			// Information struct about the collection of results of a subtask
-			struct TaskInfo {
+			struct CollectorInfo {
 				// true for response being served, false for the top-level result collector
 				bool remote;
 				// Collector class which collects the subresult
@@ -52,7 +52,7 @@ namespace Viatra {
 				// in case its a top level result collector
 				std::weak_ptr<QueryFutureBase> future;
 				
-				TaskInfo(bool remote, std::shared_ptr<QueryResultCollectorBase> collector, const Request& rq, std::weak_ptr<QueryFutureBase> future)
+				CollectorInfo(bool remote, std::shared_ptr<QueryResultCollectorBase> collector, const Request& rq, std::weak_ptr<QueryFutureBase> future)
 					: remote(remote)
 					, collector(std::move(collector))
 					, rq(rq)
@@ -87,13 +87,13 @@ namespace Viatra {
 				// ResultCollectors for remote tasks
 				std::map< 
 					uint64_t /* sessionID*/, 
-					std::map<TaskID, std::shared_ptr<TaskInfo>, TaskID::compare >
+					std::map<TaskID, std::shared_ptr<CollectorInfo>, TaskID::compare > 
 				> localResultCollectorInfos;
 				
 				void registerTopLevelResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, std::weak_ptr<QueryFutureBase> future)
 				{
 					Lock lck(mutex);
-					localResultCollectorInfos[sessionID][taskID] = std::make_shared<TaskInfo>(false, collector, Request{ nullptr, 0 }, future);
+					localResultCollectorInfos[sessionID][taskID] = std::make_shared<CollectorInfo>(false, collector, Request{ nullptr, 0 }, future);
 				}
 
 			public:
@@ -102,7 +102,7 @@ namespace Viatra {
 				void registerSubResultCollector(uint64_t sessionID, TaskID taskID, std::shared_ptr<QueryResultCollectorBase> collector, const Request& request)
 				{
 					Lock lck(mutex);
-					localResultCollectorInfos[sessionID][taskID] = std::make_shared<TaskInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
+					localResultCollectorInfos[sessionID][taskID] = std::make_shared<CollectorInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
 				}
 				
 				// Start Local Query Session on all other node and waiting for the result(stub)
@@ -110,7 +110,7 @@ namespace Viatra {
 				
 				void acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet);
 				
-				std::string acceptInitiateConnection(Network::Connection* connection, std::string nodeName)
+				std::string process_initiateConnection(Network::Connection* connection, std::string nodeName)
 				{
 					Lock lck(mutex);
 					if (remoteNodes.find(nodeName) == remoteNodes.end())
@@ -131,7 +131,7 @@ namespace Viatra {
 				// runs on Server Thread
 				virtual std::string startLocalQuerySession(uint64_t sessionID, int queryID) = 0;
 				// runs on Server Thread
-				void acceptContinueQuery(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame)
+				void continueQueryLocally(const Request& request, uint64_t sessionID, const TaskID& taskID, int body, int operation, const std::string& frame)
 				{
 					Logger::Log("QueryServiceBase::continueQueryLocally");
 					Lock lck(mutex);

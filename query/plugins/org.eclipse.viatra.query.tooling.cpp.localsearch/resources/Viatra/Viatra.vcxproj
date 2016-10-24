@@ -43,6 +43,7 @@
     <ClInclude Include="Query\Util\HierarchicalID.h" />
     <ClInclude Include="Query\Util\Logger.h" />
     <ClInclude Include="Query\Util\network.h" />
+    <ClInclude Include="Query\Distributed\Node.h" />
     <ClInclude Include="Query\Distributed\QueryClient.h" />
     <ClInclude Include="Query\Distributed\QueryRunner.h" />
     <ClInclude Include="Query\Distributed\QueryServer.h" />
