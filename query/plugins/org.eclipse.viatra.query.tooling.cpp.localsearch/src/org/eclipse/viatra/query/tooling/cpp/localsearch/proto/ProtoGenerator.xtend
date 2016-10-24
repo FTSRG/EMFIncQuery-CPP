@@ -12,14 +12,16 @@ import java.io.FileWriter
 class ProtoGenerator extends BaseGenerator {
 	
 	val Set<ProtoCompiler> compilers
+	val String name
 	
-	new(Set<ProtoCompiler> compilers)
+	new(String name, Set<ProtoCompiler> compilers)
 	{
 		this.compilers = compilers
+		this.name = name
 	}
 	
 	override getFileName()
-		'''proto_gen.proto'''
+		'''PB_«name».proto'''
 	
 	override compile()'''
 		syntax = "proto3";
@@ -35,7 +37,7 @@ class ProtoGenerator extends BaseGenerator {
 		//val directory = System.getProperty("user.dir");
 		// 
 		System.out.println("-- Post generation task for ProtoBuf --");
-		val input = '''«folderPath»/proto_gen.proto''';		
+		val input = '''«folderPath»/«getFileName»''';		
 		
 		val protoPath = folderPath
 		var BufferedWriter output

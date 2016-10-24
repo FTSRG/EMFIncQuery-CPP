@@ -2,6 +2,7 @@
 #define VIATRA__QUERY__DERIVED_INPUT__FROZEN_STATE_A_P_I_MATCH_H_
 
 #include <stdint.h>
+#include <unordered_set>
 		
 #include "Viatra/Query/MatchSet.h"
 #include "Viatra/Query/Util/Convert.h"

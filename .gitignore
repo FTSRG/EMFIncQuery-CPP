@@ -17,3 +17,4 @@ query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStud
 query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStudy/RailroadStudy.opensdf
 query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStudy/RailroadStudy.vcxproj.user
 *.filters
+*.obj

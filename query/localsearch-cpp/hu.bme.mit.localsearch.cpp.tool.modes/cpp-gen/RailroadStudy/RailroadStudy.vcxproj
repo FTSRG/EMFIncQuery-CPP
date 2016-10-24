@@ -71,14 +71,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;$(IncludePath)</IncludePath>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;D:\libraries\protobuf-3.0.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;$(IncludePath)</IncludePath>
+    <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;D:\libraries\protobuf-3.0.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -91,10 +91,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libprotobuf.lib;viatra.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\libraries\protobuf-3.0.0\cmake\Release;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -121,12 +125,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libprotobuf.lib;viatra.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\libraries\protobuf-3.0.0\cmake\Release;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,6 +172,8 @@
     <ClCompile Include="model\RailRoadModel\State.cpp" />
     <ClCompile Include="model\RailRoadModel\Train.cpp" />
     <ClCompile Include="model\RailRoadModel\Turnout.cpp" />
+    <ClCompile Include="Viatra\Query\DerivedInput\proto_gen.pb.cc" />
+    <ClCompile Include="Viatra\Query\DistributedQueries\proto_gen.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="model\ModelRoot.h" />
@@ -190,11 +200,21 @@
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatch.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatcher.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIQuerySpecification.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\proto_gen.pb.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\QueryRunnerFactory.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\DistributedQueriesQueryGroup.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerous.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousFrame_0.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousMatch.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousMatcher.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousQuerySpecification.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\proto_gen.pb.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\QueryRunnerFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model\Rules.mk" />
     <None Include="Viatra\Query\DerivedInput\proto_gen.proto" />
+    <None Include="Viatra\Query\DistributedQueries\proto_gen.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -73,7 +73,7 @@ class RuntimeGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			generators += includeGen
 		]
 
-		generators += new ProtoGenerator(protoCompilers)
+		generators += new ProtoGenerator(query.name, protoCompilers)
 
 		val queryGroupGenerator = new QueryGroupGenerator(query)
 		generators += queryGroupGenerator

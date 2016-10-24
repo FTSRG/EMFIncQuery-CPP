@@ -37,22 +37,18 @@ public:
 		sp.add_operation(create_GlobalIterateOverInstances<FrozenStateAPIFrame_0>(4, subFrames));
 		sp.add_operation(create_LocalIterateOverInstances(&FrozenStateAPIFrame_0::_2, ::railRoadModel::IState::get_static_type_id(), model));
 		sp.add_operation(create_DistributeIfNotPresent<FrozenStateAPIFrame_0>(6, subFrames, &FrozenStateAPIFrame_0::_2));
-		sp.add_operation(create_NavigateSingleAssociation(&FrozenStateAPIFrame_0::_2, &FrozenStateAPIFrame_0::_3, &::railRoadModel::IFrozen::id));
+		sp.add_operation(create_NavigateSingleAssociation(&FrozenStateAPIFrame_0::_2, &FrozenStateAPIFrame_0::_3, &::railRoadModel::IFrozen::get_id));
 		sp.add_operation(create_InstanceOfCheck(&FrozenStateAPIFrame_0::_2, ::railRoadModel::IFrozen::get_static_type_id()));
 		sp.add_operation(create_InstanceOfCheck(&FrozenStateAPIFrame_0::_2, ::railRoadModel::IFrozen::get_static_type_id()));
 		sp.add_operation(create_CheckExpression<FrozenStateAPIFrame_0>(
 			[](double turnoutTemp){
-				// Please implement the following 
-				// <XFeatureCallImplCustom> < <XUnaryOperationImplCustom>
-				//
-				
-				static_assert(false, "Please implement the Check expression");	
+			return turnoutTemp < 0;
 			},
 			&FrozenStateAPIFrame_0::_4
 		)
 		);
 		sp.add_operation(create_DistributeIfNotPresent<FrozenStateAPIFrame_0>(11, subFrames, &FrozenStateAPIFrame_0::_0));
-		sp.add_operation(create_NavigateSingleAssociation(&FrozenStateAPIFrame_0::_0, &FrozenStateAPIFrame_0::_1, &::railRoadModel::ITurnout::id));
+		sp.add_operation(create_NavigateSingleAssociation(&FrozenStateAPIFrame_0::_0, &FrozenStateAPIFrame_0::_1, &::railRoadModel::ITurnout::get_id));
 		
 		return sp;
 	}
@@ -68,8 +64,7 @@ public:
 				// Please implement the following 
 				// <XFeatureCallImplCustom> < <XUnaryOperationImplCustom>
 				//
-				
-				static_assert(false, "Please implement the Check expression");	
+			return turnoutTemp < 0;
 			},
 			&FrozenStateAPIFrame_0::_4
 		)

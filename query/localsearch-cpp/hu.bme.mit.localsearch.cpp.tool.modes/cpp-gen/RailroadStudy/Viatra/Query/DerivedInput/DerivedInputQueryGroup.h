@@ -75,29 +75,9 @@ private:
 					.forClass(::railRoadModel::IOperational::type_id).setSuper(::railRoadModel::IState::type_id)
 					.forClass(::railRoadModel::IRobot::type_id).noSuper()
 					.forClass(::railRoadModel::IRobotModel::type_id).noSuper()
-					.forClass(::ecore::IEAttribute::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IETypedElement::type_id).setSuper(::ecore::IEStructuralFeature::type_id)
-					.forClass(::ecore::IEAnnotation::type_id).setSuper(::ecore::IEModelElement::type_id)
-					.forClass(::ecore::IEClass::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IEClassifier::type_id)
-					.forClass(::ecore::IEClassifier::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id)
-					.forClass(::ecore::IEDataType::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IEClassifier::type_id)
-					.forClass(::ecore::IEEnum::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IEClassifier::type_id).setSuper(::ecore::IEDataType::type_id)
-					.forClass(::ecore::IEEnumLiteral::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id)
-					.forClass(::ecore::IEFactory::type_id).setSuper(::ecore::IEModelElement::type_id)
-					.forClass(::ecore::IEModelElement::type_id).noSuper()
-					.forClass(::ecore::IENamedElement::type_id).setSuper(::ecore::IEModelElement::type_id)
-					.forClass(::ecore::IEObject::type_id).noSuper()
-					.forClass(::ecore::IEOperation::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IETypedElement::type_id)
-					.forClass(::ecore::IEPackage::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id)
-					.forClass(::ecore::IEParameter::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IETypedElement::type_id)
-					.forClass(::ecore::IEReference::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IETypedElement::type_id).setSuper(::ecore::IEStructuralFeature::type_id)
-					.forClass(::ecore::IEStructuralFeature::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id).setSuper(::ecore::IETypedElement::type_id)
-					.forClass(::ecore::IETypedElement::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id)
-					.forClass(::ecore::IEStringToStringMapEntry::type_id).noSuper()
-					.forClass(::ecore::IEGenericType::type_id).noSuper()
-					.forClass(::ecore::IETypeParameter::type_id).setSuper(::ecore::IEModelElement::type_id).setSuper(::ecore::IENamedElement::type_id)
 					.build() } {
 	}
-
+			
 	::Viatra::Query::Matcher::ISearchContext _isc;
 };
 

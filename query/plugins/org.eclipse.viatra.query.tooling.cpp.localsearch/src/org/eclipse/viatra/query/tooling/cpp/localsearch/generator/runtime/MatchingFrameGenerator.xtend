@@ -51,7 +51,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 		includes += new Include("Viatra/Query/Util/Convert.h", true);
 		includes += new Include("stdint.h", true);
 		includes += new Include("vector", true);
-		includes += new Include("proto_gen.pb.h", false);		
+		includes += new Include('''PB_«queryName».pb.h''', false);		
 	}
 
 	override compileInner() '''

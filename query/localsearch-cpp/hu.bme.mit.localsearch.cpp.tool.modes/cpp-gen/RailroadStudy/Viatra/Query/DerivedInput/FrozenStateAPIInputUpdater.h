@@ -26,7 +26,7 @@ struct FrozenStateAPIInputUpdater{
 		 */						
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::ITurnout >::type, ModelRoot>::instances(&modelRoot);
 		auto srcIDPredicate = [turnoutID](const ::railRoadModel::ITurnout* src){
-			return src->id() == turnoutID;
+			return src->get_id() == turnoutID;
 		};
 		
 		auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
@@ -39,15 +39,15 @@ struct FrozenStateAPIInputUpdater{
 		if(matches.size() > 0){	
 			auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::IFrozen >::type, ModelRoot>::instances(&modelRoot);
 			auto trgIDPredicate = [stateID](const ::railRoadModel::IFrozen* trg){
-				return trg->id() == stateID;
+				return trg->get_id() == stateID;
 			};
 			
 			auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 			
 			if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("::railRoadModel::IFrozen ID not found in InputUpdater");
 			(*srcObj)->set_currentState(*trgObj);
-			}
-			else if((*trgObj) == (*srcObj)->currentState()) (*srcObj)->setcurrentState(nullptr);
+		}
+		else if((*trgObj) == (*srcObj)->get_currentState()) (*srcObj)->set_currentState(nullptr);
 		/*
 		* Critical Section END
 		*/

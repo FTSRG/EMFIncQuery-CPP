@@ -53,7 +53,7 @@ class MatchGenerator extends ViatraQueryHeaderGenerator {
 		].filterNull
 		includes += new Include("unordered_set", true);
 		includes += new Include("stdint.h", true);
-		includes += new Include("proto_gen.pb.h", false);
+		includes += new Include('''PB_«queryName».pb.h''', false);
 		includes += new Include("Viatra/Query/MatchSet.h", false);
 		includes += new Include("Viatra/Query/Util/Convert.h", false);
 	}
