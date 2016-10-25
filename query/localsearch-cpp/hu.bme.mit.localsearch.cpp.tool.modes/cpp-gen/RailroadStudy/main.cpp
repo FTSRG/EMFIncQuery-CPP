@@ -1,26 +1,25 @@
 
-
-
 #include"Viatra/Query/DerivedInput/FrozenStateAPI.h"
-#include"Viatra/Query/DerivedInput/QueryRunnerFactory.h"
 #include"Viatra/Query/DistributedQueries/IsDangerous.h"
 #include"model/ModelRoot.h"
 
-
 #include"Viatra/Query/Distributed/QueryService.h"
-
+#include"Viatra/Query/DistributedQueries/QueryRunnerFactory.h"
 
 #include<iostream>
 
-int main(int argc, char**argv)
+
+using namespace Viatra::Query;
+using Viatra::Query::DistributedQueries::IsDangerous;
+
+using QueryService = Viatra::Query::Distributed::QueryService <
+	Viatra::Query::Model::ModelRoot,
+	DistributedQueries::QueryRunnerFactory
+>;
+
+
+void CheckSystemState(QueryService& service)
 {
-	using namespace Viatra::Query;
-	using Viatra::Query::DistributedQueries::IsDangerous;
-
-	Viatra::Query::Distributed::QueryService < Viatra::Query::Model::ModelRoot, DerivedInput::QueryRunnerFactory > service(
-		"model.json", argv[1]
-		);
-
 	auto future = service.RunNewQuery<IsDangerous, IsDangerous::NoBind>();
 	auto resultSet = future->get();
 	if (resultSet.size() > 0)
@@ -33,6 +32,22 @@ int main(int argc, char**argv)
 	{
 		std::cout << "CHECKED  , IsDangerous query result is empty";
 	}
+
+}
+
+int main(int argc, char**argv)
+{
+
+	QueryService service("model.json", argv[1]);
+
+	for (;;) {
+
+
+		CheckSystemState(service);
+
+
+	}
+
 
 	return 0;
 }
