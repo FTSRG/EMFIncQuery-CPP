@@ -40,9 +40,11 @@ void CheckSystemState(QueryService& service)
 
 int main(int argc, char**argv)
 {
+	const char * arg = argc > 1 ? argv[1] : "nodeA";
 	// Creating the Local Model from the image
 	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", argv[1]);
 
+	return 0;
 	QueryService service("configuration.json", argv[1], &modelRoot);
 
 	for (;;) {

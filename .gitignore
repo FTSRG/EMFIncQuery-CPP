@@ -20,3 +20,6 @@ query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStud
 *.obj
 query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStudy/bin/RailroadStudy.iobj
 *.suo
+*.iobj
+query/localsearch-cpp/hu.bme.mit.localsearch.cpp.tool.modes/cpp-gen/RailroadStudy/bin/RailroadStudy.ipdb
+*.iobj
