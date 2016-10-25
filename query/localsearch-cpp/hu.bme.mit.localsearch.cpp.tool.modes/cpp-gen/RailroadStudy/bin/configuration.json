@@ -22,6 +22,9 @@
 	"model" : [
 		{":id": 1000001, ":node": "nodeA", ":type": "Frozen" },
 		{":id": 1000002, ":node": "nodeB", ":type": "Frozen" },
+		
+		{":id": 2000001, ":node": "nodeA", ":type": "Operational" },
+		{":id": 2000002, ":node": "nodeB", ":type": "Operational" },
 	
 		{":id": 14, ":node": "nodeA", ":type": "Turnout",  "top": 15,  "straight": 12,  "divergent": 11},
 		{":id": 21, ":node": "nodeB", ":type": "Turnout",  "top": 17,  "straight": 23,  "divergent": 22},
