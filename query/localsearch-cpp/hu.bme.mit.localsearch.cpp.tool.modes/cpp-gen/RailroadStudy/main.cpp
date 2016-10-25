@@ -18,6 +18,13 @@ using QueryService = Viatra::Query::Distributed::QueryService <
 >;
 
 
+void UpdateModel(Viatra::Query::Model::ModelRoot * modelRoot)
+{
+
+
+
+}
+
 void CheckSystemState(QueryService& service)
 {
 	auto future = service.RunNewQuery<IsDangerous, IsDangerous::NoBind>();
@@ -37,15 +44,14 @@ void CheckSystemState(QueryService& service)
 
 int main(int argc, char**argv)
 {
+	// Creating the Local Model from the image
+	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", argv[1]);
 
-	QueryService service("model.json", argv[1]);
+	QueryService service("configuration.json", argv[1], &modelRoot);
 
 	for (;;) {
-
-
+		UpdateModel(&modelRoot);
 		CheckSystemState(service);
-
-
 	}
 
 

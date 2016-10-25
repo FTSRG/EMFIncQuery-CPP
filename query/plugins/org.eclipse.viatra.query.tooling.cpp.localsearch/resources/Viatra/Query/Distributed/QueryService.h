@@ -150,7 +150,7 @@ namespace Viatra {
 			class QueryService : public QueryServiceBase
 			{
 			private:
-				ModelRoot modelRoot;
+				ModelRoot *modelRoot;
 				
 			public:
 				using QueryRunnerFactory = QueryRunnerFactoryTemplate<ModelRoot>;
@@ -159,9 +159,9 @@ namespace Viatra {
 				template<template<typename>typename QueryTemplate> using MatchOf = typename QueryTemplate<ModelRoot>::Match;
 				template<template<typename>typename QueryTemplate> using MatcherOf = typename QueryTemplate<ModelRoot>::Matcher;
 				
-				QueryService(const char *configJSON, const char *nodeName)
+				QueryService(const char *configJSON, const char *nodeName, ModelRoot *modelRoot)
 					: QueryServiceBase(configJSON, nodeName)
-					, modelRoot(configJSON, nodeName)
+					, modelRoot(modelRoot)
 				{
 					Util::Logger::Log("QueryService::construct QueryService");
 				}
@@ -199,7 +199,7 @@ namespace Viatra {
 					Util::Logger::Log("QueryService::RunNewQuery create QueryRunner");
 					if (queryRunners[sessionID])
 						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator settings!");
-					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, &modelRoot, this, queryID);
+					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, modelRoot, this, queryID);
 					queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
 
 					startRemoteQuerySessions(sessionID, queryID);
@@ -223,7 +223,7 @@ namespace Viatra {
 					if (queryRunners[sessionID])
 						return "ERROR: QuerySession with the given sessionID is already running in this node!";
 
-					std::shared_ptr<QueryRunnerBase> queryRunner = QueryRunnerFactory::Create(queryID, sessionID, &modelRoot, this);
+					std::shared_ptr<QueryRunnerBase> queryRunner = QueryRunnerFactory::Create(queryID, sessionID, modelRoot, this);
 					queryRunners[sessionID] = queryRunner;
 					queryRunner->startLocalQueryServing();
 					return "OK";
