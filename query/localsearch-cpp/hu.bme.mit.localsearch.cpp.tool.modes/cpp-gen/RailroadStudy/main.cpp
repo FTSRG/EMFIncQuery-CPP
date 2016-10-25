@@ -49,12 +49,23 @@ int main(int argc, char**argv)
 
 	QueryService service("configuration.json", argv[1], &modelRoot);
 
+	try {
 
-	for (;;) {
-		Logger::Log("UpdateModel");
-		UpdateModel(argv[1], &modelRoot);
-		Logger::Log("CheckSystemState");
-		CheckSystemState(service);
+		for (;;) {
+			Logger::Log("UpdateModel");
+			UpdateModel(argv[1], &modelRoot);
+			Logger::Log("CheckSystemState");
+			CheckSystemState(service);
+		}
+
+	}
+	catch (const char * c)
+	{
+		Logger::Log("Exception as const char: ", c);
+	}
+	catch (std::exception& ex)
+	{
+		Logger::Log("Exception: ", ex.what());
 	}
 
 
