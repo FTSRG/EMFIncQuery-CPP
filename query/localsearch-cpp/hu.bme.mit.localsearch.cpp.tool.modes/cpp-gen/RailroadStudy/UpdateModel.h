@@ -59,13 +59,13 @@ void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRo
 		Logger::Log("std::string(nodeName) == std::string(\"nodeA\")");
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAfrozenID, turnoutTemp);
 		Logger::Log("std::string(nodeName) == std::string(\"nodeA\") ---- second");
-		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAoperationalID, turnoutTemp);
+	//	FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAoperationalID, turnoutTemp);
 	}
 	
 	else if (std::string(nodeName) == std::string("nodeB")) {
 		Logger::Log("std::string(nodeName) == std::string(\"nodeB\") ---- second");
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBfrozenID, turnoutTemp);
-		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBoperationalID, turnoutTemp);
+	//	FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBoperationalID, turnoutTemp);
 	}
 	Logger::Log("Update done");
 }
