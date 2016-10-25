@@ -25,9 +25,16 @@ namespace Viatra {
 					return modelElements.at(id);
 				}
 
+				std::unique_lock<std::mutex> acquireLock()
+				{
+					return std::unique_lock<std::mutex>(lock);
+				}
+
 			private:
 				void FreeAllModelElement();
 				std::map<int32_t, Viatra::Query::Model::ModelElement*> modelElements;
+
+				std::mutex lock;
 
 			};
 

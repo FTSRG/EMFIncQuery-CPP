@@ -71,6 +71,8 @@ namespace Viatra {
 							{
 								Logger::Log("QueryRunner::run -- calculating partial result");
 								Logger::Identer ident3;
+
+								auto lck = modelRoot->acquireLock();
 								partialResult = matcher.continueExec(task.encodedFrameVector, task.bodyIndex, task.operationIndex);
 							}
 

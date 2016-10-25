@@ -43,6 +43,7 @@ void ParseTempInfo(std::string& info, int& id, double& temp) // "id;doublevalue"
 
 void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRoot)
 {
+	auto lck = modelRoot->acquireLock();
 	int turnoutId;
 	double turnoutTemp;
 	std::string info = GetTempInfo(nodeName);
