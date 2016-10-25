@@ -19,7 +19,7 @@ public:
 	static std::shared_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot, Viatra::Query::Distributed::QueryServiceBase * service)
 	{
 		switch(queryID){
-			case 3:
+			case 7:
 				return std::make_unique<
 					Viatra::Query::Distributed::QueryRunner<RootedIsDangerous<ModelRoot>>
 				>(sessionID, modelRoot, service, queryID);
