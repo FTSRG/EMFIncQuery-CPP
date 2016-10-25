@@ -29,7 +29,7 @@ namespace DerivedInput {
 		struct Bind{
 			struct turnoutID_stateID_turnoutTemp{
 				using QueryClass = FrozenStateAPI;
-				static constexpr int queryID = 6;
+				static constexpr int queryID = 12;
 				static BindInfo BuildFrames(int turnoutID, int stateID, double turnoutTemp){
 					std::map<int, std::string> encodedFrames;
 					
@@ -50,7 +50,7 @@ namespace DerivedInput {
 		
 		struct NoBind{
 			using QueryClass = FrozenStateAPI;
-			static constexpr int queryID = 5;
+			static constexpr int queryID = 11;
 			static BindInfo BuildFrames(){
 				std::map<int, std::string> encodedFrames;
 				
