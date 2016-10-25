@@ -72,6 +72,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;D:\libraries\protobuf-3.0.0\src;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <TargetName>$(ProjectName)Debug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -79,6 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;D:\ws\gitrepo\EMFIncQuery-CPP-distributed-query\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;D:\libraries\protobuf-3.0.0\src;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
