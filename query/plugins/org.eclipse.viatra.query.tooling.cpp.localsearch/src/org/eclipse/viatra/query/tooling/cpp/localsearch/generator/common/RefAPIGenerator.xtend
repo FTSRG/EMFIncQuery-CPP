@@ -66,7 +66,7 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
 			 */
-			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
+			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
 				return src->get_id() == «srcID.name»;
 			};
@@ -75,13 +75,13 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 	
 			if(srcIt == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found in RefUpdater");
 	
-			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
+			auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
-			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
+			auto matches = «featureName»Matcher.matches_«pattern.boundParameters.map[it.name].join('_')»(«pattern.boundParameters.map[it.name].join(", ")»);
 			
 			if(matches.size() > 0){ 
 			
-				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
+				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 				
 				«IF arity != 1 »
 				std::vector< «trgPointerType» > newDerivedList;

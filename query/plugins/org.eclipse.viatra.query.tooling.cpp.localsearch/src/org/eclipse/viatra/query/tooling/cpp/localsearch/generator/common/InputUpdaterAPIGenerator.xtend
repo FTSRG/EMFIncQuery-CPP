@@ -70,7 +70,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
 			 */						
-			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ModelRoot>::instances(&modelRoot);
+			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
 				return src->get_id() == «srcID.name»;
 			};
@@ -79,18 +79,19 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			
 			if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found");
 			
-			auto engine = QueryEngine<ModelRoot>::of(&modelRoot);
+			auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
-			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
+			auto matches = «featureName»Matcher.matches_«pattern.boundParameters.map[it.name].join('_')»(«pattern.boundParameters.map[it.name].join(", ")»);
+			
+			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
+				return trg->get_id() == «trgID.name»;
+			};
+			
+			auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
+			
+			if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found in InputUpdater");
 			if(matches.size() > 0){	
-				auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ModelRoot>::instances(&modelRoot);
-				auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
-					return trg->get_id() == «trgID.name»;
-				};
-				
-				auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
-				
-				if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found in InputUpdater");
 				«IF arity != 1»
 				auto tempTrg = std::find_if((*srcObj)->get_«featureName»().begin(), (*srcObj)->get_«featureName»().end(), trgIDPredicate);
 				
@@ -101,7 +102,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 				(*srcObj)->set_«featureName»(*trgObj);
 		}
 		else if((*trgObj) == (*srcObj)->get_«featureName»()) (*srcObj)->set_«featureName»(nullptr);
-				«ENDIF»
+			«ENDIF»
 			/*
 			* Critical Section END
 			*/

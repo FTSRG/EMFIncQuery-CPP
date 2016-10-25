@@ -8,7 +8,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGe
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryIncludeGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.QueryRunnerFactoryGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeQuerySpecificationGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
