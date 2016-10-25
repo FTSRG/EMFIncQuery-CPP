@@ -23,9 +23,12 @@ struct FrozenStateAPIInputUpdater{
 		 * Critical Section START
 		 * Atomicity is mandatory
 		 * Not supported parallel modifications and queries
-		 */		
+		 */
+		using Viatra::Query::Util::Logger;
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::ITurnout >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+		Logger::Log("Turnout list size: ", srcInstanceList.size());
 		auto srcIDPredicate = [turnoutID](const ::railRoadModel::ITurnout* src){
+			Logger::Log("Turnout present ID= ", src->get_id());
 			return src->get_id() == turnoutID;
 		};
 		
