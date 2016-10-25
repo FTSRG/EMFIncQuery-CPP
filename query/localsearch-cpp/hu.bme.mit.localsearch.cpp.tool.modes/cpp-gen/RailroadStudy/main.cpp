@@ -67,6 +67,10 @@ int main(int argc, char**argv)
 	{
 		Logger::Log("Exception: ", ex.what());
 	}
+	catch (...)
+	{
+		Logger::Log("Dobjal rendes kivetelt basszus....");
+	}
 
 
 	return 0;
