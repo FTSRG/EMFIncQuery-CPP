@@ -64,7 +64,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			using FrameVector = «unitName»Vector;
 			«/* TODO: make initialized and uninitialized constructor */»
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-				«val type = matchingFrame.getVariableLooseType(param)»
+				«val type = matchingFrame.getVariableStrictType(param)»
 				«val cppHelper = CppHelper::getTypeHelper(type)»
 				«val pos = matchingFrame.getVariablePosition(param)»
 				«cppHelper.declareType» «pos.variableName» = «cppHelper.defaultValue»;
@@ -93,7 +93,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			PB_«unitName» pbframe;
 			
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-				«val type = matchingFrame.getVariableLooseType(param)»
+				«val type = matchingFrame.getVariableStrictType(param)»
 				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
 				«ProtobufHelper::setProtobufVar("pbframe", "", varName, type)»
 			«ENDFOR»
@@ -108,7 +108,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			pbframe.ParseFromString(str);
 			
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-				«val type = matchingFrame.getVariableLooseType(param)»
+				«val type = matchingFrame.getVariableStrictType(param)»
 				«val name = param.variableName.toString»
 				«ProtobufHelper::setVarFromProtobuf(type, name ,"pbframe", "mr")»
 			«ENDFOR»
@@ -122,7 +122,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			«var first = true»
 			std::string ret = "[";
 			«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-				«val type = matchingFrame.getVariableLooseType(param)»
+				«val type = matchingFrame.getVariableStrictType(param)»
 				«val cppHelper = CppHelper::getTypeHelper(type)»
 				«val varName = matchingFrame.getVariablePosition(param).variableName.toString»
 				«IF first»
@@ -152,7 +152,7 @@ class MatchingFrameGenerator extends ViatraQueryHeaderGenerator {
 			for (auto & pbFrame : pbFrameVector.frames())
 			{
 				«FOR param : matchingFrame.allVariables.sortBy[matchingFrame.getVariablePosition(it)]»
-					«val type = matchingFrame.getVariableLooseType(param)»
+					«val type = matchingFrame.getVariableStrictType(param)»
 					«val varName = param.variableName.toString»
 					frame.«ProtobufHelper::setVarFromProtobuf(type, varName ,"pbFrame", "mr")»
 				«ENDFOR»
