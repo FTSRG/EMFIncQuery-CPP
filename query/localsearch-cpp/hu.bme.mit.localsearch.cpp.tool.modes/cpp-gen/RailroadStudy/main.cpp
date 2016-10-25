@@ -8,6 +8,8 @@
 
 #include<iostream>
 
+#include "UpdateModel.h"
+
 
 using namespace Viatra::Query;
 using Viatra::Query::DistributedQueries::IsDangerous;
@@ -17,8 +19,6 @@ using QueryService = Viatra::Query::Distributed::QueryService <
 	DistributedQueries::QueryRunnerFactory
 >;
 
-
-void UpdateModel(Viatra::Query::Model::ModelRoot * modelRoot);
 
 
 void CheckSystemState(QueryService& service)
@@ -46,7 +46,7 @@ int main(int argc, char**argv)
 	QueryService service("configuration.json", argv[1], &modelRoot);
 
 	for (;;) {
-		UpdateModel(&modelRoot);
+		UpdateModel(argv[1], &modelRoot);
 		CheckSystemState(service);
 	}
 
