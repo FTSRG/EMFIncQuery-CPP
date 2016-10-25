@@ -48,6 +48,7 @@ int main(int argc, char**argv)
 	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", argv[1]);
 
 	QueryService service("configuration.json", argv[1], &modelRoot);
+	service.start();
 
 	try {
 
