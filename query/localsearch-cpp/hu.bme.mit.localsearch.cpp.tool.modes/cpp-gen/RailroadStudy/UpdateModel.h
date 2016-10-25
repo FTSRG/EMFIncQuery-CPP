@@ -47,7 +47,8 @@ void ParseTempInfo(std::string& info, int& id, double& temp) // "id;doublevalue"
 
 void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRoot)
 {
-	Logger::SetThisThreadName("UpdateModel");
+	auto id = Logger::Identer();
+
 	auto lck = modelRoot->acquireLock();
 	int turnoutId;
 	double turnoutTemp;
@@ -55,11 +56,14 @@ void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRo
 	Logger::Log("Message arrived: ", info);
 	ParseTempInfo(info, turnoutId, turnoutTemp);
 	if (std::string(nodeName) == std::string("nodeA")) {
+		Logger::Log("std::string(nodeName) == std::string(\"nodeA\")");
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAfrozenID, turnoutTemp);
+		Logger::Log("std::string(nodeName) == std::string(\"nodeA\") ---- second");
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAoperationalID, turnoutTemp);
 	}
 	
 	else if (std::string(nodeName) == std::string("nodeB")) {
+		Logger::Log("std::string(nodeName) == std::string(\"nodeB\") ---- second");
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBfrozenID, turnoutTemp);
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBoperationalID, turnoutTemp);
 	}
