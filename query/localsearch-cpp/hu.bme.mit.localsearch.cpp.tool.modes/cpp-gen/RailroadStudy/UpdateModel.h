@@ -4,6 +4,7 @@
 #include<iostream>
 #include<string>
 #include<Viatra\Query\DerivedInput\FrozenStateAPIInputUpdater.h> 
+#include<map>
 
 
 using namespace Viatra::Query::DerivedInput;
@@ -14,8 +15,8 @@ using namespace Viatra::Query::DerivedInput;
 static const int frozenID = 100;
 static const int operationalID = 101;
 
-static const std::string executesTurnoutNodeA[] = { "T4", "T5", "T1" };
-static const std::string executesTurnoutNodeB[] = { "T6", "T3", "T2", "T7" };
+std::string executesTurnoutNodeA[] = { "T4", "T5", "T1" };
+std::string executesTurnoutNodeB[] = { "T6", "T3", "T2", "T7" };
 static const std::map<std::string, int> turnoutToID = { { "T1", 14 },{ "T2", 28 },{ "T3", 25 },{ "T4", 3 },{ "T5", 9 },{ "T6", 21 }, {"T7", 32} };
 
 static int pullTempCounter = 0;
@@ -24,7 +25,7 @@ std::string GetTempInfo(const char * nodeName) {
 	if (pullTempCounter > 30) pullTempCounter = 0;
 
 	if (nodeName == "nodeA") return turnoutToID[executesTurnoutNodeA[pullTempCounter % 3]] + ";" + ((pullTempCounter++) * 3 - 27.3);
-	if (nodeName == "nodeB") return turnoutToID[executesTurnoutNodeB[pullTempCounter % 3]] + ";" + ((pullTempCounter++) * 3 - 37.3);
+	if (nodeName == "nodeB") return turnoutToID[executesTurnoutNodeB[pullTempCounter % 4]] + ";" + ((pullTempCounter++) * 3 - 37.3);
 	return "-1;0.0";
 }
 
