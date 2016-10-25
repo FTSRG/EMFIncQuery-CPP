@@ -23,7 +23,8 @@ struct FrozenStateAPIInputUpdater{
 		 * Critical Section START
 		 * Atomicity is mandatory
 		 * Not supported parallel modifications and queries
-		 */						
+		 */	
+		auto lck = modelRoot->acquireLock();		
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::ITurnout >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 		auto srcIDPredicate = [turnoutID](const ::railRoadModel::ITurnout* src){
 			return src->get_id() == turnoutID;
