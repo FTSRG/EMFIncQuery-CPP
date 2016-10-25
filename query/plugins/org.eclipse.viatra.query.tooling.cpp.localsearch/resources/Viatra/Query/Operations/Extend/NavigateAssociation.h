@@ -34,7 +34,7 @@ namespace Extend {
  * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
  */
  template<class SrcType, class MemberTrgType, class NavigatorTrgType, class Member, class MatchingFrame>
- class NavigateSingleAssociation: public ExtendOperation<NavigatorTrgType, std::list<NavigatorTrgType>, MatchingFrame> {
+ class NavigateSingleAssociation: public ExtendOperation<MemberTrgType, std::list<NavigatorTrgType>, MatchingFrame> {
  	typedef SrcType MatchingFrame::* SrcGetter; /** @typedef The type of the member pointer for getting the source from the frame. */
  	typedef MemberTrgType MatchingFrame::* MemberToBind; /** @typedef The type of the member pointer used to bind a value in a frame */
  	typedef NavigatorTrgType (Member::*Navigator)() const; /** @typedef The type of the member pointer for navigating from source to target. */
@@ -77,8 +77,10 @@ namespace Extend {
  };
 
  template<class SrcType, class MemberTrgType, class NavigatorTrgType, class Member, class MatchingFrame>
- inline NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, Member, MatchingFrame>::NavigateSingleAssociation(SrcGetter getSrc, MemberToBind bindMember, Navigator navigate ) :
- 		ExtendOperation<NavigatorTrgType, std::list<NavigatorTrgType>, MatchingFrame>(bindMember), _getSrc(getSrc), _navigate(navigate) {
+ inline NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, Member, MatchingFrame>::NavigateSingleAssociation(SrcGetter getSrc, MemberToBind bindMember, Navigator navigate ) 
+	 :	ExtendOperation<MemberTrgType, std::list<NavigatorTrgType>, MatchingFrame>(bindMember)
+	 , _getSrc(getSrc)
+	 , _navigate(navigate) {
  }
 
 template<class SrcType, class MemberTrgType, class NavigatorTrgType, class Member, class MatchingFrame>
@@ -90,7 +92,7 @@ inline void NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, 
 			if (!Util::IsNull<decltype(target)>::check(target))
 				_objectHolder.push_back(target);
 		}
-		ExtendOperation<NavigatorTrgType, std::list<NavigatorTrgType>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
+		ExtendOperation<MemberTrgType, std::list<NavigatorTrgType>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
 }
 
 template<class SrcType, class MemberTrgType, class Collection, class Member, class MatchingFrame, class NavigatorTrgType>
@@ -103,11 +105,11 @@ inline void NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member,
 	if ((frame.*_getSrc)->present())
 	{
 		auto& data = ((static_cast<Member*>(frame.*_getSrc))->*_navigate)();
-		ExtendOperation<NavigatorTrgType, Collection, MatchingFrame>::set_data(std::cbegin(data), std::cend(data));
+		ExtendOperation<MemberTrgType, Collection, MatchingFrame>::set_data(std::cbegin(data), std::cend(data));
 	}
 	else
 	{
-		ExtendOperation<NavigatorTrgType, Collection, MatchingFrame>::set_data(Collection::const_iterator{}, Collection::const_iterator{});
+		ExtendOperation<MemberTrgType, Collection, MatchingFrame>::set_data(Collection::const_iterator{}, Collection::const_iterator{});
 	}
 	
 }

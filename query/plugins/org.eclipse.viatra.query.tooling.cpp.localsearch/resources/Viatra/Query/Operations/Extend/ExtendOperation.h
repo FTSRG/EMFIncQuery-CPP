@@ -56,11 +56,16 @@ public:
      *
      * @return **True** if the binding was successful, **False** if there are no more values to bound.
      */
-    virtual bool execute(MatchingFrame& frame, const Matcher::ISearchContext&) {
+    virtual bool execute(MatchingFrame& frame, const Matcher::ISearchContext& _) {
         if (_it != _end) {
-            const SrcType next = *_it;
-            _it++;
-            frame.*_bind = next;
+			const SrcType next = dynamic_cast<const SrcType>(*_it);
+			_it++;
+            
+			// Incredible hack, Robi style
+			if (next == nullptr)
+				return execute(frame, _);
+			
+			frame.*_bind = next;
             return true;
         } else {
             return false;
