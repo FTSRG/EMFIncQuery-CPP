@@ -5,10 +5,11 @@
 #include<string>
 #include<Viatra\Query\DerivedInput\FrozenStateAPIInputUpdater.h> 
 #include<map>
+#include"Viatra\Query\Util\Logger.h"
 
 
 using namespace Viatra::Query::DerivedInput;
-
+using Viatra::Query::Util::Logger;
 /*
 *  Befagyott váltók esettanulmány beégetett értékei, függvényei
 */
@@ -46,20 +47,23 @@ void ParseTempInfo(std::string& info, int& id, double& temp) // "id;doublevalue"
 
 void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRoot)
 {
+	Logger::SetThisThreadName("UpdateModel");
 	auto lck = modelRoot->acquireLock();
 	int turnoutId;
 	double turnoutTemp;
 	std::string info = GetTempInfo(nodeName);
-	std::cout << "Message arrived: " << info << std::endl;
+	Logger::Log("Message arrived: ", info);
 	ParseTempInfo(info, turnoutId, turnoutTemp);
 	if (std::string(nodeName) == std::string("nodeA")) {
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAfrozenID, turnoutTemp);
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAoperationalID, turnoutTemp);
 	}
+	
 	else if (std::string(nodeName) == std::string("nodeB")) {
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBfrozenID, turnoutTemp);
 		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBoperationalID, turnoutTemp);
 	}
+	Logger::Log("Update done");
 }
 
 /*
