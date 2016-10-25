@@ -3,6 +3,7 @@
 #include"Viatra/Query/DistributedQueries/IsDangerous.h"
 #include"model/ModelRoot.h"
 
+#include"Viatra/Query/Util/Logger.h"
 #include"Viatra/Query/Distributed/QueryService.h"
 #include"Viatra/Query/DistributedQueries/QueryRunnerFactory.h"
 
@@ -10,6 +11,7 @@
 
 #include "UpdateModel.h"
 
+using Viatra::Query::Util::Logger;
 
 using namespace Viatra::Query;
 using Viatra::Query::DistributedQueries::IsDangerous;
@@ -40,14 +42,18 @@ void CheckSystemState(QueryService& service)
 
 int main(int argc, char**argv)
 {
+	Logger::SetThisThreadName("MAIN");
 	const char * arg = argc > 1 ? argv[1] : "nodeA";
 	// Creating the Local Model from the image
 	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", argv[1]);
 
 	QueryService service("configuration.json", argv[1], &modelRoot);
 
+
 	for (;;) {
+		Logger::Log("UpdateModel");
 		UpdateModel(argv[1], &modelRoot);
+		Logger::Log("CheckSystemState");
 		CheckSystemState(service);
 	}
 
