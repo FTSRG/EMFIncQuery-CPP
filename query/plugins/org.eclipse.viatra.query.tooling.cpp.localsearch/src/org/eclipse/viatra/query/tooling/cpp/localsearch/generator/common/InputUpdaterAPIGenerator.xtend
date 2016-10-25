@@ -69,8 +69,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Critical Section START
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
-			 */	
-			auto lck = modelRoot->acquireLock();		
+			 */			
 			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
 				return src->get_id() == «srcID.name»;
