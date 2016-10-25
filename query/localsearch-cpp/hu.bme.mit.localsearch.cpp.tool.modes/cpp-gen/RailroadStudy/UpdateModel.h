@@ -12,8 +12,11 @@ using namespace Viatra::Query::DerivedInput;
 /*
 *  Befagyott váltók esettanulmány beégetett értékei, függvényei
 */
-static const int frozenID = 100;
-static const int operationalID = 101;
+static const int nodeAfrozenID = 1000001;
+static const int nodeAoperationalID = 2000001;
+
+static const int nodeBfrozenID = 1000002;
+static const int nodeBoperationalID = 2000002;
 
 std::string executesTurnoutNodeA[] = { "T4", "T5", "T1" };
 std::string executesTurnoutNodeB[] = { "T6", "T3", "T2", "T7" };
@@ -24,11 +27,11 @@ static int pullTempCounter = 0;
 std::string GetTempInfo(const char * nodeName) {
 	if (pullTempCounter > 30) pullTempCounter = 0;
 
-	if (nodeName ==std::string("nodeA")) {
+	if (std::string(nodeName) == std::string("nodeA")) {
 		std::string temp = executesTurnoutNodeA[pullTempCounter % 3];
 		return std::to_string(turnoutToID[temp]) + std::string(";") + std::to_string((pullTempCounter++) * 3 - 27.3);
 	}
-	if (nodeName == std::string("nodeB")) {
+	if (std::string(nodeName) == std::string("nodeB")) {
 		std::string temp = executesTurnoutNodeB[pullTempCounter % 4];
 		return std::to_string(turnoutToID[temp]) + std::string(";") + std::to_string((pullTempCounter++) * 3 - 37.3);
 	}
@@ -48,8 +51,14 @@ void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRo
 	std::string info = GetTempInfo(nodeName);
 	std::cout << "Message arrived: " << info << std::endl;
 	ParseTempInfo(info, turnoutId, turnoutTemp);
-	FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, frozenID, turnoutTemp);
-	FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, operationalID, turnoutTemp);
+	if (std::string(nodeName) == std::string("nodeA")) {
+		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAfrozenID, turnoutTemp);
+		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeAoperationalID, turnoutTemp);
+	}
+	else if (std::string(nodeName) == std::string("nodeB")) {
+		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBfrozenID, turnoutTemp);
+		FrozenStateAPIInputUpdater::update(modelRoot, turnoutId, nodeBoperationalID, turnoutTemp);
+	}
 }
 
 /*
