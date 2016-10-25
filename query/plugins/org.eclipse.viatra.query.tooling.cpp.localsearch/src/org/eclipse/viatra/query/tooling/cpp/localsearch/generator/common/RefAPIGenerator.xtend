@@ -60,7 +60,7 @@ class RefAPIGenerator extends ViatraQueryHeaderGenerator {
 		/*
 		 * It is generated for update a reference collection in src's environment.
 		 */
-		static void update(Viatra::Query::Model::ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(Viatra::Query::Model::ModelRoot* modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory

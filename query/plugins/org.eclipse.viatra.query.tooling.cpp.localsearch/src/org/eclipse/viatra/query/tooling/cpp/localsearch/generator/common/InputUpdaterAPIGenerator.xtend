@@ -64,7 +64,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 		 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
 		 * If that isn't guaranteed this code crashes in compile time.
 		 */
-		static void update(::Viatra::Query::Model::ModelRoot modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(::Viatra::Query::Model::ModelRoot* modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory
