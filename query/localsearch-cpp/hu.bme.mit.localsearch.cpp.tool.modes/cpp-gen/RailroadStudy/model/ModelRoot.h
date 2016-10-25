@@ -3,6 +3,7 @@
 #define _MODELROOT__H__
 
 #include<map>
+#include<mutex>
 #include"Viatra/Query/Model/ModelElement.h"
 #include"Viatra/Query/Matcher/ModelIndex.h"
 
