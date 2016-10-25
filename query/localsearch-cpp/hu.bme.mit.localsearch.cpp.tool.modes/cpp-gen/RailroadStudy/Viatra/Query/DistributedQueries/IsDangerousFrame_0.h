@@ -63,11 +63,11 @@ struct IsDangerousFrame_0 {
 		
 		_0 = (pbframe._0() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbframe._0()));
+			: dynamic_cast<::railRoadModel::ISegment*>(mr->findModelElementByID(pbframe._0()));
 		
 		_1 = (pbframe._1() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbframe._1()));
+			: dynamic_cast<::railRoadModel::ITurnout*>(mr->findModelElementByID(pbframe._1()));
 		
 		_2 = (pbframe._2() == -1) 
 			? nullptr 
@@ -75,7 +75,7 @@ struct IsDangerousFrame_0 {
 		
 		_3 = (pbframe._3() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::IState*>(mr->findModelElementByID(pbframe._3()));
+			: dynamic_cast<::railRoadModel::IFrozen*>(mr->findModelElementByID(pbframe._3()));
 		
 	}
 };
@@ -104,11 +104,11 @@ class IsDangerousFrame_0Vector
 		{
 			frame._0 = (pbFrame._0() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbFrame._0()));
+				: dynamic_cast<::railRoadModel::ISegment*>(mr->findModelElementByID(pbFrame._0()));
 			
 			frame._1 = (pbFrame._1() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbFrame._1()));
+				: dynamic_cast<::railRoadModel::ITurnout*>(mr->findModelElementByID(pbFrame._1()));
 			
 			frame._2 = (pbFrame._2() == -1) 
 				? nullptr 
@@ -116,7 +116,7 @@ class IsDangerousFrame_0Vector
 			
 			frame._3 = (pbFrame._3() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::IState*>(mr->findModelElementByID(pbFrame._3()));
+				: dynamic_cast<::railRoadModel::IFrozen*>(mr->findModelElementByID(pbFrame._3()));
 			
 			
 			action(frame);
