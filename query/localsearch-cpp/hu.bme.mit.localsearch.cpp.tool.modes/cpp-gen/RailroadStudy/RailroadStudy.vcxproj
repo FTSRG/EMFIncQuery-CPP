@@ -130,6 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Programs\protobuf\src;E:\GitHub\EMFIncQuery-CPP\query\plugins\org.eclipse.viatra.query.tooling.cpp.localsearch\resources;E:\GitHub\EMFIncQuery-CPP\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy\model;E:\GitHub\EMFIncQuery-CPP\query\localsearch-cpp\hu.bme.mit.localsearch.cpp.tool.modes\cpp-gen\RailroadStudy;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

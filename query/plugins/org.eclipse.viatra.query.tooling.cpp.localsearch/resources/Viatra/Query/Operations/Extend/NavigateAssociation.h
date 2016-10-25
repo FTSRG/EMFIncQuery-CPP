@@ -46,7 +46,7 @@ namespace Extend {
  	SrcGetter _getSrc;
  	Navigator _navigate;
 
- 	std::list<TrgType> _objectHolder;
+ 	std::list<NavigatorTrgType> _objectHolder;
  };
 
 
@@ -107,7 +107,7 @@ inline void NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member,
 	}
 	else
 	{
-		ExtendOperation<TrgType, Collection, MatchingFrame>::set_data(Collection::const_iterator{}, Collection::const_iterator{});
+		ExtendOperation<NavigatorTrgType, Collection, MatchingFrame>::set_data(Collection::const_iterator{}, Collection::const_iterator{});
 	}
 	
 }
@@ -119,7 +119,7 @@ inline NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, Membe
 }
 
 template<class SrcType, class MemberTrgType, class Collection, class Member, class MatchingFrame, class NavigatorTrgType>
-inline NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, NavigatorTrgType>* create_NavigateMultiAssociation(SrcType MatchingFrame::* getSrc, TrgType MatchingFrame::* bindMember, const Collection& (Member::*navigate)() const ) {
+inline NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, NavigatorTrgType>* create_NavigateMultiAssociation(SrcType MatchingFrame::* getSrc, MemberTrgType MatchingFrame::* bindMember, const Collection& (Member::*navigate)() const ) {
 	return new NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, NavigatorTrgType>(getSrc, bindMember, navigate);
 }
 
