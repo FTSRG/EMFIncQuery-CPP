@@ -18,6 +18,9 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.NameUti
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QuerySpecificationGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.BoundedPatternDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DependentSearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternGroupDescriptor
 
@@ -30,18 +33,33 @@ class RuntimeQuerySpecificationGenerator extends QuerySpecificationGenerator {
 	val Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators
 	
 	new(String queryName, PatternGroupDescriptor patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators) {
+		this(queryName, patternGroup, frameGenerators, true)
+	}
+	
+	new(String queryName, PatternGroupDescriptor patternGroup, Map<PatternBodyDescriptor, MatchingFrameGenerator> frameGenerators, boolean distributed) {
 		super(queryName, patternGroup)
-		
+		if(distributed)
 		this.searchOperations = Maps::asMap(patternGroup.boundedPatterns)[pattern |
 			Maps::asMap(pattern.patternBodies) [patternBody|
 				patternBody.searchOperations.map[op |
-					new RuntimeSearchOperationGenerator(queryName, op, frameGenerators.get(patternBody))
+					new RuntimeSearchOperationGenerator(queryName, op, frameGenerators.get(patternBody))											
+				]
+			]
+		]
+		else this.searchOperations = Maps::asMap(patternGroup.boundedPatterns)[pattern |
+			Maps::asMap(pattern.patternBodies) [patternBody|
+				val List<ISearchOperationDescriptor> newOperationList = newArrayList
+				patternBody.searchOperations.forEach[it | if(!(it instanceof GlobalExtendInstanceOfDescriptor || it instanceof DistributeIfNotPresentDescriptor))
+					newOperationList.add(it)
+				]
+				newOperationList.map[op |
+					new RuntimeSearchOperationGenerator(queryName, op, frameGenerators.get(patternBody))											
 				]
 			]
 		]
 		this.frameGenerators = frameGenerators
-	}
 	
+	}
 	override initialize() {
 		super.initialize
 		includes += frameGenerators.values.map[include]

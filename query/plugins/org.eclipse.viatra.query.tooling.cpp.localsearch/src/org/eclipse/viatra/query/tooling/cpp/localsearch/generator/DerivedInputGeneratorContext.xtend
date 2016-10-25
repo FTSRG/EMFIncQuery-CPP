@@ -51,7 +51,7 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			val protoMatchCompiler = new ProtobufMatchCompiler(query.name, patternName, aMatchingFrame)
 			protoCompilers += protoMatchCompiler
 			
-			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patternGroup, frameGenMap)
+			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patternGroup, frameGenMap, false)
 			generators += querySpec
 			patternGroupSet.add(patternGroup);
 			
