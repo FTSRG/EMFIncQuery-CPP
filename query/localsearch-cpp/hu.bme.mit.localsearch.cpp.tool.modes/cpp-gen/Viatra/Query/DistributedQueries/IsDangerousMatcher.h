@@ -41,8 +41,9 @@ public:
 			for (auto&& frame : exec) {
 				IsDangerousMatch match;
 			
-				match.rp = static_cast<::railRoadModel::IRobotPart*>(frame._0);
-				match.tr = static_cast<::railRoadModel::ITrain*>(frame._1);
+				match.segment = static_cast<::railRoadModel::ISegment*>(frame._0);
+				match.turnout = static_cast<::railRoadModel::ITurnout*>(frame._1);
+				match.train = static_cast<::railRoadModel::ITrain*>(frame._2);
 			
 				matches.insert(match);
 			}
@@ -65,8 +66,9 @@ public:
 			for (auto&& frame : exec) {
 				IsDangerousMatch match;
 			
-				match.rp = static_cast<::railRoadModel::IRobotPart*>(frame._0);
-				match.tr = static_cast<::railRoadModel::ITrain*>(frame._1);
+				match.segment = static_cast<::railRoadModel::ISegment*>(frame._0);
+				match.turnout = static_cast<::railRoadModel::ITurnout*>(frame._1);
+				match.train = static_cast<::railRoadModel::ITrain*>(frame._2);
 			
 				results.insert(match);
 			}

@@ -1,10 +1,5 @@
-/Release/
-/bin/*.iobj
-/bin/*.ipdb
-/v14/
 *.sln
 *.sdf
 *.vcxproj
 *.user
 *.opendb
-/Release/

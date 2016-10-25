@@ -113,6 +113,18 @@ class PB_IsDangerousFrame_0 : public ::google::protobuf::Message /* @@protoc_ins
   ::google::protobuf::int32 _1() const;
   void set__1(::google::protobuf::int32 value);
 
+  // optional int32 _2 = 3;
+  void clear__2();
+  static const int k2FieldNumber = 3;
+  ::google::protobuf::int32 _2() const;
+  void set__2(::google::protobuf::int32 value);
+
+  // optional int32 _3 = 4;
+  void clear__3();
+  static const int k3FieldNumber = 4;
+  ::google::protobuf::int32 _3() const;
+  void set__3(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:PB_IsDangerousFrame_0)
  private:
 
@@ -120,6 +132,8 @@ class PB_IsDangerousFrame_0 : public ::google::protobuf::Message /* @@protoc_ins
   bool _is_default_instance_;
   ::google::protobuf::int32 _0_;
   ::google::protobuf::int32 _1_;
+  ::google::protobuf::int32 _2_;
+  ::google::protobuf::int32 _3_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
@@ -278,25 +292,32 @@ class PB_IsDangerousMatch : public ::google::protobuf::Message /* @@protoc_inser
 
   // accessors -------------------------------------------------------
 
-  // optional int32 rp = 1;
-  void clear_rp();
-  static const int kRpFieldNumber = 1;
-  ::google::protobuf::int32 rp() const;
-  void set_rp(::google::protobuf::int32 value);
+  // optional int32 segment = 1;
+  void clear_segment();
+  static const int kSegmentFieldNumber = 1;
+  ::google::protobuf::int32 segment() const;
+  void set_segment(::google::protobuf::int32 value);
 
-  // optional int32 tr = 2;
-  void clear_tr();
-  static const int kTrFieldNumber = 2;
-  ::google::protobuf::int32 tr() const;
-  void set_tr(::google::protobuf::int32 value);
+  // optional int32 turnout = 2;
+  void clear_turnout();
+  static const int kTurnoutFieldNumber = 2;
+  ::google::protobuf::int32 turnout() const;
+  void set_turnout(::google::protobuf::int32 value);
+
+  // optional int32 train = 3;
+  void clear_train();
+  static const int kTrainFieldNumber = 3;
+  ::google::protobuf::int32 train() const;
+  void set_train(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:PB_IsDangerousMatch)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::int32 rp_;
-  ::google::protobuf::int32 tr_;
+  ::google::protobuf::int32 segment_;
+  ::google::protobuf::int32 turnout_;
+  ::google::protobuf::int32 train_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
@@ -429,6 +450,34 @@ inline void PB_IsDangerousFrame_0::set__1(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._1)
 }
 
+// optional int32 _2 = 3;
+inline void PB_IsDangerousFrame_0::clear__2() {
+  _2_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousFrame_0::_2() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousFrame_0._2)
+  return _2_;
+}
+inline void PB_IsDangerousFrame_0::set__2(::google::protobuf::int32 value) {
+  
+  _2_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._2)
+}
+
+// optional int32 _3 = 4;
+inline void PB_IsDangerousFrame_0::clear__3() {
+  _3_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousFrame_0::_3() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousFrame_0._3)
+  return _3_;
+}
+inline void PB_IsDangerousFrame_0::set__3(::google::protobuf::int32 value) {
+  
+  _3_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._3)
+}
+
 // -------------------------------------------------------------------
 
 // PB_IsDangerousFrame_0Vector
@@ -467,32 +516,46 @@ PB_IsDangerousFrame_0Vector::frames() const {
 
 // PB_IsDangerousMatch
 
-// optional int32 rp = 1;
-inline void PB_IsDangerousMatch::clear_rp() {
-  rp_ = 0;
+// optional int32 segment = 1;
+inline void PB_IsDangerousMatch::clear_segment() {
+  segment_ = 0;
 }
-inline ::google::protobuf::int32 PB_IsDangerousMatch::rp() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.rp)
-  return rp_;
+inline ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
+  return segment_;
 }
-inline void PB_IsDangerousMatch::set_rp(::google::protobuf::int32 value) {
+inline void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
   
-  rp_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.rp)
+  segment_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
 }
 
-// optional int32 tr = 2;
-inline void PB_IsDangerousMatch::clear_tr() {
-  tr_ = 0;
+// optional int32 turnout = 2;
+inline void PB_IsDangerousMatch::clear_turnout() {
+  turnout_ = 0;
 }
-inline ::google::protobuf::int32 PB_IsDangerousMatch::tr() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.tr)
-  return tr_;
+inline ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
+  return turnout_;
 }
-inline void PB_IsDangerousMatch::set_tr(::google::protobuf::int32 value) {
+inline void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
   
-  tr_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.tr)
+  turnout_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+}
+
+// optional int32 train = 3;
+inline void PB_IsDangerousMatch::clear_train() {
+  train_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
+  return train_;
+}
+inline void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+  
+  train_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
 }
 
 // -------------------------------------------------------------------
