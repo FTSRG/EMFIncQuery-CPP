@@ -78,7 +78,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			
 			auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 			
-			if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found");
+			if(srcObj == srcInstanceList.end()) throw std::invalid_argument("«srcType» ID not found");
 			
 			auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
@@ -91,7 +91,7 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			
 			auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 			
-			if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("«trgType» ID not found in InputUpdater");
+			if(trgObj == trgInstanceList.end()) throw std::invalid_argument("«trgType» ID not found in InputUpdater");
 			if(matches.size() > 0){	
 				«IF arity != 1»
 				auto tempTrg = std::find_if((*srcObj)->get_«featureName»().begin(), (*srcObj)->get_«featureName»().end(), trgIDPredicate);
