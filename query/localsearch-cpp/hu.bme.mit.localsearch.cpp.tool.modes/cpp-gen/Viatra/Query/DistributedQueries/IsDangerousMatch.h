@@ -7,8 +7,10 @@
 #include "PB_DistributedQueries.pb.h"
 #include "Viatra/Query/MatchSet.h"
 #include "Viatra/Query/Util/Convert.h"
-#include "railRoadModel/RobotPart.h"
+#include "railRoadModel/Frozen.h"
+#include "railRoadModel/Segment.h"
 #include "railRoadModel/Train.h"
+#include "railRoadModel/Turnout.h"
 
 namespace Viatra {
 namespace Query {
@@ -20,13 +22,15 @@ struct IsDangerousMatch {
 	
 	using MatchSet = IsDangerousMatchSet;
 	
-	::railRoadModel::IRobotPart* rp;
-	::railRoadModel::ITrain* tr;
+	::railRoadModel::ISegment* segment;
+	::railRoadModel::ITurnout* turnout;
+	::railRoadModel::ITrain* train;
 	
 	bool operator==(const IsDangerousMatch& other) const {
 		return 
-			rp == other.rp&&
-			tr == other.tr
+			segment == other.segment&&
+			turnout == other.turnout&&
+			train == other.train
 		;
 	}
 	
@@ -36,8 +40,9 @@ struct IsDangerousMatch {
 	{
 		PB_IsDangerousMatch pbMatch;
 		
-		pbMatch.set_rp(rp == nullptr ? -1 : rp->id());
-		pbMatch.set_tr(tr == nullptr ? -1 : tr->id());
+		pbMatch.set_segment(segment == nullptr ? -1 : segment->id());
+		pbMatch.set_turnout(turnout == nullptr ? -1 : turnout->id());
+		pbMatch.set_train(train == nullptr ? -1 : train->id());
 		
 		return pbMatch.SerializeAsString();
 	}
@@ -48,13 +53,17 @@ struct IsDangerousMatch {
 		PB_IsDangerousMatch pbMatch;
 		pbMatch.ParseFromString(str);
 			
-		rp = (pbMatch.rp() == -1) 
+		segment = (pbMatch.segment() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::IRobotPart*>(mr->findModelElementByID(pbMatch.rp()));
+			: dynamic_cast<::railRoadModel::ISegment*>(mr->findModelElementByID(pbMatch.segment()));
 		
-		tr = (pbMatch.tr() == -1) 
+		turnout = (pbMatch.turnout() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbMatch.tr()));
+			: dynamic_cast<::railRoadModel::ITurnout*>(mr->findModelElementByID(pbMatch.turnout()));
+		
+		train = (pbMatch.train() == -1) 
+			? nullptr 
+			: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbMatch.train()));
 		
 	}
 	
@@ -63,10 +72,12 @@ struct IsDangerousMatch {
 	std::string toString() const
 	{
 		std::string ret = "[";
-		ret += "rp=";
-		ret += (rp == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(rp->id()));
-		ret += ",tr=";
-		ret += (tr == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(tr->id()));
+		ret += "segment=";
+		ret += (segment == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(segment->id()));
+		ret += ",turnout=";
+		ret += (turnout == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(turnout->id()));
+		ret += ",train=";
+		ret += (train == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(train->id()));
 	
 		return ret + ']';
 	}
@@ -81,9 +92,11 @@ namespace std {
 template<> struct hash<::Viatra::Query::DistributedQueries::IsDangerousMatch> {
 	size_t operator()(const ::Viatra::Query::DistributedQueries::IsDangerousMatch& match) const {
 		size_t h = 0;
-		h+=std::hash<decltype(match.rp)>()(match.rp);
+		h+=std::hash<decltype(match.segment)>()(match.segment);
 		h*=31;
-		h+=std::hash<decltype(match.tr)>()(match.tr);
+		h+=std::hash<decltype(match.turnout)>()(match.turnout);
+		h*=31;
+		h+=std::hash<decltype(match.train)>()(match.train);
 		return h;
 	}
 };
@@ -118,13 +131,17 @@ class IsDangerousMatchSet
 		IsDangerousMatch match;
 		for (auto & pbMatch : pbMsgSet.matches())
 		{
-			match.rp = (pbMatch.rp() == -1) 
+			match.segment = (pbMatch.segment() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::IRobotPart*>(mr->findModelElementByID(pbMatch.rp()));
+				: dynamic_cast<::railRoadModel::ISegment*>(mr->findModelElementByID(pbMatch.segment()));
 			
-			match.tr = (pbMatch.tr() == -1) 
+			match.turnout = (pbMatch.turnout() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbMatch.tr()));
+				: dynamic_cast<::railRoadModel::ITurnout*>(mr->findModelElementByID(pbMatch.turnout()));
+			
+			match.train = (pbMatch.train() == -1) 
+				? nullptr 
+				: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbMatch.train()));
 			
 			
 			action(match);
@@ -137,8 +154,9 @@ class IsDangerousMatchSet
 		
 		for(auto& storedMatch: *this){
 			auto & pbMatch = *pbMatchSet.add_matches();
-			pbMatch.set_rp(storedMatch.rp == nullptr ? -1 : storedMatch.rp->id());
-			pbMatch.set_tr(storedMatch.tr == nullptr ? -1 : storedMatch.tr->id());
+			pbMatch.set_segment(storedMatch.segment == nullptr ? -1 : storedMatch.segment->id());
+			pbMatch.set_turnout(storedMatch.turnout == nullptr ? -1 : storedMatch.turnout->id());
+			pbMatch.set_train(storedMatch.train == nullptr ? -1 : storedMatch.train->id());
 		}
 		return pbMatchSet.SerializeAsString();
 	}

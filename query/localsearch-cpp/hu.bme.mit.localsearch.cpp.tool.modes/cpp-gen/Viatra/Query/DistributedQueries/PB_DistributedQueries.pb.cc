@@ -43,9 +43,11 @@ void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto() {
       "PB_DistributedQueries.proto");
   GOOGLE_CHECK(file != NULL);
   PB_IsDangerousFrame_0_descriptor_ = file->message_type(0);
-  static const int PB_IsDangerousFrame_0_offsets_[2] = {
+  static const int PB_IsDangerousFrame_0_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _0_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _1_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _2_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _3_),
   };
   PB_IsDangerousFrame_0_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -74,9 +76,10 @@ void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _is_default_instance_));
   PB_IsDangerousMatch_descriptor_ = file->message_type(2);
-  static const int PB_IsDangerousMatch_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, rp_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, tr_),
+  static const int PB_IsDangerousMatch_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, segment_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, turnout_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, train_),
   };
   PB_IsDangerousMatch_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -148,13 +151,14 @@ void protobuf_AddDesc_PB_5fDistributedQueries_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\033PB_DistributedQueries.proto\"/\n\025PB_IsDa"
-    "ngerousFrame_0\022\n\n\002_0\030\001 \001(\005\022\n\n\002_1\030\002 \001(\005\"E"
-    "\n\033PB_IsDangerousFrame_0Vector\022&\n\006frames\030"
-    "\001 \003(\0132\026.PB_IsDangerousFrame_0\"-\n\023PB_IsDa"
-    "ngerousMatch\022\n\n\002rp\030\001 \001(\005\022\n\n\002tr\030\002 \001(\005\"\?\n\026"
-    "PB_IsDangerousMatchSet\022%\n\007matches\030\001 \003(\0132"
-    "\024.PB_IsDangerousMatchb\006proto3", 269);
+    "\n\033PB_DistributedQueries.proto\"G\n\025PB_IsDa"
+    "ngerousFrame_0\022\n\n\002_0\030\001 \001(\005\022\n\n\002_1\030\002 \001(\005\022\n"
+    "\n\002_2\030\003 \001(\005\022\n\n\002_3\030\004 \001(\005\"E\n\033PB_IsDangerous"
+    "Frame_0Vector\022&\n\006frames\030\001 \003(\0132\026.PB_IsDan"
+    "gerousFrame_0\"F\n\023PB_IsDangerousMatch\022\017\n\007"
+    "segment\030\001 \001(\005\022\017\n\007turnout\030\002 \001(\005\022\r\n\005train\030"
+    "\003 \001(\005\"\?\n\026PB_IsDangerousMatchSet\022%\n\007match"
+    "es\030\001 \003(\0132\024.PB_IsDangerousMatchb\006proto3", 318);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "PB_DistributedQueries.proto", &protobuf_RegisterTypes);
   PB_IsDangerousFrame_0::default_instance_ = new PB_IsDangerousFrame_0();
@@ -180,6 +184,8 @@ struct StaticDescriptorInitializer_PB_5fDistributedQueries_2eproto {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PB_IsDangerousFrame_0::k0FieldNumber;
 const int PB_IsDangerousFrame_0::k1FieldNumber;
+const int PB_IsDangerousFrame_0::k2FieldNumber;
+const int PB_IsDangerousFrame_0::k3FieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PB_IsDangerousFrame_0::PB_IsDangerousFrame_0()
@@ -205,6 +211,8 @@ void PB_IsDangerousFrame_0::SharedCtor() {
   _cached_size_ = 0;
   _0_ = 0;
   _1_ = 0;
+  _2_ = 0;
+  _3_ = 0;
 }
 
 PB_IsDangerousFrame_0::~PB_IsDangerousFrame_0() {
@@ -260,7 +268,7 @@ void PB_IsDangerousFrame_0::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(_0_, _1_);
+  ZR_(_0_, _3_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -298,6 +306,36 @@ bool PB_IsDangerousFrame_0::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &_1_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse__2;
+        break;
+      }
+
+      // optional int32 _2 = 3;
+      case 3: {
+        if (tag == 24) {
+         parse__2:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &_2_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse__3;
+        break;
+      }
+
+      // optional int32 _3 = 4;
+      case 4: {
+        if (tag == 32) {
+         parse__3:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &_3_)));
 
         } else {
           goto handle_unusual;
@@ -340,6 +378,16 @@ void PB_IsDangerousFrame_0::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->_1(), output);
   }
 
+  // optional int32 _2 = 3;
+  if (this->_2() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->_2(), output);
+  }
+
+  // optional int32 _3 = 4;
+  if (this->_3() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->_3(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:PB_IsDangerousFrame_0)
 }
 
@@ -354,6 +402,16 @@ void PB_IsDangerousFrame_0::SerializeWithCachedSizes(
   // optional int32 _1 = 2;
   if (this->_1() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->_1(), target);
+  }
+
+  // optional int32 _2 = 3;
+  if (this->_2() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->_2(), target);
+  }
+
+  // optional int32 _3 = 4;
+  if (this->_3() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->_3(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousFrame_0)
@@ -376,6 +434,20 @@ int PB_IsDangerousFrame_0::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->_1());
+  }
+
+  // optional int32 _2 = 3;
+  if (this->_2() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->_2());
+  }
+
+  // optional int32 _3 = 4;
+  if (this->_3() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->_3());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -412,6 +484,12 @@ void PB_IsDangerousFrame_0::MergeFrom(const PB_IsDangerousFrame_0& from) {
   if (from._1() != 0) {
     set__1(from._1());
   }
+  if (from._2() != 0) {
+    set__2(from._2());
+  }
+  if (from._3() != 0) {
+    set__3(from._3());
+  }
 }
 
 void PB_IsDangerousFrame_0::CopyFrom(const ::google::protobuf::Message& from) {
@@ -440,6 +518,8 @@ void PB_IsDangerousFrame_0::Swap(PB_IsDangerousFrame_0* other) {
 void PB_IsDangerousFrame_0::InternalSwap(PB_IsDangerousFrame_0* other) {
   std::swap(_0_, other->_0_);
   std::swap(_1_, other->_1_);
+  std::swap(_2_, other->_2_);
+  std::swap(_3_, other->_3_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -481,6 +561,34 @@ void PB_IsDangerousFrame_0::clear__1() {
   
   _1_ = value;
   // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._1)
+}
+
+// optional int32 _2 = 3;
+void PB_IsDangerousFrame_0::clear__2() {
+  _2_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousFrame_0::_2() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousFrame_0._2)
+  return _2_;
+}
+ void PB_IsDangerousFrame_0::set__2(::google::protobuf::int32 value) {
+  
+  _2_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._2)
+}
+
+// optional int32 _3 = 4;
+void PB_IsDangerousFrame_0::clear__3() {
+  _3_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousFrame_0::_3() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousFrame_0._3)
+  return _3_;
+}
+ void PB_IsDangerousFrame_0::set__3(::google::protobuf::int32 value) {
+  
+  _3_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousFrame_0._3)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -745,8 +853,9 @@ PB_IsDangerousFrame_0Vector::frames() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PB_IsDangerousMatch::kRpFieldNumber;
-const int PB_IsDangerousMatch::kTrFieldNumber;
+const int PB_IsDangerousMatch::kSegmentFieldNumber;
+const int PB_IsDangerousMatch::kTurnoutFieldNumber;
+const int PB_IsDangerousMatch::kTrainFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PB_IsDangerousMatch::PB_IsDangerousMatch()
@@ -770,8 +879,9 @@ PB_IsDangerousMatch::PB_IsDangerousMatch(const PB_IsDangerousMatch& from)
 void PB_IsDangerousMatch::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
-  rp_ = 0;
-  tr_ = 0;
+  segment_ = 0;
+  turnout_ = 0;
+  train_ = 0;
 }
 
 PB_IsDangerousMatch::~PB_IsDangerousMatch() {
@@ -827,7 +937,7 @@ void PB_IsDangerousMatch::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(rp_, tr_);
+  ZR_(segment_, train_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -844,27 +954,42 @@ bool PB_IsDangerousMatch::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 rp = 1;
+      // optional int32 segment = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &rp_)));
+                 input, &segment_)));
 
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_tr;
+        if (input->ExpectTag(16)) goto parse_turnout;
         break;
       }
 
-      // optional int32 tr = 2;
+      // optional int32 turnout = 2;
       case 2: {
         if (tag == 16) {
-         parse_tr:
+         parse_turnout:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &tr_)));
+                 input, &turnout_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_train;
+        break;
+      }
+
+      // optional int32 train = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_train:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &train_)));
 
         } else {
           goto handle_unusual;
@@ -897,14 +1022,19 @@ failure:
 void PB_IsDangerousMatch::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:PB_IsDangerousMatch)
-  // optional int32 rp = 1;
-  if (this->rp() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->rp(), output);
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->segment(), output);
   }
 
-  // optional int32 tr = 2;
-  if (this->tr() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->tr(), output);
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->turnout(), output);
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->train(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:PB_IsDangerousMatch)
@@ -913,14 +1043,19 @@ void PB_IsDangerousMatch::SerializeWithCachedSizes(
 ::google::protobuf::uint8* PB_IsDangerousMatch::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:PB_IsDangerousMatch)
-  // optional int32 rp = 1;
-  if (this->rp() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->rp(), target);
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->segment(), target);
   }
 
-  // optional int32 tr = 2;
-  if (this->tr() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->tr(), target);
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->turnout(), target);
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->train(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousMatch)
@@ -931,18 +1066,25 @@ int PB_IsDangerousMatch::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:PB_IsDangerousMatch)
   int total_size = 0;
 
-  // optional int32 rp = 1;
-  if (this->rp() != 0) {
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->rp());
+        this->segment());
   }
 
-  // optional int32 tr = 2;
-  if (this->tr() != 0) {
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->tr());
+        this->turnout());
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->train());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -973,11 +1115,14 @@ void PB_IsDangerousMatch::MergeFrom(const PB_IsDangerousMatch& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
-  if (from.rp() != 0) {
-    set_rp(from.rp());
+  if (from.segment() != 0) {
+    set_segment(from.segment());
   }
-  if (from.tr() != 0) {
-    set_tr(from.tr());
+  if (from.turnout() != 0) {
+    set_turnout(from.turnout());
+  }
+  if (from.train() != 0) {
+    set_train(from.train());
   }
 }
 
@@ -1005,8 +1150,9 @@ void PB_IsDangerousMatch::Swap(PB_IsDangerousMatch* other) {
   InternalSwap(other);
 }
 void PB_IsDangerousMatch::InternalSwap(PB_IsDangerousMatch* other) {
-  std::swap(rp_, other->rp_);
-  std::swap(tr_, other->tr_);
+  std::swap(segment_, other->segment_);
+  std::swap(turnout_, other->turnout_);
+  std::swap(train_, other->train_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1022,32 +1168,46 @@ void PB_IsDangerousMatch::InternalSwap(PB_IsDangerousMatch* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PB_IsDangerousMatch
 
-// optional int32 rp = 1;
-void PB_IsDangerousMatch::clear_rp() {
-  rp_ = 0;
+// optional int32 segment = 1;
+void PB_IsDangerousMatch::clear_segment() {
+  segment_ = 0;
 }
- ::google::protobuf::int32 PB_IsDangerousMatch::rp() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.rp)
-  return rp_;
+ ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
+  return segment_;
 }
- void PB_IsDangerousMatch::set_rp(::google::protobuf::int32 value) {
+ void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
   
-  rp_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.rp)
+  segment_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
 }
 
-// optional int32 tr = 2;
-void PB_IsDangerousMatch::clear_tr() {
-  tr_ = 0;
+// optional int32 turnout = 2;
+void PB_IsDangerousMatch::clear_turnout() {
+  turnout_ = 0;
 }
- ::google::protobuf::int32 PB_IsDangerousMatch::tr() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.tr)
-  return tr_;
+ ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
+  return turnout_;
 }
- void PB_IsDangerousMatch::set_tr(::google::protobuf::int32 value) {
+ void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
   
-  tr_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.tr)
+  turnout_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+}
+
+// optional int32 train = 3;
+void PB_IsDangerousMatch::clear_train() {
+  train_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
+  return train_;
+}
+ void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+  
+  train_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

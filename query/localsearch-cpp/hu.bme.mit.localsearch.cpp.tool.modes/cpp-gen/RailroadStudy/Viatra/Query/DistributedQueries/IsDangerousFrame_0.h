@@ -6,7 +6,8 @@
 #include <vector>
 		
 #include "PB_DistributedQueries.pb.h"
-#include "railRoadModel/RobotPart.h"
+#include "railRoadModel/RailRoadElement.h"
+#include "railRoadModel/State.h"
 #include "railRoadModel/Train.h"
 
 namespace Viatra {
@@ -21,17 +22,23 @@ struct IsDangerousFrame_0 {
 	using PBFrame = PB_IsDangerousFrame_0;
 	using FrameVector = IsDangerousFrame_0Vector;
 	
-	::railRoadModel::IRobotPart* _0 = nullptr;
-	::railRoadModel::ITrain* _1 = nullptr;
+	::railRoadModel::IRailRoadElement* _0 = nullptr;
+	::railRoadModel::IRailRoadElement* _1 = nullptr;
+	::railRoadModel::ITrain* _2 = nullptr;
+	::railRoadModel::IState* _3 = nullptr;
 	// toString
 	
 	std::string toString() const
 	{
 		std::string ret = "[";
-		ret += "rp=";
+		ret += "segment=";
 		ret += (_0 == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(_0->id()));
-		ret += ",tr=";
+		ret += ",turnout=";
 		ret += (_1 == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(_1->id()));
+		ret += ",train=";
+		ret += (_2 == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(_2->id()));
+		ret += ",fro=";
+		ret += (_3 == nullptr ? "null" : Viatra::Query::Util::Convert::ToString(_3->id()));
 	
 		return ret + ']';
 	}
@@ -42,6 +49,8 @@ struct IsDangerousFrame_0 {
 		
 		pbframe.set__0(_0 == nullptr ? -1 : _0->id());
 		pbframe.set__1(_1 == nullptr ? -1 : _1->id());
+		pbframe.set__2(_2 == nullptr ? -1 : _2->id());
+		pbframe.set__3(_3 == nullptr ? -1 : _3->id());
 		
 		return pbframe.SerializeAsString();
 	}
@@ -54,11 +63,19 @@ struct IsDangerousFrame_0 {
 		
 		_0 = (pbframe._0() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::IRobotPart*>(mr->findModelElementByID(pbframe._0()));
+			: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbframe._0()));
 		
 		_1 = (pbframe._1() == -1) 
 			? nullptr 
-			: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbframe._1()));
+			: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbframe._1()));
+		
+		_2 = (pbframe._2() == -1) 
+			? nullptr 
+			: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbframe._2()));
+		
+		_3 = (pbframe._3() == -1) 
+			? nullptr 
+			: dynamic_cast<::railRoadModel::IState*>(mr->findModelElementByID(pbframe._3()));
 		
 	}
 };
@@ -87,11 +104,19 @@ class IsDangerousFrame_0Vector
 		{
 			frame._0 = (pbFrame._0() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::IRobotPart*>(mr->findModelElementByID(pbFrame._0()));
+				: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbFrame._0()));
 			
 			frame._1 = (pbFrame._1() == -1) 
 				? nullptr 
-				: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbFrame._1()));
+				: dynamic_cast<::railRoadModel::IRailRoadElement*>(mr->findModelElementByID(pbFrame._1()));
+			
+			frame._2 = (pbFrame._2() == -1) 
+				? nullptr 
+				: dynamic_cast<::railRoadModel::ITrain*>(mr->findModelElementByID(pbFrame._2()));
+			
+			frame._3 = (pbFrame._3() == -1) 
+				? nullptr 
+				: dynamic_cast<::railRoadModel::IState*>(mr->findModelElementByID(pbFrame._3()));
 			
 			
 			action(frame);
@@ -106,6 +131,8 @@ class IsDangerousFrame_0Vector
 			auto & pbFrame= *pbFrameVector.add_frames();
 			pbFrame.set__0(storedVector._0 == nullptr ? -1 : storedVector._0->id());
 			pbFrame.set__1(storedVector._1 == nullptr ? -1 : storedVector._1->id());
+			pbFrame.set__2(storedVector._2 == nullptr ? -1 : storedVector._2->id());
+			pbFrame.set__3(storedVector._3 == nullptr ? -1 : storedVector._3->id());
 		}
 		return pbFrameVector.SerializeAsString();
 	}
