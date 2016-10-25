@@ -18,7 +18,6 @@
 	],
 	
 	"model" : [
-		{":type":"Point", ":id":"14",
 	
 		{":id": 14,  ":type": "Turnout",  "top": 15,  "straight": 12,  "divergent": 11},
 		{":id": 21,  ":type": "Turnout",  "top": 17,  "straight": 23,  "divergent": 22},

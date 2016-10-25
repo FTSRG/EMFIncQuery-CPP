@@ -46,7 +46,6 @@ namespace Viatra{
 
 				using Lock = std::unique_lock<std::mutex>;
 				std::mutex readyMutex;
-				std::condition_variable readyCV;
 
 				std::shared_ptr<QueryRunner<RootedQuery>> concreteRunner;
 
@@ -56,16 +55,11 @@ namespace Viatra{
 				{
 					this->concreteRunner = runner;
 				}
-
-
-				virtual void notifyCollectionDone() {
-					readyCV.notify_all();
-				}
-				
+								
 				MatchSet get() {
 					return concreteRunner->getResultMatchSet();
 				}
-
+				
 			};
 
 		}
