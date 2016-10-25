@@ -32,7 +32,7 @@ struct FrozenStateAPIInputUpdater{
 		
 		auto srcObj = std::find_if(srcInstanceList.begin(), srcInstanceList.end(), srcIDPredicate);
 		
-		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::railRoadModel::ITurnout ID not found");
+		if(srcObj == srcInstanceList.end()) throw std::invalid_argument("::railRoadModel::ITurnout ID not found");
 		
 		auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
 		auto currentStateMatcher = engine.template matcher< FrozenStateAPIQuerySpecification >();
@@ -45,7 +45,7 @@ struct FrozenStateAPIInputUpdater{
 		
 		auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 		
-		if(trgObj == trgInstanceList.end()) throw new std::invalid_argument("::railRoadModel::IFrozen ID not found in InputUpdater");
+		if(trgObj == trgInstanceList.end()) throw std::invalid_argument("::railRoadModel::IFrozen ID not found in InputUpdater");
 		if(matches.size() > 0){	
 			(*srcObj)->set_currentState(*trgObj);
 		}
