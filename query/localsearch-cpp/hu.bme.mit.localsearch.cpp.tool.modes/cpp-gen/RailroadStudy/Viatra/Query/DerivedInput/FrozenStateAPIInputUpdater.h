@@ -28,7 +28,7 @@ struct FrozenStateAPIInputUpdater{
 		auto srcInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::ITurnout >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 		Logger::Log("Turnout list size: ", srcInstanceList.size());
 		auto srcIDPredicate = [turnoutID](const ::railRoadModel::ITurnout* src){
-			Logger::Log("Turnout present ID= ", src->get_id());
+			Logger::Log("Turnout present ID= ", src->get_id(), " == ", turnoutID);
 			return src->get_id() == turnoutID;
 		};
 		
@@ -43,7 +43,7 @@ struct FrozenStateAPIInputUpdater{
 		auto trgInstanceList = ModelIndex<typename std::remove_pointer< ::railRoadModel::IFrozen >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
 		Logger::Log("Frozen list size: ", trgInstanceList.size());
 		auto trgIDPredicate = [stateID](const ::railRoadModel::IFrozen* trg){
-			Logger::Log("IFrozen present ID= ", trg->get_id());
+			Logger::Log("IFrozen present ID= ", trg->get_id(), " == ", stateID);
 			return trg->get_id() == stateID;
 		};
 		
