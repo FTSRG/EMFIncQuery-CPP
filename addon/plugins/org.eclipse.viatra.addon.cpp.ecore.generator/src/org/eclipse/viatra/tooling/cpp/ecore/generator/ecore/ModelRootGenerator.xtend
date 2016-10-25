@@ -24,6 +24,7 @@ class ModelRootGenerator {
 		#define _MODELROOT__H__
 		
 		#include<map>
+		#include<mutex>
 		#include"Viatra/Query/Model/ModelElement.h"
 		#include"Viatra/Query/Matcher/ModelIndex.h"
 		
@@ -45,10 +46,16 @@ class ModelRootGenerator {
 						{
 							return modelElements.at(id);
 						}
+						std::unique_lock<std::mutex> acquireLock()
+						{
+							return std::unique_lock<std::mutex>(lock);
+						}
 		
 					private:
 						void FreeAllModelElement();
 						std::map<int32_t, Viatra::Query::Model::ModelElement*> modelElements;
+		
+						std::mutex lock;
 		
 					};
 		
