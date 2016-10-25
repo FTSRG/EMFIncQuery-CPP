@@ -41,7 +41,7 @@ QueryEngine<ModelRoot> QueryEngine<ModelRoot>::empty() {
 template<class ModelRoot>
 template<template <class> class QuerySpecification>
 typename QuerySpecification<ModelRoot>::Matcher QueryEngine<ModelRoot>::matcher() {
-	return typename QuerySpecification<ModelRoot>::Matcher(_model, QuerySpecification<ModelRoot>::QueryGroup::instance()->context());
+	return typename QuerySpecification<ModelRoot>::Matcher(_model, QuerySpecification<ModelRoot>::QueryGroup::instance()->context(), nullptr);
 }
 
 template<class ModelRoot>
