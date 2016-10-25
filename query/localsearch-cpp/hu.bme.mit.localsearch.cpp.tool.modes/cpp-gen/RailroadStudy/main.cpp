@@ -18,12 +18,8 @@ using QueryService = Viatra::Query::Distributed::QueryService <
 >;
 
 
-void UpdateModel(Viatra::Query::Model::ModelRoot * modelRoot)
-{
+void UpdateModel(Viatra::Query::Model::ModelRoot * modelRoot);
 
-
-
-}
 
 void CheckSystemState(QueryService& service)
 {

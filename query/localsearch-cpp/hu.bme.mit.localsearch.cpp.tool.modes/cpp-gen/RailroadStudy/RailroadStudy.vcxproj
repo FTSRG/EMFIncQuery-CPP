@@ -175,6 +175,7 @@
     <ClCompile Include="model\RailRoadModel\State.cpp" />
     <ClCompile Include="model\RailRoadModel\Train.cpp" />
     <ClCompile Include="model\RailRoadModel\Turnout.cpp" />
+    <ClCompile Include="UpdateModel.cpp" />
     <ClCompile Include="Viatra\Query\DerivedInput\PB_DerivedInput.pb.cc" />
     <ClCompile Include="Viatra\Query\DistributedQueries\PB_DistributedQueries.pb.cc" />
   </ItemGroup>
