@@ -41,9 +41,9 @@ public:
 			for (auto&& frame : exec) {
 				IsDangerousMatch match;
 			
-				match.segment = static_cast<::railRoadModel::ISegment*>(frame._0);
-				match.turnout = static_cast<::railRoadModel::ITurnout*>(frame._1);
-				match.train = static_cast<::railRoadModel::ITrain*>(frame._2);
+				match.segment = frame._0;
+				match.turnout = frame._1;
+				match.train = frame._2;
 			
 				matches.insert(match);
 			}
