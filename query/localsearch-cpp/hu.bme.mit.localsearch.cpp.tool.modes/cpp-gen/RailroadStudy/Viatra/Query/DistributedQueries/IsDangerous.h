@@ -31,7 +31,7 @@ namespace DistributedQueries {
 		
 		struct NoBind{
 			using QueryClass = IsDangerous;
-			static constexpr int queryID = 15;
+			static constexpr int queryID = 1;
 			static BindInfo BuildFrames(){
 				std::map<int, std::string> encodedFrames;
 				

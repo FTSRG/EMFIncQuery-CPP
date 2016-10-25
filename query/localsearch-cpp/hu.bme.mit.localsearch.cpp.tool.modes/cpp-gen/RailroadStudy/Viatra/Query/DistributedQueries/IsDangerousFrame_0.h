@@ -22,10 +22,10 @@ struct IsDangerousFrame_0 {
 	using PBFrame = PB_IsDangerousFrame_0;
 	using FrameVector = IsDangerousFrame_0Vector;
 	
-	::railRoadModel::IRailRoadElement* _0 = nullptr;
-	::railRoadModel::IRailRoadElement* _1 = nullptr;
+	::railRoadModel::ISegment* _0 = nullptr;
+	::railRoadModel::ITurnout* _1 = nullptr;
 	::railRoadModel::ITrain* _2 = nullptr;
-	::railRoadModel::IState* _3 = nullptr;
+	::railRoadModel::IFrozen* _3 = nullptr;
 	// toString
 	
 	std::string toString() const
