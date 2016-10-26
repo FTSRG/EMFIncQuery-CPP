@@ -3,7 +3,13 @@ package hu.bme.mit.localsearch.cpp.tool.modes.query
 //import "http://cpp/tool/modes/platform"
 import "http://tool/modes/model"
 
-pattern isDangerous(rp : RobotPart, tr : Train){
-	RobotPart.nearBy(rp, tr);
-}
+//pattern isDangerous(rp : RobotPart, tr : Train){
+//	RobotPart.nearBy(rp, tr);
+//}
 
+pattern isDangerous(segment, turnout: Turnout, train){
+	Train.currentlyOn(train, segment);
+	Segment.connectedTo(segment, turnout);
+	Frozen(fro);
+	Turnout.currentState(turnout, fro);
+}
