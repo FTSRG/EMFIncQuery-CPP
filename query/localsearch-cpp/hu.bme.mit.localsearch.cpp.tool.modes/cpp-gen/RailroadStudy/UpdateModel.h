@@ -25,13 +25,45 @@ std::string executesTurnoutNodeB[] = { "T6", "T3", "T2", "T7" };
 static std::map<std::string, int> turnoutToID = { { "T1", 14 },{ "T2", 28 },{ "T3", 25 },{ "T4", 3 },{ "T5", 9 },{ "T6", 21 }, {"T7", 32} };
 
 static int pullTempCounter = 0;
+ 
+std::vector<int> trainPoints = { 14, 12, 1, 2, 3, 4, 6, 18, 31, 30, 28, 29, 24, 15 };
+
+void moveTrain(std::string nodeName, Viatra::Query::Model::ModelRoot * modelRoot)
+{
+
+	railRoadModel::ITrain* train = nullptr;
+	
+	if (nodeName == "nodeA") {
+		train = dynamic_cast<railRoadModel::ITrain*>(modelRoot->findModelElementByID(9001));
+	}
+
+	if (nodeName == "nodeB") {
+		train = dynamic_cast<railRoadModel::ITrain*>(modelRoot->findModelElementByID(9002));
+	}
+
+
+
+	static int nextElem = [] {
+		srand(time(nullptr));
+		return rand() % trainPoints.size();
+	}();
+
+	nextElem++;
+	nextElem %= trainPoints.size();
+
+	train->set_previouslyOn(train->get_currentlyOn());
+	train->set_currentlyOn(
+		dynamic_cast<railRoadModel::IRailRoadElement*>(modelRoot->findModelElementByID(trainPoints[nextElem]))
+			);
+
+}
 
 std::string GetTempInfo(const char * nodeName) {
 	if (pullTempCounter > 30) pullTempCounter = 0;
 
 	if (std::string(nodeName) == std::string("nodeA")) {
 		std::string temp = executesTurnoutNodeA[pullTempCounter % 3];
-		return std::to_string(turnoutToID[temp]) + std::string(";") + std::to_string((pullTempCounter++) * 3 - 27.3);
+		return std::to_string(turnoutToID[temp]) + std::string(";") + std::to_string((pullTempCounter++) * 3 - 37.3);
 	}
 	if (std::string(nodeName) == std::string("nodeB")) {
 		std::string temp = executesTurnoutNodeB[pullTempCounter % 4];
@@ -51,10 +83,13 @@ void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRo
 	auto id = Logger::Identer();
 
 	auto lck = modelRoot->acquireLock();
+
+	moveTrain(nodeName, modelRoot);
+
 	int turnoutId;
 	double turnoutTemp;
 	std::string info = GetTempInfo(nodeName);
-	Logger::Log("Message arrived: ", info);
+	std::cout << "Message arrived: "<< info << std::endl;
 	ParseTempInfo(info, turnoutId, turnoutTemp);
 	if (std::string(nodeName) == std::string("nodeA")) {
 		Logger::Log("std::string(nodeName) == std::string(\"nodeA\") ---- frozen");

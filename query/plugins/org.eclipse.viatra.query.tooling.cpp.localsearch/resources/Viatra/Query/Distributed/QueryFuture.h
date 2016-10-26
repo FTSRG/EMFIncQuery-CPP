@@ -28,13 +28,14 @@ namespace Viatra{
 					: runner(runner)
 				{}
 
+				virtual void notifyCollectionDone() = 0;
+
 				void terminate() {
 					runner->terminate();
 				}
 
-				bool ready() {
-					return runner->ready();
-				}
+				virtual bool ready() = 0;
+
 				virtual ~QueryFutureBase() {}
 			};
 
@@ -45,19 +46,67 @@ namespace Viatra{
 				using MatchSet = typename Match::MatchSet;
 
 				using Lock = std::unique_lock<std::mutex>;
-				std::mutex readyMutex;
+				std::mutex collectorMutex;
 
 				std::shared_ptr<QueryRunner<RootedQuery>> concreteRunner;
+				
+				std::condition_variable readyCV;
+				std::atomic<bool> _ready;
+				std::vector<std::shared_ptr<QueryResultCollector<RootedQuery>>> topLevelCollectors;
 
 			public:
-				QueryFuture(std::shared_ptr<QueryRunner<RootedQuery>> runner)
+				QueryFuture(std::shared_ptr<QueryRunner<RootedQuery>> runner, std::vector<std::shared_ptr<QueryResultCollector<RootedQuery>>> topLevelCollectors)
 					: QueryFutureBase(std::static_pointer_cast<QueryRunnerBase>(runner))
+					, topLevelCollectors(topLevelCollectors)
+					, _ready(false)
 				{
 					this->concreteRunner = runner;
 				}
+
+				bool ready() override
+				{
+					return _ready;
+				}
+
+				void notifyCollectionDone() override {
+					{
+						Lock lck(collectorMutex);
+
+						bool calculated_ready = true;
+						for (auto & collector : topLevelCollectors)
+							if (!collector->finished())
+								calculated_ready = false;
+
+						_ready.store(calculated_ready);
+					}
+					if (_ready)
+						readyCV.notify_one();
+				}
+
+				std::shared_ptr<QueryFuture<RootedQuery>> reanimate()
+				{
+					return concreteRunner->startGlobalQuery();
+				}
 								
-				MatchSet get() {
-					return concreteRunner->getResultMatchSet();
+				MatchSet getResultMatchSet()
+				{
+					Lock lck(collectorMutex);
+					Util::Logger::Log("readyCV.wait(...);");
+					readyCV.wait(lck, [this] {
+						Util::Logger::Log("Ready predicate wake");
+						return _ready.load();
+					});
+
+					MatchSet ret;
+					for (auto && collector : topLevelCollectors)
+					{
+						MatchSet matchSet(collector->obtainMatches());
+						for (auto && match : matchSet)
+							ret.insert(match);
+					}
+
+					Util::Logger::Log("readyCV.wait(...); ready!");
+					return ret;
 				}
 				
 			};

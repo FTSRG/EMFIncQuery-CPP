@@ -22,7 +22,7 @@ public:
 			case 5:
 				return std::make_unique<
 					Viatra::Query::Distributed::QueryRunner<RootedIsDangerous<ModelRoot>>
-				>(sessionID, modelRoot, service, queryID);
+				>(sessionID, modelRoot, service, queryID, std::map<int, std::string>{});
 		}
 		throw std::invalid_argument("Cannot instantiate Query runner from the given queryID!");
 	}	

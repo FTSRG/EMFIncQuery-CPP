@@ -14,23 +14,10 @@ QueryRunnerBase::~QueryRunnerBase()
 {
 	Logger::Log("QueryRunnerBase::~QueryRunnerBase");
 	terminate();
-	join();
+	this->runnerThread->join();
 }
 
 void QueryRunnerBase::terminate() {
 	Logger::Log("QueryRunnerBase::terminate");
 	terminated = true;
-}
-
-void QueryRunnerBase::join() {
-	Logger::Log("QueryRunnerBase::join");
-	if (runnerThread)
-		runnerThread->join();
-	else
-		Util::Logger::Log("Join called on a non-running QueryRunner!");
-}
-
-
-bool QueryRunnerBase::ready() {
-	return _ready.load(std::memory_order::memory_order_acquire);
 }

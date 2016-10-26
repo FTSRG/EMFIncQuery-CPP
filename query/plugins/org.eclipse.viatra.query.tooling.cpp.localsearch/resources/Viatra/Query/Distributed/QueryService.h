@@ -198,8 +198,11 @@ namespace Viatra {
 						if (queryRunners[sessionID])
 							throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator settings!");
 					}
-					
-					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, modelRoot, this, queryID);
+
+					//Util::Logger::Log("QueryService::RunNewQuery Building frames");
+					auto builtFrames = BindClass::BuildFrames(params...);
+
+					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, modelRoot, this, queryID, builtFrames.encodedFrameVector);
 					
 					{
 						Lock lck(mutex);
@@ -207,16 +210,7 @@ namespace Viatra {
 					}
 					startRemoteQuerySessions(sessionID, queryID);
 
-					Util::Logger::Log("QueryService::RunNewQuery create Future object");
-					auto future = std::make_shared<QueryFuture<RootedQuery>>(queryRunner);
-
-					//Util::Logger::Log("QueryService::RunNewQuery Building frames");
-					auto builtFrames = BindClass::BuildFrames(params...);
-
-					Util::Logger::Log("QueryService::RunNewQuery start Global querying");
-					queryRunner->startGlobalQuery(std::static_pointer_cast<QueryFutureBase>(future), builtFrames);
-
-					return future;
+					return queryRunner->startGlobalQuery();
 				}
 
 				std::string startLocalQuerySession(uint64_t sessionID, int queryID) override

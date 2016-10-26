@@ -31,7 +31,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" lowerBound="1"
         eType="#//State" volatile="true" transient="true" derived="true">
       <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
-        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI"/>
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.operationalStateAPI"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

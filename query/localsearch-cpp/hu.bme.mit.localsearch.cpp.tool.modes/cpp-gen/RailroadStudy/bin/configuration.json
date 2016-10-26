@@ -25,6 +25,9 @@
 		                 
 		{":id": 2000001, "id": 2000001, ":node": "nodeA", ":type": "Operational" },
 		{":id": 2000002, "id": 2000002, ":node": "nodeB", ":type": "Operational" },
+		
+		{":id": 9001, "id": 1001, ":node": "nodeA", ":type": "Train"},
+		{":id": 9002, "id": 1001, ":node": "nodeB", ":type": "Train"},
 	
 		{":id": 14, "id": 14, ":node": "nodeA", ":type": "Turnout",  "top": 15,  "straight": 12,  "divergent": 11},
 		{":id": 21, "id": 21, ":node": "nodeB", ":type": "Turnout",  "top": 17,  "straight": 23,  "divergent": 22},

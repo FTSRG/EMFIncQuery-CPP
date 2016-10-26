@@ -212,7 +212,7 @@ void QueryServiceBase::notifyCollectionDone(uint64_t sessionID, const TaskID& ta
 	{
 		Util::Logger::Log("notifying runner that a collector is done");
 		auto future = collectorInfo->future.lock();
-		queryRunners[sessionID]->notifyCollectionDone();
+		future->notifyCollectionDone();
 	}
 
 	localResultCollectorInfos[sessionID].erase(taskID);

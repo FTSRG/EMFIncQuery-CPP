@@ -47,12 +47,15 @@ namespace Viatra {
 
 				struct Identer {
 					Identer() {
+#ifndef NO_LOG
 						Lock lck(mutex);
 						auto &identValue = threadIdents()[std::this_thread::get_id()];
 						identValue += ident;
+#endif
 					}
 
 					~Identer() {
+#ifndef NO_LOG
 						Lock lck(mutex);
 						auto &identValue = threadIdents()[std::this_thread::get_id()];
 						int ns = identValue.length() - strlen(ident);
@@ -62,11 +65,13 @@ namespace Viatra {
 						}
 						identValue.resize(ns);
 						Log("<<");
+#endif
 					}
 				};
 
 				static std::string& getThreadName(std::thread::id id)
 				{
+#ifndef NO_LOG
 					Lock lck(mutex);
 
 					auto & map = threadNames();
@@ -76,31 +81,38 @@ namespace Viatra {
 						return map[id] = concat("Unnamed@", nextUnnamedID++);
 					else
 						return it->second;
-					
+#endif
 				}
 
 				static void SetThreadName(std::thread& thread, std::string name)
 				{
+#ifndef NO_LOG
 					Lock lck(mutex);
 					threadNames()[thread.get_id()] = name;
+#endif
 				}
 
 				static void SetThisThreadName(std::string name)
 				{
+#ifndef NO_LOG
 					Lock lck(mutex);
 					threadNames()[std::this_thread::get_id()] = name;
+#endif
 				}
 
 				template<typename FUNC_VOID_STR_STR>
 				static void SetLoggerFunction(FUNC_VOID_STR_STR func) {
+#ifndef NO_LOG
 					Lock lck(mutex);
 					loggerFunc = param;
+#endif
 				}
 
 
 				template<typename... T>
 				static void Log(T... args)
 				{
+#ifndef NO_LOG
 					Lock lck(mutex);
 					auto threadName = threadNames()[std::this_thread::get_id()];
 					try {
@@ -114,14 +126,17 @@ namespace Viatra {
 						std::cout << concat("LOGGER FUNCTION ERROR(", threadName, ") --- ", args...)  << std::endl;
 						throw;
 					}
+#endif
 				}
 
 				template<typename TIME>
 				static void ThreadTest(TIME time)
 				{
+#ifndef NO_LOG
 					Log("-------------- THREAD TEST --------------");
 					std::this_thread::sleep_for(time);
 					Log("------------ THREAD TEST END ------------");
+#endif
 				}
 
 

@@ -50,12 +50,19 @@ struct OperationalStateAPIInputUpdater{
 		auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 		
 		if(trgObj == trgInstanceList.end()) throw std::invalid_argument("::railRoadModel::IOperational ID not found in InputUpdater");
+
+		std::cout << "MatchSet" << std::endl;
+		for (auto & match : matches)
+		{
+			std::cout << "  " << match.toString() << std::endl;
+		}
+
 		if(matches.size() > 0){	
-			Logger::Log("currentState association inserted between (ID-ID) = ", turnoutID, "-", stateID);
+			std::cout << "currentState association inserted between (ID-ID) = " << turnoutID << "-" << stateID << std::endl;
 			(*srcObj)->set_currentState(*trgObj);
 		}
 		else if((*trgObj) == (*srcObj)->get_currentState()){
-			Logger::Log("currentState association removed between (ID-ID) = ", turnoutID, "-", stateID);
+			std::cout << "currentState association removed between (ID-ID) = " << turnoutID << "-" << stateID << std::endl;
 			 (*srcObj)->set_currentState(nullptr);
 		 }
 		/*

@@ -8,6 +8,7 @@
 #include"Viatra/Query/DistributedQueries/QueryRunnerFactory.h"
 
 #include<iostream>
+#include<windows.h>
 
 #include "UpdateModel.h"
 
@@ -21,21 +22,36 @@ using QueryService = Viatra::Query::Distributed::QueryService <
 	DistributedQueries::QueryRunnerFactory
 >;
 
-
+void setColor(int color){
+	static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, color);
+}
 
 void CheckSystemState(QueryService& service)
 {
-	auto future = service.RunNewQuery<IsDangerous, IsDangerous::NoBind>();
-	auto resultSet = future->get();
+	static auto first = true;
+	static auto future = service.RunNewQuery<IsDangerous, IsDangerous::NoBind>();
+	if (!first)
+	{
+		future = future->reanimate();
+	}
+	first = false;
+
+
+	auto resultSet = future->getResultMatchSet();
 	if (resultSet.size() > 0)
 	{
+		setColor(12);
 		std::cout << "FAULT    , IsDangerous result:";
 		for (auto & result : resultSet)
 			std::cout << "  " << result.toString() << std::endl;
+		setColor(7);
 	}
 	else
 	{
-		std::cout << "CHECKED  , IsDangerous query result is empty";
+		setColor(10);
+		std::cout << "CHECKED  , IsDangerous query result is empty" << std::endl;
+		setColor(7);
 	}
 
 }
@@ -53,28 +69,28 @@ int main(int argc, char**argv)
 	try {
 
 		while (true) {
-			Logger::Log("main loop");
+			std::cout << "main loop" << std::endl;
 			auto id = Logger::Identer();
 
-			Logger::Log("UpdateModel");
+			std::cout << "UpdateModel" << std::endl;
 			UpdateModel(arg, &modelRoot);
 
-			Logger::Log("CheckSystemState");
+			std::cout << "CheckSystemState" << std::endl;
 			CheckSystemState(service);
 		}
 
 	}
 	catch (const char * c)
 	{
-		Logger::Log("Exception as const char: ", c);
+		std::cout << "Exception as const char: " << c << std::endl;
 	}
 	catch (std::exception& ex)
 	{
-		Logger::Log("Exception: ", ex.what());
+		std::cout << "Exception: " << ex.what() << std::endl;
 	}
 	catch (...)
 	{
-		Logger::Log("Dobjal rendes kivetelt basszus....");
+		std::cout << "Dobjal rendes kivetelt basszus...." << std::endl;
 	}
 
 

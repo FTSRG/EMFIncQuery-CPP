@@ -26,27 +26,6 @@ namespace Viatra {
 				queryService->continueQueryRemotely(sessionID, currentTask, body, operation, encodedFrameVector);
 			}
 			
-			template<typename RootedQuery>
-			void QueryRunner<RootedQuery>::addStartTask(std::weak_ptr<QueryFutureBase> future, int body, std::string encodedFrameVector) {
-				Lock lck(futureMutex);
-				Logger::Log("QueryRunner::addStartTask");
-				Logger::Identer ident;
-
-				Logger::Log("QueryRunner::addStartTask -- create toplevel result collector");
-				auto taskID = TaskID::CreateTopLevel(body);
-				auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
-				std::shared_ptr<QueryResultCollector<RootedQuery>> shared_collector(collector);
-
-				Logger::Log("QueryRunner::addStartTask -- registering toplevel result collector");
-				queryService->registerTopLevelResultCollector(sessionID, taskID, std::static_pointer_cast<QueryResultCollectorBase>(shared_collector), future);
-				topLevelCollectors.push_back(shared_collector);
-
-				Logger::Log("QueryRunner::addStartTask -- Instantiate task");
-				QueryTask<RootedQuery> task(taskID, encodedFrameVector, body, 0, shared_collector);
-				// Concurrent queue, so its thread safe to simply push our task
-				localTasks.push(std::move(task));
-			}
-
 			// Run the QueryRunners main processing loop
 			// runs on QueryRunner thread
 			template<typename RootedQuery>
@@ -108,11 +87,12 @@ namespace Viatra {
 			}
 
 			template<typename RootedQuery>
-			QueryRunner<RootedQuery>::QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService, int queryID)
+			QueryRunner<RootedQuery>::QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService, int queryID, std::map<int, std::string> startingEncodedFrames)
 				: QueryRunnerBase(sessionID, queryID)
 				, queryService(queryService)
 				, modelRoot(modelRoot)
 				, matcher(modelRoot, QueryGroup::instance()->context(), this)
+				, startingEncodedFrames(startingEncodedFrames)
 			{
 				Logger::Log("QueryRunner::QueryRunner");
 			}
@@ -136,23 +116,49 @@ namespace Viatra {
 
 			// start global querying and returns a future to access the results of the query
 			template<typename RootedQuery>
-			void QueryRunner<RootedQuery>::startGlobalQuery( std::weak_ptr<QueryFutureBase> future, typename RootedQuery::BindInfo bindInfo) {
+			std::shared_ptr<QueryFuture<RootedQuery>> QueryRunner<RootedQuery>::startGlobalQuery() {
 				Logger::Log("QueryRunner::startGlobalQuery");
 				Logger::Identer ident;
-				if (runnerThread)
-					throw std::logic_error("The query is already running!");
 
+				auto bodyCount = startingEncodedFrames.size();
+				std::vector<std::shared_ptr<QueryResultCollector<RootedQuery>>> topLevelCollectors(bodyCount);
+				std::vector<TaskID> topLevelIDs(bodyCount);
+				
+				int b = 0;
+				Logger::Log("QueryRunner::startGlobalQuery -- Create starting tasks");
+				for (auto &body_frame : startingEncodedFrames)
 				{
-					Logger::Log("QueryRunner::startGlobalQuery -- Add starting tasks");
-					Logger::Identer ident2;
-					for (auto &body_frame : bindInfo.encodedFrameVector)
-						addStartTask(future, body_frame.first, body_frame.second);
+					auto taskID = TaskID::CreateTopLevel((int)topLevelTaskIDGen.generate());
+					auto collector = new QueryResultCollector<RootedQuery>(sessionID, taskID, queryService, modelRoot);
+					std::shared_ptr<QueryResultCollector<RootedQuery>> shared_collector(collector);
+					topLevelCollectors[b] = std::move(shared_collector);
+					topLevelIDs[b] = taskID;
+					++b;
 				}
-				Logger::Log("QueryRunner::startGlobalQuery -- Starting runner thread");
-				runnerThread = std::make_unique<std::thread>([this]() {
-					run();
-				});
+				
+				std::shared_ptr<QueryFuture<RootedQuery>> future(new QueryFuture<RootedQuery>(shared_from_this(), topLevelCollectors));
 
+				b = 0;
+				for (auto &body_frame : startingEncodedFrames)
+				{
+					auto & encodedFrameVector = body_frame.second;
+					auto taskID = topLevelIDs[b];
+					auto body_id = body_frame.first;
+
+					queryService->registerTopLevelResultCollector(sessionID, taskID, std::static_pointer_cast<QueryResultCollectorBase>(topLevelCollectors[b]), future);
+					localTasks.push(QueryTask<RootedQuery>(taskID, encodedFrameVector, body_id, 0, topLevelCollectors[b]));
+					++b;
+				}
+								
+				Logger::Log("QueryRunner::startGlobalQuery -- Starting runner thread");
+				if (!runnerThread)
+				{
+					runnerThread = std::make_unique<std::thread>([this]() {
+						run();
+					});
+				}
+
+				return future;
 			}
 
 			// starts local query serving
@@ -169,43 +175,7 @@ namespace Viatra {
 				});
 			}
 
-			template<typename RootedQuery>
-			typename QueryRunner<RootedQuery>::MatchSet QueryRunner<RootedQuery>::getResultMatchSet()
-			{
-				Lock lck(futureMutex);
-				Util::Logger::Log("readyCV.wait(...);");
-				readyCV.wait(lck, [this] {
-					Util::Logger::Log("Ready predicate wake");
-					return _ready.load(); 
-				});
-
-				MatchSet ret;
-				for (auto && collector : topLevelCollectors)
-				{
-					MatchSet matchSet(collector->obtainMatches());
-					for (auto && match : matchSet)
-						ret.insert(match);
-				}
-
-				Util::Logger::Log("readyCV.wait(...); ready!");
-				return ret;
-			}
-
-			template<typename RootedQuery>
-			void QueryRunner<RootedQuery>::notifyCollectionDone() {
-				{
-					Lock lck(futureMutex);
-
-					bool calculated_ready = true;
-					for (auto & collector : topLevelCollectors)
-						if (!collector->finished())
-							calculated_ready = false;
-
-					_ready.store(calculated_ready);
-				}
-				if(_ready)
-					readyCV.notify_one();
-			}
+			
 					
 		}
 	}

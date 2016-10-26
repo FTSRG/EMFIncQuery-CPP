@@ -25,5 +25,5 @@ pattern frozenStateAPI(turnout : Turnout, turnoutID : EInt, frozen : Frozen, sta
 pattern operationalStateAPI(turnout : Turnout, turnoutID : EInt, operational : Operational, stateID : EInt, turnoutTemp : EDouble){
 	Turnout.id(turnout, turnoutID);
 	Operational.id(operational, stateID);
-	check(turnoutTemp > -20);
+	check(turnoutTemp >= -20);
 }
