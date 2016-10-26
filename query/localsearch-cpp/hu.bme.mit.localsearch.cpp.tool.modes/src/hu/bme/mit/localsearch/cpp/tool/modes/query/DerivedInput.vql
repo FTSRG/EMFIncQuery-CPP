@@ -12,7 +12,7 @@ pattern nearBy(robotPart : RobotPart, robotPartID : EInt, train : Train, trainID
 	Segment.id(trackedSegment,segID);
 	Segment.connectedTo(trackedSegment, trainSegment);
 	Train.currentlyOn(train, trainSegment);
-	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && segX > 10 && segY > 10 && segZ > 10);
+	check(((robX - segX)*(robX - segX) + (robY - segY)*(robY - segY) + (robZ - segZ)*(robZ - segZ)) < 100);
 }
 
 @Bind(parameters={turnoutID, stateID, turnoutTemp})
