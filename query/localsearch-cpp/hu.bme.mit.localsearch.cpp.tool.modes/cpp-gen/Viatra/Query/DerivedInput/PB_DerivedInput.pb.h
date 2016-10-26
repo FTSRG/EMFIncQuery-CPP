@@ -38,6 +38,10 @@ class PB_FrozenStateAPIFrame_0;
 class PB_FrozenStateAPIFrame_0Vector;
 class PB_FrozenStateAPIMatch;
 class PB_FrozenStateAPIMatchSet;
+class PB_OperationalStateAPIFrame_0;
+class PB_OperationalStateAPIFrame_0Vector;
+class PB_OperationalStateAPIMatch;
+class PB_OperationalStateAPIMatchSet;
 
 // ===================================================================
 
@@ -236,6 +240,402 @@ class PB_FrozenStateAPIMatchSet : public ::google::protobuf::Message /* @@protoc
 
   void InitAsDefaultInstance();
   static PB_FrozenStateAPIMatchSet* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_OperationalStateAPIFrame_0 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_OperationalStateAPIFrame_0) */ {
+ public:
+  PB_OperationalStateAPIFrame_0();
+  virtual ~PB_OperationalStateAPIFrame_0();
+
+  PB_OperationalStateAPIFrame_0(const PB_OperationalStateAPIFrame_0& from);
+
+  inline PB_OperationalStateAPIFrame_0& operator=(const PB_OperationalStateAPIFrame_0& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_OperationalStateAPIFrame_0& default_instance();
+
+  void Swap(PB_OperationalStateAPIFrame_0* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_OperationalStateAPIFrame_0* New() const { return New(NULL); }
+
+  PB_OperationalStateAPIFrame_0* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_OperationalStateAPIFrame_0& from);
+  void MergeFrom(const PB_OperationalStateAPIFrame_0& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_OperationalStateAPIFrame_0* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 _0 = 1;
+  void clear__0();
+  static const int k0FieldNumber = 1;
+  ::google::protobuf::int32 _0() const;
+  void set__0(::google::protobuf::int32 value);
+
+  // optional int32 _1 = 2;
+  void clear__1();
+  static const int k1FieldNumber = 2;
+  ::google::protobuf::int32 _1() const;
+  void set__1(::google::protobuf::int32 value);
+
+  // optional int32 _2 = 3;
+  void clear__2();
+  static const int k2FieldNumber = 3;
+  ::google::protobuf::int32 _2() const;
+  void set__2(::google::protobuf::int32 value);
+
+  // optional int32 _3 = 4;
+  void clear__3();
+  static const int k3FieldNumber = 4;
+  ::google::protobuf::int32 _3() const;
+  void set__3(::google::protobuf::int32 value);
+
+  // optional double _4 = 5;
+  void clear__4();
+  static const int k4FieldNumber = 5;
+  double _4() const;
+  void set__4(double value);
+
+  // @@protoc_insertion_point(class_scope:PB_OperationalStateAPIFrame_0)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 _0_;
+  ::google::protobuf::int32 _1_;
+  ::google::protobuf::int32 _2_;
+  ::google::protobuf::int32 _3_;
+  double _4_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_OperationalStateAPIFrame_0* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_OperationalStateAPIFrame_0Vector : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_OperationalStateAPIFrame_0Vector) */ {
+ public:
+  PB_OperationalStateAPIFrame_0Vector();
+  virtual ~PB_OperationalStateAPIFrame_0Vector();
+
+  PB_OperationalStateAPIFrame_0Vector(const PB_OperationalStateAPIFrame_0Vector& from);
+
+  inline PB_OperationalStateAPIFrame_0Vector& operator=(const PB_OperationalStateAPIFrame_0Vector& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_OperationalStateAPIFrame_0Vector& default_instance();
+
+  void Swap(PB_OperationalStateAPIFrame_0Vector* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_OperationalStateAPIFrame_0Vector* New() const { return New(NULL); }
+
+  PB_OperationalStateAPIFrame_0Vector* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_OperationalStateAPIFrame_0Vector& from);
+  void MergeFrom(const PB_OperationalStateAPIFrame_0Vector& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_OperationalStateAPIFrame_0Vector* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_OperationalStateAPIFrame_0 frames = 1;
+  int frames_size() const;
+  void clear_frames();
+  static const int kFramesFieldNumber = 1;
+  const ::PB_OperationalStateAPIFrame_0& frames(int index) const;
+  ::PB_OperationalStateAPIFrame_0* mutable_frames(int index);
+  ::PB_OperationalStateAPIFrame_0* add_frames();
+  ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIFrame_0 >*
+      mutable_frames();
+  const ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIFrame_0 >&
+      frames() const;
+
+  // @@protoc_insertion_point(class_scope:PB_OperationalStateAPIFrame_0Vector)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIFrame_0 > frames_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_OperationalStateAPIFrame_0Vector* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_OperationalStateAPIMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_OperationalStateAPIMatch) */ {
+ public:
+  PB_OperationalStateAPIMatch();
+  virtual ~PB_OperationalStateAPIMatch();
+
+  PB_OperationalStateAPIMatch(const PB_OperationalStateAPIMatch& from);
+
+  inline PB_OperationalStateAPIMatch& operator=(const PB_OperationalStateAPIMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_OperationalStateAPIMatch& default_instance();
+
+  void Swap(PB_OperationalStateAPIMatch* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_OperationalStateAPIMatch* New() const { return New(NULL); }
+
+  PB_OperationalStateAPIMatch* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_OperationalStateAPIMatch& from);
+  void MergeFrom(const PB_OperationalStateAPIMatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_OperationalStateAPIMatch* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 turnout = 1;
+  void clear_turnout();
+  static const int kTurnoutFieldNumber = 1;
+  ::google::protobuf::int32 turnout() const;
+  void set_turnout(::google::protobuf::int32 value);
+
+  // optional int32 turnoutID = 2;
+  void clear_turnoutid();
+  static const int kTurnoutIDFieldNumber = 2;
+  ::google::protobuf::int32 turnoutid() const;
+  void set_turnoutid(::google::protobuf::int32 value);
+
+  // optional int32 operational = 3;
+  void clear_operational();
+  static const int kOperationalFieldNumber = 3;
+  ::google::protobuf::int32 operational() const;
+  void set_operational(::google::protobuf::int32 value);
+
+  // optional int32 stateID = 4;
+  void clear_stateid();
+  static const int kStateIDFieldNumber = 4;
+  ::google::protobuf::int32 stateid() const;
+  void set_stateid(::google::protobuf::int32 value);
+
+  // optional double turnoutTemp = 5;
+  void clear_turnouttemp();
+  static const int kTurnoutTempFieldNumber = 5;
+  double turnouttemp() const;
+  void set_turnouttemp(double value);
+
+  // @@protoc_insertion_point(class_scope:PB_OperationalStateAPIMatch)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 turnout_;
+  ::google::protobuf::int32 turnoutid_;
+  ::google::protobuf::int32 operational_;
+  ::google::protobuf::int32 stateid_;
+  double turnouttemp_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_OperationalStateAPIMatch* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_OperationalStateAPIMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_OperationalStateAPIMatchSet) */ {
+ public:
+  PB_OperationalStateAPIMatchSet();
+  virtual ~PB_OperationalStateAPIMatchSet();
+
+  PB_OperationalStateAPIMatchSet(const PB_OperationalStateAPIMatchSet& from);
+
+  inline PB_OperationalStateAPIMatchSet& operator=(const PB_OperationalStateAPIMatchSet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_OperationalStateAPIMatchSet& default_instance();
+
+  void Swap(PB_OperationalStateAPIMatchSet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_OperationalStateAPIMatchSet* New() const { return New(NULL); }
+
+  PB_OperationalStateAPIMatchSet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_OperationalStateAPIMatchSet& from);
+  void MergeFrom(const PB_OperationalStateAPIMatchSet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_OperationalStateAPIMatchSet* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_OperationalStateAPIMatch matches = 1;
+  int matches_size() const;
+  void clear_matches();
+  static const int kMatchesFieldNumber = 1;
+  const ::PB_OperationalStateAPIMatch& matches(int index) const;
+  ::PB_OperationalStateAPIMatch* mutable_matches(int index);
+  ::PB_OperationalStateAPIMatch* add_matches();
+  ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIMatch >*
+      mutable_matches();
+  const ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIMatch >&
+      matches() const;
+
+  // @@protoc_insertion_point(class_scope:PB_OperationalStateAPIMatchSet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIMatch > matches_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_OperationalStateAPIMatchSet* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -549,6 +949,222 @@ PB_FrozenStateAPIMatchSet::matches() const {
 
 // -------------------------------------------------------------------
 
+// PB_OperationalStateAPIFrame_0
+
+// optional int32 _0 = 1;
+inline void PB_OperationalStateAPIFrame_0::clear__0() {
+  _0_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIFrame_0::_0() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0._0)
+  return _0_;
+}
+inline void PB_OperationalStateAPIFrame_0::set__0(::google::protobuf::int32 value) {
+  
+  _0_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIFrame_0._0)
+}
+
+// optional int32 _1 = 2;
+inline void PB_OperationalStateAPIFrame_0::clear__1() {
+  _1_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIFrame_0::_1() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0._1)
+  return _1_;
+}
+inline void PB_OperationalStateAPIFrame_0::set__1(::google::protobuf::int32 value) {
+  
+  _1_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIFrame_0._1)
+}
+
+// optional int32 _2 = 3;
+inline void PB_OperationalStateAPIFrame_0::clear__2() {
+  _2_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIFrame_0::_2() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0._2)
+  return _2_;
+}
+inline void PB_OperationalStateAPIFrame_0::set__2(::google::protobuf::int32 value) {
+  
+  _2_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIFrame_0._2)
+}
+
+// optional int32 _3 = 4;
+inline void PB_OperationalStateAPIFrame_0::clear__3() {
+  _3_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIFrame_0::_3() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0._3)
+  return _3_;
+}
+inline void PB_OperationalStateAPIFrame_0::set__3(::google::protobuf::int32 value) {
+  
+  _3_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIFrame_0._3)
+}
+
+// optional double _4 = 5;
+inline void PB_OperationalStateAPIFrame_0::clear__4() {
+  _4_ = 0;
+}
+inline double PB_OperationalStateAPIFrame_0::_4() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0._4)
+  return _4_;
+}
+inline void PB_OperationalStateAPIFrame_0::set__4(double value) {
+  
+  _4_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIFrame_0._4)
+}
+
+// -------------------------------------------------------------------
+
+// PB_OperationalStateAPIFrame_0Vector
+
+// repeated .PB_OperationalStateAPIFrame_0 frames = 1;
+inline int PB_OperationalStateAPIFrame_0Vector::frames_size() const {
+  return frames_.size();
+}
+inline void PB_OperationalStateAPIFrame_0Vector::clear_frames() {
+  frames_.Clear();
+}
+inline const ::PB_OperationalStateAPIFrame_0& PB_OperationalStateAPIFrame_0Vector::frames(int index) const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIFrame_0Vector.frames)
+  return frames_.Get(index);
+}
+inline ::PB_OperationalStateAPIFrame_0* PB_OperationalStateAPIFrame_0Vector::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_OperationalStateAPIFrame_0Vector.frames)
+  return frames_.Mutable(index);
+}
+inline ::PB_OperationalStateAPIFrame_0* PB_OperationalStateAPIFrame_0Vector::add_frames() {
+  // @@protoc_insertion_point(field_add:PB_OperationalStateAPIFrame_0Vector.frames)
+  return frames_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIFrame_0 >*
+PB_OperationalStateAPIFrame_0Vector::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:PB_OperationalStateAPIFrame_0Vector.frames)
+  return &frames_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIFrame_0 >&
+PB_OperationalStateAPIFrame_0Vector::frames() const {
+  // @@protoc_insertion_point(field_list:PB_OperationalStateAPIFrame_0Vector.frames)
+  return frames_;
+}
+
+// -------------------------------------------------------------------
+
+// PB_OperationalStateAPIMatch
+
+// optional int32 turnout = 1;
+inline void PB_OperationalStateAPIMatch::clear_turnout() {
+  turnout_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIMatch::turnout() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatch.turnout)
+  return turnout_;
+}
+inline void PB_OperationalStateAPIMatch::set_turnout(::google::protobuf::int32 value) {
+  
+  turnout_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIMatch.turnout)
+}
+
+// optional int32 turnoutID = 2;
+inline void PB_OperationalStateAPIMatch::clear_turnoutid() {
+  turnoutid_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIMatch::turnoutid() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatch.turnoutID)
+  return turnoutid_;
+}
+inline void PB_OperationalStateAPIMatch::set_turnoutid(::google::protobuf::int32 value) {
+  
+  turnoutid_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIMatch.turnoutID)
+}
+
+// optional int32 operational = 3;
+inline void PB_OperationalStateAPIMatch::clear_operational() {
+  operational_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIMatch::operational() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatch.operational)
+  return operational_;
+}
+inline void PB_OperationalStateAPIMatch::set_operational(::google::protobuf::int32 value) {
+  
+  operational_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIMatch.operational)
+}
+
+// optional int32 stateID = 4;
+inline void PB_OperationalStateAPIMatch::clear_stateid() {
+  stateid_ = 0;
+}
+inline ::google::protobuf::int32 PB_OperationalStateAPIMatch::stateid() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatch.stateID)
+  return stateid_;
+}
+inline void PB_OperationalStateAPIMatch::set_stateid(::google::protobuf::int32 value) {
+  
+  stateid_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIMatch.stateID)
+}
+
+// optional double turnoutTemp = 5;
+inline void PB_OperationalStateAPIMatch::clear_turnouttemp() {
+  turnouttemp_ = 0;
+}
+inline double PB_OperationalStateAPIMatch::turnouttemp() const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatch.turnoutTemp)
+  return turnouttemp_;
+}
+inline void PB_OperationalStateAPIMatch::set_turnouttemp(double value) {
+  
+  turnouttemp_ = value;
+  // @@protoc_insertion_point(field_set:PB_OperationalStateAPIMatch.turnoutTemp)
+}
+
+// -------------------------------------------------------------------
+
+// PB_OperationalStateAPIMatchSet
+
+// repeated .PB_OperationalStateAPIMatch matches = 1;
+inline int PB_OperationalStateAPIMatchSet::matches_size() const {
+  return matches_.size();
+}
+inline void PB_OperationalStateAPIMatchSet::clear_matches() {
+  matches_.Clear();
+}
+inline const ::PB_OperationalStateAPIMatch& PB_OperationalStateAPIMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_OperationalStateAPIMatchSet.matches)
+  return matches_.Get(index);
+}
+inline ::PB_OperationalStateAPIMatch* PB_OperationalStateAPIMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_OperationalStateAPIMatchSet.matches)
+  return matches_.Mutable(index);
+}
+inline ::PB_OperationalStateAPIMatch* PB_OperationalStateAPIMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_OperationalStateAPIMatchSet.matches)
+  return matches_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIMatch >*
+PB_OperationalStateAPIMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_OperationalStateAPIMatchSet.matches)
+  return &matches_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_OperationalStateAPIMatch >&
+PB_OperationalStateAPIMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_OperationalStateAPIMatchSet.matches)
+  return matches_;
+}
+
+// -------------------------------------------------------------------
+
 // PB_FrozenStateAPIFrame_0
 
 // optional int32 _0 = 1;
@@ -656,6 +1272,14 @@ PB_FrozenStateAPIFrame_0Vector::frames() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

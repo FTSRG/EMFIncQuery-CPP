@@ -25,7 +25,6 @@ namespace Viatra {
 				{
 					return modelElements.at(id);
 				}
-
 				std::unique_lock<std::mutex> acquireLock()
 				{
 					return std::unique_lock<std::mutex>(lock);

@@ -70,8 +70,11 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
 			 */			
-			auto srcInstanceList = ModelIndex<typename std::remove_pointer< «srcType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			using Viatra::Query::Util::Logger;
+			auto srcInstanceList = ModelIndex<«srcType», ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			Logger::Log("«srcType» list size: ", srcInstanceList.size());
 			auto srcIDPredicate = [«srcID.name»](const «srcPointerType» src){
+				Logger::Log("«srcType» present ID= ", src->get_id(), " == ", turnoutID);
 				return src->get_id() == «srcID.name»;
 			};
 			
@@ -83,8 +86,10 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches_«pattern.boundParameters.map[it.name].join('_')»(«pattern.boundParameters.map[it.name].join(", ")»);
 			
-			auto trgInstanceList = ModelIndex<typename std::remove_pointer< «trgType» >::type, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			auto trgInstanceList = ModelIndex<«trgType», ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			Logger::Log("«trgType» list size: ", trgInstanceList.size());
 			auto trgIDPredicate = [«trgID.name»](const «trgPointerType» trg){
+				Logger::Log("«trgType» present ID= ", trg->get_id(), " == ", stateID);
 				return trg->get_id() == «trgID.name»;
 			};
 			
@@ -95,13 +100,23 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 				«IF arity != 1»
 				auto tempTrg = std::find_if((*srcObj)->get_«featureName»().begin(), (*srcObj)->get_«featureName»().end(), trgIDPredicate);
 				
-				if(tempTrg == (*srcObj)->get_«featureName»().end()) (*srcObj)->get_«featureName»().push_back(*trgObj);
+				if(tempTrg == (*srcObj)->get_«featureName»().end()){ 
+					Logger::Log("«featureName» association inserted between (ID-ID) = ", «srcID.name», "-", «trgID.name»);
+					(*srcObj)->get_«featureName»().push_back(*trgObj);
 				}
-				else if(tempTrg != (*srcObj)->get_«featureName»().end()) (*srcObj)->get_«featureName»().erase(tempTrg);
+		}
+				else if(tempTrg != (*srcObj)->get_«featureName»().end()){ 
+					Logger::Log("«featureName» association removed between (ID-ID) = ", «srcID.name», "-", «trgID.name»);
+					(*srcObj)->get_«featureName»().erase(tempTrg);
+			}
 				«ELSE»
+				Logger::Log("«featureName» association inserted between (ID-ID) = ", «srcID.name», "-", «trgID.name»);
 				(*srcObj)->set_«featureName»(*trgObj);
 		}
-		else if((*trgObj) == (*srcObj)->get_«featureName»()) (*srcObj)->set_«featureName»(nullptr);
+		else if((*trgObj) == (*srcObj)->get_«featureName»()){
+			Logger::Log("«featureName» association removed between (ID-ID) = ", «srcID.name», "-", «trgID.name»);
+			 (*srcObj)->set_«featureName»(nullptr);
+		 }
 			«ENDIF»
 			/*
 			* Critical Section END

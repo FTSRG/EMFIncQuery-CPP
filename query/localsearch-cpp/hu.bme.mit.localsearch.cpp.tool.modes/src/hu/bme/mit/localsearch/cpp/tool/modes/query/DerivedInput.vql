@@ -19,3 +19,11 @@ pattern frozenStateAPI(turnout : Turnout, turnoutID : EInt, frozen : Frozen, sta
 	Frozen.id(frozen, stateID);
 	check(turnoutTemp < -20);
 }
+
+@Bind(parameters={turnoutID, stateID, turnoutTemp})
+@QueryBasedFeature(feature = "currentState")
+pattern operationalStateAPI(turnout : Turnout, turnoutID : EInt, operational : Operational, stateID : EInt, turnoutTemp : EDouble){
+	Turnout.id(turnout, turnoutID);
+	Operational.id(operational, stateID);
+	check(turnoutTemp > -20);
+}
