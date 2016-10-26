@@ -39,7 +39,11 @@ public:
 		sp.add_operation(create_InstanceOfCheck(&OperationalStateAPIFrame_0::_2, ::railRoadModel::IOperational::get_static_type_id()));
 		sp.add_operation(create_CheckExpression<OperationalStateAPIFrame_0>(
 			[](double turnoutTemp){
-			return turnoutTemp >= -20;
+				// Please implement the following 
+				// <XFeatureCallImplCustom> > <XUnaryOperationImplCustom>
+				//
+				
+				static_assert(false, "Please implement the Check expression");	
 			},
 			&OperationalStateAPIFrame_0::_4
 		)
@@ -57,7 +61,11 @@ public:
 		
 		sp.add_operation(create_CheckExpression<OperationalStateAPIFrame_0>(
 			[](double turnoutTemp){
-				return turnoutTemp >= -20;
+				// Please implement the following 
+				// <XFeatureCallImplCustom> > <XUnaryOperationImplCustom>
+				//
+				
+				static_assert(false, "Please implement the Check expression");	
 			},
 			&OperationalStateAPIFrame_0::_4
 		)
