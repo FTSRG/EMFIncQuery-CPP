@@ -1,0 +1,2 @@
+cls
+RailroadStudy.exe nodeA

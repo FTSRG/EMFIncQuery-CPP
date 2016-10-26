@@ -45,16 +45,20 @@ int main(int argc, char**argv)
 	Logger::SetThisThreadName("MAIN");
 	const char * arg = argc > 1 ? argv[1] : "nodeA";
 	// Creating the Local Model from the image
-	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", argv[1]);
+	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", arg);
 
-	QueryService service("configuration.json", argv[1], &modelRoot);
+	QueryService service("configuration.json", arg, &modelRoot);
 	service.start();
 
 	try {
 
-		for (;;) {
+		while (true) {
+			Logger::Log("main loop");
+			auto id = Logger::Identer();
+
 			Logger::Log("UpdateModel");
-			UpdateModel(argv[1], &modelRoot);
+			UpdateModel(arg, &modelRoot);
+
 			Logger::Log("CheckSystemState");
 			CheckSystemState(service);
 		}

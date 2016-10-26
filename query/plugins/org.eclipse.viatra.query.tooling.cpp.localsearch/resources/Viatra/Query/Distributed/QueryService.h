@@ -105,7 +105,7 @@ namespace Viatra {
 					localResultCollectorInfos[sessionID][taskID] = std::make_shared<TaskInfo>(true, collector, request, std::weak_ptr<QueryFutureBase>());
 				}
 				
-				// Start Local Query Session on all other node and waiting for the result(stub)
+				// Start Query Session on all other node and waiting for the result(stub)
 				void startRemoteQuerySessions(uint64_t sessionID, int queryID); 
 				
 				void acceptRemoteMatchSet(uint64_t sessionID, const TaskID& taskID, const std::string& encodedMatchSet);
@@ -183,25 +183,28 @@ namespace Viatra {
 					Util::Logger::Log("QueryService::RunNewQuery");
 					Util::Logger::Identer ident;
 
-					static_assert(std::is_same<typename BindClass::QueryClass, QueryClass>::value, 
+					static_assert(std::is_same<typename BindClass::QueryClass, QueryClass>::value,
 						"Bind class must be the query-s bind class!");
-					static_assert(std::is_same<typename QueryClass::RootedQuery<ModelRoot>, RootedQuery>::value, 
+					static_assert(std::is_same<typename QueryClass::RootedQuery<ModelRoot>, RootedQuery>::value,
 						"Do not modify RootedQuery template parameter, use its default type");
-
-					Lock lck(mutex);
 
 					auto sessionID = querySessionIDGenerator.generate();
 					auto queryID = BindClass::queryID;
 
 					Util::Logger::Log("QueryService::RunNewQuery sessionID=", sessionID, ", queryID=", queryID);
-
-
 					Util::Logger::Log("QueryService::RunNewQuery create QueryRunner");
-					if (queryRunners[sessionID])
-						throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator settings!");
+					{
+						Lock lck(mutex);
+						if (queryRunners[sessionID])
+							throw std::logic_error("ERROR: QuerySession with the given sessionID is already running in this node! Check the ID generator settings!");
+					}
+					
 					auto queryRunner = std::make_shared<QueryRunner<RootedQuery>>(sessionID, modelRoot, this, queryID);
-					queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
-
+					
+					{
+						Lock lck(mutex);
+						queryRunners[sessionID] = std::static_pointer_cast<QueryRunnerBase>(queryRunner);
+					}
 					startRemoteQuerySessions(sessionID, queryID);
 
 					Util::Logger::Log("QueryService::RunNewQuery create Future object");

@@ -81,6 +81,8 @@ void QueryServer::process_message(Network::Connection * connection, Network::Buf
 			queryResponse.set_msgtype(queryRequest.msgtype());
 
 			queryResponse.mutable_startquerysessionresponse()->set_message(responseMessage);
+			queryResponse.mutable_startquerysessionresponse()->set_queryid(startQuerySession.queryid());
+			queryResponse.mutable_startquerysessionresponse()->set_sessionid(startQuerySession.sessionid());
 
 			sendMessage(connection, Network::Buffer(queryResponse));
 		}

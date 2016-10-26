@@ -143,20 +143,16 @@ void QueryServiceBase::startRemoteQuerySessions(uint64_t sessionID, int queryID)
 		node.client->startQuerySession(sessionID, queryID);
 	}		
 
-	auto readyAll = [this, sessionID]() {
-		for (auto & name_node : remoteNodes)
+	Logger::Log();
+	for (auto & name_node : remoteNodes)
+	{
+		auto & node = name_node.second;
+		while (!node.client->isQuerySessionReady(sessionID))
 		{
-			auto & node = name_node.second;
-			if (!node.client->isQuerySessionReady(sessionID))
-				return false;
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		}
-		return true;
-	};
-
-	Logger::Log("QueryServiceBase::startRemoteQuerySessions - Waiting for query sessions to start");
-	while (!readyAll()) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
+
 	Logger::Log("QueryServiceBase::startRemoteQuerySessions - Waiting for query sessions to start... done");
 
 }

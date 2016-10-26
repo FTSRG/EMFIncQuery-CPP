@@ -107,8 +107,8 @@ void QueryClient::process_message(Network::Buffer message){
 	{
 		case Protobuf::MsgType::INITIATE_CONNECTION: 
 		{
-			Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::INITIATE_CONNECTION");
 			auto initiateConnectionResponse = queryResponse.mutable_initiateconnectionresponse();
+			Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::INITIATE_CONNECTION - ", initiateConnectionResponse->message());
 			std::string msg = initiateConnectionResponse->message();
 			if (msg == "OK")
 			{
@@ -127,7 +127,8 @@ void QueryClient::process_message(Network::Buffer message){
 
 		case Protobuf::MsgType::START_QUERY_SESSION:
 		{
-			Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::START_QUERY_SESSION");
+			Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::START_QUERY_SESSION sessionID=",
+				queryResponse.mutable_startquerysessionresponse()->sessionid());
 			std::string msg = queryResponse.mutable_startquerysessionresponse()->message();
 			if (msg == "OK") {
 				Logger::Log("QueryClient::process_message -- case Protobuf::MsgType::START_QUERY_SESSION -- OK");
