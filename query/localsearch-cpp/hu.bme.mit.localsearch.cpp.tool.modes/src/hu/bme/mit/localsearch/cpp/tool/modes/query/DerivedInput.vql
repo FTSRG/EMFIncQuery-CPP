@@ -4,13 +4,16 @@ package hu.bme.mit.localsearch.cpp.tool.modes.query
 import "http://tool/modes/model"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
-//@Bind(parameters={robotPartID, trainID, robX, robY, robZ, trX, trY, trZ})
-//@QueryBasedFeature(feature = "nearBy")
-//pattern nearBy(robotPart : RobotPart, robotPartID, train : Train, trainID, robX : EDouble, robY : EDouble, robZ : EDouble, trX : EDouble, trY : EDouble, trZ : EDouble){
-//	RobotPart.id(robotPart, robotPartID);
-//	Train.id(train,trainID);
-//	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && trX > 10 && trY > 10 && trZ > 10);
-//}
+@Bind(parameters={robotPartID, trainID, segID, robX, robY, robZ, segX, segY, segZ})
+@QueryBasedFeature(feature = "nearBy")
+pattern nearBy(robotPart : RobotPart, robotPartID : EInt, train : Train, trainID : EInt, segID : EInt, robX : EDouble, robY : EDouble, robZ : EDouble, segX : EDouble, segY : EDouble, segZ : EDouble){
+	RobotPart.id(robotPart, robotPartID);
+	Train.id(train,trainID);
+	Segment.id(trackedSegment,segID);
+	Segment.connectedTo(trackedSegment, trainSegment);
+	Train.currentlyOn(train, trainSegment);
+	check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && segX > 10 && segY > 10 && segZ > 10);
+}
 
 @Bind(parameters={turnoutID, stateID, turnoutTemp})
 @QueryBasedFeature(feature = "currentState")
