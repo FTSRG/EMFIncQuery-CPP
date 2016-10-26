@@ -1,10 +1,10 @@
-#ifndef VIATRA__QUERY__DERIVED_INPUT__FROZEN_STATE_A_P_I_INPUT_UPDATER_H_
-#define VIATRA__QUERY__DERIVED_INPUT__FROZEN_STATE_A_P_I_INPUT_UPDATER_H_
+#ifndef VIATRA__QUERY__DERIVED_INPUT__OPERATIONAL_STATE_A_P_I_INPUT_UPDATER_H_
+#define VIATRA__QUERY__DERIVED_INPUT__OPERATIONAL_STATE_A_P_I_INPUT_UPDATER_H_
 
 #include <algorithm>
 #include <stdexcept>
 		
-#include "Viatra/Query/DerivedInput/FrozenStateAPIMatcher.h"
+#include "Viatra/Query/DerivedInput/OperationalStateAPIMatcher.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
 #include "Viatra/Query/QueryEngine.h"
 
@@ -12,7 +12,7 @@ namespace Viatra {
 namespace Query {
 namespace DerivedInput {
 
-struct FrozenStateAPIInputUpdater{
+struct OperationalStateAPIInputUpdater{
 	/*
 	 * It is generated for only sending vector coordinates into the model instance. 
 	 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
@@ -37,19 +37,19 @@ struct FrozenStateAPIInputUpdater{
 		if(srcObj == srcInstanceList.end()) throw std::invalid_argument("::railRoadModel::ITurnout ID not found");
 		
 		auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
-		auto currentStateMatcher = engine.template matcher< FrozenStateAPIQuerySpecification >();
+		auto currentStateMatcher = engine.template matcher< OperationalStateAPIQuerySpecification >();
 		auto matches = currentStateMatcher.matches_turnoutID_stateID_turnoutTemp(turnoutID, stateID, turnoutTemp);
 		
-		auto trgInstanceList = ModelIndex<::railRoadModel::IFrozen, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
-		Logger::Log("::railRoadModel::IFrozen list size: ", trgInstanceList.size());
-		auto trgIDPredicate = [stateID](const ::railRoadModel::IFrozen* trg){
-			Logger::Log("::railRoadModel::IFrozen present ID= ", trg->get_id(), " == ", stateID);
+		auto trgInstanceList = ModelIndex<::railRoadModel::IOperational, ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+		Logger::Log("::railRoadModel::IOperational list size: ", trgInstanceList.size());
+		auto trgIDPredicate = [stateID](const ::railRoadModel::IOperational* trg){
+			Logger::Log("::railRoadModel::IOperational present ID= ", trg->get_id(), " == ", stateID);
 			return trg->get_id() == stateID;
 		};
 		
 		auto trgObj = std::find_if(trgInstanceList.begin(), trgInstanceList.end(), trgIDPredicate);
 		
-		if(trgObj == trgInstanceList.end()) throw std::invalid_argument("::railRoadModel::IFrozen ID not found in InputUpdater");
+		if(trgObj == trgInstanceList.end()) throw std::invalid_argument("::railRoadModel::IOperational ID not found in InputUpdater");
 		if(matches.size() > 0){	
 			Logger::Log("currentState association inserted between (ID-ID) = ", turnoutID, "-", stateID);
 			(*srcObj)->set_currentState(*trgObj);
@@ -70,4 +70,4 @@ struct FrozenStateAPIInputUpdater{
 
 	
 
-#endif /*  VIATRA__QUERY__DERIVED_INPUT__FROZEN_STATE_A_P_I_INPUT_UPDATER_H_ */
+#endif /*  VIATRA__QUERY__DERIVED_INPUT__OPERATIONAL_STATE_A_P_I_INPUT_UPDATER_H_ */

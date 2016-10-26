@@ -57,7 +57,7 @@ public:
 		
 		sp.add_operation(create_CheckExpression<FrozenStateAPIFrame_0>(
 			[](double turnoutTemp){
-			return turnoutTemp < -20;
+				return turnoutTemp < -20;	
 			},
 			&FrozenStateAPIFrame_0::_4
 		)
