@@ -7,7 +7,7 @@ import "http://tool/modes/model"
 //	RobotPart.nearBy(rp, tr);
 //}
 
-pattern isDangerous(segment, turnout: Turnout, train){
+pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
 	Train.currentlyOn(train, segment);
 	Segment.connectedTo(segment, turnout);
 	Frozen(fro);
