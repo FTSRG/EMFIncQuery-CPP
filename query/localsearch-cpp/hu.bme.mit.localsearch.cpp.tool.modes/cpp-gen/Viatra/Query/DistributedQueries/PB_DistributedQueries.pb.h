@@ -34,12 +34,794 @@ void protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
 void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
 void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
 
+class PB_CheckingHellFrame_0;
+class PB_CheckingHellFrame_0Vector;
+class PB_CheckingHellMatch;
+class PB_CheckingHellMatchSet;
 class PB_IsDangerousFrame_0;
 class PB_IsDangerousFrame_0Vector;
 class PB_IsDangerousMatch;
 class PB_IsDangerousMatchSet;
+class PB_ShouldCollideFrame_0;
+class PB_ShouldCollideFrame_0Vector;
+class PB_ShouldCollideMatch;
+class PB_ShouldCollideMatchSet;
 
 // ===================================================================
+
+class PB_CheckingHellMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_CheckingHellMatch) */ {
+ public:
+  PB_CheckingHellMatch();
+  virtual ~PB_CheckingHellMatch();
+
+  PB_CheckingHellMatch(const PB_CheckingHellMatch& from);
+
+  inline PB_CheckingHellMatch& operator=(const PB_CheckingHellMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_CheckingHellMatch& default_instance();
+
+  void Swap(PB_CheckingHellMatch* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_CheckingHellMatch* New() const { return New(NULL); }
+
+  PB_CheckingHellMatch* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_CheckingHellMatch& from);
+  void MergeFrom(const PB_CheckingHellMatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_CheckingHellMatch* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 a = 1;
+  void clear_a();
+  static const int kAFieldNumber = 1;
+  ::google::protobuf::int32 a() const;
+  void set_a(::google::protobuf::int32 value);
+
+  // optional int32 b = 2;
+  void clear_b();
+  static const int kBFieldNumber = 2;
+  ::google::protobuf::int32 b() const;
+  void set_b(::google::protobuf::int32 value);
+
+  // optional double d = 3;
+  void clear_d();
+  static const int kDFieldNumber = 3;
+  double d() const;
+  void set_d(double value);
+
+  // optional string s = 4;
+  void clear_s();
+  static const int kSFieldNumber = 4;
+  const ::std::string& s() const;
+  void set_s(const ::std::string& value);
+  void set_s(const char* value);
+  void set_s(const char* value, size_t size);
+  ::std::string* mutable_s();
+  ::std::string* release_s();
+  void set_allocated_s(::std::string* s);
+
+  // @@protoc_insertion_point(class_scope:PB_CheckingHellMatch)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 a_;
+  ::google::protobuf::int32 b_;
+  double d_;
+  ::google::protobuf::internal::ArenaStringPtr s_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_CheckingHellMatch* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_CheckingHellMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_CheckingHellMatchSet) */ {
+ public:
+  PB_CheckingHellMatchSet();
+  virtual ~PB_CheckingHellMatchSet();
+
+  PB_CheckingHellMatchSet(const PB_CheckingHellMatchSet& from);
+
+  inline PB_CheckingHellMatchSet& operator=(const PB_CheckingHellMatchSet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_CheckingHellMatchSet& default_instance();
+
+  void Swap(PB_CheckingHellMatchSet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_CheckingHellMatchSet* New() const { return New(NULL); }
+
+  PB_CheckingHellMatchSet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_CheckingHellMatchSet& from);
+  void MergeFrom(const PB_CheckingHellMatchSet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_CheckingHellMatchSet* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_CheckingHellMatch matches = 1;
+  int matches_size() const;
+  void clear_matches();
+  static const int kMatchesFieldNumber = 1;
+  const ::PB_CheckingHellMatch& matches(int index) const;
+  ::PB_CheckingHellMatch* mutable_matches(int index);
+  ::PB_CheckingHellMatch* add_matches();
+  ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellMatch >*
+      mutable_matches();
+  const ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellMatch >&
+      matches() const;
+
+  // @@protoc_insertion_point(class_scope:PB_CheckingHellMatchSet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellMatch > matches_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_CheckingHellMatchSet* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_ShouldCollideFrame_0 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_ShouldCollideFrame_0) */ {
+ public:
+  PB_ShouldCollideFrame_0();
+  virtual ~PB_ShouldCollideFrame_0();
+
+  PB_ShouldCollideFrame_0(const PB_ShouldCollideFrame_0& from);
+
+  inline PB_ShouldCollideFrame_0& operator=(const PB_ShouldCollideFrame_0& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_ShouldCollideFrame_0& default_instance();
+
+  void Swap(PB_ShouldCollideFrame_0* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_ShouldCollideFrame_0* New() const { return New(NULL); }
+
+  PB_ShouldCollideFrame_0* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_ShouldCollideFrame_0& from);
+  void MergeFrom(const PB_ShouldCollideFrame_0& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_ShouldCollideFrame_0* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 _0 = 1;
+  void clear__0();
+  static const int k0FieldNumber = 1;
+  ::google::protobuf::int32 _0() const;
+  void set__0(::google::protobuf::int32 value);
+
+  // optional int32 _1 = 2;
+  void clear__1();
+  static const int k1FieldNumber = 2;
+  ::google::protobuf::int32 _1() const;
+  void set__1(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PB_ShouldCollideFrame_0)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 _0_;
+  ::google::protobuf::int32 _1_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_ShouldCollideFrame_0* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_ShouldCollideFrame_0Vector : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_ShouldCollideFrame_0Vector) */ {
+ public:
+  PB_ShouldCollideFrame_0Vector();
+  virtual ~PB_ShouldCollideFrame_0Vector();
+
+  PB_ShouldCollideFrame_0Vector(const PB_ShouldCollideFrame_0Vector& from);
+
+  inline PB_ShouldCollideFrame_0Vector& operator=(const PB_ShouldCollideFrame_0Vector& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_ShouldCollideFrame_0Vector& default_instance();
+
+  void Swap(PB_ShouldCollideFrame_0Vector* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_ShouldCollideFrame_0Vector* New() const { return New(NULL); }
+
+  PB_ShouldCollideFrame_0Vector* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_ShouldCollideFrame_0Vector& from);
+  void MergeFrom(const PB_ShouldCollideFrame_0Vector& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_ShouldCollideFrame_0Vector* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_ShouldCollideFrame_0 frames = 1;
+  int frames_size() const;
+  void clear_frames();
+  static const int kFramesFieldNumber = 1;
+  const ::PB_ShouldCollideFrame_0& frames(int index) const;
+  ::PB_ShouldCollideFrame_0* mutable_frames(int index);
+  ::PB_ShouldCollideFrame_0* add_frames();
+  ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >*
+      mutable_frames();
+  const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >&
+      frames() const;
+
+  // @@protoc_insertion_point(class_scope:PB_ShouldCollideFrame_0Vector)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 > frames_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_ShouldCollideFrame_0Vector* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_CheckingHellFrame_0 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_CheckingHellFrame_0) */ {
+ public:
+  PB_CheckingHellFrame_0();
+  virtual ~PB_CheckingHellFrame_0();
+
+  PB_CheckingHellFrame_0(const PB_CheckingHellFrame_0& from);
+
+  inline PB_CheckingHellFrame_0& operator=(const PB_CheckingHellFrame_0& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_CheckingHellFrame_0& default_instance();
+
+  void Swap(PB_CheckingHellFrame_0* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_CheckingHellFrame_0* New() const { return New(NULL); }
+
+  PB_CheckingHellFrame_0* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_CheckingHellFrame_0& from);
+  void MergeFrom(const PB_CheckingHellFrame_0& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_CheckingHellFrame_0* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 _0 = 1;
+  void clear__0();
+  static const int k0FieldNumber = 1;
+  ::google::protobuf::int32 _0() const;
+  void set__0(::google::protobuf::int32 value);
+
+  // optional int32 _1 = 2;
+  void clear__1();
+  static const int k1FieldNumber = 2;
+  ::google::protobuf::int32 _1() const;
+  void set__1(::google::protobuf::int32 value);
+
+  // optional double _2 = 3;
+  void clear__2();
+  static const int k2FieldNumber = 3;
+  double _2() const;
+  void set__2(double value);
+
+  // optional string _3 = 4;
+  void clear__3();
+  static const int k3FieldNumber = 4;
+  const ::std::string& _3() const;
+  void set__3(const ::std::string& value);
+  void set__3(const char* value);
+  void set__3(const char* value, size_t size);
+  ::std::string* mutable__3();
+  ::std::string* release__3();
+  void set_allocated__3(::std::string* _3);
+
+  // optional int32 _4 = 5;
+  void clear__4();
+  static const int k4FieldNumber = 5;
+  ::google::protobuf::int32 _4() const;
+  void set__4(::google::protobuf::int32 value);
+
+  // optional int32 _5 = 6;
+  void clear__5();
+  static const int k5FieldNumber = 6;
+  ::google::protobuf::int32 _5() const;
+  void set__5(::google::protobuf::int32 value);
+
+  // optional int32 _6 = 7;
+  void clear__6();
+  static const int k6FieldNumber = 7;
+  ::google::protobuf::int32 _6() const;
+  void set__6(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PB_CheckingHellFrame_0)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 _0_;
+  ::google::protobuf::int32 _1_;
+  double _2_;
+  ::google::protobuf::internal::ArenaStringPtr _3_;
+  ::google::protobuf::int32 _4_;
+  ::google::protobuf::int32 _5_;
+  ::google::protobuf::int32 _6_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_CheckingHellFrame_0* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_CheckingHellFrame_0Vector : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_CheckingHellFrame_0Vector) */ {
+ public:
+  PB_CheckingHellFrame_0Vector();
+  virtual ~PB_CheckingHellFrame_0Vector();
+
+  PB_CheckingHellFrame_0Vector(const PB_CheckingHellFrame_0Vector& from);
+
+  inline PB_CheckingHellFrame_0Vector& operator=(const PB_CheckingHellFrame_0Vector& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_CheckingHellFrame_0Vector& default_instance();
+
+  void Swap(PB_CheckingHellFrame_0Vector* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_CheckingHellFrame_0Vector* New() const { return New(NULL); }
+
+  PB_CheckingHellFrame_0Vector* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_CheckingHellFrame_0Vector& from);
+  void MergeFrom(const PB_CheckingHellFrame_0Vector& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_CheckingHellFrame_0Vector* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_CheckingHellFrame_0 frames = 1;
+  int frames_size() const;
+  void clear_frames();
+  static const int kFramesFieldNumber = 1;
+  const ::PB_CheckingHellFrame_0& frames(int index) const;
+  ::PB_CheckingHellFrame_0* mutable_frames(int index);
+  ::PB_CheckingHellFrame_0* add_frames();
+  ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellFrame_0 >*
+      mutable_frames();
+  const ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellFrame_0 >&
+      frames() const;
+
+  // @@protoc_insertion_point(class_scope:PB_CheckingHellFrame_0Vector)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellFrame_0 > frames_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_CheckingHellFrame_0Vector* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_IsDangerousMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_IsDangerousMatch) */ {
+ public:
+  PB_IsDangerousMatch();
+  virtual ~PB_IsDangerousMatch();
+
+  PB_IsDangerousMatch(const PB_IsDangerousMatch& from);
+
+  inline PB_IsDangerousMatch& operator=(const PB_IsDangerousMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_IsDangerousMatch& default_instance();
+
+  void Swap(PB_IsDangerousMatch* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_IsDangerousMatch* New() const { return New(NULL); }
+
+  PB_IsDangerousMatch* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_IsDangerousMatch& from);
+  void MergeFrom(const PB_IsDangerousMatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_IsDangerousMatch* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 segment = 1;
+  void clear_segment();
+  static const int kSegmentFieldNumber = 1;
+  ::google::protobuf::int32 segment() const;
+  void set_segment(::google::protobuf::int32 value);
+
+  // optional int32 turnout = 2;
+  void clear_turnout();
+  static const int kTurnoutFieldNumber = 2;
+  ::google::protobuf::int32 turnout() const;
+  void set_turnout(::google::protobuf::int32 value);
+
+  // optional int32 train = 3;
+  void clear_train();
+  static const int kTrainFieldNumber = 3;
+  ::google::protobuf::int32 train() const;
+  void set_train(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PB_IsDangerousMatch)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 segment_;
+  ::google::protobuf::int32 turnout_;
+  ::google::protobuf::int32 train_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_IsDangerousMatch* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_IsDangerousMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_IsDangerousMatchSet) */ {
+ public:
+  PB_IsDangerousMatchSet();
+  virtual ~PB_IsDangerousMatchSet();
+
+  PB_IsDangerousMatchSet(const PB_IsDangerousMatchSet& from);
+
+  inline PB_IsDangerousMatchSet& operator=(const PB_IsDangerousMatchSet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_IsDangerousMatchSet& default_instance();
+
+  void Swap(PB_IsDangerousMatchSet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_IsDangerousMatchSet* New() const { return New(NULL); }
+
+  PB_IsDangerousMatchSet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_IsDangerousMatchSet& from);
+  void MergeFrom(const PB_IsDangerousMatchSet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_IsDangerousMatchSet* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_IsDangerousMatch matches = 1;
+  int matches_size() const;
+  void clear_matches();
+  static const int kMatchesFieldNumber = 1;
+  const ::PB_IsDangerousMatch& matches(int index) const;
+  ::PB_IsDangerousMatch* mutable_matches(int index);
+  ::PB_IsDangerousMatch* add_matches();
+  ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
+      mutable_matches();
+  const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
+      matches() const;
+
+  // @@protoc_insertion_point(class_scope:PB_IsDangerousMatchSet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch > matches_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_IsDangerousMatchSet* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class PB_IsDangerousFrame_0 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_IsDangerousFrame_0) */ {
  public:
@@ -232,32 +1014,32 @@ class PB_IsDangerousFrame_0Vector : public ::google::protobuf::Message /* @@prot
 };
 // -------------------------------------------------------------------
 
-class PB_IsDangerousMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_IsDangerousMatch) */ {
+class PB_ShouldCollideMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_ShouldCollideMatch) */ {
  public:
-  PB_IsDangerousMatch();
-  virtual ~PB_IsDangerousMatch();
+  PB_ShouldCollideMatch();
+  virtual ~PB_ShouldCollideMatch();
 
-  PB_IsDangerousMatch(const PB_IsDangerousMatch& from);
+  PB_ShouldCollideMatch(const PB_ShouldCollideMatch& from);
 
-  inline PB_IsDangerousMatch& operator=(const PB_IsDangerousMatch& from) {
+  inline PB_ShouldCollideMatch& operator=(const PB_ShouldCollideMatch& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const PB_IsDangerousMatch& default_instance();
+  static const PB_ShouldCollideMatch& default_instance();
 
-  void Swap(PB_IsDangerousMatch* other);
+  void Swap(PB_ShouldCollideMatch* other);
 
   // implements Message ----------------------------------------------
 
-  inline PB_IsDangerousMatch* New() const { return New(NULL); }
+  inline PB_ShouldCollideMatch* New() const { return New(NULL); }
 
-  PB_IsDangerousMatch* New(::google::protobuf::Arena* arena) const;
+  PB_ShouldCollideMatch* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const PB_IsDangerousMatch& from);
-  void MergeFrom(const PB_IsDangerousMatch& from);
+  void CopyFrom(const PB_ShouldCollideMatch& from);
+  void MergeFrom(const PB_ShouldCollideMatch& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -276,7 +1058,7 @@ class PB_IsDangerousMatch : public ::google::protobuf::Message /* @@protoc_inser
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PB_IsDangerousMatch* other);
+  void InternalSwap(PB_ShouldCollideMatch* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -292,68 +1074,61 @@ class PB_IsDangerousMatch : public ::google::protobuf::Message /* @@protoc_inser
 
   // accessors -------------------------------------------------------
 
-  // optional int32 segment = 1;
-  void clear_segment();
-  static const int kSegmentFieldNumber = 1;
-  ::google::protobuf::int32 segment() const;
-  void set_segment(::google::protobuf::int32 value);
+  // optional int32 rp = 1;
+  void clear_rp();
+  static const int kRpFieldNumber = 1;
+  ::google::protobuf::int32 rp() const;
+  void set_rp(::google::protobuf::int32 value);
 
-  // optional int32 turnout = 2;
-  void clear_turnout();
-  static const int kTurnoutFieldNumber = 2;
-  ::google::protobuf::int32 turnout() const;
-  void set_turnout(::google::protobuf::int32 value);
+  // optional int32 tr = 2;
+  void clear_tr();
+  static const int kTrFieldNumber = 2;
+  ::google::protobuf::int32 tr() const;
+  void set_tr(::google::protobuf::int32 value);
 
-  // optional int32 train = 3;
-  void clear_train();
-  static const int kTrainFieldNumber = 3;
-  ::google::protobuf::int32 train() const;
-  void set_train(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(class_scope:PB_ShouldCollideMatch)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::int32 segment_;
-  ::google::protobuf::int32 turnout_;
-  ::google::protobuf::int32 train_;
+  ::google::protobuf::int32 rp_;
+  ::google::protobuf::int32 tr_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
 
   void InitAsDefaultInstance();
-  static PB_IsDangerousMatch* default_instance_;
+  static PB_ShouldCollideMatch* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class PB_IsDangerousMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_IsDangerousMatchSet) */ {
+class PB_ShouldCollideMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_ShouldCollideMatchSet) */ {
  public:
-  PB_IsDangerousMatchSet();
-  virtual ~PB_IsDangerousMatchSet();
+  PB_ShouldCollideMatchSet();
+  virtual ~PB_ShouldCollideMatchSet();
 
-  PB_IsDangerousMatchSet(const PB_IsDangerousMatchSet& from);
+  PB_ShouldCollideMatchSet(const PB_ShouldCollideMatchSet& from);
 
-  inline PB_IsDangerousMatchSet& operator=(const PB_IsDangerousMatchSet& from) {
+  inline PB_ShouldCollideMatchSet& operator=(const PB_ShouldCollideMatchSet& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const PB_IsDangerousMatchSet& default_instance();
+  static const PB_ShouldCollideMatchSet& default_instance();
 
-  void Swap(PB_IsDangerousMatchSet* other);
+  void Swap(PB_ShouldCollideMatchSet* other);
 
   // implements Message ----------------------------------------------
 
-  inline PB_IsDangerousMatchSet* New() const { return New(NULL); }
+  inline PB_ShouldCollideMatchSet* New() const { return New(NULL); }
 
-  PB_IsDangerousMatchSet* New(::google::protobuf::Arena* arena) const;
+  PB_ShouldCollideMatchSet* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const PB_IsDangerousMatchSet& from);
-  void MergeFrom(const PB_IsDangerousMatchSet& from);
+  void CopyFrom(const PB_ShouldCollideMatchSet& from);
+  void MergeFrom(const PB_ShouldCollideMatchSet& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -372,7 +1147,7 @@ class PB_IsDangerousMatchSet : public ::google::protobuf::Message /* @@protoc_in
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PB_IsDangerousMatchSet* other);
+  void InternalSwap(PB_ShouldCollideMatchSet* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -388,31 +1163,31 @@ class PB_IsDangerousMatchSet : public ::google::protobuf::Message /* @@protoc_in
 
   // accessors -------------------------------------------------------
 
-  // repeated .PB_IsDangerousMatch matches = 1;
+  // repeated .PB_ShouldCollideMatch matches = 1;
   int matches_size() const;
   void clear_matches();
   static const int kMatchesFieldNumber = 1;
-  const ::PB_IsDangerousMatch& matches(int index) const;
-  ::PB_IsDangerousMatch* mutable_matches(int index);
-  ::PB_IsDangerousMatch* add_matches();
-  ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
+  const ::PB_ShouldCollideMatch& matches(int index) const;
+  ::PB_ShouldCollideMatch* mutable_matches(int index);
+  ::PB_ShouldCollideMatch* add_matches();
+  ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >*
       mutable_matches();
-  const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
+  const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >&
       matches() const;
 
-  // @@protoc_insertion_point(class_scope:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(class_scope:PB_ShouldCollideMatchSet)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch > matches_;
+  ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch > matches_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto();
   friend void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto();
 
   void InitAsDefaultInstance();
-  static PB_IsDangerousMatchSet* default_instance_;
+  static PB_ShouldCollideMatchSet* default_instance_;
 };
 // ===================================================================
 
@@ -420,6 +1195,442 @@ class PB_IsDangerousMatchSet : public ::google::protobuf::Message /* @@protoc_in
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// PB_CheckingHellMatch
+
+// optional int32 a = 1;
+inline void PB_CheckingHellMatch::clear_a() {
+  a_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellMatch::a() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellMatch.a)
+  return a_;
+}
+inline void PB_CheckingHellMatch::set_a(::google::protobuf::int32 value) {
+  
+  a_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellMatch.a)
+}
+
+// optional int32 b = 2;
+inline void PB_CheckingHellMatch::clear_b() {
+  b_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellMatch::b() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellMatch.b)
+  return b_;
+}
+inline void PB_CheckingHellMatch::set_b(::google::protobuf::int32 value) {
+  
+  b_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellMatch.b)
+}
+
+// optional double d = 3;
+inline void PB_CheckingHellMatch::clear_d() {
+  d_ = 0;
+}
+inline double PB_CheckingHellMatch::d() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellMatch.d)
+  return d_;
+}
+inline void PB_CheckingHellMatch::set_d(double value) {
+  
+  d_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellMatch.d)
+}
+
+// optional string s = 4;
+inline void PB_CheckingHellMatch::clear_s() {
+  s_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PB_CheckingHellMatch::s() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellMatch.s)
+  return s_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PB_CheckingHellMatch::set_s(const ::std::string& value) {
+  
+  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PB_CheckingHellMatch.s)
+}
+inline void PB_CheckingHellMatch::set_s(const char* value) {
+  
+  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PB_CheckingHellMatch.s)
+}
+inline void PB_CheckingHellMatch::set_s(const char* value, size_t size) {
+  
+  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PB_CheckingHellMatch.s)
+}
+inline ::std::string* PB_CheckingHellMatch::mutable_s() {
+  
+  // @@protoc_insertion_point(field_mutable:PB_CheckingHellMatch.s)
+  return s_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PB_CheckingHellMatch::release_s() {
+  // @@protoc_insertion_point(field_release:PB_CheckingHellMatch.s)
+  
+  return s_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PB_CheckingHellMatch::set_allocated_s(::std::string* s) {
+  if (s != NULL) {
+    
+  } else {
+    
+  }
+  s_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), s);
+  // @@protoc_insertion_point(field_set_allocated:PB_CheckingHellMatch.s)
+}
+
+// -------------------------------------------------------------------
+
+// PB_CheckingHellMatchSet
+
+// repeated .PB_CheckingHellMatch matches = 1;
+inline int PB_CheckingHellMatchSet::matches_size() const {
+  return matches_.size();
+}
+inline void PB_CheckingHellMatchSet::clear_matches() {
+  matches_.Clear();
+}
+inline const ::PB_CheckingHellMatch& PB_CheckingHellMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellMatchSet.matches)
+  return matches_.Get(index);
+}
+inline ::PB_CheckingHellMatch* PB_CheckingHellMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_CheckingHellMatchSet.matches)
+  return matches_.Mutable(index);
+}
+inline ::PB_CheckingHellMatch* PB_CheckingHellMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_CheckingHellMatchSet.matches)
+  return matches_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellMatch >*
+PB_CheckingHellMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_CheckingHellMatchSet.matches)
+  return &matches_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellMatch >&
+PB_CheckingHellMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_CheckingHellMatchSet.matches)
+  return matches_;
+}
+
+// -------------------------------------------------------------------
+
+// PB_ShouldCollideFrame_0
+
+// optional int32 _0 = 1;
+inline void PB_ShouldCollideFrame_0::clear__0() {
+  _0_ = 0;
+}
+inline ::google::protobuf::int32 PB_ShouldCollideFrame_0::_0() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0._0)
+  return _0_;
+}
+inline void PB_ShouldCollideFrame_0::set__0(::google::protobuf::int32 value) {
+  
+  _0_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideFrame_0._0)
+}
+
+// optional int32 _1 = 2;
+inline void PB_ShouldCollideFrame_0::clear__1() {
+  _1_ = 0;
+}
+inline ::google::protobuf::int32 PB_ShouldCollideFrame_0::_1() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0._1)
+  return _1_;
+}
+inline void PB_ShouldCollideFrame_0::set__1(::google::protobuf::int32 value) {
+  
+  _1_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideFrame_0._1)
+}
+
+// -------------------------------------------------------------------
+
+// PB_ShouldCollideFrame_0Vector
+
+// repeated .PB_ShouldCollideFrame_0 frames = 1;
+inline int PB_ShouldCollideFrame_0Vector::frames_size() const {
+  return frames_.size();
+}
+inline void PB_ShouldCollideFrame_0Vector::clear_frames() {
+  frames_.Clear();
+}
+inline const ::PB_ShouldCollideFrame_0& PB_ShouldCollideFrame_0Vector::frames(int index) const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Get(index);
+}
+inline ::PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0Vector::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Mutable(index);
+}
+inline ::PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0Vector::add_frames() {
+  // @@protoc_insertion_point(field_add:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >*
+PB_ShouldCollideFrame_0Vector::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:PB_ShouldCollideFrame_0Vector.frames)
+  return &frames_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >&
+PB_ShouldCollideFrame_0Vector::frames() const {
+  // @@protoc_insertion_point(field_list:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_;
+}
+
+// -------------------------------------------------------------------
+
+// PB_CheckingHellFrame_0
+
+// optional int32 _0 = 1;
+inline void PB_CheckingHellFrame_0::clear__0() {
+  _0_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellFrame_0::_0() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._0)
+  return _0_;
+}
+inline void PB_CheckingHellFrame_0::set__0(::google::protobuf::int32 value) {
+  
+  _0_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._0)
+}
+
+// optional int32 _1 = 2;
+inline void PB_CheckingHellFrame_0::clear__1() {
+  _1_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellFrame_0::_1() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._1)
+  return _1_;
+}
+inline void PB_CheckingHellFrame_0::set__1(::google::protobuf::int32 value) {
+  
+  _1_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._1)
+}
+
+// optional double _2 = 3;
+inline void PB_CheckingHellFrame_0::clear__2() {
+  _2_ = 0;
+}
+inline double PB_CheckingHellFrame_0::_2() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._2)
+  return _2_;
+}
+inline void PB_CheckingHellFrame_0::set__2(double value) {
+  
+  _2_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._2)
+}
+
+// optional string _3 = 4;
+inline void PB_CheckingHellFrame_0::clear__3() {
+  _3_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PB_CheckingHellFrame_0::_3() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._3)
+  return _3_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PB_CheckingHellFrame_0::set__3(const ::std::string& value) {
+  
+  _3_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._3)
+}
+inline void PB_CheckingHellFrame_0::set__3(const char* value) {
+  
+  _3_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PB_CheckingHellFrame_0._3)
+}
+inline void PB_CheckingHellFrame_0::set__3(const char* value, size_t size) {
+  
+  _3_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PB_CheckingHellFrame_0._3)
+}
+inline ::std::string* PB_CheckingHellFrame_0::mutable__3() {
+  
+  // @@protoc_insertion_point(field_mutable:PB_CheckingHellFrame_0._3)
+  return _3_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PB_CheckingHellFrame_0::release__3() {
+  // @@protoc_insertion_point(field_release:PB_CheckingHellFrame_0._3)
+  
+  return _3_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PB_CheckingHellFrame_0::set_allocated__3(::std::string* _3) {
+  if (_3 != NULL) {
+    
+  } else {
+    
+  }
+  _3_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), _3);
+  // @@protoc_insertion_point(field_set_allocated:PB_CheckingHellFrame_0._3)
+}
+
+// optional int32 _4 = 5;
+inline void PB_CheckingHellFrame_0::clear__4() {
+  _4_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellFrame_0::_4() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._4)
+  return _4_;
+}
+inline void PB_CheckingHellFrame_0::set__4(::google::protobuf::int32 value) {
+  
+  _4_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._4)
+}
+
+// optional int32 _5 = 6;
+inline void PB_CheckingHellFrame_0::clear__5() {
+  _5_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellFrame_0::_5() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._5)
+  return _5_;
+}
+inline void PB_CheckingHellFrame_0::set__5(::google::protobuf::int32 value) {
+  
+  _5_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._5)
+}
+
+// optional int32 _6 = 7;
+inline void PB_CheckingHellFrame_0::clear__6() {
+  _6_ = 0;
+}
+inline ::google::protobuf::int32 PB_CheckingHellFrame_0::_6() const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0._6)
+  return _6_;
+}
+inline void PB_CheckingHellFrame_0::set__6(::google::protobuf::int32 value) {
+  
+  _6_ = value;
+  // @@protoc_insertion_point(field_set:PB_CheckingHellFrame_0._6)
+}
+
+// -------------------------------------------------------------------
+
+// PB_CheckingHellFrame_0Vector
+
+// repeated .PB_CheckingHellFrame_0 frames = 1;
+inline int PB_CheckingHellFrame_0Vector::frames_size() const {
+  return frames_.size();
+}
+inline void PB_CheckingHellFrame_0Vector::clear_frames() {
+  frames_.Clear();
+}
+inline const ::PB_CheckingHellFrame_0& PB_CheckingHellFrame_0Vector::frames(int index) const {
+  // @@protoc_insertion_point(field_get:PB_CheckingHellFrame_0Vector.frames)
+  return frames_.Get(index);
+}
+inline ::PB_CheckingHellFrame_0* PB_CheckingHellFrame_0Vector::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_CheckingHellFrame_0Vector.frames)
+  return frames_.Mutable(index);
+}
+inline ::PB_CheckingHellFrame_0* PB_CheckingHellFrame_0Vector::add_frames() {
+  // @@protoc_insertion_point(field_add:PB_CheckingHellFrame_0Vector.frames)
+  return frames_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellFrame_0 >*
+PB_CheckingHellFrame_0Vector::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:PB_CheckingHellFrame_0Vector.frames)
+  return &frames_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_CheckingHellFrame_0 >&
+PB_CheckingHellFrame_0Vector::frames() const {
+  // @@protoc_insertion_point(field_list:PB_CheckingHellFrame_0Vector.frames)
+  return frames_;
+}
+
+// -------------------------------------------------------------------
+
+// PB_IsDangerousMatch
+
+// optional int32 segment = 1;
+inline void PB_IsDangerousMatch::clear_segment() {
+  segment_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
+  return segment_;
+}
+inline void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
+  
+  segment_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
+}
+
+// optional int32 turnout = 2;
+inline void PB_IsDangerousMatch::clear_turnout() {
+  turnout_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
+  return turnout_;
+}
+inline void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
+  
+  turnout_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+}
+
+// optional int32 train = 3;
+inline void PB_IsDangerousMatch::clear_train() {
+  train_ = 0;
+}
+inline ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
+  return train_;
+}
+inline void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+  
+  train_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
+}
+
+// -------------------------------------------------------------------
+
+// PB_IsDangerousMatchSet
+
+// repeated .PB_IsDangerousMatch matches = 1;
+inline int PB_IsDangerousMatchSet::matches_size() const {
+  return matches_.size();
+}
+inline void PB_IsDangerousMatchSet::clear_matches() {
+  matches_.Clear();
+}
+inline const ::PB_IsDangerousMatch& PB_IsDangerousMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatchSet.matches)
+  return matches_.Get(index);
+}
+inline ::PB_IsDangerousMatch* PB_IsDangerousMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_IsDangerousMatchSet.matches)
+  return matches_.Mutable(index);
+}
+inline ::PB_IsDangerousMatch* PB_IsDangerousMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_IsDangerousMatchSet.matches)
+  return matches_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
+PB_IsDangerousMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_IsDangerousMatchSet.matches)
+  return &matches_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
+PB_IsDangerousMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_IsDangerousMatchSet.matches)
+  return matches_;
+}
+
+// -------------------------------------------------------------------
+
 // PB_IsDangerousFrame_0
 
 // optional int32 _0 = 1;
@@ -514,85 +1725,87 @@ PB_IsDangerousFrame_0Vector::frames() const {
 
 // -------------------------------------------------------------------
 
-// PB_IsDangerousMatch
+// PB_ShouldCollideMatch
 
-// optional int32 segment = 1;
-inline void PB_IsDangerousMatch::clear_segment() {
-  segment_ = 0;
+// optional int32 rp = 1;
+inline void PB_ShouldCollideMatch::clear_rp() {
+  rp_ = 0;
 }
-inline ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
-  return segment_;
+inline ::google::protobuf::int32 PB_ShouldCollideMatch::rp() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatch.rp)
+  return rp_;
 }
-inline void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
+inline void PB_ShouldCollideMatch::set_rp(::google::protobuf::int32 value) {
   
-  segment_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
-}
-
-// optional int32 turnout = 2;
-inline void PB_IsDangerousMatch::clear_turnout() {
-  turnout_ = 0;
-}
-inline ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
-  return turnout_;
-}
-inline void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
-  
-  turnout_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+  rp_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideMatch.rp)
 }
 
-// optional int32 train = 3;
-inline void PB_IsDangerousMatch::clear_train() {
-  train_ = 0;
+// optional int32 tr = 2;
+inline void PB_ShouldCollideMatch::clear_tr() {
+  tr_ = 0;
 }
-inline ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
-  return train_;
+inline ::google::protobuf::int32 PB_ShouldCollideMatch::tr() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatch.tr)
+  return tr_;
 }
-inline void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+inline void PB_ShouldCollideMatch::set_tr(::google::protobuf::int32 value) {
   
-  train_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
+  tr_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideMatch.tr)
 }
 
 // -------------------------------------------------------------------
 
-// PB_IsDangerousMatchSet
+// PB_ShouldCollideMatchSet
 
-// repeated .PB_IsDangerousMatch matches = 1;
-inline int PB_IsDangerousMatchSet::matches_size() const {
+// repeated .PB_ShouldCollideMatch matches = 1;
+inline int PB_ShouldCollideMatchSet::matches_size() const {
   return matches_.size();
 }
-inline void PB_IsDangerousMatchSet::clear_matches() {
+inline void PB_ShouldCollideMatchSet::clear_matches() {
   matches_.Clear();
 }
-inline const ::PB_IsDangerousMatch& PB_IsDangerousMatchSet::matches(int index) const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatchSet.matches)
+inline const ::PB_ShouldCollideMatch& PB_ShouldCollideMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatchSet.matches)
   return matches_.Get(index);
 }
-inline ::PB_IsDangerousMatch* PB_IsDangerousMatchSet::mutable_matches(int index) {
-  // @@protoc_insertion_point(field_mutable:PB_IsDangerousMatchSet.matches)
+inline ::PB_ShouldCollideMatch* PB_ShouldCollideMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_ShouldCollideMatchSet.matches)
   return matches_.Mutable(index);
 }
-inline ::PB_IsDangerousMatch* PB_IsDangerousMatchSet::add_matches() {
-  // @@protoc_insertion_point(field_add:PB_IsDangerousMatchSet.matches)
+inline ::PB_ShouldCollideMatch* PB_ShouldCollideMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_ShouldCollideMatchSet.matches)
   return matches_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
-PB_IsDangerousMatchSet::mutable_matches() {
-  // @@protoc_insertion_point(field_mutable_list:PB_IsDangerousMatchSet.matches)
+inline ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >*
+PB_ShouldCollideMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_ShouldCollideMatchSet.matches)
   return &matches_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
-PB_IsDangerousMatchSet::matches() const {
-  // @@protoc_insertion_point(field_list:PB_IsDangerousMatchSet.matches)
+inline const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >&
+PB_ShouldCollideMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_ShouldCollideMatchSet.matches)
   return matches_;
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

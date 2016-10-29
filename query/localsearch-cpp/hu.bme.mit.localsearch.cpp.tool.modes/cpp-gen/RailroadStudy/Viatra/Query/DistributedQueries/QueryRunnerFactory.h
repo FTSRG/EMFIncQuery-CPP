@@ -7,6 +7,7 @@
 #include "Viatra/Query/Distributed/QueryRunner.h"
 #include "Viatra/Query/Distributed/QueryService.h"
 #include "Viatra/Query/DistributedQueries/isDangerous.h"
+#include "Viatra/Query/DistributedQueries/shouldCollide.h"
 
 namespace Viatra {
 namespace Query {
@@ -19,10 +20,14 @@ public:
 	static std::shared_ptr<Viatra::Query::Distributed::QueryRunnerBase> Create(int queryID, int64_t sessionID, ModelRoot * modelRoot, Viatra::Query::Distributed::QueryServiceBase * service)
 	{
 		switch(queryID){
-			case 5:
+			case 8:
 				return std::make_unique<
 					Viatra::Query::Distributed::QueryRunner<RootedIsDangerous<ModelRoot>>
-				>(sessionID, modelRoot, service, queryID, std::map<int, std::string>{});
+				>(sessionID, modelRoot, service, queryID);
+			case 7:
+				return std::make_unique<
+					Viatra::Query::Distributed::QueryRunner<RootedShouldCollide<ModelRoot>>
+				>(sessionID, modelRoot, service, queryID);
 		}
 		throw std::invalid_argument("Cannot instantiate Query runner from the given queryID!");
 	}	

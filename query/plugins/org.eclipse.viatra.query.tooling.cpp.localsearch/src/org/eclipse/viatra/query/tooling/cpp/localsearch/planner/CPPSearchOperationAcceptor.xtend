@@ -34,10 +34,13 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ISearchOperationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.MatchingFrameDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.NACOperationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternBodyDescriptor
@@ -46,9 +49,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.GlobalExtendInstanceOfDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.LocalExtendInstanceOfDescriptor
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.CheckExpressionCompiler
 
 /**
  * @author Robert Doczi
@@ -170,12 +171,12 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	}
 	
 	
-	override acceptCheckExpression(Set<PVariable> variables, CharSequence expressionAsStr) {
+	override acceptCheckExpression(Set<PVariable> variables, CheckExpressionCompiler compiler) {
 		var map = new HashMap<PVariable, EClassifier>();
 		for( v : variables )
 			map.put(v, typeMapping.get(v).looseType)
 			
-		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, expressionAsStr);
+		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, compiler);
 	}	
 	
 

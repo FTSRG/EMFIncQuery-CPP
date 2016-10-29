@@ -42,9 +42,11 @@ public:
 		sp.add_operation(create_LocalIterateOverInstances(&IsDangerousFrame_0::_2, ::railRoadModel::ITrain::get_static_type_id(), model));
 		sp.add_operation(create_DistributeIfNotPresent<IsDangerousFrame_0>(10, subFrames, &IsDangerousFrame_0::_2));
 		sp.add_operation(create_NavigateSingleAssociation(&IsDangerousFrame_0::_2, &IsDangerousFrame_0::_0, &::railRoadModel::ITrain::get_currentlyOn));
+		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_0, ::railRoadModel::ISegment::get_static_type_id()));
+		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_2, ::railRoadModel::ITrain::get_static_type_id()));
 		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_2, ::railRoadModel::ITrain::get_static_type_id()));
 		sp.add_operation(create_InstanceOfCheck(&IsDangerousFrame_0::_0, ::railRoadModel::ISegment::get_static_type_id()));
-		sp.add_operation(create_DistributeIfNotPresent<IsDangerousFrame_0>(14, subFrames, &IsDangerousFrame_0::_0));
+		sp.add_operation(create_DistributeIfNotPresent<IsDangerousFrame_0>(16, subFrames, &IsDangerousFrame_0::_0));
 		sp.add_operation(create_MultiAssociationCheck(&IsDangerousFrame_0::_0, &IsDangerousFrame_0::_1, &::railRoadModel::ISegment::get_connectedTo));
 		
 		return sp;

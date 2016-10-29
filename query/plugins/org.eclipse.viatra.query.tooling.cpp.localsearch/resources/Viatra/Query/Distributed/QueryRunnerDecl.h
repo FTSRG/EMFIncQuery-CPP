@@ -85,7 +85,8 @@ namespace Viatra {
 				// Runner Thread
 				void PropagateFrameVector(int body, int operation, const std::string& encodedFrameVector);
 
-				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService, int queryID, std::map<int, std::string> startingEncodedFrames);
+				QueryRunner(uint64_t sessionID, ModelRoot * modelRoot, QueryServiceBase *queryService, int queryID, 
+					std::map<int, std::string> startingEncodedFrames = std::map<int, std::string>());
 
 				// add a remote incoming task to the query runner for process
 				// Custom thread

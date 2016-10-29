@@ -38,6 +38,10 @@ class PB_FrozenStateAPIFrame_0;
 class PB_FrozenStateAPIFrame_0Vector;
 class PB_FrozenStateAPIMatch;
 class PB_FrozenStateAPIMatchSet;
+class PB_NearByFrame_0;
+class PB_NearByFrame_0Vector;
+class PB_NearByMatch;
+class PB_NearByMatchSet;
 class PB_OperationalStateAPIFrame_0;
 class PB_OperationalStateAPIFrame_0Vector;
 class PB_OperationalStateAPIMatch;
@@ -240,6 +244,500 @@ class PB_FrozenStateAPIMatchSet : public ::google::protobuf::Message /* @@protoc
 
   void InitAsDefaultInstance();
   static PB_FrozenStateAPIMatchSet* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_NearByFrame_0 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_NearByFrame_0) */ {
+ public:
+  PB_NearByFrame_0();
+  virtual ~PB_NearByFrame_0();
+
+  PB_NearByFrame_0(const PB_NearByFrame_0& from);
+
+  inline PB_NearByFrame_0& operator=(const PB_NearByFrame_0& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_NearByFrame_0& default_instance();
+
+  void Swap(PB_NearByFrame_0* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_NearByFrame_0* New() const { return New(NULL); }
+
+  PB_NearByFrame_0* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_NearByFrame_0& from);
+  void MergeFrom(const PB_NearByFrame_0& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_NearByFrame_0* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 _0 = 1;
+  void clear__0();
+  static const int k0FieldNumber = 1;
+  ::google::protobuf::int32 _0() const;
+  void set__0(::google::protobuf::int32 value);
+
+  // optional int32 _1 = 2;
+  void clear__1();
+  static const int k1FieldNumber = 2;
+  ::google::protobuf::int32 _1() const;
+  void set__1(::google::protobuf::int32 value);
+
+  // optional int32 _2 = 3;
+  void clear__2();
+  static const int k2FieldNumber = 3;
+  ::google::protobuf::int32 _2() const;
+  void set__2(::google::protobuf::int32 value);
+
+  // optional int32 _3 = 4;
+  void clear__3();
+  static const int k3FieldNumber = 4;
+  ::google::protobuf::int32 _3() const;
+  void set__3(::google::protobuf::int32 value);
+
+  // optional int32 _4 = 5;
+  void clear__4();
+  static const int k4FieldNumber = 5;
+  ::google::protobuf::int32 _4() const;
+  void set__4(::google::protobuf::int32 value);
+
+  // optional double _5 = 6;
+  void clear__5();
+  static const int k5FieldNumber = 6;
+  double _5() const;
+  void set__5(double value);
+
+  // optional double _6 = 7;
+  void clear__6();
+  static const int k6FieldNumber = 7;
+  double _6() const;
+  void set__6(double value);
+
+  // optional double _7 = 8;
+  void clear__7();
+  static const int k7FieldNumber = 8;
+  double _7() const;
+  void set__7(double value);
+
+  // optional double _8 = 9;
+  void clear__8();
+  static const int k8FieldNumber = 9;
+  double _8() const;
+  void set__8(double value);
+
+  // optional double _9 = 10;
+  void clear__9();
+  static const int k9FieldNumber = 10;
+  double _9() const;
+  void set__9(double value);
+
+  // optional double _10 = 11;
+  void clear__10();
+  static const int k10FieldNumber = 11;
+  double _10() const;
+  void set__10(double value);
+
+  // optional int32 _11 = 12;
+  void clear__11();
+  static const int k11FieldNumber = 12;
+  ::google::protobuf::int32 _11() const;
+  void set__11(::google::protobuf::int32 value);
+
+  // optional int32 _12 = 13;
+  void clear__12();
+  static const int k12FieldNumber = 13;
+  ::google::protobuf::int32 _12() const;
+  void set__12(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PB_NearByFrame_0)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 _0_;
+  ::google::protobuf::int32 _1_;
+  ::google::protobuf::int32 _2_;
+  ::google::protobuf::int32 _3_;
+  double _5_;
+  double _6_;
+  double _7_;
+  ::google::protobuf::int32 _4_;
+  ::google::protobuf::int32 _11_;
+  double _8_;
+  double _9_;
+  double _10_;
+  ::google::protobuf::int32 _12_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_NearByFrame_0* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_NearByFrame_0Vector : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_NearByFrame_0Vector) */ {
+ public:
+  PB_NearByFrame_0Vector();
+  virtual ~PB_NearByFrame_0Vector();
+
+  PB_NearByFrame_0Vector(const PB_NearByFrame_0Vector& from);
+
+  inline PB_NearByFrame_0Vector& operator=(const PB_NearByFrame_0Vector& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_NearByFrame_0Vector& default_instance();
+
+  void Swap(PB_NearByFrame_0Vector* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_NearByFrame_0Vector* New() const { return New(NULL); }
+
+  PB_NearByFrame_0Vector* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_NearByFrame_0Vector& from);
+  void MergeFrom(const PB_NearByFrame_0Vector& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_NearByFrame_0Vector* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_NearByFrame_0 frames = 1;
+  int frames_size() const;
+  void clear_frames();
+  static const int kFramesFieldNumber = 1;
+  const ::PB_NearByFrame_0& frames(int index) const;
+  ::PB_NearByFrame_0* mutable_frames(int index);
+  ::PB_NearByFrame_0* add_frames();
+  ::google::protobuf::RepeatedPtrField< ::PB_NearByFrame_0 >*
+      mutable_frames();
+  const ::google::protobuf::RepeatedPtrField< ::PB_NearByFrame_0 >&
+      frames() const;
+
+  // @@protoc_insertion_point(class_scope:PB_NearByFrame_0Vector)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_NearByFrame_0 > frames_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_NearByFrame_0Vector* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_NearByMatch : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_NearByMatch) */ {
+ public:
+  PB_NearByMatch();
+  virtual ~PB_NearByMatch();
+
+  PB_NearByMatch(const PB_NearByMatch& from);
+
+  inline PB_NearByMatch& operator=(const PB_NearByMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_NearByMatch& default_instance();
+
+  void Swap(PB_NearByMatch* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_NearByMatch* New() const { return New(NULL); }
+
+  PB_NearByMatch* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_NearByMatch& from);
+  void MergeFrom(const PB_NearByMatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_NearByMatch* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 robotPart = 1;
+  void clear_robotpart();
+  static const int kRobotPartFieldNumber = 1;
+  ::google::protobuf::int32 robotpart() const;
+  void set_robotpart(::google::protobuf::int32 value);
+
+  // optional int32 robotPartID = 2;
+  void clear_robotpartid();
+  static const int kRobotPartIDFieldNumber = 2;
+  ::google::protobuf::int32 robotpartid() const;
+  void set_robotpartid(::google::protobuf::int32 value);
+
+  // optional int32 train = 3;
+  void clear_train();
+  static const int kTrainFieldNumber = 3;
+  ::google::protobuf::int32 train() const;
+  void set_train(::google::protobuf::int32 value);
+
+  // optional int32 trainID = 4;
+  void clear_trainid();
+  static const int kTrainIDFieldNumber = 4;
+  ::google::protobuf::int32 trainid() const;
+  void set_trainid(::google::protobuf::int32 value);
+
+  // optional int32 segID = 5;
+  void clear_segid();
+  static const int kSegIDFieldNumber = 5;
+  ::google::protobuf::int32 segid() const;
+  void set_segid(::google::protobuf::int32 value);
+
+  // optional double robX = 6;
+  void clear_robx();
+  static const int kRobXFieldNumber = 6;
+  double robx() const;
+  void set_robx(double value);
+
+  // optional double robY = 7;
+  void clear_roby();
+  static const int kRobYFieldNumber = 7;
+  double roby() const;
+  void set_roby(double value);
+
+  // optional double robZ = 8;
+  void clear_robz();
+  static const int kRobZFieldNumber = 8;
+  double robz() const;
+  void set_robz(double value);
+
+  // optional double segX = 9;
+  void clear_segx();
+  static const int kSegXFieldNumber = 9;
+  double segx() const;
+  void set_segx(double value);
+
+  // optional double segY = 10;
+  void clear_segy();
+  static const int kSegYFieldNumber = 10;
+  double segy() const;
+  void set_segy(double value);
+
+  // optional double segZ = 11;
+  void clear_segz();
+  static const int kSegZFieldNumber = 11;
+  double segz() const;
+  void set_segz(double value);
+
+  // @@protoc_insertion_point(class_scope:PB_NearByMatch)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 robotpart_;
+  ::google::protobuf::int32 robotpartid_;
+  ::google::protobuf::int32 train_;
+  ::google::protobuf::int32 trainid_;
+  double robx_;
+  double roby_;
+  double robz_;
+  double segx_;
+  double segy_;
+  double segz_;
+  ::google::protobuf::int32 segid_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_NearByMatch* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PB_NearByMatchSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PB_NearByMatchSet) */ {
+ public:
+  PB_NearByMatchSet();
+  virtual ~PB_NearByMatchSet();
+
+  PB_NearByMatchSet(const PB_NearByMatchSet& from);
+
+  inline PB_NearByMatchSet& operator=(const PB_NearByMatchSet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PB_NearByMatchSet& default_instance();
+
+  void Swap(PB_NearByMatchSet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PB_NearByMatchSet* New() const { return New(NULL); }
+
+  PB_NearByMatchSet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PB_NearByMatchSet& from);
+  void MergeFrom(const PB_NearByMatchSet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PB_NearByMatchSet* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PB_NearByMatch matches = 1;
+  int matches_size() const;
+  void clear_matches();
+  static const int kMatchesFieldNumber = 1;
+  const ::PB_NearByMatch& matches(int index) const;
+  ::PB_NearByMatch* mutable_matches(int index);
+  ::PB_NearByMatch* add_matches();
+  ::google::protobuf::RepeatedPtrField< ::PB_NearByMatch >*
+      mutable_matches();
+  const ::google::protobuf::RepeatedPtrField< ::PB_NearByMatch >&
+      matches() const;
+
+  // @@protoc_insertion_point(class_scope:PB_NearByMatchSet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::PB_NearByMatch > matches_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_AssignDesc_PB_5fDerivedInput_2eproto();
+  friend void protobuf_ShutdownFile_PB_5fDerivedInput_2eproto();
+
+  void InitAsDefaultInstance();
+  static PB_NearByMatchSet* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -949,6 +1447,418 @@ PB_FrozenStateAPIMatchSet::matches() const {
 
 // -------------------------------------------------------------------
 
+// PB_NearByFrame_0
+
+// optional int32 _0 = 1;
+inline void PB_NearByFrame_0::clear__0() {
+  _0_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_0() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._0)
+  return _0_;
+}
+inline void PB_NearByFrame_0::set__0(::google::protobuf::int32 value) {
+  
+  _0_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._0)
+}
+
+// optional int32 _1 = 2;
+inline void PB_NearByFrame_0::clear__1() {
+  _1_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_1() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._1)
+  return _1_;
+}
+inline void PB_NearByFrame_0::set__1(::google::protobuf::int32 value) {
+  
+  _1_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._1)
+}
+
+// optional int32 _2 = 3;
+inline void PB_NearByFrame_0::clear__2() {
+  _2_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_2() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._2)
+  return _2_;
+}
+inline void PB_NearByFrame_0::set__2(::google::protobuf::int32 value) {
+  
+  _2_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._2)
+}
+
+// optional int32 _3 = 4;
+inline void PB_NearByFrame_0::clear__3() {
+  _3_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_3() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._3)
+  return _3_;
+}
+inline void PB_NearByFrame_0::set__3(::google::protobuf::int32 value) {
+  
+  _3_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._3)
+}
+
+// optional int32 _4 = 5;
+inline void PB_NearByFrame_0::clear__4() {
+  _4_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_4() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._4)
+  return _4_;
+}
+inline void PB_NearByFrame_0::set__4(::google::protobuf::int32 value) {
+  
+  _4_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._4)
+}
+
+// optional double _5 = 6;
+inline void PB_NearByFrame_0::clear__5() {
+  _5_ = 0;
+}
+inline double PB_NearByFrame_0::_5() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._5)
+  return _5_;
+}
+inline void PB_NearByFrame_0::set__5(double value) {
+  
+  _5_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._5)
+}
+
+// optional double _6 = 7;
+inline void PB_NearByFrame_0::clear__6() {
+  _6_ = 0;
+}
+inline double PB_NearByFrame_0::_6() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._6)
+  return _6_;
+}
+inline void PB_NearByFrame_0::set__6(double value) {
+  
+  _6_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._6)
+}
+
+// optional double _7 = 8;
+inline void PB_NearByFrame_0::clear__7() {
+  _7_ = 0;
+}
+inline double PB_NearByFrame_0::_7() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._7)
+  return _7_;
+}
+inline void PB_NearByFrame_0::set__7(double value) {
+  
+  _7_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._7)
+}
+
+// optional double _8 = 9;
+inline void PB_NearByFrame_0::clear__8() {
+  _8_ = 0;
+}
+inline double PB_NearByFrame_0::_8() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._8)
+  return _8_;
+}
+inline void PB_NearByFrame_0::set__8(double value) {
+  
+  _8_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._8)
+}
+
+// optional double _9 = 10;
+inline void PB_NearByFrame_0::clear__9() {
+  _9_ = 0;
+}
+inline double PB_NearByFrame_0::_9() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._9)
+  return _9_;
+}
+inline void PB_NearByFrame_0::set__9(double value) {
+  
+  _9_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._9)
+}
+
+// optional double _10 = 11;
+inline void PB_NearByFrame_0::clear__10() {
+  _10_ = 0;
+}
+inline double PB_NearByFrame_0::_10() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._10)
+  return _10_;
+}
+inline void PB_NearByFrame_0::set__10(double value) {
+  
+  _10_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._10)
+}
+
+// optional int32 _11 = 12;
+inline void PB_NearByFrame_0::clear__11() {
+  _11_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_11() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._11)
+  return _11_;
+}
+inline void PB_NearByFrame_0::set__11(::google::protobuf::int32 value) {
+  
+  _11_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._11)
+}
+
+// optional int32 _12 = 13;
+inline void PB_NearByFrame_0::clear__12() {
+  _12_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByFrame_0::_12() const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0._12)
+  return _12_;
+}
+inline void PB_NearByFrame_0::set__12(::google::protobuf::int32 value) {
+  
+  _12_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByFrame_0._12)
+}
+
+// -------------------------------------------------------------------
+
+// PB_NearByFrame_0Vector
+
+// repeated .PB_NearByFrame_0 frames = 1;
+inline int PB_NearByFrame_0Vector::frames_size() const {
+  return frames_.size();
+}
+inline void PB_NearByFrame_0Vector::clear_frames() {
+  frames_.Clear();
+}
+inline const ::PB_NearByFrame_0& PB_NearByFrame_0Vector::frames(int index) const {
+  // @@protoc_insertion_point(field_get:PB_NearByFrame_0Vector.frames)
+  return frames_.Get(index);
+}
+inline ::PB_NearByFrame_0* PB_NearByFrame_0Vector::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_NearByFrame_0Vector.frames)
+  return frames_.Mutable(index);
+}
+inline ::PB_NearByFrame_0* PB_NearByFrame_0Vector::add_frames() {
+  // @@protoc_insertion_point(field_add:PB_NearByFrame_0Vector.frames)
+  return frames_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_NearByFrame_0 >*
+PB_NearByFrame_0Vector::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:PB_NearByFrame_0Vector.frames)
+  return &frames_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_NearByFrame_0 >&
+PB_NearByFrame_0Vector::frames() const {
+  // @@protoc_insertion_point(field_list:PB_NearByFrame_0Vector.frames)
+  return frames_;
+}
+
+// -------------------------------------------------------------------
+
+// PB_NearByMatch
+
+// optional int32 robotPart = 1;
+inline void PB_NearByMatch::clear_robotpart() {
+  robotpart_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByMatch::robotpart() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.robotPart)
+  return robotpart_;
+}
+inline void PB_NearByMatch::set_robotpart(::google::protobuf::int32 value) {
+  
+  robotpart_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.robotPart)
+}
+
+// optional int32 robotPartID = 2;
+inline void PB_NearByMatch::clear_robotpartid() {
+  robotpartid_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByMatch::robotpartid() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.robotPartID)
+  return robotpartid_;
+}
+inline void PB_NearByMatch::set_robotpartid(::google::protobuf::int32 value) {
+  
+  robotpartid_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.robotPartID)
+}
+
+// optional int32 train = 3;
+inline void PB_NearByMatch::clear_train() {
+  train_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByMatch::train() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.train)
+  return train_;
+}
+inline void PB_NearByMatch::set_train(::google::protobuf::int32 value) {
+  
+  train_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.train)
+}
+
+// optional int32 trainID = 4;
+inline void PB_NearByMatch::clear_trainid() {
+  trainid_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByMatch::trainid() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.trainID)
+  return trainid_;
+}
+inline void PB_NearByMatch::set_trainid(::google::protobuf::int32 value) {
+  
+  trainid_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.trainID)
+}
+
+// optional int32 segID = 5;
+inline void PB_NearByMatch::clear_segid() {
+  segid_ = 0;
+}
+inline ::google::protobuf::int32 PB_NearByMatch::segid() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.segID)
+  return segid_;
+}
+inline void PB_NearByMatch::set_segid(::google::protobuf::int32 value) {
+  
+  segid_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.segID)
+}
+
+// optional double robX = 6;
+inline void PB_NearByMatch::clear_robx() {
+  robx_ = 0;
+}
+inline double PB_NearByMatch::robx() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.robX)
+  return robx_;
+}
+inline void PB_NearByMatch::set_robx(double value) {
+  
+  robx_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.robX)
+}
+
+// optional double robY = 7;
+inline void PB_NearByMatch::clear_roby() {
+  roby_ = 0;
+}
+inline double PB_NearByMatch::roby() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.robY)
+  return roby_;
+}
+inline void PB_NearByMatch::set_roby(double value) {
+  
+  roby_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.robY)
+}
+
+// optional double robZ = 8;
+inline void PB_NearByMatch::clear_robz() {
+  robz_ = 0;
+}
+inline double PB_NearByMatch::robz() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.robZ)
+  return robz_;
+}
+inline void PB_NearByMatch::set_robz(double value) {
+  
+  robz_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.robZ)
+}
+
+// optional double segX = 9;
+inline void PB_NearByMatch::clear_segx() {
+  segx_ = 0;
+}
+inline double PB_NearByMatch::segx() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.segX)
+  return segx_;
+}
+inline void PB_NearByMatch::set_segx(double value) {
+  
+  segx_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.segX)
+}
+
+// optional double segY = 10;
+inline void PB_NearByMatch::clear_segy() {
+  segy_ = 0;
+}
+inline double PB_NearByMatch::segy() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.segY)
+  return segy_;
+}
+inline void PB_NearByMatch::set_segy(double value) {
+  
+  segy_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.segY)
+}
+
+// optional double segZ = 11;
+inline void PB_NearByMatch::clear_segz() {
+  segz_ = 0;
+}
+inline double PB_NearByMatch::segz() const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatch.segZ)
+  return segz_;
+}
+inline void PB_NearByMatch::set_segz(double value) {
+  
+  segz_ = value;
+  // @@protoc_insertion_point(field_set:PB_NearByMatch.segZ)
+}
+
+// -------------------------------------------------------------------
+
+// PB_NearByMatchSet
+
+// repeated .PB_NearByMatch matches = 1;
+inline int PB_NearByMatchSet::matches_size() const {
+  return matches_.size();
+}
+inline void PB_NearByMatchSet::clear_matches() {
+  matches_.Clear();
+}
+inline const ::PB_NearByMatch& PB_NearByMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_NearByMatchSet.matches)
+  return matches_.Get(index);
+}
+inline ::PB_NearByMatch* PB_NearByMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_NearByMatchSet.matches)
+  return matches_.Mutable(index);
+}
+inline ::PB_NearByMatch* PB_NearByMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_NearByMatchSet.matches)
+  return matches_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PB_NearByMatch >*
+PB_NearByMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_NearByMatchSet.matches)
+  return &matches_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PB_NearByMatch >&
+PB_NearByMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_NearByMatchSet.matches)
+  return matches_;
+}
+
+// -------------------------------------------------------------------
+
 // PB_OperationalStateAPIFrame_0
 
 // optional int32 _0 = 1;
@@ -1272,6 +2182,14 @@ PB_FrozenStateAPIFrame_0Vector::frames() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -8,14 +8,39 @@
 #include"Viatra/Query/DistributedQueries/QueryRunnerFactory.h"
 
 #include<iostream>
+#include<chrono>
 #include<windows.h>
 
 #include "UpdateModel.h"
+
+
+constexpr int test_count = 200;
+constexpr double update_freq = 100;	// 10 millisec
+constexpr double update_period = 1.0 / update_freq;
+
+struct Record{
+	double checkTime;
+};
+
+std::vector<Record> data;
+
+auto start_time = std::chrono::high_resolution_clock::now();
+
+long long nanos() {
+	auto end_time = std::chrono::high_resolution_clock::now();
+	return std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
+}
+
+double seconds() {
+	return nanos() / (1000 * 1000 * 1000 * 1.0);
+}
 
 using Viatra::Query::Util::Logger;
 
 using namespace Viatra::Query;
 using Viatra::Query::DistributedQueries::IsDangerous;
+using ModelRoot = Viatra::Query::Model::ModelRoot;
+
 
 using QueryService = Viatra::Query::Distributed::QueryService <
 	Viatra::Query::Model::ModelRoot,
@@ -36,49 +61,66 @@ void CheckSystemState(QueryService& service)
 		future = future->reanimate();
 	}
 	first = false;
-
-
 	auto resultSet = future->getResultMatchSet();
-	if (resultSet.size() > 0)
-	{
-		setColor(12);
-		std::cout << "FAULT    , IsDangerous result:";
-		for (auto & result : resultSet)
-			std::cout << "  " << result.toString() << std::endl;
-		setColor(7);
-	}
-	else
-	{
-		setColor(10);
-		std::cout << "CHECKED  , IsDangerous query result is empty" << std::endl;
-		setColor(7);
-	}
-
 }
+
+std::thread runCheckingThread(QueryService & service) {
+	return std::thread([&service]()mutable{
+	
+		double lastT = seconds();
+		for (int i = 0; i < test_count; ++i)
+		{
+			CheckSystemState(service);
+
+			auto time = seconds();
+			data.push_back({time - lastT});
+			lastT = time;
+		}
+	});
+}
+
+std::thread runUpdatingThread(const char* nodeName, ModelRoot *modelRoot) {
+	return std::thread([nodeName, modelRoot]()mutable {
+		double nextT = seconds() + update_period;
+		for (int i = 0; i < test_count; ++i)
+		{
+			UpdateModel(nodeName, modelRoot);
+
+			while (seconds() < nextT)
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			nextT += update_period;
+		}
+	});
+}
+
+
+
 
 int main(int argc, char**argv)
 {
+	data.reserve(test_count);
 	Logger::SetThisThreadName("MAIN");
-	const char * arg = argc > 1 ? argv[1] : "nodeA";
+	const char * nodeName = argc > 1 ? argv[1] : "nodeA";
 	// Creating the Local Model from the image
-	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", arg);
+	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", nodeName);
 
-	QueryService service("configuration.json", arg, &modelRoot);
+	QueryService service("configuration.json", nodeName, &modelRoot);
 	service.start();
 
 	try {
 
-		while (true) {
-			std::cout << "main loop" << std::endl;
-			auto id = Logger::Identer();
+		runUpdatingThread(nodeName, &modelRoot);
 
-			std::cout << "UpdateModel" << std::endl;
-			UpdateModel(arg, &modelRoot);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 
-			std::cout << "CheckSystemState" << std::endl;
-			CheckSystemState(service);
+		auto checkThread = runCheckingThread(service);
+		checkThread.join();
+
+		for (auto & record : data)
+		{
+			std::cout << record.checkTime << ";";
 		}
-
+		
 	}
 	catch (const char * c)
 	{

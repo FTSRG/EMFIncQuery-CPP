@@ -22,6 +22,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInequalityDes
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckInstanceOfDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.CheckSingleNavigationDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendConstantValueDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendMultiNavigationDescriptor
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExtendSingleNavigationDescriptor
@@ -34,7 +35,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.viatra.query.tooling.cpp.localsearch.model.DistributeIfNotPresentDescriptor
 
 /**
  * @author Robert Doczi
@@ -83,11 +83,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		return '''
 			create_«CheckExpressionDescriptor::NAME»<«frameGenerator.frameName»>(
 				[](«operation.variables.map[toForwardDef(operation)].join(", ")»){
-					// Please implement the following 
-					// «operation.expressionAsStr»
-					//
-					
-					static_assert(false, "Please implement the Check expression");	
+					«operation.compiler.compileLambdaInner»	
 				},
 				«operation.variables.map[toGetter].join(", ")»
 			)

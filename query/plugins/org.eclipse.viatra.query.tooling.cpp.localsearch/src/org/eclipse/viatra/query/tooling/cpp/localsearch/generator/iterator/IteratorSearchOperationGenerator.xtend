@@ -171,11 +171,7 @@ class IteratorSearchOperationGenerator extends BaseGenerator {
 			//  *****************  CHECK EXPRESSION IMPLEMENTATION
 			//		
 			[](«operation.variables.map[toForwardDef(operation)].join(", ")»){
-				// Please implement the following 
-				// «operation.expressionAsStr»
-				//
-				
-				static_assert(false, "Please implement the Check expression");	
+				«operation.compiler.compileLambdaInner»
 			}
 			//	***************************************************
 			

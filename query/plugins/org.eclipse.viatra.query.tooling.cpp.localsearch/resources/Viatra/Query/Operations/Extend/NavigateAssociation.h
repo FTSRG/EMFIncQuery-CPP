@@ -120,9 +120,10 @@ inline NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, Membe
 	return new NavigateSingleAssociation<SrcType, MemberTrgType, NavigatorTrgType, Member, MatchingFrame>(getSrc, bindMember, navigate);
 }
 
-template<class SrcType, class MemberTrgType, class Collection, class Member, class MatchingFrame, class NavigatorTrgType>
-inline NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, NavigatorTrgType>* create_NavigateMultiAssociation(SrcType MatchingFrame::* getSrc, MemberTrgType MatchingFrame::* bindMember, const Collection& (Member::*navigate)() const ) {
-	return new NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, NavigatorTrgType>(getSrc, bindMember, navigate);
+template<class SrcType, class MemberTrgType, class Collection, class Member, class MatchingFrame>
+inline NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, decltype(*std::declval(Collection).begin())>*
+create_NavigateMultiAssociation(SrcType MatchingFrame::* getSrc, MemberTrgType MatchingFrame::* bindMember, const Collection& (Member::*navigate)() const ) {
+	return new NavigateMultiAssociation<SrcType, MemberTrgType, Collection, Member, MatchingFrame, decltype(*std::declval(Collection).begin())>(getSrc, bindMember, navigate);
 }
 
 } /* namespace Extend */

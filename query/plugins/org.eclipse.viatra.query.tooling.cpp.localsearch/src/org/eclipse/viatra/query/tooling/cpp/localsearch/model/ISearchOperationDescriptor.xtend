@@ -15,6 +15,7 @@ import java.util.Set
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.CheckExpressionCompiler
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
@@ -90,7 +91,7 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	public static val String NAME = "CheckExpression"
 	val Set<PVariable> variables
 	val Map<PVariable, EClassifier> types 
-	val CharSequence expressionAsStr
+	val CheckExpressionCompiler compiler
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

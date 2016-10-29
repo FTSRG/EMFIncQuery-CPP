@@ -1,0 +1,7 @@
+/Viatra/
+/model/
+*.sln
+*.sdf
+*.vcxproj
+*.user
+*.opendb

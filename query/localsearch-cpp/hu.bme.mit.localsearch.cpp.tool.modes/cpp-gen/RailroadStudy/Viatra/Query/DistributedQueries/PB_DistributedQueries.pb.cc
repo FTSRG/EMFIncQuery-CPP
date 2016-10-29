@@ -19,18 +19,30 @@
 
 namespace {
 
-const ::google::protobuf::Descriptor* PB_IsDangerousFrame_0_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* PB_ShouldCollideFrame_0_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  PB_IsDangerousFrame_0_reflection_ = NULL;
-const ::google::protobuf::Descriptor* PB_IsDangerousFrame_0Vector_descriptor_ = NULL;
+  PB_ShouldCollideFrame_0_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PB_ShouldCollideFrame_0Vector_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  PB_IsDangerousFrame_0Vector_reflection_ = NULL;
+  PB_ShouldCollideFrame_0Vector_reflection_ = NULL;
 const ::google::protobuf::Descriptor* PB_IsDangerousMatch_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PB_IsDangerousMatch_reflection_ = NULL;
 const ::google::protobuf::Descriptor* PB_IsDangerousMatchSet_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PB_IsDangerousMatchSet_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PB_IsDangerousFrame_0_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PB_IsDangerousFrame_0_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PB_IsDangerousFrame_0Vector_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PB_IsDangerousFrame_0Vector_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PB_ShouldCollideMatch_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PB_ShouldCollideMatch_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PB_ShouldCollideMatchSet_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PB_ShouldCollideMatchSet_reflection_ = NULL;
 
 }  // namespace
 
@@ -42,39 +54,37 @@ void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "PB_DistributedQueries.proto");
   GOOGLE_CHECK(file != NULL);
-  PB_IsDangerousFrame_0_descriptor_ = file->message_type(0);
-  static const int PB_IsDangerousFrame_0_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _0_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _3_),
+  PB_ShouldCollideFrame_0_descriptor_ = file->message_type(0);
+  static const int PB_ShouldCollideFrame_0_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0, _0_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0, _1_),
   };
-  PB_IsDangerousFrame_0_reflection_ =
+  PB_ShouldCollideFrame_0_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      PB_IsDangerousFrame_0_descriptor_,
-      PB_IsDangerousFrame_0::default_instance_,
-      PB_IsDangerousFrame_0_offsets_,
+      PB_ShouldCollideFrame_0_descriptor_,
+      PB_ShouldCollideFrame_0::default_instance_,
+      PB_ShouldCollideFrame_0_offsets_,
       -1,
       -1,
       -1,
-      sizeof(PB_IsDangerousFrame_0),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _is_default_instance_));
-  PB_IsDangerousFrame_0Vector_descriptor_ = file->message_type(1);
-  static const int PB_IsDangerousFrame_0Vector_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, frames_),
+      sizeof(PB_ShouldCollideFrame_0),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0, _is_default_instance_));
+  PB_ShouldCollideFrame_0Vector_descriptor_ = file->message_type(1);
+  static const int PB_ShouldCollideFrame_0Vector_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0Vector, frames_),
   };
-  PB_IsDangerousFrame_0Vector_reflection_ =
+  PB_ShouldCollideFrame_0Vector_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      PB_IsDangerousFrame_0Vector_descriptor_,
-      PB_IsDangerousFrame_0Vector::default_instance_,
-      PB_IsDangerousFrame_0Vector_offsets_,
+      PB_ShouldCollideFrame_0Vector_descriptor_,
+      PB_ShouldCollideFrame_0Vector::default_instance_,
+      PB_ShouldCollideFrame_0Vector_offsets_,
       -1,
       -1,
       -1,
-      sizeof(PB_IsDangerousFrame_0Vector),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _is_default_instance_));
+      sizeof(PB_ShouldCollideFrame_0Vector),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0Vector, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideFrame_0Vector, _is_default_instance_));
   PB_IsDangerousMatch_descriptor_ = file->message_type(2);
   static const int PB_IsDangerousMatch_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatch, segment_),
@@ -107,6 +117,70 @@ void protobuf_AssignDesc_PB_5fDistributedQueries_2eproto() {
       sizeof(PB_IsDangerousMatchSet),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatchSet, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousMatchSet, _is_default_instance_));
+  PB_IsDangerousFrame_0_descriptor_ = file->message_type(4);
+  static const int PB_IsDangerousFrame_0_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _0_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _1_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _2_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _3_),
+  };
+  PB_IsDangerousFrame_0_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PB_IsDangerousFrame_0_descriptor_,
+      PB_IsDangerousFrame_0::default_instance_,
+      PB_IsDangerousFrame_0_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PB_IsDangerousFrame_0),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0, _is_default_instance_));
+  PB_IsDangerousFrame_0Vector_descriptor_ = file->message_type(5);
+  static const int PB_IsDangerousFrame_0Vector_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, frames_),
+  };
+  PB_IsDangerousFrame_0Vector_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PB_IsDangerousFrame_0Vector_descriptor_,
+      PB_IsDangerousFrame_0Vector::default_instance_,
+      PB_IsDangerousFrame_0Vector_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PB_IsDangerousFrame_0Vector),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_IsDangerousFrame_0Vector, _is_default_instance_));
+  PB_ShouldCollideMatch_descriptor_ = file->message_type(6);
+  static const int PB_ShouldCollideMatch_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatch, rp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatch, tr_),
+  };
+  PB_ShouldCollideMatch_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PB_ShouldCollideMatch_descriptor_,
+      PB_ShouldCollideMatch::default_instance_,
+      PB_ShouldCollideMatch_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PB_ShouldCollideMatch),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatch, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatch, _is_default_instance_));
+  PB_ShouldCollideMatchSet_descriptor_ = file->message_type(7);
+  static const int PB_ShouldCollideMatchSet_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatchSet, matches_),
+  };
+  PB_ShouldCollideMatchSet_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PB_ShouldCollideMatchSet_descriptor_,
+      PB_ShouldCollideMatchSet::default_instance_,
+      PB_ShouldCollideMatchSet_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PB_ShouldCollideMatchSet),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatchSet, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PB_ShouldCollideMatchSet, _is_default_instance_));
 }
 
 namespace {
@@ -121,26 +195,42 @@ void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      PB_IsDangerousFrame_0_descriptor_, &PB_IsDangerousFrame_0::default_instance());
+      PB_ShouldCollideFrame_0_descriptor_, &PB_ShouldCollideFrame_0::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      PB_IsDangerousFrame_0Vector_descriptor_, &PB_IsDangerousFrame_0Vector::default_instance());
+      PB_ShouldCollideFrame_0Vector_descriptor_, &PB_ShouldCollideFrame_0Vector::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       PB_IsDangerousMatch_descriptor_, &PB_IsDangerousMatch::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       PB_IsDangerousMatchSet_descriptor_, &PB_IsDangerousMatchSet::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PB_IsDangerousFrame_0_descriptor_, &PB_IsDangerousFrame_0::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PB_IsDangerousFrame_0Vector_descriptor_, &PB_IsDangerousFrame_0Vector::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PB_ShouldCollideMatch_descriptor_, &PB_ShouldCollideMatch::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PB_ShouldCollideMatchSet_descriptor_, &PB_ShouldCollideMatchSet::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto() {
-  delete PB_IsDangerousFrame_0::default_instance_;
-  delete PB_IsDangerousFrame_0_reflection_;
-  delete PB_IsDangerousFrame_0Vector::default_instance_;
-  delete PB_IsDangerousFrame_0Vector_reflection_;
+  delete PB_ShouldCollideFrame_0::default_instance_;
+  delete PB_ShouldCollideFrame_0_reflection_;
+  delete PB_ShouldCollideFrame_0Vector::default_instance_;
+  delete PB_ShouldCollideFrame_0Vector_reflection_;
   delete PB_IsDangerousMatch::default_instance_;
   delete PB_IsDangerousMatch_reflection_;
   delete PB_IsDangerousMatchSet::default_instance_;
   delete PB_IsDangerousMatchSet_reflection_;
+  delete PB_IsDangerousFrame_0::default_instance_;
+  delete PB_IsDangerousFrame_0_reflection_;
+  delete PB_IsDangerousFrame_0Vector::default_instance_;
+  delete PB_IsDangerousFrame_0Vector_reflection_;
+  delete PB_ShouldCollideMatch::default_instance_;
+  delete PB_ShouldCollideMatch_reflection_;
+  delete PB_ShouldCollideMatchSet::default_instance_;
+  delete PB_ShouldCollideMatchSet_reflection_;
 }
 
 void protobuf_AddDesc_PB_5fDistributedQueries_2eproto() GOOGLE_ATTRIBUTE_COLD;
@@ -151,24 +241,39 @@ void protobuf_AddDesc_PB_5fDistributedQueries_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\033PB_DistributedQueries.proto\"G\n\025PB_IsDa"
-    "ngerousFrame_0\022\n\n\002_0\030\001 \001(\005\022\n\n\002_1\030\002 \001(\005\022\n"
-    "\n\002_2\030\003 \001(\005\022\n\n\002_3\030\004 \001(\005\"E\n\033PB_IsDangerous"
-    "Frame_0Vector\022&\n\006frames\030\001 \003(\0132\026.PB_IsDan"
-    "gerousFrame_0\"F\n\023PB_IsDangerousMatch\022\017\n\007"
-    "segment\030\001 \001(\005\022\017\n\007turnout\030\002 \001(\005\022\r\n\005train\030"
-    "\003 \001(\005\"\?\n\026PB_IsDangerousMatchSet\022%\n\007match"
-    "es\030\001 \003(\0132\024.PB_IsDangerousMatchb\006proto3", 318);
+    "\n\033PB_DistributedQueries.proto\"1\n\027PB_Shou"
+    "ldCollideFrame_0\022\n\n\002_0\030\001 \001(\005\022\n\n\002_1\030\002 \001(\005"
+    "\"I\n\035PB_ShouldCollideFrame_0Vector\022(\n\006fra"
+    "mes\030\001 \003(\0132\030.PB_ShouldCollideFrame_0\"F\n\023P"
+    "B_IsDangerousMatch\022\017\n\007segment\030\001 \001(\005\022\017\n\007t"
+    "urnout\030\002 \001(\005\022\r\n\005train\030\003 \001(\005\"\?\n\026PB_IsDang"
+    "erousMatchSet\022%\n\007matches\030\001 \003(\0132\024.PB_IsDa"
+    "ngerousMatch\"G\n\025PB_IsDangerousFrame_0\022\n\n"
+    "\002_0\030\001 \001(\005\022\n\n\002_1\030\002 \001(\005\022\n\n\002_2\030\003 \001(\005\022\n\n\002_3\030"
+    "\004 \001(\005\"E\n\033PB_IsDangerousFrame_0Vector\022&\n\006"
+    "frames\030\001 \003(\0132\026.PB_IsDangerousFrame_0\"/\n\025"
+    "PB_ShouldCollideMatch\022\n\n\002rp\030\001 \001(\005\022\n\n\002tr\030"
+    "\002 \001(\005\"C\n\030PB_ShouldCollideMatchSet\022\'\n\007mat"
+    "ches\030\001 \003(\0132\026.PB_ShouldCollideMatchb\006prot"
+    "o3", 562);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "PB_DistributedQueries.proto", &protobuf_RegisterTypes);
-  PB_IsDangerousFrame_0::default_instance_ = new PB_IsDangerousFrame_0();
-  PB_IsDangerousFrame_0Vector::default_instance_ = new PB_IsDangerousFrame_0Vector();
+  PB_ShouldCollideFrame_0::default_instance_ = new PB_ShouldCollideFrame_0();
+  PB_ShouldCollideFrame_0Vector::default_instance_ = new PB_ShouldCollideFrame_0Vector();
   PB_IsDangerousMatch::default_instance_ = new PB_IsDangerousMatch();
   PB_IsDangerousMatchSet::default_instance_ = new PB_IsDangerousMatchSet();
-  PB_IsDangerousFrame_0::default_instance_->InitAsDefaultInstance();
-  PB_IsDangerousFrame_0Vector::default_instance_->InitAsDefaultInstance();
+  PB_IsDangerousFrame_0::default_instance_ = new PB_IsDangerousFrame_0();
+  PB_IsDangerousFrame_0Vector::default_instance_ = new PB_IsDangerousFrame_0Vector();
+  PB_ShouldCollideMatch::default_instance_ = new PB_ShouldCollideMatch();
+  PB_ShouldCollideMatchSet::default_instance_ = new PB_ShouldCollideMatchSet();
+  PB_ShouldCollideFrame_0::default_instance_->InitAsDefaultInstance();
+  PB_ShouldCollideFrame_0Vector::default_instance_->InitAsDefaultInstance();
   PB_IsDangerousMatch::default_instance_->InitAsDefaultInstance();
   PB_IsDangerousMatchSet::default_instance_->InitAsDefaultInstance();
+  PB_IsDangerousFrame_0::default_instance_->InitAsDefaultInstance();
+  PB_IsDangerousFrame_0Vector::default_instance_->InitAsDefaultInstance();
+  PB_ShouldCollideMatch::default_instance_->InitAsDefaultInstance();
+  PB_ShouldCollideMatchSet::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_PB_5fDistributedQueries_2eproto);
 }
 
@@ -178,6 +283,1192 @@ struct StaticDescriptorInitializer_PB_5fDistributedQueries_2eproto {
     protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   }
 } static_descriptor_initializer_PB_5fDistributedQueries_2eproto_;
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PB_ShouldCollideFrame_0::k0FieldNumber;
+const int PB_ShouldCollideFrame_0::k1FieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PB_ShouldCollideFrame_0::PB_ShouldCollideFrame_0()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PB_ShouldCollideFrame_0)
+}
+
+void PB_ShouldCollideFrame_0::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+PB_ShouldCollideFrame_0::PB_ShouldCollideFrame_0(const PB_ShouldCollideFrame_0& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:PB_ShouldCollideFrame_0)
+}
+
+void PB_ShouldCollideFrame_0::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  _0_ = 0;
+  _1_ = 0;
+}
+
+PB_ShouldCollideFrame_0::~PB_ShouldCollideFrame_0() {
+  // @@protoc_insertion_point(destructor:PB_ShouldCollideFrame_0)
+  SharedDtor();
+}
+
+void PB_ShouldCollideFrame_0::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void PB_ShouldCollideFrame_0::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PB_ShouldCollideFrame_0::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PB_ShouldCollideFrame_0_descriptor_;
+}
+
+const PB_ShouldCollideFrame_0& PB_ShouldCollideFrame_0::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  return *default_instance_;
+}
+
+PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0::default_instance_ = NULL;
+
+PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0::New(::google::protobuf::Arena* arena) const {
+  PB_ShouldCollideFrame_0* n = new PB_ShouldCollideFrame_0;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PB_ShouldCollideFrame_0::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_ShouldCollideFrame_0)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(PB_ShouldCollideFrame_0, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<PB_ShouldCollideFrame_0*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(_0_, _1_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool PB_ShouldCollideFrame_0::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PB_ShouldCollideFrame_0)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 _0 = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &_0_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse__1;
+        break;
+      }
+
+      // optional int32 _1 = 2;
+      case 2: {
+        if (tag == 16) {
+         parse__1:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &_1_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PB_ShouldCollideFrame_0)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PB_ShouldCollideFrame_0)
+  return false;
+#undef DO_
+}
+
+void PB_ShouldCollideFrame_0::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PB_ShouldCollideFrame_0)
+  // optional int32 _0 = 1;
+  if (this->_0() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->_0(), output);
+  }
+
+  // optional int32 _1 = 2;
+  if (this->_1() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->_1(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PB_ShouldCollideFrame_0)
+}
+
+::google::protobuf::uint8* PB_ShouldCollideFrame_0::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PB_ShouldCollideFrame_0)
+  // optional int32 _0 = 1;
+  if (this->_0() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->_0(), target);
+  }
+
+  // optional int32 _1 = 2;
+  if (this->_1() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->_1(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PB_ShouldCollideFrame_0)
+  return target;
+}
+
+int PB_ShouldCollideFrame_0::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_ShouldCollideFrame_0)
+  int total_size = 0;
+
+  // optional int32 _0 = 1;
+  if (this->_0() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->_0());
+  }
+
+  // optional int32 _1 = 2;
+  if (this->_1() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->_1());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PB_ShouldCollideFrame_0::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_ShouldCollideFrame_0)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PB_ShouldCollideFrame_0* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_ShouldCollideFrame_0>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_ShouldCollideFrame_0)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_ShouldCollideFrame_0)
+    MergeFrom(*source);
+  }
+}
+
+void PB_ShouldCollideFrame_0::MergeFrom(const PB_ShouldCollideFrame_0& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_ShouldCollideFrame_0)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from._0() != 0) {
+    set__0(from._0());
+  }
+  if (from._1() != 0) {
+    set__1(from._1());
+  }
+}
+
+void PB_ShouldCollideFrame_0::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_ShouldCollideFrame_0)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PB_ShouldCollideFrame_0::CopyFrom(const PB_ShouldCollideFrame_0& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_ShouldCollideFrame_0)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PB_ShouldCollideFrame_0::IsInitialized() const {
+
+  return true;
+}
+
+void PB_ShouldCollideFrame_0::Swap(PB_ShouldCollideFrame_0* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PB_ShouldCollideFrame_0::InternalSwap(PB_ShouldCollideFrame_0* other) {
+  std::swap(_0_, other->_0_);
+  std::swap(_1_, other->_1_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PB_ShouldCollideFrame_0::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PB_ShouldCollideFrame_0_descriptor_;
+  metadata.reflection = PB_ShouldCollideFrame_0_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PB_ShouldCollideFrame_0
+
+// optional int32 _0 = 1;
+void PB_ShouldCollideFrame_0::clear__0() {
+  _0_ = 0;
+}
+ ::google::protobuf::int32 PB_ShouldCollideFrame_0::_0() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0._0)
+  return _0_;
+}
+ void PB_ShouldCollideFrame_0::set__0(::google::protobuf::int32 value) {
+  
+  _0_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideFrame_0._0)
+}
+
+// optional int32 _1 = 2;
+void PB_ShouldCollideFrame_0::clear__1() {
+  _1_ = 0;
+}
+ ::google::protobuf::int32 PB_ShouldCollideFrame_0::_1() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0._1)
+  return _1_;
+}
+ void PB_ShouldCollideFrame_0::set__1(::google::protobuf::int32 value) {
+  
+  _1_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideFrame_0._1)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PB_ShouldCollideFrame_0Vector::kFramesFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PB_ShouldCollideFrame_0Vector::PB_ShouldCollideFrame_0Vector()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PB_ShouldCollideFrame_0Vector)
+}
+
+void PB_ShouldCollideFrame_0Vector::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+PB_ShouldCollideFrame_0Vector::PB_ShouldCollideFrame_0Vector(const PB_ShouldCollideFrame_0Vector& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:PB_ShouldCollideFrame_0Vector)
+}
+
+void PB_ShouldCollideFrame_0Vector::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+PB_ShouldCollideFrame_0Vector::~PB_ShouldCollideFrame_0Vector() {
+  // @@protoc_insertion_point(destructor:PB_ShouldCollideFrame_0Vector)
+  SharedDtor();
+}
+
+void PB_ShouldCollideFrame_0Vector::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void PB_ShouldCollideFrame_0Vector::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PB_ShouldCollideFrame_0Vector::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PB_ShouldCollideFrame_0Vector_descriptor_;
+}
+
+const PB_ShouldCollideFrame_0Vector& PB_ShouldCollideFrame_0Vector::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  return *default_instance_;
+}
+
+PB_ShouldCollideFrame_0Vector* PB_ShouldCollideFrame_0Vector::default_instance_ = NULL;
+
+PB_ShouldCollideFrame_0Vector* PB_ShouldCollideFrame_0Vector::New(::google::protobuf::Arena* arena) const {
+  PB_ShouldCollideFrame_0Vector* n = new PB_ShouldCollideFrame_0Vector;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PB_ShouldCollideFrame_0Vector::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_ShouldCollideFrame_0Vector)
+  frames_.Clear();
+}
+
+bool PB_ShouldCollideFrame_0Vector::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PB_ShouldCollideFrame_0Vector)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .PB_ShouldCollideFrame_0 frames = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_frames:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_frames()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_frames;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PB_ShouldCollideFrame_0Vector)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PB_ShouldCollideFrame_0Vector)
+  return false;
+#undef DO_
+}
+
+void PB_ShouldCollideFrame_0Vector::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PB_ShouldCollideFrame_0Vector)
+  // repeated .PB_ShouldCollideFrame_0 frames = 1;
+  for (unsigned int i = 0, n = this->frames_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->frames(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PB_ShouldCollideFrame_0Vector)
+}
+
+::google::protobuf::uint8* PB_ShouldCollideFrame_0Vector::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PB_ShouldCollideFrame_0Vector)
+  // repeated .PB_ShouldCollideFrame_0 frames = 1;
+  for (unsigned int i = 0, n = this->frames_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, this->frames(i), false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PB_ShouldCollideFrame_0Vector)
+  return target;
+}
+
+int PB_ShouldCollideFrame_0Vector::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_ShouldCollideFrame_0Vector)
+  int total_size = 0;
+
+  // repeated .PB_ShouldCollideFrame_0 frames = 1;
+  total_size += 1 * this->frames_size();
+  for (int i = 0; i < this->frames_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->frames(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PB_ShouldCollideFrame_0Vector::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_ShouldCollideFrame_0Vector)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PB_ShouldCollideFrame_0Vector* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_ShouldCollideFrame_0Vector>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_ShouldCollideFrame_0Vector)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_ShouldCollideFrame_0Vector)
+    MergeFrom(*source);
+  }
+}
+
+void PB_ShouldCollideFrame_0Vector::MergeFrom(const PB_ShouldCollideFrame_0Vector& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_ShouldCollideFrame_0Vector)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  frames_.MergeFrom(from.frames_);
+}
+
+void PB_ShouldCollideFrame_0Vector::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_ShouldCollideFrame_0Vector)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PB_ShouldCollideFrame_0Vector::CopyFrom(const PB_ShouldCollideFrame_0Vector& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_ShouldCollideFrame_0Vector)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PB_ShouldCollideFrame_0Vector::IsInitialized() const {
+
+  return true;
+}
+
+void PB_ShouldCollideFrame_0Vector::Swap(PB_ShouldCollideFrame_0Vector* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PB_ShouldCollideFrame_0Vector::InternalSwap(PB_ShouldCollideFrame_0Vector* other) {
+  frames_.UnsafeArenaSwap(&other->frames_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PB_ShouldCollideFrame_0Vector::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PB_ShouldCollideFrame_0Vector_descriptor_;
+  metadata.reflection = PB_ShouldCollideFrame_0Vector_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PB_ShouldCollideFrame_0Vector
+
+// repeated .PB_ShouldCollideFrame_0 frames = 1;
+int PB_ShouldCollideFrame_0Vector::frames_size() const {
+  return frames_.size();
+}
+void PB_ShouldCollideFrame_0Vector::clear_frames() {
+  frames_.Clear();
+}
+const ::PB_ShouldCollideFrame_0& PB_ShouldCollideFrame_0Vector::frames(int index) const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Get(index);
+}
+::PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0Vector::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Mutable(index);
+}
+::PB_ShouldCollideFrame_0* PB_ShouldCollideFrame_0Vector::add_frames() {
+  // @@protoc_insertion_point(field_add:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >*
+PB_ShouldCollideFrame_0Vector::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:PB_ShouldCollideFrame_0Vector.frames)
+  return &frames_;
+}
+const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideFrame_0 >&
+PB_ShouldCollideFrame_0Vector::frames() const {
+  // @@protoc_insertion_point(field_list:PB_ShouldCollideFrame_0Vector.frames)
+  return frames_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PB_IsDangerousMatch::kSegmentFieldNumber;
+const int PB_IsDangerousMatch::kTurnoutFieldNumber;
+const int PB_IsDangerousMatch::kTrainFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PB_IsDangerousMatch::PB_IsDangerousMatch()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PB_IsDangerousMatch)
+}
+
+void PB_IsDangerousMatch::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+PB_IsDangerousMatch::PB_IsDangerousMatch(const PB_IsDangerousMatch& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:PB_IsDangerousMatch)
+}
+
+void PB_IsDangerousMatch::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  segment_ = 0;
+  turnout_ = 0;
+  train_ = 0;
+}
+
+PB_IsDangerousMatch::~PB_IsDangerousMatch() {
+  // @@protoc_insertion_point(destructor:PB_IsDangerousMatch)
+  SharedDtor();
+}
+
+void PB_IsDangerousMatch::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void PB_IsDangerousMatch::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PB_IsDangerousMatch::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PB_IsDangerousMatch_descriptor_;
+}
+
+const PB_IsDangerousMatch& PB_IsDangerousMatch::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  return *default_instance_;
+}
+
+PB_IsDangerousMatch* PB_IsDangerousMatch::default_instance_ = NULL;
+
+PB_IsDangerousMatch* PB_IsDangerousMatch::New(::google::protobuf::Arena* arena) const {
+  PB_IsDangerousMatch* n = new PB_IsDangerousMatch;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PB_IsDangerousMatch::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_IsDangerousMatch)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(PB_IsDangerousMatch, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<PB_IsDangerousMatch*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(segment_, train_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool PB_IsDangerousMatch::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PB_IsDangerousMatch)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 segment = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &segment_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_turnout;
+        break;
+      }
+
+      // optional int32 turnout = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_turnout:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &turnout_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_train;
+        break;
+      }
+
+      // optional int32 train = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_train:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &train_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PB_IsDangerousMatch)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PB_IsDangerousMatch)
+  return false;
+#undef DO_
+}
+
+void PB_IsDangerousMatch::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PB_IsDangerousMatch)
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->segment(), output);
+  }
+
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->turnout(), output);
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->train(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PB_IsDangerousMatch)
+}
+
+::google::protobuf::uint8* PB_IsDangerousMatch::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PB_IsDangerousMatch)
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->segment(), target);
+  }
+
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->turnout(), target);
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->train(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousMatch)
+  return target;
+}
+
+int PB_IsDangerousMatch::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_IsDangerousMatch)
+  int total_size = 0;
+
+  // optional int32 segment = 1;
+  if (this->segment() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->segment());
+  }
+
+  // optional int32 turnout = 2;
+  if (this->turnout() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->turnout());
+  }
+
+  // optional int32 train = 3;
+  if (this->train() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->train());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PB_IsDangerousMatch::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_IsDangerousMatch)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PB_IsDangerousMatch* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_IsDangerousMatch>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_IsDangerousMatch)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_IsDangerousMatch)
+    MergeFrom(*source);
+  }
+}
+
+void PB_IsDangerousMatch::MergeFrom(const PB_IsDangerousMatch& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_IsDangerousMatch)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.segment() != 0) {
+    set_segment(from.segment());
+  }
+  if (from.turnout() != 0) {
+    set_turnout(from.turnout());
+  }
+  if (from.train() != 0) {
+    set_train(from.train());
+  }
+}
+
+void PB_IsDangerousMatch::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_IsDangerousMatch)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PB_IsDangerousMatch::CopyFrom(const PB_IsDangerousMatch& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_IsDangerousMatch)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PB_IsDangerousMatch::IsInitialized() const {
+
+  return true;
+}
+
+void PB_IsDangerousMatch::Swap(PB_IsDangerousMatch* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PB_IsDangerousMatch::InternalSwap(PB_IsDangerousMatch* other) {
+  std::swap(segment_, other->segment_);
+  std::swap(turnout_, other->turnout_);
+  std::swap(train_, other->train_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PB_IsDangerousMatch::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PB_IsDangerousMatch_descriptor_;
+  metadata.reflection = PB_IsDangerousMatch_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PB_IsDangerousMatch
+
+// optional int32 segment = 1;
+void PB_IsDangerousMatch::clear_segment() {
+  segment_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
+  return segment_;
+}
+ void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
+  
+  segment_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
+}
+
+// optional int32 turnout = 2;
+void PB_IsDangerousMatch::clear_turnout() {
+  turnout_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
+  return turnout_;
+}
+ void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
+  
+  turnout_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+}
+
+// optional int32 train = 3;
+void PB_IsDangerousMatch::clear_train() {
+  train_ = 0;
+}
+ ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
+  return train_;
+}
+ void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+  
+  train_ = value;
+  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PB_IsDangerousMatchSet::kMatchesFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PB_IsDangerousMatchSet::PB_IsDangerousMatchSet()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PB_IsDangerousMatchSet)
+}
+
+void PB_IsDangerousMatchSet::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+PB_IsDangerousMatchSet::PB_IsDangerousMatchSet(const PB_IsDangerousMatchSet& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:PB_IsDangerousMatchSet)
+}
+
+void PB_IsDangerousMatchSet::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+PB_IsDangerousMatchSet::~PB_IsDangerousMatchSet() {
+  // @@protoc_insertion_point(destructor:PB_IsDangerousMatchSet)
+  SharedDtor();
+}
+
+void PB_IsDangerousMatchSet::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void PB_IsDangerousMatchSet::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PB_IsDangerousMatchSet::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PB_IsDangerousMatchSet_descriptor_;
+}
+
+const PB_IsDangerousMatchSet& PB_IsDangerousMatchSet::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
+  return *default_instance_;
+}
+
+PB_IsDangerousMatchSet* PB_IsDangerousMatchSet::default_instance_ = NULL;
+
+PB_IsDangerousMatchSet* PB_IsDangerousMatchSet::New(::google::protobuf::Arena* arena) const {
+  PB_IsDangerousMatchSet* n = new PB_IsDangerousMatchSet;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PB_IsDangerousMatchSet::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_IsDangerousMatchSet)
+  matches_.Clear();
+}
+
+bool PB_IsDangerousMatchSet::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PB_IsDangerousMatchSet)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .PB_IsDangerousMatch matches = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_matches:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_matches()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_matches;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PB_IsDangerousMatchSet)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PB_IsDangerousMatchSet)
+  return false;
+#undef DO_
+}
+
+void PB_IsDangerousMatchSet::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PB_IsDangerousMatchSet)
+  // repeated .PB_IsDangerousMatch matches = 1;
+  for (unsigned int i = 0, n = this->matches_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->matches(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PB_IsDangerousMatchSet)
+}
+
+::google::protobuf::uint8* PB_IsDangerousMatchSet::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PB_IsDangerousMatchSet)
+  // repeated .PB_IsDangerousMatch matches = 1;
+  for (unsigned int i = 0, n = this->matches_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, this->matches(i), false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousMatchSet)
+  return target;
+}
+
+int PB_IsDangerousMatchSet::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_IsDangerousMatchSet)
+  int total_size = 0;
+
+  // repeated .PB_IsDangerousMatch matches = 1;
+  total_size += 1 * this->matches_size();
+  for (int i = 0; i < this->matches_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->matches(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PB_IsDangerousMatchSet::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_IsDangerousMatchSet)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PB_IsDangerousMatchSet* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_IsDangerousMatchSet>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_IsDangerousMatchSet)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_IsDangerousMatchSet)
+    MergeFrom(*source);
+  }
+}
+
+void PB_IsDangerousMatchSet::MergeFrom(const PB_IsDangerousMatchSet& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_IsDangerousMatchSet)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  matches_.MergeFrom(from.matches_);
+}
+
+void PB_IsDangerousMatchSet::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_IsDangerousMatchSet)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PB_IsDangerousMatchSet::CopyFrom(const PB_IsDangerousMatchSet& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_IsDangerousMatchSet)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PB_IsDangerousMatchSet::IsInitialized() const {
+
+  return true;
+}
+
+void PB_IsDangerousMatchSet::Swap(PB_IsDangerousMatchSet* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PB_IsDangerousMatchSet::InternalSwap(PB_IsDangerousMatchSet* other) {
+  matches_.UnsafeArenaSwap(&other->matches_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PB_IsDangerousMatchSet::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PB_IsDangerousMatchSet_descriptor_;
+  metadata.reflection = PB_IsDangerousMatchSet_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PB_IsDangerousMatchSet
+
+// repeated .PB_IsDangerousMatch matches = 1;
+int PB_IsDangerousMatchSet::matches_size() const {
+  return matches_.size();
+}
+void PB_IsDangerousMatchSet::clear_matches() {
+  matches_.Clear();
+}
+const ::PB_IsDangerousMatch& PB_IsDangerousMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_IsDangerousMatchSet.matches)
+  return matches_.Get(index);
+}
+::PB_IsDangerousMatch* PB_IsDangerousMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_IsDangerousMatchSet.matches)
+  return matches_.Mutable(index);
+}
+::PB_IsDangerousMatch* PB_IsDangerousMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_IsDangerousMatchSet.matches)
+  return matches_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
+PB_IsDangerousMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_IsDangerousMatchSet.matches)
+  return &matches_;
+}
+const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
+PB_IsDangerousMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_IsDangerousMatchSet.matches)
+  return matches_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -853,83 +2144,81 @@ PB_IsDangerousFrame_0Vector::frames() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PB_IsDangerousMatch::kSegmentFieldNumber;
-const int PB_IsDangerousMatch::kTurnoutFieldNumber;
-const int PB_IsDangerousMatch::kTrainFieldNumber;
+const int PB_ShouldCollideMatch::kRpFieldNumber;
+const int PB_ShouldCollideMatch::kTrFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-PB_IsDangerousMatch::PB_IsDangerousMatch()
+PB_ShouldCollideMatch::PB_ShouldCollideMatch()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(constructor:PB_ShouldCollideMatch)
 }
 
-void PB_IsDangerousMatch::InitAsDefaultInstance() {
+void PB_ShouldCollideMatch::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
 
-PB_IsDangerousMatch::PB_IsDangerousMatch(const PB_IsDangerousMatch& from)
+PB_ShouldCollideMatch::PB_ShouldCollideMatch(const PB_ShouldCollideMatch& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(copy_constructor:PB_ShouldCollideMatch)
 }
 
-void PB_IsDangerousMatch::SharedCtor() {
+void PB_ShouldCollideMatch::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
-  segment_ = 0;
-  turnout_ = 0;
-  train_ = 0;
+  rp_ = 0;
+  tr_ = 0;
 }
 
-PB_IsDangerousMatch::~PB_IsDangerousMatch() {
-  // @@protoc_insertion_point(destructor:PB_IsDangerousMatch)
+PB_ShouldCollideMatch::~PB_ShouldCollideMatch() {
+  // @@protoc_insertion_point(destructor:PB_ShouldCollideMatch)
   SharedDtor();
 }
 
-void PB_IsDangerousMatch::SharedDtor() {
+void PB_ShouldCollideMatch::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void PB_IsDangerousMatch::SetCachedSize(int size) const {
+void PB_ShouldCollideMatch::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* PB_IsDangerousMatch::descriptor() {
+const ::google::protobuf::Descriptor* PB_ShouldCollideMatch::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return PB_IsDangerousMatch_descriptor_;
+  return PB_ShouldCollideMatch_descriptor_;
 }
 
-const PB_IsDangerousMatch& PB_IsDangerousMatch::default_instance() {
+const PB_ShouldCollideMatch& PB_ShouldCollideMatch::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   return *default_instance_;
 }
 
-PB_IsDangerousMatch* PB_IsDangerousMatch::default_instance_ = NULL;
+PB_ShouldCollideMatch* PB_ShouldCollideMatch::default_instance_ = NULL;
 
-PB_IsDangerousMatch* PB_IsDangerousMatch::New(::google::protobuf::Arena* arena) const {
-  PB_IsDangerousMatch* n = new PB_IsDangerousMatch;
+PB_ShouldCollideMatch* PB_ShouldCollideMatch::New(::google::protobuf::Arena* arena) const {
+  PB_ShouldCollideMatch* n = new PB_ShouldCollideMatch;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void PB_IsDangerousMatch::Clear() {
-// @@protoc_insertion_point(message_clear_start:PB_IsDangerousMatch)
+void PB_ShouldCollideMatch::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_ShouldCollideMatch)
 #if defined(__clang__)
 #define ZR_HELPER_(f) \
   _Pragma("clang diagnostic push") \
   _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(PB_IsDangerousMatch, f) \
+  __builtin_offsetof(PB_ShouldCollideMatch, f) \
   _Pragma("clang diagnostic pop")
 #else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<PB_IsDangerousMatch*>(16)->f)
+  &reinterpret_cast<PB_ShouldCollideMatch*>(16)->f)
 #endif
 
 #define ZR_(first, last) do {\
@@ -937,59 +2226,44 @@ void PB_IsDangerousMatch::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(segment_, train_);
+  ZR_(rp_, tr_);
 
 #undef ZR_HELPER_
 #undef ZR_
 
 }
 
-bool PB_IsDangerousMatch::MergePartialFromCodedStream(
+bool PB_ShouldCollideMatch::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(parse_start:PB_ShouldCollideMatch)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 segment = 1;
+      // optional int32 rp = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &segment_)));
+                 input, &rp_)));
 
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_turnout;
+        if (input->ExpectTag(16)) goto parse_tr;
         break;
       }
 
-      // optional int32 turnout = 2;
+      // optional int32 tr = 2;
       case 2: {
         if (tag == 16) {
-         parse_turnout:
+         parse_tr:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &turnout_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_train;
-        break;
-      }
-
-      // optional int32 train = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_train:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &train_)));
+                 input, &tr_)));
 
         } else {
           goto handle_unusual;
@@ -1011,80 +2285,63 @@ bool PB_IsDangerousMatch::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(parse_success:PB_ShouldCollideMatch)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(parse_failure:PB_ShouldCollideMatch)
   return false;
 #undef DO_
 }
 
-void PB_IsDangerousMatch::SerializeWithCachedSizes(
+void PB_ShouldCollideMatch::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PB_IsDangerousMatch)
-  // optional int32 segment = 1;
-  if (this->segment() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->segment(), output);
+  // @@protoc_insertion_point(serialize_start:PB_ShouldCollideMatch)
+  // optional int32 rp = 1;
+  if (this->rp() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->rp(), output);
   }
 
-  // optional int32 turnout = 2;
-  if (this->turnout() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->turnout(), output);
+  // optional int32 tr = 2;
+  if (this->tr() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->tr(), output);
   }
 
-  // optional int32 train = 3;
-  if (this->train() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->train(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(serialize_end:PB_ShouldCollideMatch)
 }
 
-::google::protobuf::uint8* PB_IsDangerousMatch::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* PB_ShouldCollideMatch::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:PB_IsDangerousMatch)
-  // optional int32 segment = 1;
-  if (this->segment() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->segment(), target);
+  // @@protoc_insertion_point(serialize_to_array_start:PB_ShouldCollideMatch)
+  // optional int32 rp = 1;
+  if (this->rp() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->rp(), target);
   }
 
-  // optional int32 turnout = 2;
-  if (this->turnout() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->turnout(), target);
+  // optional int32 tr = 2;
+  if (this->tr() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->tr(), target);
   }
 
-  // optional int32 train = 3;
-  if (this->train() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->train(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(serialize_to_array_end:PB_ShouldCollideMatch)
   return target;
 }
 
-int PB_IsDangerousMatch::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:PB_IsDangerousMatch)
+int PB_ShouldCollideMatch::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_ShouldCollideMatch)
   int total_size = 0;
 
-  // optional int32 segment = 1;
-  if (this->segment() != 0) {
+  // optional int32 rp = 1;
+  if (this->rp() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->segment());
+        this->rp());
   }
 
-  // optional int32 turnout = 2;
-  if (this->turnout() != 0) {
+  // optional int32 tr = 2;
+  if (this->tr() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->turnout());
-  }
-
-  // optional int32 train = 3;
-  if (this->train() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->train());
+        this->tr());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1093,121 +2350,103 @@ int PB_IsDangerousMatch::ByteSize() const {
   return total_size;
 }
 
-void PB_IsDangerousMatch::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:PB_IsDangerousMatch)
+void PB_ShouldCollideMatch::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_ShouldCollideMatch)
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
-  const PB_IsDangerousMatch* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const PB_IsDangerousMatch>(
+  const PB_ShouldCollideMatch* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_ShouldCollideMatch>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_ShouldCollideMatch)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_IsDangerousMatch)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_ShouldCollideMatch)
     MergeFrom(*source);
   }
 }
 
-void PB_IsDangerousMatch::MergeFrom(const PB_IsDangerousMatch& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PB_IsDangerousMatch)
+void PB_ShouldCollideMatch::MergeFrom(const PB_ShouldCollideMatch& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_ShouldCollideMatch)
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
-  if (from.segment() != 0) {
-    set_segment(from.segment());
+  if (from.rp() != 0) {
+    set_rp(from.rp());
   }
-  if (from.turnout() != 0) {
-    set_turnout(from.turnout());
-  }
-  if (from.train() != 0) {
-    set_train(from.train());
+  if (from.tr() != 0) {
+    set_tr(from.tr());
   }
 }
 
-void PB_IsDangerousMatch::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:PB_IsDangerousMatch)
+void PB_ShouldCollideMatch::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_ShouldCollideMatch)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void PB_IsDangerousMatch::CopyFrom(const PB_IsDangerousMatch& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:PB_IsDangerousMatch)
+void PB_ShouldCollideMatch::CopyFrom(const PB_ShouldCollideMatch& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_ShouldCollideMatch)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PB_IsDangerousMatch::IsInitialized() const {
+bool PB_ShouldCollideMatch::IsInitialized() const {
 
   return true;
 }
 
-void PB_IsDangerousMatch::Swap(PB_IsDangerousMatch* other) {
+void PB_ShouldCollideMatch::Swap(PB_ShouldCollideMatch* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void PB_IsDangerousMatch::InternalSwap(PB_IsDangerousMatch* other) {
-  std::swap(segment_, other->segment_);
-  std::swap(turnout_, other->turnout_);
-  std::swap(train_, other->train_);
+void PB_ShouldCollideMatch::InternalSwap(PB_ShouldCollideMatch* other) {
+  std::swap(rp_, other->rp_);
+  std::swap(tr_, other->tr_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata PB_IsDangerousMatch::GetMetadata() const {
+::google::protobuf::Metadata PB_ShouldCollideMatch::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = PB_IsDangerousMatch_descriptor_;
-  metadata.reflection = PB_IsDangerousMatch_reflection_;
+  metadata.descriptor = PB_ShouldCollideMatch_descriptor_;
+  metadata.reflection = PB_ShouldCollideMatch_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// PB_IsDangerousMatch
+// PB_ShouldCollideMatch
 
-// optional int32 segment = 1;
-void PB_IsDangerousMatch::clear_segment() {
-  segment_ = 0;
+// optional int32 rp = 1;
+void PB_ShouldCollideMatch::clear_rp() {
+  rp_ = 0;
 }
- ::google::protobuf::int32 PB_IsDangerousMatch::segment() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.segment)
-  return segment_;
+ ::google::protobuf::int32 PB_ShouldCollideMatch::rp() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatch.rp)
+  return rp_;
 }
- void PB_IsDangerousMatch::set_segment(::google::protobuf::int32 value) {
+ void PB_ShouldCollideMatch::set_rp(::google::protobuf::int32 value) {
   
-  segment_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.segment)
-}
-
-// optional int32 turnout = 2;
-void PB_IsDangerousMatch::clear_turnout() {
-  turnout_ = 0;
-}
- ::google::protobuf::int32 PB_IsDangerousMatch::turnout() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.turnout)
-  return turnout_;
-}
- void PB_IsDangerousMatch::set_turnout(::google::protobuf::int32 value) {
-  
-  turnout_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.turnout)
+  rp_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideMatch.rp)
 }
 
-// optional int32 train = 3;
-void PB_IsDangerousMatch::clear_train() {
-  train_ = 0;
+// optional int32 tr = 2;
+void PB_ShouldCollideMatch::clear_tr() {
+  tr_ = 0;
 }
- ::google::protobuf::int32 PB_IsDangerousMatch::train() const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatch.train)
-  return train_;
+ ::google::protobuf::int32 PB_ShouldCollideMatch::tr() const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatch.tr)
+  return tr_;
 }
- void PB_IsDangerousMatch::set_train(::google::protobuf::int32 value) {
+ void PB_ShouldCollideMatch::set_tr(::google::protobuf::int32 value) {
   
-  train_ = value;
-  // @@protoc_insertion_point(field_set:PB_IsDangerousMatch.train)
+  tr_ = value;
+  // @@protoc_insertion_point(field_set:PB_ShouldCollideMatch.tr)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1215,83 +2454,83 @@ void PB_IsDangerousMatch::clear_train() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PB_IsDangerousMatchSet::kMatchesFieldNumber;
+const int PB_ShouldCollideMatchSet::kMatchesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-PB_IsDangerousMatchSet::PB_IsDangerousMatchSet()
+PB_ShouldCollideMatchSet::PB_ShouldCollideMatchSet()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(constructor:PB_ShouldCollideMatchSet)
 }
 
-void PB_IsDangerousMatchSet::InitAsDefaultInstance() {
+void PB_ShouldCollideMatchSet::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
 
-PB_IsDangerousMatchSet::PB_IsDangerousMatchSet(const PB_IsDangerousMatchSet& from)
+PB_ShouldCollideMatchSet::PB_ShouldCollideMatchSet(const PB_ShouldCollideMatchSet& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(copy_constructor:PB_ShouldCollideMatchSet)
 }
 
-void PB_IsDangerousMatchSet::SharedCtor() {
+void PB_ShouldCollideMatchSet::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
-PB_IsDangerousMatchSet::~PB_IsDangerousMatchSet() {
-  // @@protoc_insertion_point(destructor:PB_IsDangerousMatchSet)
+PB_ShouldCollideMatchSet::~PB_ShouldCollideMatchSet() {
+  // @@protoc_insertion_point(destructor:PB_ShouldCollideMatchSet)
   SharedDtor();
 }
 
-void PB_IsDangerousMatchSet::SharedDtor() {
+void PB_ShouldCollideMatchSet::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void PB_IsDangerousMatchSet::SetCachedSize(int size) const {
+void PB_ShouldCollideMatchSet::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* PB_IsDangerousMatchSet::descriptor() {
+const ::google::protobuf::Descriptor* PB_ShouldCollideMatchSet::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return PB_IsDangerousMatchSet_descriptor_;
+  return PB_ShouldCollideMatchSet_descriptor_;
 }
 
-const PB_IsDangerousMatchSet& PB_IsDangerousMatchSet::default_instance() {
+const PB_ShouldCollideMatchSet& PB_ShouldCollideMatchSet::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_PB_5fDistributedQueries_2eproto();
   return *default_instance_;
 }
 
-PB_IsDangerousMatchSet* PB_IsDangerousMatchSet::default_instance_ = NULL;
+PB_ShouldCollideMatchSet* PB_ShouldCollideMatchSet::default_instance_ = NULL;
 
-PB_IsDangerousMatchSet* PB_IsDangerousMatchSet::New(::google::protobuf::Arena* arena) const {
-  PB_IsDangerousMatchSet* n = new PB_IsDangerousMatchSet;
+PB_ShouldCollideMatchSet* PB_ShouldCollideMatchSet::New(::google::protobuf::Arena* arena) const {
+  PB_ShouldCollideMatchSet* n = new PB_ShouldCollideMatchSet;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void PB_IsDangerousMatchSet::Clear() {
-// @@protoc_insertion_point(message_clear_start:PB_IsDangerousMatchSet)
+void PB_ShouldCollideMatchSet::Clear() {
+// @@protoc_insertion_point(message_clear_start:PB_ShouldCollideMatchSet)
   matches_.Clear();
 }
 
-bool PB_IsDangerousMatchSet::MergePartialFromCodedStream(
+bool PB_ShouldCollideMatchSet::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(parse_start:PB_ShouldCollideMatchSet)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .PB_IsDangerousMatch matches = 1;
+      // repeated .PB_ShouldCollideMatch matches = 1;
       case 1: {
         if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
@@ -1320,45 +2559,45 @@ bool PB_IsDangerousMatchSet::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(parse_success:PB_ShouldCollideMatchSet)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(parse_failure:PB_ShouldCollideMatchSet)
   return false;
 #undef DO_
 }
 
-void PB_IsDangerousMatchSet::SerializeWithCachedSizes(
+void PB_ShouldCollideMatchSet::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PB_IsDangerousMatchSet)
-  // repeated .PB_IsDangerousMatch matches = 1;
+  // @@protoc_insertion_point(serialize_start:PB_ShouldCollideMatchSet)
+  // repeated .PB_ShouldCollideMatch matches = 1;
   for (unsigned int i = 0, n = this->matches_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->matches(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(serialize_end:PB_ShouldCollideMatchSet)
 }
 
-::google::protobuf::uint8* PB_IsDangerousMatchSet::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* PB_ShouldCollideMatchSet::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:PB_IsDangerousMatchSet)
-  // repeated .PB_IsDangerousMatch matches = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:PB_ShouldCollideMatchSet)
+  // repeated .PB_ShouldCollideMatch matches = 1;
   for (unsigned int i = 0, n = this->matches_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         1, this->matches(i), false, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(serialize_to_array_end:PB_ShouldCollideMatchSet)
   return target;
 }
 
-int PB_IsDangerousMatchSet::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:PB_IsDangerousMatchSet)
+int PB_ShouldCollideMatchSet::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:PB_ShouldCollideMatchSet)
   int total_size = 0;
 
-  // repeated .PB_IsDangerousMatch matches = 1;
+  // repeated .PB_ShouldCollideMatch matches = 1;
   total_size += 1 * this->matches_size();
   for (int i = 0; i < this->matches_size(); i++) {
     total_size +=
@@ -1372,98 +2611,98 @@ int PB_IsDangerousMatchSet::ByteSize() const {
   return total_size;
 }
 
-void PB_IsDangerousMatchSet::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:PB_IsDangerousMatchSet)
+void PB_ShouldCollideMatchSet::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PB_ShouldCollideMatchSet)
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
-  const PB_IsDangerousMatchSet* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const PB_IsDangerousMatchSet>(
+  const PB_ShouldCollideMatchSet* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PB_ShouldCollideMatchSet>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PB_ShouldCollideMatchSet)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_IsDangerousMatchSet)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PB_ShouldCollideMatchSet)
     MergeFrom(*source);
   }
 }
 
-void PB_IsDangerousMatchSet::MergeFrom(const PB_IsDangerousMatchSet& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PB_IsDangerousMatchSet)
+void PB_ShouldCollideMatchSet::MergeFrom(const PB_ShouldCollideMatchSet& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PB_ShouldCollideMatchSet)
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   matches_.MergeFrom(from.matches_);
 }
 
-void PB_IsDangerousMatchSet::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:PB_IsDangerousMatchSet)
+void PB_ShouldCollideMatchSet::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PB_ShouldCollideMatchSet)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void PB_IsDangerousMatchSet::CopyFrom(const PB_IsDangerousMatchSet& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:PB_IsDangerousMatchSet)
+void PB_ShouldCollideMatchSet::CopyFrom(const PB_ShouldCollideMatchSet& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PB_ShouldCollideMatchSet)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PB_IsDangerousMatchSet::IsInitialized() const {
+bool PB_ShouldCollideMatchSet::IsInitialized() const {
 
   return true;
 }
 
-void PB_IsDangerousMatchSet::Swap(PB_IsDangerousMatchSet* other) {
+void PB_ShouldCollideMatchSet::Swap(PB_ShouldCollideMatchSet* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void PB_IsDangerousMatchSet::InternalSwap(PB_IsDangerousMatchSet* other) {
+void PB_ShouldCollideMatchSet::InternalSwap(PB_ShouldCollideMatchSet* other) {
   matches_.UnsafeArenaSwap(&other->matches_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata PB_IsDangerousMatchSet::GetMetadata() const {
+::google::protobuf::Metadata PB_ShouldCollideMatchSet::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = PB_IsDangerousMatchSet_descriptor_;
-  metadata.reflection = PB_IsDangerousMatchSet_reflection_;
+  metadata.descriptor = PB_ShouldCollideMatchSet_descriptor_;
+  metadata.reflection = PB_ShouldCollideMatchSet_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// PB_IsDangerousMatchSet
+// PB_ShouldCollideMatchSet
 
-// repeated .PB_IsDangerousMatch matches = 1;
-int PB_IsDangerousMatchSet::matches_size() const {
+// repeated .PB_ShouldCollideMatch matches = 1;
+int PB_ShouldCollideMatchSet::matches_size() const {
   return matches_.size();
 }
-void PB_IsDangerousMatchSet::clear_matches() {
+void PB_ShouldCollideMatchSet::clear_matches() {
   matches_.Clear();
 }
-const ::PB_IsDangerousMatch& PB_IsDangerousMatchSet::matches(int index) const {
-  // @@protoc_insertion_point(field_get:PB_IsDangerousMatchSet.matches)
+const ::PB_ShouldCollideMatch& PB_ShouldCollideMatchSet::matches(int index) const {
+  // @@protoc_insertion_point(field_get:PB_ShouldCollideMatchSet.matches)
   return matches_.Get(index);
 }
-::PB_IsDangerousMatch* PB_IsDangerousMatchSet::mutable_matches(int index) {
-  // @@protoc_insertion_point(field_mutable:PB_IsDangerousMatchSet.matches)
+::PB_ShouldCollideMatch* PB_ShouldCollideMatchSet::mutable_matches(int index) {
+  // @@protoc_insertion_point(field_mutable:PB_ShouldCollideMatchSet.matches)
   return matches_.Mutable(index);
 }
-::PB_IsDangerousMatch* PB_IsDangerousMatchSet::add_matches() {
-  // @@protoc_insertion_point(field_add:PB_IsDangerousMatchSet.matches)
+::PB_ShouldCollideMatch* PB_ShouldCollideMatchSet::add_matches() {
+  // @@protoc_insertion_point(field_add:PB_ShouldCollideMatchSet.matches)
   return matches_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >*
-PB_IsDangerousMatchSet::mutable_matches() {
-  // @@protoc_insertion_point(field_mutable_list:PB_IsDangerousMatchSet.matches)
+::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >*
+PB_ShouldCollideMatchSet::mutable_matches() {
+  // @@protoc_insertion_point(field_mutable_list:PB_ShouldCollideMatchSet.matches)
   return &matches_;
 }
-const ::google::protobuf::RepeatedPtrField< ::PB_IsDangerousMatch >&
-PB_IsDangerousMatchSet::matches() const {
-  // @@protoc_insertion_point(field_list:PB_IsDangerousMatchSet.matches)
+const ::google::protobuf::RepeatedPtrField< ::PB_ShouldCollideMatch >&
+PB_ShouldCollideMatchSet::matches() const {
+  // @@protoc_insertion_point(field_list:PB_ShouldCollideMatchSet.matches)
   return matches_;
 }
 
