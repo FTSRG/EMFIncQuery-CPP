@@ -35,6 +35,8 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
 import org.eclipse.viatra.query.tooling.cpp.localsearch.util.generators.CppHelper
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.EvalExpressionDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.ExpressionDescriptor
 
 /**
  * @author Robert Doczi
@@ -86,6 +88,18 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 					«operation.compiler.compileLambdaInner»	
 				},
 				«operation.variables.map[toGetter].join(", ")»
+			)
+		''';
+	}
+	 
+	private dispatch def compileOperation(EvalExpressionDescriptor operation, StringBuilder setupCode){
+		return '''
+			create_«EvalExpressionDescriptor::NAME»<«frameGenerator.frameName»>(
+				[](«operation.variables.map[toForwardDef(operation)].join(", ")»){
+					«operation.compiler.compileLambdaInner»	
+				},
+				«operation.outputVariable.toGetter»		// Output variable
+				«operation.variables.map[''', «it.toGetter»'''].join("")»
 			)
 		''';
 	} 
@@ -166,7 +180,7 @@ class RuntimeSearchOperationGenerator extends BaseGenerator {
 		'''&«frameGenerator.frameName»::«frameGenerator.getVariableName(variable)»'''
 	}
 	
-	private def toForwardDef(PVariable variable, CheckExpressionDescriptor operation) {
+	private def toForwardDef(PVariable variable, ExpressionDescriptor operation) {
 		val typeMap = operation.types
 		val type = typeMap.get(variable);
 		var typeStr = type.toCppName;

@@ -26,6 +26,7 @@ public:
 					Viatra::Query::Distributed::QueryRunner<RootedIsDangerous<ModelRoot>>
 				>(sessionID, modelRoot, service, queryID);
 			case 3:
+			case 4:
 				return std::make_unique<
 					Viatra::Query::Distributed::QueryRunner<RootedCheckingHell<ModelRoot>>
 				>(sessionID, modelRoot, service, queryID);

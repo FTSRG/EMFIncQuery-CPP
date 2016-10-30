@@ -338,6 +338,13 @@ class POperationCompiler {
 		val resultVar = constraint.resultVariable
 		acceptor.acceptPatternMatchCounterExtend(constraint.referredQuery, adornment, boundParams, resultVar)
 	}
+	
+	def dispatch createExtend(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
+		val variables = constraint.getAffectedVariables();
+		val compiler = new XBaseExpressionCompiler(constraint);
+		
+		acceptor.acceptEvalExpression(constraint.outputVariable, variables, compiler);
+	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop

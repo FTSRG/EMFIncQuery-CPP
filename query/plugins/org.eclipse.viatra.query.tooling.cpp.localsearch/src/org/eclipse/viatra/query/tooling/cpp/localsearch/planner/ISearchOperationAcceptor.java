@@ -19,6 +19,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint;
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PQuery;
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.XBaseExpressionCompiler;
 
 /**
  * @author Robert Doczi
@@ -32,6 +33,8 @@ public interface ISearchOperationAcceptor {
 	public void acceptConstantValueCheck(PVariable variable, Object valueStr);
 	public void acceptInequalityCheck(PVariable who, PVariable withWhom);
 	public void acceptCheckExpression(Set<PVariable> variables, XBaseExpressionCompiler exprCompiler);
+	public void acceptEvalExpression(PVariable outputVariable, Set<PVariable> variables, XBaseExpressionCompiler compiler);
+
 	public void acceptConstantValueExtend(PVariable variable, Object valueStr);
 	public void acceptIterateOverClassInstances(PVariable location, IInputKey inputKey);
 	public void acceptExtendToAssociationSource(PVariable sourceVariable, PVariable targetVariable, IInputKey inputKey);
@@ -40,4 +43,5 @@ public interface ISearchOperationAcceptor {
 	public void acceptBinaryTransitiveClosureOperation(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable source, PVariable target, CharSequence matchMemberName);
 	public void acceptPatternMatchCounterCheck(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable resultVariable);
 	public void acceptPatternMatchCounterExtend(PQuery calledPQuery, Set<PVariable> boundVariables, Set<PParameter> boundParameters, PVariable resultVariable);
+
 }

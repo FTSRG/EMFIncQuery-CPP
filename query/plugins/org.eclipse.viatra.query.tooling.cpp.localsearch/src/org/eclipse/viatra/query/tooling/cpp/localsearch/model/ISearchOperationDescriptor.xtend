@@ -55,14 +55,6 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 }
 
-@Data class ExpressionDescriptor extends AbstractSearchOperationDescriptor {
-
-	val Set<PVariable> variables
-
-	val CharSequence expression
-
-}
-
 @Data class CheckInstanceOfDescriptor extends InstanceOfDescriptor {
 
 	public static val String NAME = "InstanceOfCheck"
@@ -87,11 +79,21 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val PVariable withWhom
 }
 
-@Data class CheckExpressionDescriptor extends AbstractSearchOperationDescriptor{
-	public static val String NAME = "CheckExpression"
+
+
+@Data class ExpressionDescriptor extends AbstractSearchOperationDescriptor{
 	val Set<PVariable> variables
 	val Map<PVariable, EClassifier> types 
 	val XBaseExpressionCompiler compiler
+}
+
+@Data class CheckExpressionDescriptor extends ExpressionDescriptor{
+	public static val String NAME = "CheckExpression"
+
+}
+@Data class EvalExpressionDescriptor extends ExpressionDescriptor{
+	public static val String NAME = "EvalExpression"
+	val PVariable outputVariable
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {

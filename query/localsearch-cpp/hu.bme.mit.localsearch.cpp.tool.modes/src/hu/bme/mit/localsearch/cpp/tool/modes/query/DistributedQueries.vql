@@ -15,6 +15,7 @@ pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
 	Turnout.currentState(turnout, fro);
 }
 
+@Bind(parameters={a, b, d, s})
 pattern checkingHell(a:EInt, b:EInt, d:EDouble, s:EString){
 	EInt(x);
 	EInt(y);

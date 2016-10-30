@@ -49,6 +49,7 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
+import org.eclipse.viatra.query.tooling.cpp.localsearch.model.EvalExpressionDescriptor
 
 /**
  * @author Robert Doczi
@@ -178,7 +179,14 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, compiler);
 	}	
 	
-
+	
+	override acceptEvalExpression(PVariable outputVariable, Set<PVariable> variables, XBaseExpressionCompiler compiler) {
+		var map = new HashMap<PVariable, EClassifier>();
+		for( v : variables )
+			map.put(v, typeMapping.get(v).looseType)
+			
+		searchOperations += new EvalExpressionDescriptor(matchingFrame, variables, map, compiler, outputVariable);
+	}
 
 	def getPatternBodyStub() {
 		return new PatternBodyDescriptor(pBody, id, matchingFrame, searchOperations);
