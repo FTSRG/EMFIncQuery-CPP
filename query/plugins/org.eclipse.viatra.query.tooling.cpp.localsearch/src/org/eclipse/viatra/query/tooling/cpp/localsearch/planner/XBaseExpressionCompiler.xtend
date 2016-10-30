@@ -10,12 +10,12 @@ import org.eclipse.xtext.xbase.impl.XMemberFeatureCallImplCustom
 import org.eclipse.xtext.xbase.impl.XNumberLiteralImpl
 import org.eclipse.xtext.xbase.impl.XUnaryOperationImplCustom
 
-class CheckExpressionCompiler {
+class XBaseExpressionCompiler {
 		
 	val XExpression expression;
 		
 	new(ExpressionEvaluation evaluation) {
-		expression = obtainExpression(evaluation);
+		expression = reflectExpression(evaluation.evaluator);
 	}
 	
 	public def compileLambdaInner()
@@ -24,9 +24,6 @@ class CheckExpressionCompiler {
 		«returnOrAssert»
 		'''
 			
-	
-	
-	
 	public def String returnOrAssert()
 	{
 		try{
@@ -41,26 +38,25 @@ class CheckExpressionCompiler {
 		}		
 	}
 	
-	
-	private static dispatch def String compile(XExpression exp){
+	public static dispatch def String compile(XExpression exp){
 		inspect(exp);
 	}	
 	
-	private static dispatch def String compile(XBinaryOperationImplCustom exp){
+	public static dispatch def String compile(XBinaryOperationImplCustom exp){
 		return '''(«exp.leftOperand.compile»«exp.getConcreteSyntaxFeatureName»«exp.rightOperand.compile»)'''
 	}	
 	
-	private static dispatch def String compile(XUnaryOperationImplCustom exp){
+	public static dispatch def String compile(XUnaryOperationImplCustom exp){
 		return '''(«exp.getConcreteSyntaxFeatureName»«exp.operand.compile»)'''
 	}	
 	
-	private static dispatch def String compile(XNumberLiteralImpl exp){
+	public static dispatch def String compile(XNumberLiteralImpl exp){
 		return exp.value.toString;
 	}	
-	private static dispatch def String compile(XFeatureCallImplCustom exp){
+	public static dispatch def String compile(XFeatureCallImplCustom exp){
 		return exp.feature.identifier;
 	}	
-	private static dispatch def String compile(XMemberFeatureCallImplCustom exp){
+	public static dispatch def String compile(XMemberFeatureCallImplCustom exp){
 		val compiledArguments = exp.memberCallArguments.map[it.compile].join(", ");
 					
 		if(exp.staticWithDeclaringType)
@@ -68,19 +64,11 @@ class CheckExpressionCompiler {
 		else
 			return '''«exp.memberCallTarget.compile»«exp.feature.simpleName»(«compiledArguments»)'''
 	}	
-		
-	/*private static dispatch def String compile(XMemberFeatureCallImplCustom exp){
-		return exp.featureCallArguments.map[feature|feature.compile].join(".");
-	}	*/
-		
 	
 	private static def String inspect(XExpression exp){
 		throw new Exception("XExpression type ("+ exp.class.name +") cannot be compiled to c++");
 	}
 	
-	private static def XExpression obtainExpression(ExpressionEvaluation ev){
-		return reflectExpression(ev.evaluator);
-	}
 	
 	private static dispatch def XExpression reflectExpression(XBaseEvaluator evaluator){	
 		return evaluator.expression;

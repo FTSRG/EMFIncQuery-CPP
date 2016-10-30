@@ -247,8 +247,7 @@ class POperationCompiler {
 	
 	def dispatch createCheck(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
 		val variables = constraint.getAffectedVariables();
-		
-		val compiler = new CheckExpressionCompiler(constraint);
+		val compiler = new XBaseExpressionCompiler(constraint);
 		
 		acceptor.acceptCheckExpression(variables, compiler);
 	}
@@ -352,7 +351,7 @@ class POperationCompiler {
 	}
 
 	def dispatch createExtend(PConstraint constraint, ISearchOperationAcceptor acceptor) {
-		println("Constraint type not yet implemented: " + constraint)
+		println('''Constraint type not yet implemented:«constraint.class.simpleName»(«constraint.class.name»)''');
 	}
 
 	private def allBound(PConstraint pConstraint) {

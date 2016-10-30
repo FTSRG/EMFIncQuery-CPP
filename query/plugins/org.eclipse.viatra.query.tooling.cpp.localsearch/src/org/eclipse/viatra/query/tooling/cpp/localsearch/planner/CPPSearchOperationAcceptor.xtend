@@ -49,7 +49,6 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.PatternMatchCounte
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.VariableInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
-import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.CheckExpressionCompiler
 
 /**
  * @author Robert Doczi
@@ -171,7 +170,7 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	}
 	
 	
-	override acceptCheckExpression(Set<PVariable> variables, CheckExpressionCompiler compiler) {
+	override acceptCheckExpression(Set<PVariable> variables, XBaseExpressionCompiler compiler) {
 		var map = new HashMap<PVariable, EClassifier>();
 		for( v : variables )
 			map.put(v, typeMapping.get(v).looseType)
