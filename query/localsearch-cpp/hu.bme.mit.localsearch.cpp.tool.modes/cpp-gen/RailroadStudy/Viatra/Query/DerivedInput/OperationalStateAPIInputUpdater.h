@@ -58,11 +58,11 @@ struct OperationalStateAPIInputUpdater{
 		}
 
 		if(matches.size() > 0){	
-			std::cout << "currentState association inserted between (ID-ID) = " << turnoutID << "-" << stateID << std::endl;
+			Logger::Log( "currentState association inserted between (ID-ID) = ", turnoutID, "-", stateID);
 			(*srcObj)->set_currentState(*trgObj);
 		}
 		else if((*trgObj) == (*srcObj)->get_currentState()){
-			std::cout << "currentState association removed between (ID-ID) = " << turnoutID << "-" << stateID << std::endl;
+			Logger::Log( "currentState association removed between (ID-ID) = ", turnoutID, "-", stateID,);
 			 (*srcObj)->set_currentState(nullptr);
 		 }
 		/*
