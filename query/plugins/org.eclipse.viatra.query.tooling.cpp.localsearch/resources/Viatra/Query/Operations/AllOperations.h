@@ -34,6 +34,7 @@
 #include "Extend/NavigateAssociation.h"
 #include "Extend/PatternMatchCounterExtend.h"
 #include "Extend/ConstantValueExtend.h"
+#include "Extend/EvalExpression.h"
 
 
 //distributed

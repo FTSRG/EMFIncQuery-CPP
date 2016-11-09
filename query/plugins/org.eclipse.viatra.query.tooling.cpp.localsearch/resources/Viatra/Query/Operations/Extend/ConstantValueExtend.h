@@ -15,7 +15,7 @@
  #include <string>
  #include <list>
 
- #include "ExtendOperation.h"
+ #include "SingleValueExtend.h"
  #include "../../Util/IsNull.h"
 
  namespace Viatra {
@@ -33,15 +33,16 @@
   * @tparam MatchingFrame Describes the structure of the *MatchingFrame* the operation is executed on.
   */
   template<class TrgType, class MatchingFrame>
- class ConstantValueExtend: public ExtendOperation<TrgType, std::list<TrgType>, MatchingFrame> {
+ class ConstantValueExtend : public SingleValueExtend<TrgType, MatchingFrame> {
  	typedef TrgType MatchingFrame::* MemberToBind; /** @typedef The type of the member pointer used to bind a value in a frame */
  public:
      ConstantValueExtend(MemberToBind bindMember, TrgType extendValue);
-     void on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context);
+     void on_initialize(MatchingFrame& frame, const Matcher::ISearchContext& context) override {
+		 set_data(_extendValue);
+	 }
 
  private:
      TrgType _extendValue;
-     std::list<TrgType> _objectHolder;
  };
 
   template<class TrgType, class MatchingFrame>
@@ -49,13 +50,6 @@
      ExtendOperation<TrgType, std::list<TrgType>, MatchingFrame>(bindMember), _extendValue(extendValue) {
  }
 
- template<class TrgType, class MatchingFrame>
- inline void ConstantValueExtend<TrgType, MatchingFrame>::on_initialize(MatchingFrame& frame,
-         const Matcher::ISearchContext&) {
-     _objectHolder.clear();
-     _objectHolder.push_back(_extendValue);
-     ExtendOperation<TrgType, std::list<TrgType>, MatchingFrame>::set_data(_objectHolder.begin(), _objectHolder.end());
- }
  template<class TrgType, class MatchingFrame>
  inline ConstantValueExtend<TrgType, MatchingFrame>* create_ConstantValueExtend(TrgType MatchingFrame::* bindMember, TrgType extendValue) {
  	return new ConstantValueExtend<TrgType, MatchingFrame>(bindMember, extendValue);
