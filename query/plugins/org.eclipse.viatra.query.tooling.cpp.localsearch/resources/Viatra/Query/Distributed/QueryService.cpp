@@ -13,21 +13,6 @@
 using namespace Viatra::Query::Distributed;
 using namespace Viatra::Query::Util;
 
-/*
-{
-	"nodes" : [
-		{
-			"name" : "nodeA",
-			"ip" : "127.0.0.1",
-			"port" : 54321,
-			"IDGenStart" : 0,
-			"IDGenMod": 10
-		},
-		...
-	]
-}
-*/
-
 QueryServiceBase::QueryServiceBase(const char * configJSON, const char * localNodeName)
 {
 	using Util::Logger;

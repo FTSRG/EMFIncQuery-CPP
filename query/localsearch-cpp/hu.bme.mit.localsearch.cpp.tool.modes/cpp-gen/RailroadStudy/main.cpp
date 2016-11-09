@@ -9,6 +9,7 @@
 
 #include<iostream>
 #include<chrono>
+#include<iomanip>
 #include<windows.h>
 
 #include "UpdateModel.h"
@@ -28,7 +29,7 @@ auto start_time = std::chrono::high_resolution_clock::now();
 
 long long nanos() {
 	auto end_time = std::chrono::high_resolution_clock::now();
-	return std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
+	return std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count();
 }
 
 double seconds() {
@@ -79,22 +80,26 @@ std::thread runCheckingThread(QueryService & service) {
 	});
 }
 
-std::thread runUpdatingThread(const char* nodeName, ModelRoot *modelRoot) {
-	return std::thread([nodeName, modelRoot]()mutable {
+std::unique_ptr<std::thread> runUpdatingThread(const char* nodeName, ModelRoot *modelRoot) {
+	Logger::Log("kekd");
+	auto t = std::make_unique<std::thread>([nodeName, modelRoot]() mutable {
+		Logger::Log("safs");
 		double nextT = seconds() + update_period;
 		for (int i = 0; i < test_count; ++i)
 		{
+			Logger::Log("sdfsd");
 			UpdateModel(nodeName, modelRoot);
 
 			while (seconds() < nextT)
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			nextT += update_period;
 		}
+		Logger::Log("sdfsdgsdg");
 	});
+	Logger::Log("Crajted");
+	Logger::ThreadTest(std::chrono::seconds(5));
+	return t;
 }
-
-
-
 
 int main(int argc, char**argv)
 {
@@ -102,23 +107,33 @@ int main(int argc, char**argv)
 	Logger::SetThisThreadName("MAIN");
 	const char * nodeName = argc > 1 ? argv[1] : "nodeA";
 	// Creating the Local Model from the image
+
+	Logger::Log("Import starting json");
 	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", nodeName);
 
+	Logger::Log("Creating service");
 	QueryService service("configuration.json", nodeName, &modelRoot);
+	Logger::Log("Starting service");
+	
 	service.start();
+
+	Logger::Log("Starting service - done");
 
 	try {
 
-		runUpdatingThread(nodeName, &modelRoot);
+		Logger::Log("try - runUpdatingThread");
+		auto _ = runUpdatingThread(nodeName, &modelRoot);
 
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 
+		Logger::Log("try - runCheckingThread");
 		auto checkThread = runCheckingThread(service);
 		checkThread.join();
 
+		Logger::Log("try - for");
 		for (auto & record : data)
 		{
-			std::cout << record.checkTime << ";";
+			std::cout << std::setprecision(5) << record.checkTime << ";";
 		}
 		
 	}
