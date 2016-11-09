@@ -15,7 +15,7 @@
 #include "UpdateModel.h"
 
 
-constexpr int test_count = 200;
+constexpr int test_count = 20;
 constexpr double update_freq = 100;	// 10 millisec
 constexpr double update_period = 1.0 / update_freq;
 

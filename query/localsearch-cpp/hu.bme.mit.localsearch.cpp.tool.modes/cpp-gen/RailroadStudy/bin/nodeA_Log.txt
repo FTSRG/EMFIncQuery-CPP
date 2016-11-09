@@ -1,0 +1,198 @@
+Thread=MAIN, Import starting json
+Thread=MAIN, Creating service
+Thread=MAIN, QueryServiceBase::QueryServiceBase
+Thread=MAIN,     Processing json
+Thread=MAIN,     Local node found:nodeA
+Thread=MAIN,     QueryServer::QueryServer
+Thread=MAIN,     Remote node found:nodeB
+Thread=MAIN, <<
+Thread=MAIN, QueryService::construct QueryService
+Thread=MAIN, Starting service
+Thread=MAIN, Starting the server...
+Thread=SERVER, Hello from server thread
+Thread=MAIN, Server started
+Thread=MAIN, Starting the clients...
+Thread=SERVER, QueryServer::accept_connection
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER, <<
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER,         QueryService::startLocalQuerySession
+Thread=SERVER,         QueryRunner::QueryRunner
+Thread=SERVER,         QueryRunner::startLocalQuery
+Thread=SERVER,             QueryRunner::startLocalQuery -- Starting runner thread
+Thread=SERVER,         <<
+Thread=Runner-7, QueryRunner::run
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=SERVER,     <<
+Thread=SERVER, <<
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER,     QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION taskID=0.1
+Thread=SERVER,     QueryServer::process_message -- service->continueQueryLocally
+Thread=SERVER,     QueryServiceBase::continueQueryLocally
+Thread=SERVER,     QueryRunner::addTask
+Thread=SERVER, <<
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER,     QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION taskID=0.2
+Thread=SERVER,     QueryServer::process_message -- service->continueQueryLocally
+Thread=SERVER,     QueryServiceBase::continueQueryLocally
+Thread=SERVER,     QueryRunner::addTask
+Thread=SERVER, <<
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- task obtained id=0.1
+Thread=Runner-7,     QueryRunner::run -- calculating partial result
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,     <<
+Thread=Runner-7,     QueryRunner::run -- add subresult to collector
+Thread=Runner-7,     QueryServiceBase::notifyCollectionDone
+Thread=Runner-7,     <<
+Thread=Runner-7,     server->sendMatchResults
+Thread=Runner-7,     QueryServer::sendMatchResults
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- task obtained id=0.2
+Thread=Runner-7,     QueryRunner::run -- calculating partial result
+Thread=Runner-7,         Operation executed(8) frame=[segment=null,turnout=25,train=9001,fro=1000002]
+Thread=Runner-7,         Operation executed(9) frame=[segment=null,turnout=25,train=9001,fro=1000002]
+Thread=Runner-7,     <<
+Thread=Runner-7,     QueryRunner::run -- add subresult to collector
+Thread=Runner-7,     QueryServiceBase::notifyCollectionDone
+Thread=Runner-7,     <<
+Thread=Runner-7,     server->sendMatchResults
+Thread=Runner-7,     QueryServer::sendMatchResults
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER,     QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION taskID=1.1
+Thread=SERVER,     QueryServer::process_message -- service->continueQueryLocally
+Thread=SERVER,     QueryServiceBase::continueQueryLocally
+Thread=SERVER,     QueryRunner::addTask
+Thread=SERVER, <<
+Thread=Runner-7,     QueryRunner::run -- task obtained id=1.1
+Thread=Runner-7,     QueryRunner::run -- calculating partial result
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,     <<
+Thread=Runner-7,     QueryRunner::run -- add subresult to collector
+Thread=Runner-7,     QueryServiceBase::notifyCollectionDone
+Thread=Runner-7,     <<
+Thread=Runner-7,     server->sendMatchResults
+Thread=Runner-7,     QueryServer::sendMatchResults
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Error during connection ClientImpl::connect_async ec=asio.system:10060
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=SERVER, QueryServer::process_message
+Thread=SERVER,     QueryServer::process_message case Protobuf::MsgType::CONTINUE_QUERY_SESSION taskID=2.1
+Thread=SERVER,     QueryServer::process_message -- service->continueQueryLocally
+Thread=SERVER,     QueryServiceBase::continueQueryLocally
+Thread=SERVER,     QueryRunner::addTask
+Thread=SERVER, <<
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- task obtained id=2.1
+Thread=Runner-7,     QueryRunner::run -- calculating partial result
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=14,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=9,train=null,fro=null]
+Thread=Runner-7,         Operation executed(1) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,         Operation executed(2) frame=[segment=null,turnout=3,train=null,fro=null]
+Thread=Runner-7,     <<
+Thread=Runner-7,     QueryRunner::run -- add subresult to collector
+Thread=Runner-7,     QueryServiceBase::notifyCollectionDone
+Thread=Runner-7,     <<
+Thread=Runner-7,     server->sendMatchResults
+Thread=Runner-7,     QueryServer::sendMatchResults
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Connection::read_async_msgheader - Error: ( ec || length != INT_ENCODE_SIZE ) with ec=asio.system:10054
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue
+Thread=Runner-7,     QueryRunner::run -- terminated = 0
+Thread=Runner-7, <<
+Thread=Runner-7, QueryRunner::while
+Thread=Runner-7,     QueryRunner::run -- try to pop task from queue

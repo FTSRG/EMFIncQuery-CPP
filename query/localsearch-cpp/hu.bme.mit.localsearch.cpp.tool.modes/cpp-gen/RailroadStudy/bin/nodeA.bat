@@ -1,2 +1,2 @@
 cls
-RailroadStudy.exe nodeA >> nodeA_Log.txt
+RailroadStudy.exe nodeA
