@@ -2,7 +2,7 @@
 	"nodes" : [
 		{
 			"name" : "nodeA",
-			"ip" : "localhost", 						"_oldip":"192.168.1.131",
+			"ip" : "10.40.2.47",
 			"port" : 54321,
 			"IDGenStart" : 3,
 			"IDGenMod": 10
@@ -10,7 +10,7 @@
 		,
 		{
 			"name" : "nodeB",
-			"ip" : "localhost", 						"_oldip":"192.168.1.117" ,
+			"ip" : "10.40.2.114" ,
 			"port" : 54322,
 			"IDGenStart" : 7,
 			"IDGenMod": 10

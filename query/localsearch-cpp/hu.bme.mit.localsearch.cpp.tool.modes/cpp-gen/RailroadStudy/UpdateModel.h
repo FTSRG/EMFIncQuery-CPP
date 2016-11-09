@@ -89,7 +89,7 @@ void UpdateModel(const char *nodeName, Viatra::Query::Model::ModelRoot * modelRo
 	int turnoutId;
 	double turnoutTemp;
 	std::string info = GetTempInfo(nodeName);
-	std::cout << "Message arrived: "<< info << std::endl;
+	Logger::Log( "Message arrived: ", info);
 	ParseTempInfo(info, turnoutId, turnoutTemp);
 	if (std::string(nodeName) == std::string("nodeA")) {
 		Logger::Log("std::string(nodeName) == std::string(\"nodeA\") ---- frozen");
