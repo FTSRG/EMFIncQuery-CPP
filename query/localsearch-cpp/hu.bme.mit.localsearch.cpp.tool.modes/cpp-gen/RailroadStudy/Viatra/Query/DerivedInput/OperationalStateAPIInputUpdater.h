@@ -51,10 +51,10 @@ struct OperationalStateAPIInputUpdater{
 		
 		if(trgObj == trgInstanceList.end()) throw std::invalid_argument("::railRoadModel::IOperational ID not found in InputUpdater");
 
-		std::cout << "MatchSet" << std::endl;
+		Logger::Log("MatchSet");
 		for (auto & match : matches)
 		{
-			std::cout << "  " << match.toString() << std::endl;
+			Logger::Log("  ",  match.toString());
 		}
 
 		if(matches.size() > 0){	
