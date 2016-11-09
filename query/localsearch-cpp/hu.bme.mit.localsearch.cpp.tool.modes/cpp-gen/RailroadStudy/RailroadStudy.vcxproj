@@ -205,6 +205,12 @@
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatch.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIMatcher.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\FrozenStateAPIQuerySpecification.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPI.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPIFrame_0.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPIInputUpdater.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPIMatch.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPIMatcher.h" />
+    <ClInclude Include="Viatra\Query\DerivedInput\OperationalStateAPIQuerySpecification.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\PB_DerivedInput.pb.h" />
     <ClInclude Include="Viatra\Query\DerivedInput\QueryRunnerFactory.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\DistributedQueriesQueryGroup.h" />
@@ -215,6 +221,11 @@
     <ClInclude Include="Viatra\Query\DistributedQueries\IsDangerousQuerySpecification.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\PB_DistributedQueries.pb.h" />
     <ClInclude Include="Viatra\Query\DistributedQueries\QueryRunnerFactory.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\ShouldCollide.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\ShouldCollideFrame_0.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\ShouldCollideMatch.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\ShouldCollideMatcher.h" />
+    <ClInclude Include="Viatra\Query\DistributedQueries\ShouldCollideQuerySpecification.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model\Rules.mk" />

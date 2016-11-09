@@ -62,7 +62,7 @@ struct OperationalStateAPIInputUpdater{
 			(*srcObj)->set_currentState(*trgObj);
 		}
 		else if((*trgObj) == (*srcObj)->get_currentState()){
-			Logger::Log( "currentState association removed between (ID-ID) = ", turnoutID, "-", stateID,);
+			Logger::Log( "currentState association removed between (ID-ID) = ", turnoutID, "-", stateID);
 			 (*srcObj)->set_currentState(nullptr);
 		 }
 		/*
