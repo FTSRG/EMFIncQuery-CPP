@@ -55,8 +55,8 @@ class MakefileGenerator {
 		#
 		##############################################################################
 		
-		CXX=g++
-		CXXFLAGS=-O3 -std=c++14 -Wall -Wextra -pedantic -I. -I./«ecoreModel.resourceName»/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
+		CXX=clang++
+		CXXFLAGS=-O0 -g -std=c++14 -Wall -Wextra -Wno-unused-parameter -pedantic -I. -I./«ecoreModel.resourceName»/ -I../../../plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/
 		LFLAGS=
 		MAKE=make
 		LIBS=-lgtest
