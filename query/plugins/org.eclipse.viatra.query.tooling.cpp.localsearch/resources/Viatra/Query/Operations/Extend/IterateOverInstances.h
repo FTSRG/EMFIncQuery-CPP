@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../../Util/Defs.h"
+#include "../../Matcher/ModelIndex.h"
 #include "ExtendOperation.h"
 
 #include <list>
