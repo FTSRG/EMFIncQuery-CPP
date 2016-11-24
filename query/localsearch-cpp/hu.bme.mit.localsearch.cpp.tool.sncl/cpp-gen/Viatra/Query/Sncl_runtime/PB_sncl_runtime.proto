@@ -1,0 +1,242 @@
+syntax = "proto3";
+	
+message PB_GreaterThanOneSNConnectionFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _5 = 5;
+	int32 _6 = 6;
+};
+
+
+message PB_GreaterThanOneSNConnectionFrame_0Vector {
+				
+	repeated PB_GreaterThanOneSNConnectionFrame_0 frames = 1;
+};
+
+message PB_PconnectedFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+};
+
+
+message PB_PconnectedFrame_1Vector {
+				
+	repeated PB_PconnectedFrame_1 frames = 1;
+};
+
+message PB_PconnectedFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+};
+
+
+message PB_PconnectedFrame_0Vector {
+				
+	repeated PB_PconnectedFrame_0 frames = 1;
+};
+
+message PB_NumInEqualityWithMemberFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _4 = 4;
+};
+
+
+message PB_NumInEqualityWithMemberFrame_0Vector {
+				
+	repeated PB_NumInEqualityWithMemberFrame_0 frames = 1;
+};
+
+message PB_NumEqualityWithMemberFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+};
+
+
+message PB_NumEqualityWithMemberFrame_0Vector {
+				
+	repeated PB_NumEqualityWithMemberFrame_0 frames = 1;
+};
+
+message PB_IsolatedSNFrame_0 {
+	int32 _0 = 1;
+	int32 _2 = 2;
+};
+
+
+message PB_IsolatedSNFrame_0Vector {
+				
+	repeated PB_IsolatedSNFrame_0 frames = 1;
+};
+
+message PB_LinkedMatch {
+	int32 S1 = 1;
+	int32 S2 = 2;
+};
+
+message PB_LinkedMatchSet {
+				
+	repeated PB_LinkedMatch matches = 1;
+};
+
+message PB_RingMembersFrame_0 {
+	int32 _0 = 1;
+	int32 _2 = 2;
+	int32 _4 = 3;
+	int32 _5 = 4;
+};
+
+
+message PB_RingMembersFrame_0Vector {
+				
+	repeated PB_RingMembersFrame_0 frames = 1;
+};
+
+message PB_CountLinksMatch {
+	int32 C1 = 1;
+	int32 numOfSN = 2;
+	int32 numOfCL = 3;
+};
+
+message PB_CountLinksMatchSet {
+				
+	repeated PB_CountLinksMatch matches = 1;
+};
+
+message PB_NumEqualityWithMemberMatch {
+	int32 C1 = 1;
+};
+
+message PB_NumEqualityWithMemberMatchSet {
+				
+	repeated PB_NumEqualityWithMemberMatch matches = 1;
+};
+
+message PB_LinkedFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+};
+
+
+message PB_LinkedFrame_1Vector {
+				
+	repeated PB_LinkedFrame_1 frames = 1;
+};
+
+message PB_LinkedFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+};
+
+
+message PB_LinkedFrame_0Vector {
+				
+	repeated PB_LinkedFrame_0 frames = 1;
+};
+
+message PB_IsolatedSNMatch {
+	int32 C1 = 1;
+};
+
+message PB_IsolatedSNMatchSet {
+				
+	repeated PB_IsolatedSNMatch matches = 1;
+};
+
+message PB_NumInEqualityWithMemberMatch {
+	int32 C1 = 1;
+};
+
+message PB_NumInEqualityWithMemberMatchSet {
+				
+	repeated PB_NumInEqualityWithMemberMatch matches = 1;
+};
+
+message PB_PconnectedMatch {
+	int32 C1 = 1;
+	int32 C2 = 2;
+};
+
+message PB_PconnectedMatchSet {
+				
+	repeated PB_PconnectedMatch matches = 1;
+};
+
+message PB_NotInRingMatch {
+	int32 C1 = 1;
+};
+
+message PB_NotInRingMatchSet {
+				
+	repeated PB_NotInRingMatch matches = 1;
+};
+
+message PB_IsolatedCLMatch {
+	int32 C1 = 1;
+};
+
+message PB_IsolatedCLMatchSet {
+				
+	repeated PB_IsolatedCLMatch matches = 1;
+};
+
+message PB_IsolatedCLFrame_0 {
+	int32 _0 = 1;
+};
+
+
+message PB_IsolatedCLFrame_0Vector {
+				
+	repeated PB_IsolatedCLFrame_0 frames = 1;
+};
+
+message PB_NotInRingFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _3 = 3;
+};
+
+
+message PB_NotInRingFrame_0Vector {
+				
+	repeated PB_NotInRingFrame_0 frames = 1;
+};
+
+message PB_RingMembersMatch {
+	int32 C1 = 1;
+};
+
+message PB_RingMembersMatchSet {
+				
+	repeated PB_RingMembersMatch matches = 1;
+};
+
+message PB_CountLinksFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _4 = 4;
+};
+
+
+message PB_CountLinksFrame_0Vector {
+				
+	repeated PB_CountLinksFrame_0 frames = 1;
+};
+
+message PB_GreaterThanOneSNConnectionMatch {
+	int32 C1 = 1;
+};
+
+message PB_GreaterThanOneSNConnectionMatchSet {
+				
+	repeated PB_GreaterThanOneSNConnectionMatch matches = 1;
+};
+
