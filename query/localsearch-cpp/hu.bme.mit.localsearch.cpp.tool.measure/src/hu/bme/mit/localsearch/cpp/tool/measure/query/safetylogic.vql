@@ -1,0 +1,139 @@
+package hu.bme.mit.localsearch.cpp.tool.measure.query
+
+import "http://tool/modes/model"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern currentlyConnected(This : RailRoadElement, connectedTo : RailRoadElement) = {
+	Segment(This);
+	Segment.connectedTo(This, connectedTo);
+} or { 
+	Turnout(This);
+	Turnout.currentlyDivergent(This, true);  
+	Turnout.top(This, connectedTo);
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, true);
+	Turnout.divergent(This, connectedTo);	
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, false);
+	Turnout.top(This, connectedTo);
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, false);
+	Turnout.straight(This, connectedTo);
+}
+
+private pattern notNull(Old : RailRoadElement){
+	RailRoadElement(Old);
+}
+
+//XXX @QueryBasedFeature(feature = "viablePaths")
+pattern viablePaths(This : RailRoadElement, path : Path) = {
+	Segment(This);
+	Segment.connectedTo(This, connected1);
+	Segment.connectedTo(This, connected2);
+	connected1 != connected2;
+	
+	Path.via(path, This);
+	Path.from(path, connected1);
+	Path.to(path, connected2);
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, true);
+	
+	Turnout.top(This, top);
+	Turnout.divergent(This, divergent);
+	Path.via(path, This);
+	Path.to(path, divergent);
+	Path.from(path, top);
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, true);
+	
+	Turnout.top(This, top);
+	Turnout.divergent(This, divergent);
+	
+	Path.via(path, This);
+	Path.to(path, top);
+	Path.from(path, divergent);
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, false);
+
+	Turnout.top(This, top);
+	Turnout.straight(This, straight);
+	Path.via(path, This);
+	Path.to(path, straight);
+	Path.from(path, top);
+
+} or {
+	Turnout(This);
+	Turnout.currentlyDivergent(This, false);
+
+	Turnout.top(This, top);
+	Turnout.straight(This, straight);
+	Path.via(path, This);
+	Path.to(path, top);
+	Path.from(path, straight);
+}
+
+pattern nextSection(Old : RailRoadElement, Current : RailRoadElement, Next : RailRoadElement){
+	find viablePaths(Current, p);
+	Path.from(p, Old);
+	Path.via(p, Current);
+	Path.to(p, Next);
+} or {
+	neg find notNull(Old); // Check for null, as if it is, we don't know the direction
+	find viablePaths(Current, p);
+	Path.from(p, _);
+	Path.via(p, Current);
+	Path.to(p, Next);
+}
+
+//------------------------------------Train distance without direction------------------------------------//
+private pattern trainsAreTooClose(Offender : Train, Victim : Train){
+	Train.currentlyOn(Offender, OffenderPosition);
+	Train.currentlyOn(Victim, VictimPosition);
+	find currentlyConnected(VictimPosition, OffenderPosition);
+}
+
+
+//------------------------------------Train Collision Stuff------------------------------------// 
+private pattern trainHitsAnotherTrainNextAfterNext(Offender : Train, Victim : Train) {
+	Train.currentlyOn(Offender, CurrentPosition);
+	Train.previouslyOn(Offender, OldPosition);
+	
+	find nextSection(OldPosition, CurrentPosition, NextPosition);
+	find nextSection(CurrentPosition, NextPosition, NextPositionAfterNextPosition);
+	
+	Train.currentlyOn(Victim, NextPositionAfterNextPosition);
+}
+
+private pattern trainHitsAnotherTrainNext(Offender : Train, Victim : Train) {
+	Train.currentlyOn(Offender, CurrentPosition);
+	Train.previouslyOn(Offender, OldPosition);
+	
+	find nextSection(OldPosition, CurrentPosition, NextPosition);
+	
+	Train.currentlyOn(Victim, NextPosition);
+}
+
+pattern trainHitsAnotherTrain(Offender : Train, Victim : Train){
+	find trainHitsAnotherTrainNext(Offender, Victim);
+} or {
+	find trainHitsAnotherTrainNextAfterNext(Offender, Victim);
+} or {
+	find trainsAreTooClose(Offender, Victim);
+}
+
+pattern shouldCollide(rp : RobotPart, tr : Train){
+	RobotPart.nearBy(rp, tr);
+}
+
+pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
+	Train.currentlyOn(train, segment);
+	Segment.connectedTo(segment, turnout);
+	Frozen(fro);
+	Turnout.currentState(turnout, fro);
+}

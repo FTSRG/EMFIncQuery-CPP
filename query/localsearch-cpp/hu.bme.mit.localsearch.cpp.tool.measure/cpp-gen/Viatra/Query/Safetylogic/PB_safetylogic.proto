@@ -1,0 +1,5652 @@
+syntax = "proto3";
+	
+message PB_NotNullMatch {
+	int32 Old = 1;
+};
+
+message PB_NotNullMatchSet {
+				
+	repeated PB_NotNullMatch matches = 1;
+};
+
+message PB_ViablePathsFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_ViablePathsFrame_4Vector {
+				
+	repeated PB_ViablePathsFrame_4 frames = 1;
+};
+
+message PB_NextSectionMatch {
+	int32 Current = 1;
+	int32 Old = 2;
+	int32 Next = 3;
+};
+
+message PB_NextSectionMatchSet {
+				
+	repeated PB_NextSectionMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_99 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_99Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_99 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_5 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_5Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_5 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_4Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_4 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_3Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_3 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_2Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_2 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_9 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_9Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_9 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_8 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_8Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_8 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_7 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_7Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_7 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_6 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_6Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_6 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_1Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_1 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_0Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_81 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_81Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_81 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_80 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_80Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_80 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_83 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_83Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_83 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_82 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_82Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_82 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_85 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_85Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_85 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_84 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_84Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_84 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_87 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	bool _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_87Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_87 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_86 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_86Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_86 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_23 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_23Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_23 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_22 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_22Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_22 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_21 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_21Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_21 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_20 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_20Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_20 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_16 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_16Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_16 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_15 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_15Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_15 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_14 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_14Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_14 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_13 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_13Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_13 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_19 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_19Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_19 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_18 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_18Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_18 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_17 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_17Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_17 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_78 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_78Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_78 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_77 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_77Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_77 frames = 1;
+};
+
+message PB_CurrentlyConnectedMatch {
+	int32 This = 1;
+	int32 connectedTo = 2;
+};
+
+message PB_CurrentlyConnectedMatchSet {
+				
+	repeated PB_CurrentlyConnectedMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_79 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_79Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_79 frames = 1;
+};
+
+message PB_ShouldCollideMatch {
+	int32 rp = 1;
+	int32 tr = 2;
+};
+
+message PB_ShouldCollideMatchSet {
+				
+	repeated PB_ShouldCollideMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_92 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_92Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_92 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_91 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_91Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_91 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_94 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_94Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_94 frames = 1;
+};
+
+message PB_IsDangerousMatch {
+	int32 segment = 1;
+	int32 turnout = 2;
+	int32 train = 3;
+};
+
+message PB_IsDangerousMatchSet {
+				
+	repeated PB_IsDangerousMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_93 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_93Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_93 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_96 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_96Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_96 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_95 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_95Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_95 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_98 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_98Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_98 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_97 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_97Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_97 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_12 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_12Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_12 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_11 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_11Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_11 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_10 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_10Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_10 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_90 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_90Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_90 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_89 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_89Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_89 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_88 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_88Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_88 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_61 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_61Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_61 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_60 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_60Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_60 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_63 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_63Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_63 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_62 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_62Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_62 frames = 1;
+};
+
+message PB_NotNullFrame_0 {
+	int32 _0 = 1;
+};
+
+
+message PB_NotNullFrame_0Vector {
+				
+	repeated PB_NotNullFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_65 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_65Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_65 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_64 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_64Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_64 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_41 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_41Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_41 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_40 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_40Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_40 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_45 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_45Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_45 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_44 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_44Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_44 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_43 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_43Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_43 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_42 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_42Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_42 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_38 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_38Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_38 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_37 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_37Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_37 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_36 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_36Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_36 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_35 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_35Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_35 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_39 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_39Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_39 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_56 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_56Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_56 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_55 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_55Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_55 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_58 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_58Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_58 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_57 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_57Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_57 frames = 1;
+};
+
+message PB_ViablePathsFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+};
+
+
+message PB_ViablePathsFrame_1Vector {
+				
+	repeated PB_ViablePathsFrame_1 frames = 1;
+};
+
+message PB_ViablePathsFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_ViablePathsFrame_0Vector {
+				
+	repeated PB_ViablePathsFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_59 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_59Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_59 frames = 1;
+};
+
+message PB_ViablePathsFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_ViablePathsFrame_3Vector {
+				
+	repeated PB_ViablePathsFrame_3 frames = 1;
+};
+
+message PB_ViablePathsFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+};
+
+
+message PB_ViablePathsFrame_2Vector {
+				
+	repeated PB_ViablePathsFrame_2 frames = 1;
+};
+
+message PB_CurrentlyConnectedFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+};
+
+
+message PB_CurrentlyConnectedFrame_4Vector {
+				
+	repeated PB_CurrentlyConnectedFrame_4 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_70 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_70Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_70 frames = 1;
+};
+
+message PB_CurrentlyConnectedFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+};
+
+
+message PB_CurrentlyConnectedFrame_2Vector {
+				
+	repeated PB_CurrentlyConnectedFrame_2 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_72 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_72Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_72 frames = 1;
+};
+
+message PB_CurrentlyConnectedFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+};
+
+
+message PB_CurrentlyConnectedFrame_3Vector {
+				
+	repeated PB_CurrentlyConnectedFrame_3 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_71 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_71Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_71 frames = 1;
+};
+
+message PB_CurrentlyConnectedFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+};
+
+
+message PB_CurrentlyConnectedFrame_0Vector {
+				
+	repeated PB_CurrentlyConnectedFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_74 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_74Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_74 frames = 1;
+};
+
+message PB_CurrentlyConnectedFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+};
+
+
+message PB_CurrentlyConnectedFrame_1Vector {
+				
+	repeated PB_CurrentlyConnectedFrame_1 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_73 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_73Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_73 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_76 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_76Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_76 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_75 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_75Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_75 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_30 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_30Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_30 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_34 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_34Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_34 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_33 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_33Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_33 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_32 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_32Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_32 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_31 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_31Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_31 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_27 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_27Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_27 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_26 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_26Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_26 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_25 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_25Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_25 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_24 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_24Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_24 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_29 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_29Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_29 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_28 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_28Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_28 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_67 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_67Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_67 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_66 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_66Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_66 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_69 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_69Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_69 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_68 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_68Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_68 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_41 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_41Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_41 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_40 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_40Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_40 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_43 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_43Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_43 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_42 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_42Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_42 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_63 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_63Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_63 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_62 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_62Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_62 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_61 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_61Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_61 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_60 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_60Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_60 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_67 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_67Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_67 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_66 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_66Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_66 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_65 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_65Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_65 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_64 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_64Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_64 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_59 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_59Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_59 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_58 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_58Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_58 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_57 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_57Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_57 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_34 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_34Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_34 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_33 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_33Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_33 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_36 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_36Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_36 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_35 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_35Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_35 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_38 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_38Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_38 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_37 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_37Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_37 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_39 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_39Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_39 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_50 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_50Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_50 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_52 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_52Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_52 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_51 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_51Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_51 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_54 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_54Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_54 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_53 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_53Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_53 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_52 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_52Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_52 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_51 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_51Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_51 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_50 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_50Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_50 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_56 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_56Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_56 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_55 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_55Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_55 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_54 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_54Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_54 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_53 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_53Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_53 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_49 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_49Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_49 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_48 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_48Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_48 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_47 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_47Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_47 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_46 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_46Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_46 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_45 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_45Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_45 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_44 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_44Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_44 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_47 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_47Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_47 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_46 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_46Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_46 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_49 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_49Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_49 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_48 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_48Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_48 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextMatch {
+	int32 Offender = 1;
+	int32 Victim = 2;
+};
+
+message PB_TrainHitsAnotherTrainNextMatchSet {
+				
+	repeated PB_TrainHitsAnotherTrainNextMatch matches = 1;
+};
+
+message PB_ShouldCollideFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+};
+
+
+message PB_ShouldCollideFrame_0Vector {
+				
+	repeated PB_ShouldCollideFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_81 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_81Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_81 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_80 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_80Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_80 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_21 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_21Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_21 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_20 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_20Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_20 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_85 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_85Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_85 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_84 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_84Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_84 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_83 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_83Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_83 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_82 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_82Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_82 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_89 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_89Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_89 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_88 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_88Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_88 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_87 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_87Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_87 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_86 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_86Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_86 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_19 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_19Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_19 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_79 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_79Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_79 frames = 1;
+};
+
+message PB_ViablePathsMatch {
+	int32 This = 1;
+	int32 path = 2;
+};
+
+message PB_ViablePathsMatchSet {
+				
+	repeated PB_ViablePathsMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_12 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_12Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_12 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_11 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_11Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_11 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_14 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_14Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_14 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_13 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_13Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_13 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_16 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_16Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_16 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_15 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_15Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_15 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_18 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	bool _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_18Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_18 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_17 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	bool _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_17Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_17 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_70 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_70Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_70 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_30 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_30Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_30 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_32 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_32Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_32 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_31 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_31Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_31 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_74 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_74Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_74 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_73 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_73Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_73 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_72 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_72Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_72 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_71 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_71Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_71 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_78 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_78Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_78 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_77 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_77Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_77 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_76 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_76Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_76 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_75 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_75Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_75 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_69 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_69Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_69 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_68 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_68Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_68 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_23 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_23Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_23 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_22 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_22Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_22 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_25 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_25Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_25 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_24 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_24Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_24 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_27 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_27Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_27 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_26 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_26Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_26 frames = 1;
+};
+
+message PB_TrainsAreTooCloseMatch {
+	int32 Offender = 1;
+	int32 Victim = 2;
+};
+
+message PB_TrainsAreTooCloseMatchSet {
+				
+	repeated PB_TrainsAreTooCloseMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_29 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_29Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_29 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_28 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_28Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_28 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_3Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_3 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_114 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_114Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_114 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_4Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_4 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_5 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_5Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_5 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_6 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_6Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_6 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_111 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_111Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_111 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_7 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_7Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_7 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_110 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_110Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_110 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_8 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_8Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_8 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_113 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_113Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_113 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_9 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_9Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_9 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_112 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_112Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_112 frames = 1;
+};
+
+message PB_NextSectionFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+};
+
+
+message PB_NextSectionFrame_1Vector {
+				
+	repeated PB_NextSectionFrame_1 frames = 1;
+};
+
+message PB_NextSectionFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+};
+
+
+message PB_NextSectionFrame_2Vector {
+				
+	repeated PB_NextSectionFrame_2 frames = 1;
+};
+
+message PB_NextSectionFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_NextSectionFrame_3Vector {
+				
+	repeated PB_NextSectionFrame_3 frames = 1;
+};
+
+message PB_NextSectionFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_NextSectionFrame_4Vector {
+				
+	repeated PB_NextSectionFrame_4 frames = 1;
+};
+
+message PB_NextSectionFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+};
+
+
+message PB_NextSectionFrame_0Vector {
+				
+	repeated PB_NextSectionFrame_0 frames = 1;
+};
+
+message PB_NextSectionFrame_9 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+};
+
+
+message PB_NextSectionFrame_9Vector {
+				
+	repeated PB_NextSectionFrame_9 frames = 1;
+};
+
+message PB_NextSectionFrame_5 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+};
+
+
+message PB_NextSectionFrame_5Vector {
+				
+	repeated PB_NextSectionFrame_5 frames = 1;
+};
+
+message PB_NextSectionFrame_6 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_NextSectionFrame_6Vector {
+				
+	repeated PB_NextSectionFrame_6 frames = 1;
+};
+
+message PB_NextSectionFrame_7 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+};
+
+
+message PB_NextSectionFrame_7Vector {
+				
+	repeated PB_NextSectionFrame_7 frames = 1;
+};
+
+message PB_NextSectionFrame_8 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+};
+
+
+message PB_NextSectionFrame_8Vector {
+				
+	repeated PB_NextSectionFrame_8 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_104 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_104Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_104 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_103 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_103Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_103 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_106 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_106Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_106 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_105 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	bool _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_105Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_105 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_92 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_92Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_92 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_100 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_100Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_100 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_91 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_91Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_91 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_90 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_90Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_90 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_102 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	bool _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	bool _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_102Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_102 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_10 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainNextAfterNextFrame_10Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextFrame_10 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_101 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_101Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_101 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_96 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_96Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_96 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_95 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	int32 _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_95Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_95 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_94 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_94Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_94 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_93 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_93Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_93 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextMatch {
+	int32 Offender = 1;
+	int32 Victim = 2;
+};
+
+message PB_TrainHitsAnotherTrainNextAfterNextMatchSet {
+				
+	repeated PB_TrainHitsAnotherTrainNextAfterNextMatch matches = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_108 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_108Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_108 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_99 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_99Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_99 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_107 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	bool _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_107Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_107 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_98 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	bool _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_98Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_98 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_97 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_97Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_97 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_109 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_109Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_109 frames = 1;
+};
+
+message PB_IsDangerousFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+};
+
+
+message PB_IsDangerousFrame_0Vector {
+				
+	repeated PB_IsDangerousFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	bool _8 = 9;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_0Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_1Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_1 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainNextFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+};
+
+
+message PB_TrainHitsAnotherTrainNextFrame_2Vector {
+				
+	repeated PB_TrainHitsAnotherTrainNextFrame_2 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_0Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_0 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_1Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_1 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	bool _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_2Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_2 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	bool _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_3Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_3 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	bool _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_4Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_4 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_5 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_5Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_5 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_6 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	bool _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_6Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_6 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_7 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_7Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_7 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_8 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	int32 _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+	bool _15 = 16;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_8Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_8 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainFrame_9 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	int32 _5 = 6;
+	int32 _6 = 7;
+	bool _7 = 8;
+	int32 _8 = 9;
+	int32 _9 = 10;
+	int32 _10 = 11;
+	bool _11 = 12;
+	int32 _12 = 13;
+	int32 _13 = 14;
+	int32 _14 = 15;
+};
+
+
+message PB_TrainHitsAnotherTrainFrame_9Vector {
+				
+	repeated PB_TrainHitsAnotherTrainFrame_9 frames = 1;
+};
+
+message PB_TrainHitsAnotherTrainMatch {
+	int32 Offender = 1;
+	int32 Victim = 2;
+};
+
+message PB_TrainHitsAnotherTrainMatchSet {
+				
+	repeated PB_TrainHitsAnotherTrainMatch matches = 1;
+};
+
+message PB_TrainsAreTooCloseFrame_4 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainsAreTooCloseFrame_4Vector {
+				
+	repeated PB_TrainsAreTooCloseFrame_4 frames = 1;
+};
+
+message PB_TrainsAreTooCloseFrame_3 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	bool _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainsAreTooCloseFrame_3Vector {
+				
+	repeated PB_TrainsAreTooCloseFrame_3 frames = 1;
+};
+
+message PB_TrainsAreTooCloseFrame_2 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	bool _4 = 5;
+};
+
+
+message PB_TrainsAreTooCloseFrame_2Vector {
+				
+	repeated PB_TrainsAreTooCloseFrame_2 frames = 1;
+};
+
+message PB_TrainsAreTooCloseFrame_1 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	bool _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+};
+
+
+message PB_TrainsAreTooCloseFrame_1Vector {
+				
+	repeated PB_TrainsAreTooCloseFrame_1 frames = 1;
+};
+
+message PB_TrainsAreTooCloseFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+};
+
+
+message PB_TrainsAreTooCloseFrame_0Vector {
+				
+	repeated PB_TrainsAreTooCloseFrame_0 frames = 1;
+};
+

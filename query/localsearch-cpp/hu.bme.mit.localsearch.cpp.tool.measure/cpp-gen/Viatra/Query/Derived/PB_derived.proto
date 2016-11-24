@@ -1,0 +1,97 @@
+syntax = "proto3";
+	
+message PB_FrozenStateAPIMatch {
+	int32 turnout = 1;
+	int32 turnoutID = 2;
+	int32 frozen = 3;
+	int32 stateID = 4;
+	double turnoutTemp = 5;
+};
+
+message PB_FrozenStateAPIMatchSet {
+				
+	repeated PB_FrozenStateAPIMatch matches = 1;
+};
+
+message PB_NearByFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	int32 _4 = 5;
+	double _5 = 6;
+	double _6 = 7;
+	double _7 = 8;
+	double _8 = 9;
+	double _9 = 10;
+	double _10 = 11;
+	int32 _11 = 12;
+	int32 _12 = 13;
+};
+
+
+message PB_NearByFrame_0Vector {
+				
+	repeated PB_NearByFrame_0 frames = 1;
+};
+
+message PB_NearByMatch {
+	int32 robotPart = 1;
+	int32 robotPartID = 2;
+	int32 train = 3;
+	int32 trainID = 4;
+	int32 segID = 5;
+	double robX = 6;
+	double robY = 7;
+	double robZ = 8;
+	double segX = 9;
+	double segY = 10;
+	double segZ = 11;
+};
+
+message PB_NearByMatchSet {
+				
+	repeated PB_NearByMatch matches = 1;
+};
+
+message PB_OperationalStateAPIFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	double _4 = 5;
+};
+
+
+message PB_OperationalStateAPIFrame_0Vector {
+				
+	repeated PB_OperationalStateAPIFrame_0 frames = 1;
+};
+
+message PB_OperationalStateAPIMatch {
+	int32 turnout = 1;
+	int32 turnoutID = 2;
+	int32 operational = 3;
+	int32 stateID = 4;
+	double turnoutTemp = 5;
+};
+
+message PB_OperationalStateAPIMatchSet {
+				
+	repeated PB_OperationalStateAPIMatch matches = 1;
+};
+
+message PB_FrozenStateAPIFrame_0 {
+	int32 _0 = 1;
+	int32 _1 = 2;
+	int32 _2 = 3;
+	int32 _3 = 4;
+	double _4 = 5;
+};
+
+
+message PB_FrozenStateAPIFrame_0Vector {
+				
+	repeated PB_FrozenStateAPIFrame_0 frames = 1;
+};
+
