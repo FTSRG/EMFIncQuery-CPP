@@ -29,7 +29,7 @@ class QueryGroupGenerator extends ViatraQueryHeaderGenerator {
 	override initialize() {
 		includes += new Include("Viatra/Query/Matcher/ISearchContext.h")
 		includes += new Include("Viatra/Query/Matcher/ClassHelper.h")		
-		
+		includes += new Include("Viatra/Query/Matcher/ModelIndex.h")
 		includes += query.classes.map[
 			Include::fromEClass(it)	
 		]
@@ -62,4 +62,25 @@ class QueryGroupGenerator extends ViatraQueryHeaderGenerator {
 		};
 	'''
 	
+	override compileOuter() '''
+		namespace Viatra {
+			namespace Query {
+		
+		    struct ModelRoot
+		  	{
+		  		ModelRoot(){}
+		
+		  		~ModelRoot(){}
+		  	};
+		
+			template<typename T>
+			struct ModelIndex<T, ModelRoot> {
+				static const std::list<T*>& instances(const ModelRoot* modelRoot)
+				{
+					return T::_instances;
+				}
+			};
+			}
+		}
+	'''
 }
