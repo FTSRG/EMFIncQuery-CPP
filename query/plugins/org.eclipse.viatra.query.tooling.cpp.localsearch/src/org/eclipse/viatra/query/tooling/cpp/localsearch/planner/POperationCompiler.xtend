@@ -13,7 +13,6 @@ package org.eclipse.viatra.query.tooling.cpp.localsearch.planner
 import java.util.List
 import java.util.Map
 import java.util.Set
-import javax.activation.UnsupportedDataTypeException
 import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey
@@ -27,6 +26,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody
 import org.eclipse.viatra.query.runtime.matchers.psystem.PConstraint
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.PatternMatchCounter
@@ -39,19 +39,15 @@ import org.eclipse.viatra.query.tooling.cpp.localsearch.model.TypeInfo
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.CompilerHelper
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.SupplementTypeConstraint
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.util.TypeUtil
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation
 
 /**
  * @author Robert Doczi
  */
 class POperationCompiler {
 
-
 	var Map<PVariable, Integer> variableMapping
 	var Map<PConstraint, Set<Integer>> variableBindings
 	var Map<PVariable, TypeInfo> typeMapping
-	
-	
 
 	def void compile(SubPlan plan, PBody pBody, Set<PVariable> boundVariables, ISearchOperationAcceptor acceptor) {
 		var newOperationList = injectSupplementTypeConstraints(plan)
@@ -169,7 +165,7 @@ class POperationCompiler {
 				acceptor.acceptContainmentCheck(src, trg, inputKey)
 			}
 			EDataTypeInSlotsKey: {
-				throw new UnsupportedDataTypeException("Cannot interpret TypeConstraint with primitiveType.")
+			
 			}
 		}
 	}
@@ -248,9 +244,9 @@ class POperationCompiler {
 	
 	def dispatch createCheck(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
 		val variables = constraint.getAffectedVariables();
-		val expressionAsStr = constraint.evaluator.shortDescription
+		//val compiler = new XBaseExpressionCompiler(constraint);
 		
-		acceptor.acceptCheckExpression(variables, expressionAsStr);
+		//acceptor.acceptCheckExpression(variables, compiler);
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
@@ -305,7 +301,7 @@ class POperationCompiler {
 				}
 			}
 			EDataTypeInSlotsKey: {
-				throw new UnsupportedDataTypeException("Cannot interpret TypeConstraint with primitiveType.")
+				
 			}
 		}
 	}
@@ -339,6 +335,13 @@ class POperationCompiler {
 		val resultVar = constraint.resultVariable
 		acceptor.acceptPatternMatchCounterExtend(constraint.referredQuery, adornment, boundParams, resultVar)
 	}
+	
+	def dispatch createExtend(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
+		val variables = constraint.getAffectedVariables();
+		//val compiler = new XBaseExpressionCompiler(constraint);
+		
+		//acceptor.acceptEvalExpression(constraint.outputVariable, variables, compiler);
+	}
 
 	def dispatch createExtend(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {
 		// nop
@@ -352,7 +355,7 @@ class POperationCompiler {
 	}
 
 	def dispatch createExtend(PConstraint constraint, ISearchOperationAcceptor acceptor) {
-		println("Constraint type not yet implemented: " + constraint)
+		println('''Constraint type not yet implemented:«constraint.class.simpleName»(«constraint.class.name»)''');
 	}
 
 	private def allBound(PConstraint pConstraint) {
