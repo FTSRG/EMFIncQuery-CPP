@@ -13,7 +13,7 @@
 // Run application
 // mkdir cov_test && cd cov_test
 // gcovr -r . --html --html-details -o example2.html
-#pragma once
+//#pragma once
 
 #include "ITestSNCL.h"
 #include "Viatra/Query/QueryEngine.h"
@@ -131,17 +131,17 @@ protected:
     snStore.clear();
   }
 
-  QueryEngine<SN> engine = QueryEngine<SN>::empty();
-  Sncl_runtime::LinkedQuerySpecification<SN>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
-  Sncl_runtime::PconnectedQuerySpecification<SN>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
-  Sncl_runtime::CountLinksQuerySpecification<SN>::Matcher countLinksMatcher =                       engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
-  Sncl_runtime::IsolatedCLQuerySpecification<SN>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
-  Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<SN>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
-  Sncl_runtime::IsolatedSNQuerySpecification<SN>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
-  Sncl_runtime::NotInRingQuerySpecification<SN>::Matcher notInRingMatcher =                         engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
-  Sncl_runtime::NumEqualityWithMemberQuerySpecification<SN>::Matcher numEqualWithMemberMatcher =    engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
-  Sncl_runtime::NumInEqualityWithMemberQuerySpecification<SN>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
-  Sncl_runtime::RingMembersQuerySpecification<SN>::Matcher ringMemberMatcher =                      engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
+  QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::empty();
+  Sncl_runtime::LinkedQuerySpecification<ModelRoot>::Matcher linkedMatcher =                               engine.matcher<Sncl_runtime::LinkedQuerySpecification>();
+  Sncl_runtime::PconnectedQuerySpecification<ModelRoot>::Matcher pconnectedMatcher =                       engine.matcher<Sncl_runtime::PconnectedQuerySpecification>();
+  Sncl_runtime::CountLinksQuerySpecification<ModelRoot>::Matcher countLinksMatcher =                       engine.matcher<Sncl_runtime::CountLinksQuerySpecification>();
+  Sncl_runtime::IsolatedCLQuerySpecification<ModelRoot>::Matcher isolatedCLMatcher =                       engine.matcher<Sncl_runtime::IsolatedCLQuerySpecification>();
+  Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification<ModelRoot>::Matcher greaterMatcher =          engine.matcher<Sncl_runtime::GreaterThanOneSNConnectionQuerySpecification>();
+  Sncl_runtime::IsolatedSNQuerySpecification<ModelRoot>::Matcher isolatedSNMatcher =                       engine.matcher<Sncl_runtime::IsolatedSNQuerySpecification>();
+  Sncl_runtime::NotInRingQuerySpecification<ModelRoot>::Matcher notInRingMatcher =                         engine.matcher<Sncl_runtime::NotInRingQuerySpecification>();
+  Sncl_runtime::NumEqualityWithMemberQuerySpecification<ModelRoot>::Matcher numEqualWithMemberMatcher =    engine.matcher<Sncl_runtime::NumEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::NumInEqualityWithMemberQuerySpecification<ModelRoot>::Matcher numInEqualWithMemberMatcher = engine.matcher<Sncl_runtime::NumInEqualityWithMemberQuerySpecification>();
+  Sncl_runtime::RingMembersQuerySpecification<ModelRoot>::Matcher ringMemberMatcher =                      engine.matcher<Sncl_runtime::RingMembersQuerySpecification>();
 
   std::unordered_set<Sncl_runtime::PconnectedMatch> notConnectedSet;
 

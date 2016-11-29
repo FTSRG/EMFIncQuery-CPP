@@ -8,7 +8,6 @@
 #include "gtest/gtest.h"
 
 #include "Arch/arch_def.h"
-#include "ArchIndex.h"
 #include "Viatra/Query/Sncl_runtime/PconnectedMatch.h"
 
 /**

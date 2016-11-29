@@ -241,7 +241,7 @@
      delete forDelete;
      matches = isolatedCLMatcher.matches();
 	if(matches.size() > 1) FAIL() << "Isolated matcher found more matches than expected";
-     	else if(matches.size() != 1) FAIL() << "Isolated match didn't found the C6 Node." << matches.size(); 
+     	else if(matches.size() != 1) FAIL() << "Isolated match didn't found the C6 Node." << matches.size();
               else ASSERT_EQ(matches.begin()->C1->name, "C6");
    }*/
 
