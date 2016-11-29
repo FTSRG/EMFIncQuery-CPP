@@ -1,0 +1,31 @@
+package hu.bme.mit.localsearch.cpp.tool.modes.query
+
+import "http://tool/modes/model"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+@Bind(parameters={robotPartID, trainID, segID, robX, robY, robZ, segX, segY, segZ})
+@QueryBasedFeature(feature = "nearBy")
+pattern nearBy(robotPart : RobotPart, robotPartID : EInt, train : Train, trainID : EInt, segID : EInt, robX : EDouble, robY : EDouble, robZ : EDouble, segX : EDouble, segY : EDouble, segZ : EDouble){
+	RobotPart.id(robotPart, robotPartID);
+	Train.id(train,trainID);
+	Segment.id(trackedSegment,segID);
+	Segment.connectedTo(trackedSegment, trainSegment);
+	Train.currentlyOn(train, trainSegment);
+	check(((robX - segX)*(robX - segX) + (robY - segY)*(robY - segY) + (robZ - segZ)*(robZ - segZ)) < 100);
+}
+
+@Bind(parameters={turnoutID, stateID, turnoutTemp})
+@QueryBasedFeature(feature = "currentState")
+pattern frozenStateAPI(turnout : Turnout, turnoutID : EInt, frozen : Frozen, stateID : EInt, turnoutTemp : EDouble){
+	Turnout.id(turnout, turnoutID);
+	Frozen.id(frozen, stateID);
+	check(turnoutTemp < -20);
+}
+
+@Bind(parameters={turnoutID, stateID, turnoutTemp})
+@QueryBasedFeature(feature = "currentState")
+pattern operationalStateAPI(turnout : Turnout, turnoutID : EInt, operational : Operational, stateID : EInt, turnoutTemp : EDouble){
+	Turnout.id(turnout, turnoutID);
+	Operational.id(operational, stateID);
+	check(turnoutTemp >= -20);
+}

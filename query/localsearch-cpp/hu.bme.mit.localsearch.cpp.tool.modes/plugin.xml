@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
+--><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated model -->
+    <package class="railRoadModel.RailRoadModelPackage" genModel="model/model.genmodel" uri="http://tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="Turnout" feature-name="currentState" package-nsUri="http://tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.operationalStateAPI" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="Turnout" feature-name="currentState" package-nsUri="http://tool/modes/model"/>
+  </extension>
+  <extension id="extension.derived.hu.bme.mit.localsearch.cpp.tool.modes.query.nearBy" point="org.eclipse.viatra.query.runtime.base.wellbehaving.derived.features">
+    <wellbehaving-derived-feature classifier-name="RobotPart" feature-name="nearBy" package-nsUri="http://tool/modes/model"/>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DistributedQueries">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.shouldCollide"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.isDangerous"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.checkingHell"/>
+    </group>
+  </extension>
+  <extension id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput" id="hu.bme.mit.localsearch.cpp.tool.modes.query.DerivedInput">
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.nearBy"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.frozenStateAPI"/>
+      <query-specification fqn="hu.bme.mit.localsearch.cpp.tool.modes.query.operationalStateAPI"/>
+    </group>
+  </extension>
+</plugin>

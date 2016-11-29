@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Project" InternalType="Console">
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[cpp;c;h;hpp;xrc;wxcp;fbp]]>
+    </Extensions>
+    <Topleveldir>../cpp-gen</Topleveldir>
+  </Reconciliation>
+  <VirtualDirectory Name="model">
+    <VirtualDirectory Name="railRoadModel">
+      <File Name="model/railRoadModel/Robot.h"/>
+      <File Name="model/railRoadModel/RobotPart.cpp"/>
+      <File Name="model/railRoadModel/Train.h"/>
+      <File Name="model/railRoadModel/Frozen.cpp"/>
+      <File Name="model/railRoadModel/Point.h"/>
+      <File Name="model/railRoadModel/Segment.cpp"/>
+      <File Name="model/railRoadModel/RobotElement.cpp"/>
+      <File Name="model/railRoadModel/RobotModel.h"/>
+      <File Name="model/railRoadModel/Path.cpp"/>
+      <File Name="model/railRoadModel/RobotElement.h"/>
+      <File Name="model/railRoadModel/Path.h"/>
+      <File Name="model/railRoadModel/RobotPart.h"/>
+      <File Name="model/railRoadModel/Frozen.h"/>
+      <File Name="model/railRoadModel/Operational.cpp"/>
+      <File Name="model/railRoadModel/RailRoadElement.h"/>
+      <File Name="model/railRoadModel/Turnout.cpp"/>
+      <File Name="model/railRoadModel/Turnout.h"/>
+      <File Name="model/railRoadModel/RailRoadModel.h"/>
+      <File Name="model/railRoadModel/RailRoadModel.cpp"/>
+      <File Name="model/railRoadModel/State.h"/>
+      <File Name="model/railRoadModel/Train.cpp"/>
+      <File Name="model/railRoadModel/Segment.h"/>
+      <File Name="model/railRoadModel/Operational.h"/>
+      <File Name="model/railRoadModel/RobotModel.cpp"/>
+      <File Name="model/railRoadModel/State.cpp"/>
+      <File Name="model/railRoadModel/RailRoadElement.cpp"/>
+      <File Name="model/railRoadModel/Point.cpp"/>
+      <File Name="model/railRoadModel/Robot.cpp"/>
+    </VirtualDirectory>
+    <File Name="model/railRoadModel_decl.h"/>
+    <File Name="model/railRoadModel_def.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Viatra">
+    <VirtualDirectory Name="Query">
+      <VirtualDirectory Name="DerivedInput">
+        <File Name="Viatra/Query/DerivedInput/OperationalStateAPIFrame_0.h"/>
+        <File Name="Viatra/Query/DerivedInput/NearByInputUpdater.h"/>
+        <File Name="Viatra/Query/DerivedInput/OperationalStateAPIInputUpdater.h"/>
+        <File Name="Viatra/Query/DerivedInput/FrozenStateAPIMatch.h"/>
+        <File Name="Viatra/Query/DerivedInput/NearByFrame_0.h"/>
+        <File Name="Viatra/Query/DerivedInput/FrozenStateAPIInputUpdater.h"/>
+        <File Name="Viatra/Query/DerivedInput/FrozenStateAPIFrame_0.h"/>
+        <File Name="Viatra/Query/DerivedInput/NearByQuerySpecification.h"/>
+        <File Name="Viatra/Query/DerivedInput/NearByMatcher.h"/>
+        <File Name="Viatra/Query/DerivedInput/OperationalStateAPIMatch.h"/>
+        <File Name="Viatra/Query/DerivedInput/FrozenStateAPIQuerySpecification.h"/>
+        <File Name="Viatra/Query/DerivedInput/FrozenStateAPIMatcher.h"/>
+        <File Name="Viatra/Query/DerivedInput/NearByMatch.h"/>
+        <File Name="Viatra/Query/DerivedInput/OperationalStateAPIQuerySpecification.h"/>
+        <File Name="Viatra/Query/DerivedInput/DerivedInputQueryGroup.h"/>
+        <File Name="Viatra/Query/DerivedInput/OperationalStateAPIMatcher.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="DistributedQueries">
+        <File Name="Viatra/Query/DistributedQueries/ShouldCollideFrame_0.h"/>
+        <File Name="Viatra/Query/DistributedQueries/ShouldCollideQuerySpecification.h"/>
+        <File Name="Viatra/Query/DistributedQueries/IsDangerousQuerySpecification.h"/>
+        <File Name="Viatra/Query/DistributedQueries/DistributedQueriesQueryGroup.h"/>
+        <File Name="Viatra/Query/DistributedQueries/IsDangerousFrame_0.h"/>
+        <File Name="Viatra/Query/DistributedQueries/IsDangerousMatcher.h"/>
+        <File Name="Viatra/Query/DistributedQueries/ShouldCollideMatch.h"/>
+        <File Name="Viatra/Query/DistributedQueries/ShouldCollideMatcher.h"/>
+        <File Name="Viatra/Query/DistributedQueries/IsDangerousMatch.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="clang( tags/RELEASE_380/final )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-pedantic;-std=c++14;-Wall;-Wextra -Wno-unused-parameter" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <IncludePath Value="./model/"/>
+        <IncludePath Value="/home/tht-kr/GIT/EMFIncQuery-CPP/query/plugins/org.eclipse.viatra.query.tooling.cpp.localsearch/resources/"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="clang( tags/RELEASE_380/final )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <VirtualDirectory Name="cpp-gen">
+    <File Name="main.cpp"/>
+  </VirtualDirectory>
+</CodeLite_Project>

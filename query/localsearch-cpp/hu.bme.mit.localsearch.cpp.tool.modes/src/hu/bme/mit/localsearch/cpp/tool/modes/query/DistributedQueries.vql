@@ -1,0 +1,31 @@
+package hu.bme.mit.localsearch.cpp.tool.modes.query
+
+//import "http://cpp/tool/modes/platform"
+import "http://tool/modes/model"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern shouldCollide(rp : RobotPart, tr : Train){
+	RobotPart.nearBy(rp, tr);
+}
+
+pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
+	Train.currentlyOn(train, segment);
+	Segment.connectedTo(segment, turnout);
+	Frozen(fro);
+	Turnout.currentState(turnout, fro);
+}
+
+@Bind(parameters={a, b, d, s})
+pattern checkingHell(a:EInt, b:EInt, d:EDouble, s:EString){
+	EInt(x);
+	EInt(y);
+	EInt(z);
+	x == eval(a+b);
+	y == eval(a+x);
+	z == eval(a+y);
+	check(a*2 == b);
+	check(a+2 == b);
+	check(d*a == d);
+	check(Math.sqrt(a*b) == b);
+	check(s.length() == a);
+}

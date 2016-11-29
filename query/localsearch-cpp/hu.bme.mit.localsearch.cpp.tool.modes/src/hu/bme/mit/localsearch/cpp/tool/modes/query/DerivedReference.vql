@@ -1,0 +1,36 @@
+package hu.bme.mit.localsearch.cpp.tool.modes.query
+
+//import "http://cpp/tool/modes/platform"
+import "http://tool/modes/model"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+//@Bind(parameters={nodeID})
+//@QueryBasedFeature(feature="derivedExecutes")
+//pattern IDerivedExecutes(node: Node, nodeID, train : Train, trainID){
+//	Node.executes(node, segment);
+//	Train.currentlyOn(train, segment);
+//	Node.id(node, nodeID);
+//	Train.id(train, trainID);
+//} or {
+//	Node.executes(node, segment1);
+//	Segment.connectedTo(segment1, segment2);
+//	Train.currentlyOn(train, segment2);
+//	Node.id(node, nodeID);
+//	Train.id(train, trainID);
+//}
+
+//@Bind(parameters={robotPartID})
+//@QueryBasedFeature(feature = "refSegment")
+//pattern refSeg(robotPart : RobotPart, robotPartID, segment : Segment, segmentID){
+//	RobotPart.id(robotPart, robotPartID);
+//	//RobotPart.position(robotPart,robPoint);
+//	//Point.x(robPoint, robX);
+//	//Point.y(robPoint, robY);
+//	//Point.z(robPoint, robZ);
+//	Segment.id(segment, segmentID);
+//	//Segment.points(segment, segPoint);
+//	//Point.x(segPoint, sX);
+//	//Point.y(segPoint, sY);
+//	//Point.z(segPoint, sZ);
+//	//check(robX > 10.0 && robY > 10.0 && robZ > 10.0 && sX > 10 && sY > 10 && sZ > 10);
+//}

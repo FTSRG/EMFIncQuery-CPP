@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hu.bme.mit.localsearch.cpp.tool.modes/emf-gen"
+    modelPluginID="hu.bme.mit.localsearch.cpp.tool.modes" modelName="Model" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>model.ecore</foreignModel>
+  <genPackages prefix="RailRoadModel" disposableProviderFactory="true" ecorePackage="model.ecore#/">
+    <genClasses ecoreClass="model.ecore#//Train">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Train/currentlyOn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Train/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Train/y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Train/id"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Train/previouslyOn"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="model.ecore#//RailRoadElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//RailRoadElement/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//RailRoadElement/points"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//Turnout">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Turnout/top"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Turnout/straight"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Turnout/divergent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Turnout/currentlyDivergent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Turnout/currentState"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Point/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Point/y"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//RailRoadModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//RailRoadModel/segments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//RailRoadModel/trains"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//RailRoadModel/paths"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//Segment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Segment/isEnabled"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Segment/connectedTo"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//Path">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Path/from"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Path/via"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//Path/to"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//RobotPart">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//RobotPart/nearBy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//RobotPart/refSegment"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="model.ecore#//RobotElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//RobotElement/id"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="model.ecore#//State">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//State/id"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//Frozen"/>
+    <genClasses ecoreClass="model.ecore#//Operational"/>
+    <genClasses ecoreClass="model.ecore#//Robot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//Robot/robotParts"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//RobotModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//RobotModel/robots"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
