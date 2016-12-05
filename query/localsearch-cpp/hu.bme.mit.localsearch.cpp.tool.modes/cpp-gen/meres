@@ -1,0 +1,21 @@
+ 2021  valgrind ./Project >> collide.txt
+ 2022  valgrind --tool=massif ./Project >> collide.txt
+ 2023  ls
+ 2024  mv massif.out.13668 collide.out.13668
+ 2025  ls
+ 2026  valgrind --tool=massif ./Project >> dangerous.txt
+ 2027  ls
+ 2028  mv massif.out.13758 dangerous.out.13758
+ 2029  ls
+ 2030  ms_print collide.out.13668 
+ 2031  cat collide.out.13668 
+ 2032  rm collide.out.13668 
+ 2033  rm dangerous.out.13758 
+ 2034  valgrind --tool=massif ./Project >> dangerous.txt
+ 2035  ms_print massif.out.13935 
+ 2036  ms_print massif.out.13935 >> graph.txt
+ 2037  valgrind --tool=massif ./Project >> collide.txt
+ 2038  ms_print massif.out.14171>> graph2.txt
+ 2039  valgrind --tool=massif ./Project >> collide.txth
+ 2040  history
+
