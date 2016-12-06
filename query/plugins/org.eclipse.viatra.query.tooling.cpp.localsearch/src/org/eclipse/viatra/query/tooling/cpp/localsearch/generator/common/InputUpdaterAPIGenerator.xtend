@@ -64,13 +64,13 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 		 * The Derived feature has a source and a target, their id must be given in update function parameter i.e. (srcID, trgID, ...).
 		 * If that isn't guaranteed this code crashes in compile time.
 		 */
-		static void update(::Viatra::Query::Model::ModelRoot* modelRoot,«matcherGenerator.getParamList(pattern)»){
+		static void update(::Viatra::Query::ModelRoot* modelRoot,«matcherGenerator.getParamList(pattern)»){
 			/*
 			 * Critical Section START
 			 * Atomicity is mandatory
 			 * Not supported parallel modifications and queries
 			 */
-			auto srcInstanceList = ModelIndex<«srcType», ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			auto srcInstanceList = ModelIndex<«srcType», ::Viatra::Query::ModelRoot>::instances(modelRoot);
 			auto srcIDPredicate = [=](const «srcPointerType» src){
 				return src->id == «srcID.name»;
 			};
@@ -79,11 +79,11 @@ class InputUpdaterAPIGenerator extends ViatraQueryHeaderGenerator {
 
 			if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("«srcType» ID not found");
 
-			auto engine = QueryEngine<::Viatra::Query::Model::ModelRoot>::of(modelRoot);
+			auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
 			auto «featureName»Matcher = engine.template matcher< «querySpecification.querySpecificationName» >();
 			auto matches = «featureName»Matcher.matches(«pattern.boundParameters.map[it.name].join(", ")»);
 
-			auto trgInstanceList = ModelIndex<«trgType», ::Viatra::Query::Model::ModelRoot>::instances(modelRoot);
+			auto trgInstanceList = ModelIndex<«trgType», ::Viatra::Query::ModelRoot>::instances(modelRoot);
 			auto trgIDPredicate = [=](const «trgPointerType» trg){
 				return trg->id == «trgID.name»;
 			};
