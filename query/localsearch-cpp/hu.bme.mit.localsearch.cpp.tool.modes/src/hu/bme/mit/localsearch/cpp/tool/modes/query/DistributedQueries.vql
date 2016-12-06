@@ -8,11 +8,22 @@ pattern shouldCollide(rp : RobotPart, tr : Train){
 	RobotPart.nearBy(rp, tr);
 }
 
-pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
+pattern isDangerous1(segment : Segment, turnout: Turnout, train : Train){
 	Train.currentlyOn(train, segment);
 	Segment.connectedTo(segment, turnout);
 	Frozen(fro);
 	Turnout.currentState(turnout, fro);
+}
+
+pattern onSamePosition(TA:Train, TB:Train)
+{
+	Train.currentlyOn(TA, s);
+	Train.currentlyOn(TB, s);
+	TA != TB;
+}
+pattern isDangerous(TA:Train, TB:Train)
+{
+	find onSamePosition(TA, TB);
 }
 
 @Bind(parameters={a, b, d, s})
