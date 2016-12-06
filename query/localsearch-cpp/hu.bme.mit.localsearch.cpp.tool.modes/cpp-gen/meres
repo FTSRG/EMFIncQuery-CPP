@@ -14,7 +14,8 @@
  2034  valgrind --tool=massif ./Project >> dangerous.txt
  2035  ms_print massif.out.13935 
  2036  ms_print massif.out.13935 >> graph.txt
- 2037  valgrind --tool=massif ./Project >> collide.txt
+ 2037  ls
+mass >> collide.txt
  2038  ms_print massif.out.14171>> graph2.txt
  2039  valgrind --tool=massif ./Project >> collide.txth
  2040  history
