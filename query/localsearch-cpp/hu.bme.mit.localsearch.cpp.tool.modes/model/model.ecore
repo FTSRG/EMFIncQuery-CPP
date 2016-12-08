@@ -28,12 +28,7 @@
         eType="#//RailRoadElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentlyDivergent" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" lowerBound="1"
-        eType="#//State" volatile="true" transient="true" derived="true">
-      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
-        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.operationalStateAPI"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentState" eType="#//State"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Point">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
@@ -60,11 +55,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotPart" eSuperTypes="#//RobotElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nearBy" upperBound="-1"
-        eType="#//Train" volatile="true" transient="true" derived="true">
-      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
-        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.nearBy"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//Train" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refSegment" upperBound="-1"
         eType="#//Segment" volatile="true" transient="true" derived="true">
       <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
@@ -75,11 +66,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="RobotElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="State" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Frozen" eSuperTypes="#//State"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Operational" eSuperTypes="#//State"/>
   <eClassifiers xsi:type="ecore:EClass" name="Robot">
     <eStructuralFeatures xsi:type="ecore:EReference" name="robotParts" upperBound="-1"
         eType="#//RobotPart" containment="true"/>
@@ -87,5 +73,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="RobotModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="robots" upperBound="-1"
         eType="#//Robot" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="State">
+    <eLiterals name="Operational"/>
+    <eLiterals name="Frozen"/>
   </eClassifiers>
 </ecore:EPackage>

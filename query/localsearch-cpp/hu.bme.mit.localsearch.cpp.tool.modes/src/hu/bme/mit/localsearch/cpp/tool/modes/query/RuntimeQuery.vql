@@ -1,0 +1,40 @@
+package hu.bme.mit.localsearch.cpp.tool.modes.query
+//
+////import "http://cpp/tool/modes/platform"
+//import "http://tool/modes/model"
+//import "http://www.eclipse.org/emf/2002/Ecore"
+//
+//pattern robotCollideWithTrain(rp : RobotPart, tr : Train){
+//	RobotPart.nearBy(rp, tr);
+//}
+//
+//pattern connectedTo(SA : Segment, SB : RailRoadElement){
+//	Segment.connectedTo(SA,SB);
+//}
+//
+//pattern path(SA : Segment){
+//	2 == count find connectedTo(SA,_);
+//}
+//
+//pattern deadEnd(SA : Segment){
+//	1 == count find connectedTo(SA,_);
+//}
+//
+//pattern onSamePosition(TA:Train, TB:Train)
+//{
+//	Train.currentlyOn(TA, s);
+//	Train.currentlyOn(TB, s);
+//	TA != TB;
+//}
+//
+//pattern goToDivergent(TA : Train, SA : Segment){
+//	Turnout.currentlyDivergent(TurnA, true);
+//	Train.currentlyOn(TA, TurnA);
+//	Turnout.divergent(TurnA, SA);
+//}
+//
+//pattern isDangerous(segment : Segment, turnout: Turnout, train : Train){
+//	Train.currentlyOn(train, segment);
+//	Segment.connectedTo(segment, turnout);
+//	Turnout.currentState(turnout, ::Frozen);
+//}

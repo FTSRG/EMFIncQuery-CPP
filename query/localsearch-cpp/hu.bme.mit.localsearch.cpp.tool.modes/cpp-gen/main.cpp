@@ -1,11 +1,15 @@
 #include "sys/types.h"
 #include "sys/sysinfo.h"
 
-//#include "Viatra/Query/DerivedInput/FrozenStateAPIInputUpdater.h"
-//#include "Viatra/Query/DistributedQueries/IsDangerousMatcher.h"
-#include "Viatra/Query/DistributedQueries/ShouldCollideMatcher.h"
+#include "Viatra/Query/IteratorQuery/RobotCollideWithTrainMatcher.h"
+#include "Viatra/Query/IteratorQuery/DeadEndMatcher.h"
+#include "Viatra/Query/IteratorQuery/GoToDivergentMatcher.h"
+#include "Viatra/Query/IteratorQuery/IsDangerousMatcher.h"
+#include "Viatra/Query/IteratorQuery/OnSamePositionMatcher.h"
+#include "Viatra/Query/IteratorQuery/PathMatcher.h"
 
 #include "railRoadModel/Segment.h"
+#include "railRoadModel/State.h"
 
 #include "Viatra/Query/QueryEngine.h"
 
@@ -18,7 +22,7 @@
 
 using namespace railRoadModel;
 using namespace Viatra::Query;
-using namespace Viatra::Query::DistributedQueries;
+using namespace Viatra::Query::IteratorQuery;
 using ModelRoot = Viatra::Query::ModelRoot;
 
 constexpr int test_count = 20;
@@ -33,16 +37,20 @@ struct Storage{
 	std::vector<RobotPart*> robotparts;
 	std::vector<Robot*> robots;
 	std::vector<Train*> trains;
-	Frozen* frozen;
-	Operational* operational;
+	//Frozen* frozen;
+	//Operational* operational;
 };
 
 Storage model;
 std::vector<Record> data;
 
 QueryEngine<ModelRoot> engine = QueryEngine<ModelRoot>::empty();
-//IsDangerousQuerySpecification<ModelRoot>::Matcher dangerousMatcher = engine.matcher<IsDangerousQuerySpecification>();
-ShouldCollideQuerySpecification<ModelRoot>::Matcher collideMatcher = engine.matcher<ShouldCollideQuerySpecification>();
+DeadEndQuerySpecification<ModelRoot>::Matcher deadEndMatcher = engine.matcher<DeadEndQuerySpecification>();
+GoToDivergentQuerySpecification<ModelRoot>::Matcher divergentMatcher = engine.matcher<GoToDivergentQuerySpecification>();
+IsDangerousQuerySpecification<ModelRoot>::Matcher dangerousMatcher = engine.matcher<IsDangerousQuerySpecification>();
+OnSamePositionQuerySpecification<ModelRoot>::Matcher samePosMatcher = engine.matcher<OnSamePositionQuerySpecification>();
+PathQuerySpecification<ModelRoot>::Matcher pathMatcher = engine.matcher<PathQuerySpecification>();
+RobotCollideWithTrainQuerySpecification<ModelRoot>::Matcher collideMatcher = engine.matcher<RobotCollideWithTrainQuerySpecification>();
 
 auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -55,30 +63,50 @@ double seconds() {
 	return nanos() / (1000 * 1000 * 1000 * 1.0);
 }
 
-void CheckSystemState()
+void CheckSystemState(int i)
 {
 	//std::cout << "Dangerous: " << dangerousMatcher.matches().size() << " #." <<std::endl;
 	//std::cout << "Collide: " << collideMatcher.matches().size() << " #." <<std::endl;
-	//dangerousMatcher.matches();
-	collideMatcher.matches();
+	//std::cout << "DeadEnd: " << deadEndMatcher.matches().size() << " #." <<std::endl;
+	//std::cout << "Divergent: " << divergentMatcher.matches().size() << " #." <<std::endl;
+	//std::cout << "SamePos: " << samePosMatcher.matches().size() << " #." <<std::endl;
+	//std::cout << "Path: " << pathMatcher.matches().size() << " #." <<std::endl;
+	switch(i){
+		case 1: dangerousMatcher.matches();break;
+		case 2: collideMatcher.matches();break;
+		case 3: deadEndMatcher.matches();break;
+		case 4: divergentMatcher.matches();break;
+		case 5: samePosMatcher.matches();break;
+		case 6: pathMatcher.matches();break;
+		default: break;
+	}
 }
 
-void runCheckingThread() {
-	double lastT = seconds();
-	for (int i = 0; i < test_count; ++i)
+void runCheckingThread(int counter) {
+	switch(counter){
+		//case 1: std::cout << "isDangerous;";break;
+		//case 2: std::cout << "robotCollideWithTrain;";break;
+		//case 3: std::cout << "deadEnd;";break;
+		//case 4: std::cout << "goToDivergent;";break;
+		//case 5: std::cout << "onSamePosition;";break;
+		//case 6: std::cout << "path;";break;
+		default: break;
+	}
+	//double lastT = seconds();
+	//for (int i = 0; i < test_count; ++i)
 	{
-		CheckSystemState();
+		CheckSystemState(counter);
 
-		auto time = seconds();
-		data.push_back({time - lastT});
-		lastT = time;
+		//auto time = seconds();
+		//data.push_back({time - lastT});
+		//lastT = time;
 	}
 }
 
 void init(){
 	//Logikai modell elemek
-	model.frozen = new Frozen(); model.frozen->id = 1003;
-	model.operational = new Operational(); model.operational->id = 1004;
+	//model.frozen = new Frozen(); model.frozen->id = 1003;
+	//model.operational = new Operational(); model.operational->id = 1004;
 	
 	//Modell elemek - Szegmensek
 	auto s15 = new Segment(); s15->id = 15; model.segments.push_back(s15);
@@ -106,24 +134,29 @@ void init(){
 	auto s8 = new Segment(); s8->id = 8; model.segments.push_back(s8);
 	auto s5 = new Segment(); s5->id = 5; model.segments.push_back(s5);
 
-	auto s7 = new Segment(); s7->id = 7; model.segments.push_back(s7);
+	auto s7 = new Segment(); s7->id = 7;model.segments.push_back(s7);
 	auto s19 = new Segment(); s19->id = 19; model.segments.push_back(s19);
 	auto s30 = new Segment(); s30->id = 30; model.segments.push_back(s30);
 	auto s11 = new Segment(); s11->id = 11; model.segments.push_back(s11);
 
-	//Modell elemek - Vonatok
+	//Modell elemek - Váltók
+	auto turn14 = new Turnout(); turn14->id = 14; turn14->currentlyDivergent = true; turn14->currentState = ::railRoadModel::State::Operational; model.turnouts.push_back(turn14);
+	auto turn21 = new Turnout(); turn21->id = 21; turn21->currentlyDivergent = true; turn21->currentState = ::railRoadModel::State::Operational; model.turnouts.push_back(turn21);
+	auto turn9 = new Turnout(); turn9->id = 9; turn9->currentlyDivergent = true; turn9->currentState = ::railRoadModel::State::Operational; model.turnouts.push_back(turn9);
+
+	auto turn3 = new Turnout(); turn3->id = 3; turn3->currentlyDivergent = false; turn3->currentState = ::railRoadModel::State::Frozen; model.turnouts.push_back(turn3);
+	auto turn25 = new Turnout(); turn25->id = 25; turn25->currentlyDivergent = false; turn25->currentState = ::railRoadModel::State::Frozen; model.turnouts.push_back(turn25);
+	auto turn32 = new Turnout(); turn32->id = 32; turn32->currentlyDivergent = false; turn32->currentState = ::railRoadModel::State::Frozen; model.turnouts.push_back(turn32);
+	auto turn28 = new Turnout(); turn28->id = 28; turn28->currentlyDivergent = false; turn28->currentState = ::railRoadModel::State::Frozen; model.turnouts.push_back(turn28);
+
+		//Modell elemek - Vonatok
 	auto t1001 = new Train(); t1001->id = 1001; t1001->currentlyOn = s4; model.trains.push_back(t1001);
 	auto t1002 = new Train(); t1002->id = 1002; t1002->currentlyOn = s15; model.trains.push_back(t1002);
-
-	//Modell elemek - Váltók
-	auto turn14 = new Turnout(); turn14->id = 14; turn14->currentState = model.operational; model.turnouts.push_back(turn14);
-	auto turn21 = new Turnout(); turn21->id = 21; turn21->currentState = model.operational; model.turnouts.push_back(turn21);
-	auto turn9 = new Turnout(); turn9->id = 9; turn9->currentState = model.operational; model.turnouts.push_back(turn9);
-
-	auto turn3 = new Turnout(); turn3->id = 3; turn3->currentState = model.frozen; model.turnouts.push_back(turn3);
-	auto turn25 = new Turnout(); turn25->id = 25; turn25->currentState = model.frozen; model.turnouts.push_back(turn25);
-	auto turn32 = new Turnout(); turn32->id = 32; turn32->currentState = model.frozen; model.turnouts.push_back(turn32);
-	auto turn28 = new Turnout(); turn28->id = 28; turn28->currentState = model.frozen; model.turnouts.push_back(turn28);
+	auto t1003 = new Train(); t1003->id = 1003; t1003->currentlyOn = turn14; model.trains.push_back(t1003);
+	auto t1004 = new Train(); t1004->id = 1004; t1004->currentlyOn = turn9; model.trains.push_back(t1004);
+	auto t1005 = new Train(); t1005->id = 1005; t1005->currentlyOn = turn28; model.trains.push_back(t1005);
+	auto t1006 = new Train(); t1006->id = 1006; t1006->currentlyOn = s15; model.trains.push_back(t1006);
+	auto t1007 = new Train(); t1007->id = 1006; t1007->currentlyOn = turn14; model.trains.push_back(t1007);
 
 	//Modell elemek - Robotok
 	auto rp3011 = new RobotPart(); rp3011->id = 3011; rp3011->nearBy.push_back(t1001); model.robotparts.push_back(rp3011);
@@ -181,8 +214,8 @@ void init(){
 	s30->connectedTo.push_back(turn32); s30->connectedTo.push_back(turn28);
 	s11->connectedTo.push_back(turn9); s11->connectedTo.push_back(turn14);
 	
-	std::cout << "Model Size: " << model.robotparts.size() + 
-	model.robots.size() + model.segments.size() + model.trains.size() + model.turnouts.size() + 2 << std::endl;
+	//std::cout << "Model Size: " << model.robotparts.size() + 
+	//model.robots.size() + model.segments.size() + model.trains.size() + model.turnouts.size() + 2 << std::endl;
 
 }
 
@@ -197,108 +230,44 @@ void destruct(){
 	model.robots.clear();
 	for(auto rp : model.robotparts) delete rp;
 	model.robotparts.clear();
-	delete model.frozen;
-	delete model.operational;
+	//delete model.frozen;
+	//delete model.operational;
 }
-//
-//int parseLine(char* line){
-//    // This assumes that a digit will be found and the line ends in " Kb".
-//    int i = strlen(line);
-//    const char* p = line;
-//    while (*p <'0' || *p > '9') p++;
-//    line[i-3] = '\0';
-//    i = atoi(p);
-//    return i;
-//}
-//
-//int usedVirtual(){ //Note: this value is in KB!
-//    FILE* file = fopen("/proc/self/status", "r");
-//    int result = -1;
-//    char line[128];
-//
-//    while (fgets(line, 128, file) != NULL){
-//        if (strncmp(line, "VmSize:", 7) == 0){
-//            result = parseLine(line);
-//            break;
-//        }
-//    }
-//    fclose(file);
-//    return result;
-//}
-//
-//int usedPhysical(){ //Note: this value is in KB!
-//    FILE* file = fopen("/proc/self/status", "r");
-//    int result = -1;
-//    char line[128];
-//
-//    while (fgets(line, 128, file) != NULL){
-//        if (strncmp(line, "VmRSS:", 6) == 0){
-//            result = parseLine(line);
-//            break;
-//        }
-//    }
-//    fclose(file);
-//    return result;
-//}
-//
-//void memory(){
-//	struct sysinfo memInfo;
-//	sysinfo (&memInfo);
-//	
-//	long long totalVirtualMem = memInfo.totalram;
-//	//Add other values in next statement to avoid int overflow on right hand side...
-//	totalVirtualMem += memInfo.totalswap;
-//	totalVirtualMem *= memInfo.mem_unit;
-//	
-//	long long virtualMemUsed = memInfo.totalram - memInfo.freeram;
-//	//Add other values in next statement to avoid int overflow on right hand side...
-//	virtualMemUsed += memInfo.totalswap - memInfo.freeswap;
-//	virtualMemUsed *= memInfo.mem_unit;
-//	
-//	long long totalPhysMem = memInfo.totalram;
-//	//Multiply in next statement to avoid int overflow on right hand side...
-//	totalPhysMem *= memInfo.mem_unit;
-//	
-//	long long physMemUsed = memInfo.totalram - memInfo.freeram;
-//	//Multiply in next statement to avoid int overflow on right hand side...
-//	physMemUsed *= memInfo.mem_unit;
-//	
-//	std::cout << "total virtual memory;total used virtual memory;used virtual memory by process;" 
-//		<< "total physical memory;total used physical memory;used physical by process" << std::endl;
-//	std::cout <<totalVirtualMem << ";" << virtualMemUsed << ";" << usedVirtual() <<";" 
-//		<< totalPhysMem << ";" << physMemUsed << ";" << usedPhysical() << ";" << std::endl;
-//}
 
 int main(int argc, char**argv)
 {
-	data.reserve(test_count);
-	std::cout <<"Starting init - done"<< std::endl;
+	//data.reserve(test_count);
+	//std::cout <<"Starting init - done"<< std::endl;
 	init();
-	std::cout <<"Ending init - done"<< std::endl;
+	//std::cout <<"Ending init - done"<< std::endl;
 
-	std::cout <<"Starting measure - done"<< std::endl;
+	//std::cout <<"Starting measure - done"<< std::endl;
 
 	try {
-		runCheckingThread();
-		for (auto & record : data)
-		{
-			std::cout << std::fixed << std::setprecision(12) << record.checkTime << ";";
+		for(int i = 1; i <= 6; i++){ 
+			runCheckingThread(i);
+			//for (auto & record : data)
+			{
+				//std::cout << std::fixed << std::setprecision(12) << record.checkTime << ";";
+			}
+			//std::cout << std::endl;
+			//data.clear();
 		}
 	}
 	catch (const char * c)
 	{
-		std::cout << "Exception as const char: " << c << std::endl;
+		//std::cout << "Exception as const char: " << c << std::endl;
 	}
 	catch (std::exception& ex)
 	{
-		std::cout << "Exception: " << ex.what() << std::endl;
+		//std::cout << "Exception: " << ex.what() << std::endl;
 	}
 	catch (...)
 	{
-		std::cout << "Unexpected exception...." << std::endl;
+		//std::cout << "Unexpected exception...." << std::endl;
 		throw;
 	}
 
-	destruct();
+	//destruct();
 	return 0;
 }
