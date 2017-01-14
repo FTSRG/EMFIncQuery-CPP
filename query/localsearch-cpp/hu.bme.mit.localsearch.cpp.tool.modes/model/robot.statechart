@@ -1,0 +1,29 @@
+specification spec {
+
+function isClose() : boolean
+function isFar() : boolean
+function isVeryClose() : boolean
+
+	signal turnOn
+   	signal turnOff
+   	signal clk  // system works based on an outer clock
+   	signal slow
+
+  statechart stc := {
+    timeout t
+    region robot {
+        initial i
+        state normal
+        state close
+        state stop
+    }
+    transition from i to normal upon turnOn
+    transition from normal to i upon turnOff
+    transition from close to i upon turnOff
+    transition from stop to i upon turnOff
+    transition from normal to close upon clk [isClose] / send slow; set t := 20 // stopped train detected by pattern, max 20 sec positioning allowed
+    transition from close to normal upon clk [isFar]  // function checking whether the loading machine is above the train
+    transition from close to stop upon clk [isVeryClose] / send slow; set t := 20 // function checking whether the train started
+    transition from stop to normal upon clk [isFar]  // incoming train detected by pattern, max 20 sec positioning allowed
+  }
+}

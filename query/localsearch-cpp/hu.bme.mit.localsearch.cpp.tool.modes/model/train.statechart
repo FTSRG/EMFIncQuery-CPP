@@ -1,0 +1,43 @@
+specification spec {
+   function isTrainIncoming() : boolean
+   function isTrainStopped() : boolean
+   function isTrainStarted() : boolean
+   function isOverTrain() : boolean
+   function isOverRest() : boolean
+
+   signal turnOn
+   signal turnOff
+   signal clk  // system works based on an outer clock
+
+   statechart stc := {
+       timeout t
+       region r {
+           initial i
+           state working {
+               region wr {
+                   initial wi
+                   state resting
+                   state positioning
+                   state loading
+               }
+           }
+           state notWorking {
+               region nr {
+                   initial ni
+                   state off
+               }
+           }
+       }
+
+       transition from i to resting upon turnOn
+       transition from working to notWorking upon turnOff
+       transition from notWorking to resting upon turnOn
+       transition from resting to positioning upon clk [isTrainStopped] / set t := 20  // stopped train detected by pattern, max 20 sec positioning allowed
+       transition from positioning to loading upon clk [isOverTrain]  // function checking whether the loading machine is above the train
+       transition from loading to positioning upon clk [isTrainStarted]  // function checking whether the train started
+       transition from loading to positioning upon clk [isTrainIncoming] / set t := 20  // incoming train detected by pattern, max 20 sec positioning allowed
+       transition from positioning to resting upon clk [isOverRest]  // function checking whether the loading machine is above the resting position
+       transition from wi to resting
+       transition from ni to off
+   }
+}

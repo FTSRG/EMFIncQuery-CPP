@@ -1,0 +1,9 @@
+*.project
+*.workspace
+*.tags
+*.mk
+/Debug/
+Makefile
+/StatechartEngine_example/
+*.txt
+/.codelite/
