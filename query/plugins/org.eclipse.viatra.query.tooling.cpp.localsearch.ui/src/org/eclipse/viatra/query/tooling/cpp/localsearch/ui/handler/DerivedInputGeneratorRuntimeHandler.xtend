@@ -5,15 +5,15 @@ import com.google.inject.Injector
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.DerivedInputGeneratorContext
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.DerivedInputGeneratorRuntimeContext
 
-class DerivedInputGeneratorHandler extends AbstractHandler {
+class DerivedInputGeneratorRuntimeHandler extends AbstractHandler {
 	
 	@Inject Injector injector	
 	
 	override execute(ExecutionEvent event) throws ExecutionException {
 		val generatorHandler = injector.getInstance(GeneratorHandler)
-		generatorHandler.generate(event, DerivedInputGeneratorContext)
+		generatorHandler.generate(event, DerivedInputGeneratorRuntimeContext)
 		return null
 	}
 

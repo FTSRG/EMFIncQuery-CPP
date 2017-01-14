@@ -5,27 +5,18 @@ import java.util.List
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.InputUpdaterAPIGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.MatchGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.common.QueryGroupGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.MatchingFrameGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeMatcherGenerator
-import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.runtime.RuntimeQuerySpecificationGenerator
 import org.eclipse.viatra.query.tooling.cpp.localsearch.model.QueryDescriptor
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.iterator.IteratorQuerySpecificationGenerator
+import org.eclipse.viatra.query.tooling.cpp.localsearch.generator.iterator.IteratorMatcherGenerator
 
-class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
+class DerivedInputGeneratorIteratorContext extends LocalsearchGeneratorOutputProvider {
 
 	//WARNING!! This is copied from RuntimeGeneratorContext
 	override initializeGenerators(QueryDescriptor query) {
 		val List<IGenerator> generators = newArrayList
 
 		query.patterns.forEach [ name, patterns |
-			val frameGenMap = newHashMap
 			val patternName = CaseFormat::LOWER_CAMEL.to(CaseFormat::UPPER_CAMEL, name)
-			patterns.forEach[
-				patternBodies.forEach[ patternBody |
-					val matchingFrameGenerator = new MatchingFrameGenerator(query.name, patternName, patternBody.index, patternBody.matchingFrame)
-					frameGenMap.put(patternBody, matchingFrameGenerator)
-					generators += matchingFrameGenerator
-				]
-			]
 
 			val aMatchingFrame =  patterns.head.patternBodies.head.matchingFrame			
 
@@ -33,10 +24,10 @@ class DerivedInputGeneratorContext extends LocalsearchGeneratorOutputProvider {
 			val matchGen = new MatchGenerator(query.name, patternName, aMatchingFrame)
 			generators += matchGen
 			
-			val querySpec = new RuntimeQuerySpecificationGenerator(query.name, patterns.toSet, frameGenMap)
+			val querySpec = new IteratorQuerySpecificationGenerator(query.name, patterns.toSet)
 			generators += querySpec
 			
-			val matcherGen = new RuntimeMatcherGenerator(query.name, patternName, patterns.toSet, frameGenMap, matchGen, querySpec)
+			val matcherGen = new IteratorMatcherGenerator(query.name, patternName, patterns.toSet, matchGen, querySpec)
 			generators += matcherGen
 			
 			if(patterns.exists[it | 

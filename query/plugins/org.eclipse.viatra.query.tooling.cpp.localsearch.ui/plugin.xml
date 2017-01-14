@@ -39,7 +39,22 @@
               </visibleWhen>
            </command>
            <command
-                 commandId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinput"
+                 commandId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinputruntime"
+                 style="push">
+              <visibleWhen>
+                 <with
+                       variable="selection">
+                    <iterate
+                          ifEmpty="false">
+                       <reference
+                             definitionId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.testVqlExtension">
+                       </reference>
+                    </iterate>
+                 </with>
+              </visibleWhen>
+           </command>
+           <command
+                 commandId="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinputiterator"
                  style="push">
               <visibleWhen>
                  <with
@@ -82,9 +97,14 @@
            name="Iterator based">
      </command>
      <command
-           defaultHandler="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.GeneratorExecutableExtensionFactory:org.eclipse.viatra.query.tooling.cpp.localsearch.ui.handler.DerivedInputGeneratorHandler"
-           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinput"
+           defaultHandler="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.GeneratorExecutableExtensionFactory:org.eclipse.viatra.query.tooling.cpp.localsearch.ui.handler.DerivedInputGeneratorRuntimeHandler"
+           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinputruntime"
            name="Derived input - runtime based">
+     </command>
+     <command
+           defaultHandler="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.GeneratorExecutableExtensionFactory:org.eclipse.viatra.query.tooling.cpp.localsearch.ui.handler.DerivedInputGeneratorIteratorHandler"
+           id="org.eclipse.viatra.query.tooling.cpp.localsearch.ui.generatederivedinputiterator"
+           name="Derived input - iterator based">
      </command>
   </extension>
 </plugin>
