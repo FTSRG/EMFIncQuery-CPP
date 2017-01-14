@@ -1,6 +1,9 @@
 #include <vector>
 #include <mutex>
 #include "interface_out.h"
+#include "Viatra/Query/IteratorQuery/RobotCollideWithTrainMatcher.h"
+#include "Viatra/Query/IteratorQuery/RobotIsSafeMatcher.h"
+#include "Viatra/Query/IteratorQuery/RobotNearTrainMatcher.h"
 
 std::vector<sig> timeoutQueue;
 std::mutex signalMutex;
