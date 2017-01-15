@@ -54,12 +54,22 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//RailRoadElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RobotPart" eSuperTypes="#//RobotElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nearBy" upperBound="-1"
-        eType="#//Train" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="close" upperBound="-1"
+        eType="#//Train" volatile="true" transient="true" derived="true">
+      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.close"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refSegment" upperBound="-1"
         eType="#//Segment" volatile="true" transient="true" derived="true">
       <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
         <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.refSeg"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="veryClose" upperBound="-1"
+        eType="#//Train" volatile="true" transient="true" derived="true">
+      <eAnnotations source="org.eclipse.viatra.query.querybasedfeature">
+        <details key="patternFQN" value="hu.bme.mit.localsearch.cpp.tool.modes.query.veryClose"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
