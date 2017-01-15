@@ -1,9 +1,19 @@
 #include <vector>
 #include <mutex>
 #include "interface_out.h"
+#include "Viatra/Query/Matcher/ModelIndex.h"
 #include "Viatra/Query/IteratorQuery/RobotCollideWithTrainMatcher.h"
 #include "Viatra/Query/IteratorQuery/RobotIsSafeMatcher.h"
 #include "Viatra/Query/IteratorQuery/RobotNearTrainMatcher.h"
+#include "Viatra/Query/IteratorQuery/IteratorQueryQueryGroup.h"
+
+using namespace Viatra::Query::IteratorQuery;
+
+using ModelRoot = Viatra::Query::ModelRoot;
+
+ModelRoot modelRoot;
+
+IteratorQueryQueryGroup* queryGroup = IteratorQueryQueryGroup::instance();
 
 std::vector<sig> timeoutQueue;
 std::mutex signalMutex;
@@ -55,17 +65,22 @@ void customInitializer() {
 	return;
 }
 
-
 //Custom guard functions
 bool isClose(){
-	std::cout << "---isClose called" << std::endl;
-	return true;
+	RobotNearTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	int num = matcher.matches().size();
+	//std::cout << "---isClose called -- num = " << num << std::endl;
+	return num != 0;
 }
-bool isFar(){
-	std::cout << "---isFar called" << std::endl;
-	return true;
+bool isFar(){	
+	RobotIsSafeMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	int num = matcher.matches().size();
+	//std::cout << "---isFar called -- num = " << num << std::endl;
+	return num == 0;
 }
-bool isVeryClose(){
-	std::cout << "---isVeryClose called" << std::endl;
-	return false;
+bool isVeryClose(){	
+	RobotCollideWithTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	int num = matcher.matches().size();
+	//std::cout << "---isVeryClose called -- num = " << num << std::endl;
+	return num != 0;
 }

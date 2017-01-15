@@ -2,7 +2,7 @@
 #include "interface_out.h"
 // Variables
 // Events
-Event sig(0);
+Event sig0(0);
 Event turnOn(1);
 Event turnOff(2);
 Event clk(3);
