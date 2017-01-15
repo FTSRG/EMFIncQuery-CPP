@@ -8,6 +8,10 @@
 #include <string>
 #include <vector>
 
+#include "Viatra/Query/IteratorQuery/RobotCollideWithTrainMatcher.h"
+#include "Viatra/Query/IteratorQuery/RobotIsSafeMatcher.h"
+#include "Viatra/Query/IteratorQuery/RobotNearTrainMatcher.h"
+
 struct sig {
 	std::chrono::time_point<std::chrono::system_clock> time;
 	std::string sigName;
@@ -29,6 +33,12 @@ void logItem(const char* c);
 void logEnd();
 
 void customInitializer();
+
+using namespace Viatra::Query::IteratorQuery;
+
+std::unordered_set<RobotNearTrainMatch> getCloseMatches();
+std::unordered_set<RobotIsSafeMatch> getSafeMatches();
+std::unordered_set<RobotCollideWithTrainMatch> getCollideMatches();
 
 
 //Custom guard functions

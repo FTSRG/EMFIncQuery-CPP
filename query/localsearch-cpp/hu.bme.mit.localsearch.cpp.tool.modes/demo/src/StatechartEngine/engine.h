@@ -2,7 +2,7 @@
 #define maxNumOfParams 1
 #define maxNumOfActiveStates 10
 
-#define nullptr 0
+//#define nullptr 0
 
 #include "plist.hpp"
 

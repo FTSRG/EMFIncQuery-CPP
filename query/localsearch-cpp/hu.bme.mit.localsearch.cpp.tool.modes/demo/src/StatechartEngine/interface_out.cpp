@@ -1,13 +1,8 @@
 #include <vector>
 #include <mutex>
+#include <unordered_set>
 #include "interface_out.h"
-#include "Viatra/Query/Matcher/ModelIndex.h"
-#include "Viatra/Query/IteratorQuery/RobotCollideWithTrainMatcher.h"
-#include "Viatra/Query/IteratorQuery/RobotIsSafeMatcher.h"
-#include "Viatra/Query/IteratorQuery/RobotNearTrainMatcher.h"
 #include "Viatra/Query/IteratorQuery/IteratorQueryQueryGroup.h"
-
-using namespace Viatra::Query::IteratorQuery;
 
 using ModelRoot = Viatra::Query::ModelRoot;
 
@@ -65,22 +60,31 @@ void customInitializer() {
 	return;
 }
 
+std::unordered_set<RobotNearTrainMatch> getCloseMatches(){
+	RobotNearTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	return matcher.matches();
+}
+
+std::unordered_set<RobotIsSafeMatch> getSafeMatches(){
+	RobotIsSafeMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	return matcher.matches();
+}
+
+std::unordered_set<RobotCollideWithTrainMatch> getCollideMatches(){
+	RobotCollideWithTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
+	return matcher.matches();
+}
+
 //Custom guard functions
 bool isClose(){
-	RobotNearTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
-	int num = matcher.matches().size();
 	//std::cout << "---isClose called -- num = " << num << std::endl;
-	return num != 0;
+	return getCloseMatches().size() != 0;
 }
-bool isFar(){	
-	RobotIsSafeMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
-	int num = matcher.matches().size();
+bool isFar(){
 	//std::cout << "---isFar called -- num = " << num << std::endl;
-	return num == 0;
+	return getSafeMatches().size() == 0;
 }
-bool isVeryClose(){	
-	RobotCollideWithTrainMatcher<ModelRoot> matcher(&modelRoot,queryGroup->context());
-	int num = matcher.matches().size();
+bool isVeryClose(){
 	//std::cout << "---isVeryClose called -- num = " << num << std::endl;
-	return num != 0;
+	return getCollideMatches().size() != 0;
 }
