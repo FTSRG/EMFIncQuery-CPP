@@ -6,7 +6,7 @@
 		
 #include "Viatra/Query/DerivedInput/VeryCloseMatcher.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
-#include "Viatra/Query/QueryEngine.h"
+#include "Viatra/Query/Derived/DerivedInputQueryQueryGroup.h"
 
 namespace Viatra {
 namespace Query {
@@ -33,8 +33,9 @@ struct VeryCloseInputUpdate{
 
 		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::railRoadModel::RobotPart ID not found");
 
-		auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
-		auto veryCloseMatcher = engine.template matcher< VeryCloseQuerySpecification >();
+		//auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
+		//auto veryCloseMatcher = engine.template matcher< VeryCloseQuerySpecification >();
+		VeryCloseMatcher veryCloseMatcher(modelRoot, DerivedInputQueryGroup::instance()->context());
 		auto matches = veryCloseMatcher.matches(robotPartID, trainID, robX, robY, robZ, trX, trY, trZ);
 
 		auto trgInstanceList = ModelIndex<::railRoadModel::Train, ::Viatra::Query::ModelRoot>::instances(modelRoot);

@@ -6,8 +6,6 @@
 		
 #include "Viatra/Query/DerivedInput/VeryCloseMatch.h"
 #include "Viatra/Query/DerivedInput/VeryCloseQuerySpecification.h"
-#include "Viatra/Query/Plan/SearchPlanExecutor.h"
-#include "Viatra/Query/QueryEngine.h"
 #include "Viatra/Query/Util/IsNull.h"
 
 namespace Viatra {
@@ -23,8 +21,6 @@ public:
 
 	std::unordered_set<VeryCloseMatch> matches() const {
 					using ::Viatra::Query::Matcher::ISearchContext;
-		using ::Viatra::Query::Plan::SearchPlan;
-		using ::Viatra::Query::Plan::SearchPlanExecutor;
 		using ::Viatra::Query::Matcher::ClassHelper;
 	
 		std::unordered_set<VeryCloseMatch> matches;
@@ -70,8 +66,6 @@ public:
 	}
 	std::unordered_set<VeryCloseMatch> matches(int robotPartID, int trainID, double robX, double robY, double robZ, double trX, double trY, double trZ) const {
 					using ::Viatra::Query::Matcher::ISearchContext;
-		using ::Viatra::Query::Plan::SearchPlan;
-		using ::Viatra::Query::Plan::SearchPlanExecutor;
 		using ::Viatra::Query::Matcher::ClassHelper;
 	
 		std::unordered_set<VeryCloseMatch> matches;

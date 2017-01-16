@@ -4,7 +4,6 @@
 		
 #include "Viatra/Query/DerivedInput/DerivedInputQueryGroup.h"
 #include "Viatra/Query/Operations/AllOperations.h"
-#include "Viatra/Query/Plan/SearchPlan.h"
 #include "Viatra/Query/Util/Optional.h"
 
 namespace Viatra {

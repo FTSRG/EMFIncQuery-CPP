@@ -5,8 +5,8 @@
 #include <stdexcept>
 		
 #include "Viatra/Query/DerivedInput/CloseMatcher.h"
+#include "Viatra/Query/Derived/DerivedInputQueryQueryGroup.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
-#include "Viatra/Query/QueryEngine.h"
 
 namespace Viatra {
 namespace Query {
@@ -33,8 +33,9 @@ struct CloseInputUpdate{
 
 		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::railRoadModel::RobotPart ID not found");
 
-		auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
-		auto closeMatcher = engine.template matcher< CloseQuerySpecification >();
+		//auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
+		//auto closeMatcher = engine.template matcher< CloseQuerySpecification >();
+		CloseMatcher closeMatcher(modelRoot, DerivedInputQueryGroup::instance()->context());
 		auto matches = closeMatcher.matches(robotPartID, trainID, robX, robY, robZ, trX, trY, trZ);
 
 		auto trgInstanceList = ModelIndex<::railRoadModel::Train, ::Viatra::Query::ModelRoot>::instances(modelRoot);

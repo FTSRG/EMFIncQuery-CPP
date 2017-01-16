@@ -6,8 +6,6 @@
 		
 #include "Viatra/Query/IteratorQuery/RobotIsSafeMatch.h"
 #include "Viatra/Query/IteratorQuery/RobotIsSafeQuerySpecification.h"
-#include "Viatra/Query/Plan/SearchPlanExecutor.h"
-#include "Viatra/Query/QueryEngine.h"
 #include "Viatra/Query/Util/IsNull.h"
 
 namespace Viatra {
@@ -23,8 +21,6 @@ public:
 
 	std::unordered_set<RobotIsSafeMatch> matches() const {
 					using ::Viatra::Query::Matcher::ISearchContext;
-		using ::Viatra::Query::Plan::SearchPlan;
-		using ::Viatra::Query::Plan::SearchPlanExecutor;
 		using ::Viatra::Query::Matcher::ClassHelper;
 	
 		std::unordered_set<RobotIsSafeMatch> matches;
