@@ -40,6 +40,9 @@ std::unordered_set<RobotNearTrainMatch> getCloseMatches();
 std::unordered_set<RobotIsSafeMatch> getSafeMatches();
 std::unordered_set<RobotCollideWithTrainMatch> getCollideMatches();
 
+//ROS communication
+void sendStopMessage(int trainID, bool stop);
+void sendSlowDownMessage(int trainID, bool slowDown);
 
 //Custom guard functions
 bool isClose();

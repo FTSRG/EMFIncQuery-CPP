@@ -1,8 +1,6 @@
 #include "engine.h"
 #include "interface_out.h"
 #include "interface_in.h"
-#include "demo/TrainSlow.h"
-#include "demo/TrainStop.h"
 
 // Variables
 // Events
@@ -43,13 +41,8 @@ void t1_ac() {
 
   //Send signal slow
   auto matches = getCloseMatches();
-  for(auto match : matches){
-    uint8_t slow = 1;
-    demo::TrainSlow trainSlowMsg;
-    trainSlowMsg.trainID = match.tr->id;
-    trainSlowMsg.slowDown = 1;
-    slowStream_pub.publish(trainSlowMsg);
-  }
+  for(auto match : matches)
+    sendSlowDownMessage(match.tr->id, true);
 
   setTimeout(events[5], 20);
 }
@@ -72,14 +65,8 @@ void t3_ac() {
 
   //Send signal stop
   auto matches = getCollideMatches();
-  for(auto match : matches){
-    uint8_t slow = 1;
-    demo::TrainStop trainStopMsg;
-    trainStopMsg.trainID = match.tr->id;
-    trainStopMsg.stopTrain = 1;
-    stopStream_pub.publish(trainStopMsg);
-  }
-
+  for(auto match : matches) sendStopMessage(match.tr->id, true);
+  
   setTimeout(events[5], 20);
 }
 bool t3_en() {

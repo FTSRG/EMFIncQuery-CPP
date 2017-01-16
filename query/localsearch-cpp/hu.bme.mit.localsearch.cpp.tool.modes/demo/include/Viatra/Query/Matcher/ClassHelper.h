@@ -117,11 +117,11 @@ private:
     std::map<EClass, std::map<EClass, bool> > _inheritanceMatrix;
 };
 
-bool ClassHelper::is_super_type(const EClass& child, const EClass& parent) const {
+inline bool ClassHelper::is_super_type(const EClass& child, const EClass& parent) const {
 	return (*(*_inheritanceMatrix.find(child)).second.find(parent)).second;
 }
 
-IClassHelper* ClassHelper::ClassHelperBuilder::build() {
+inline IClassHelper* ClassHelper::ClassHelperBuilder::build() {
 	size_t nrOfClasses = _classRelationshipMap.size();
 	std::map<EClass, std::map<EClass, bool> > inheritanceMatrix;
 	for (size_t i = 0; i < nrOfClasses; i++) {
@@ -138,35 +138,35 @@ IClassHelper* ClassHelper::ClassHelperBuilder::build() {
 	return new ClassHelper(inheritanceMatrix);
 }
 
-ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::forClass(EClass current) {
+inline ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::forClass(EClass current) {
 	_current = current;
 	return *this;
 }
 
-ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::noSuper() {
+inline ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::noSuper() {
 	_classRelationshipMap[_current];
 	return *this;
 }
 
-ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::setSuper(EClass super) {
+inline ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::setSuper(EClass super) {
 	_classRelationshipMap[_current].insert(super);
 	return *this;
 }
 
-ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::setSuper(const std::list<EClass>& super) {
+inline ClassHelper::ClassHelperBuilder& ClassHelper::ClassHelperBuilder::setSuper(const std::list<EClass>& super) {
 	_classRelationshipMap[_current].insert(super.begin(), super.end());
 	return *this;
 }
 
-ClassHelper::ClassHelperBuilder::ClassHelperBuilder() :
+inline ClassHelper::ClassHelperBuilder::ClassHelperBuilder() :
 	_current(0) {
 }
 
-ClassHelper::ClassHelperBuilder ClassHelper::builder() {
+inline ClassHelper::ClassHelperBuilder ClassHelper::builder() {
 	return ClassHelperBuilder();
 }
 
-ClassHelper::ClassHelper(std::map<EClass, std::map<EClass, bool> > inheritanceMatrix) :
+inline ClassHelper::ClassHelper(std::map<EClass, std::map<EClass, bool> > inheritanceMatrix) :
 	_inheritanceMatrix(inheritanceMatrix) {
 }
 

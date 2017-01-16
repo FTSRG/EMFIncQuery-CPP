@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * Copyright (c) 2014-2016 Robert Doczi, IncQuery Labs Ltd.
  * All rights reserved. This program and the accompanying materials
@@ -16,6 +17,7 @@
 
 #include <list>
 #include <type_traits>
+#include <iterator>
 
 namespace Viatra {
 namespace Query {

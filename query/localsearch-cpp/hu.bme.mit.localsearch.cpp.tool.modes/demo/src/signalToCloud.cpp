@@ -1,3 +1,5 @@
+//#define DEBUG
+#ifndef DEBUG
 #include "ros/ros.h"
 #include "demo/TrainSlow.h"
 #include "demo/TrainStop.h"
@@ -32,3 +34,4 @@ void trainSlowCallback(const demo::TrainSlow::ConstPtr record){
 void trainStopCallback(const demo::TrainStop::ConstPtr record){
   if(record->stopTrain == 1) ROS_DEBUG("   STOP - Train(id=%d)", record->trainID);
 }
+#endif

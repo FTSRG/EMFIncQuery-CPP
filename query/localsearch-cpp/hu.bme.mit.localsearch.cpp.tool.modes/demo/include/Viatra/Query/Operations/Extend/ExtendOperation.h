@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <list>
+#include <iterator>
 
 #include "../ISearchOperation.h"
 #include "../../Util/Defs.h"
