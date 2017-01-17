@@ -244,9 +244,9 @@ class POperationCompiler {
 	
 	def dispatch createCheck(ExpressionEvaluation constraint, ISearchOperationAcceptor acceptor){
 		val variables = constraint.getAffectedVariables();
-		//val compiler = new XBaseExpressionCompiler(constraint);
+		val compiler = new XBaseExpressionCompiler(constraint);
 		
-		//acceptor.acceptCheckExpression(variables, compiler);
+		acceptor.acceptCheckExpression(variables, compiler);
 	}
 
 	def dispatch createCheck(ExportedParameter constraint, ISearchOperationAcceptor acceptor) {

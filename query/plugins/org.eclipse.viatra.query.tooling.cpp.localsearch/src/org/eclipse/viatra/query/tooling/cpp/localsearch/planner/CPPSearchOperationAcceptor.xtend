@@ -164,12 +164,12 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 	}
 	
 	
-	override acceptCheckExpression(Set<PVariable> variables, CharSequence expressionAsStr) {
+	override acceptCheckExpression(Set<PVariable> variables, XBaseExpressionCompiler exprCompiler) {
 		var map = new HashMap<PVariable, EClassifier>();
 		for( v : variables )
 			map.put(v, typeMapping.get(v).looseType)
 			
-		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, expressionAsStr);
+		searchOperations += new CheckExpressionDescriptor(matchingFrame, variables, map, exprCompiler);
 	}	
 	
 
@@ -196,8 +196,5 @@ class CPPSearchOperationAcceptor implements ISearchOperationAcceptor {
 			matchingFrameRegistry.putMatchingFrame(pBody, frame)
 			return frame
 		]
-	}
-	
-
-	
+	}	
 }

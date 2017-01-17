@@ -18,6 +18,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable
 import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.MatcherReference
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.viatra.query.tooling.cpp.localsearch.planner.XBaseExpressionCompiler
 
 /**
  * @author Robert Doczi
@@ -54,14 +55,6 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 
 }
 
-@Data class ExpressionDescriptor extends AbstractSearchOperationDescriptor {
-
-	val Set<PVariable> variables
-
-	val CharSequence expression
-
-}
-
 @Data class CheckInstanceOfDescriptor extends InstanceOfDescriptor {
 
 	public static val String NAME = "InstanceOfCheck"
@@ -86,11 +79,15 @@ class InstanceOfDescriptor extends AbstractSearchOperationDescriptor {
 	val PVariable withWhom
 }
 
-@Data class CheckExpressionDescriptor extends AbstractSearchOperationDescriptor{
-	public static val String NAME = "CheckExpression"
+@Data class ExpressionDescriptor extends AbstractSearchOperationDescriptor{
 	val Set<PVariable> variables
 	val Map<PVariable, EClassifier> types 
-	val CharSequence expressionAsStr
+	val XBaseExpressionCompiler compiler
+}
+
+@Data class CheckExpressionDescriptor extends ExpressionDescriptor{
+	public static val String NAME = "CheckExpression"
+
 }
 
 @Data class CheckMultiNavigationDescriptor extends MultiNavigationDescriptor {
