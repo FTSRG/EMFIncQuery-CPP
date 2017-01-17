@@ -5,7 +5,7 @@
 #include "Viatra/Query/DerivedInput/CloseInputUpdater.h"
 #include "Viatra/Query/DerivedInput/VeryCloseInputUpdater.h"
 
-#define DEBUG
+//#define DEBUG
 
 #ifndef DEBUG
 #include "ros/ros.h"
@@ -14,6 +14,7 @@
 #endif
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <signal.h>
 
@@ -189,18 +190,23 @@ void rotateRobot(){
   rotate = rotate * mat4::Rotate(M_PI/2, 0,0,1);
   rotate = rotate * mat4::Translate(robotParts[0].v[0],robotParts[0].v[1],robotParts[0].v[2]);
   robotParts[2] = robotParts[2] * rotate;
+
+  std::cout << std::setprecision(1) << "Robot Here:(x,y)-(x,y)-(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
 }
 
 void trainGo(){
-  mat4 translate = mat4::Translate(2,0,0);
+  mat4 translate = mat4::Translate(1,0,0);
   for(int i = 0; i < 3; i++)
     trainPos[i] = trainPos[i] * translate;
+  std::cout << std::setprecision(1) << "Train Here:(x,y)....(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")...(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
 }
+
 using ModelRoot = Viatra::Query::ModelRoot;
+
 void updateModel(){
   ModelRoot modelRoot;
   for (size_t rp = 0; rp < 3; rp++) { //#numofRobotparts
-    for (size_t tr = 0; tr < 3; tr++) { //numofTrains
+    for (size_t tr = 0; tr < 3; tr++) { //#numofTrains
       CloseInputUpdate::update(&modelRoot, rp+1, tr+11, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
           trainPos[tr].v[0], trainPos[tr].v[1], trainPos[tr].v[2]);
       VeryCloseInputUpdate::update(&modelRoot, rp+1, tr+11, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
@@ -211,11 +217,11 @@ void updateModel(){
 
 void init_poses(){
   robotParts[0] = vec4(2,0,0);
-  robotParts[1] = vec4(2,0.5,0);
-  robotParts[2] = vec4(2,1,0);
-  trainPos[0] = vec4(-12,0.75,0);
-  trainPos[1] = vec4(-22,0.75,0);
-  trainPos[2] = vec4(-32,0.75,0);
+  robotParts[1] = vec4(2,6,0);
+  robotParts[2] = vec4(2,8,0);
+  trainPos[0] = vec4(-12,15,0);
+  trainPos[1] = vec4(-22,15,0);
+  trainPos[2] = vec4(-32,15,0);
 }
 
 int main(int argc, char** argv) {
@@ -235,8 +241,21 @@ int main(int argc, char** argv) {
   logStates();
   while (true) {
     for (size_t i = 0; i < 32; i++) {
-      trainGo();
-	  updateModel();
+      switch(getState()){
+        case 0:
+          trainGo();
+          trainGo();
+	break;
+	case 1:
+	  trainGo();
+	break;
+	case 2:
+	  rotateRobot();
+	break;
+	default:
+	break;
+      }
+      updateModel();
       sleep_until(system_clock::now() + seconds(1));
       std::cout << "CLK---" << std::endl;
       evaluate("clk");
@@ -248,46 +267,3 @@ int main(int argc, char** argv) {
   }
 
 }
-// int main(int argc, char** argv) {
-//   // Queue handler would also come here. Example in timer_tester_main.cpp
-//   init(argc, argv);
-//   std::cout << "---Start---" << std::endl;
-//   logStates();
-//   evaluate("clk");
-//   std::cout << "-Sig: CLK---" << std::endl;
-//   evaluate("turnOn");
-//   std::cout << "-Sig: TurnON---" << std::endl;
-//   logStates();
-//   evaluate("clk");
-//   std::cout << "-Sig: CLK---" << std::endl;
-//   logStates();
-//   for(auto rp : rpElements){
-// 	  for(auto tr : trElements){
-// 		  rp->close.push_back(tr);
-// 		  //std::cout << rp->id << " RobotPart close to " << tr->id << "Train" << std::endl;
-// 		  break;
-// 	  }
-// 	  break;
-//   }
-//   evaluate("clk");
-//   logStates();
-//   for(auto rp : rpElements){
-// 	  for(auto tr : trElements){
-// 		  rp->veryClose.push_back(tr);
-// 		  //std::cout << rp->id << " RobotPart close to " << tr->id << "Train" << std::endl;
-// 		  break;
-// 	  }
-// 	  break;
-//   }
-//   evaluate("clk");
-//   logStates();
-//   for(auto rp : rpElements){
-// 	  rp->close.clear();
-// 	  rp->veryClose.clear();
-//   }
-//   evaluate("clk");
-//   logStates();
-//   std::cout << "---End---" << std::endl;
-//   destruct();
-//   return 0;
-// }

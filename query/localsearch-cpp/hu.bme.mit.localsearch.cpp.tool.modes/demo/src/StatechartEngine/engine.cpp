@@ -105,6 +105,10 @@ void logStates() {
   logEnd();
 }
 
+int getState(){
+  return activeStates[0]->id;
+}
+
 bool stringCompare(char const* a, char const* b) {
   int i = 0;
   while(a[i] != '\0' && b[i] != '\0') {

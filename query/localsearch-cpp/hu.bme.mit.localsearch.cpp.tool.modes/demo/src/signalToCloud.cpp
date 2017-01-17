@@ -1,8 +1,9 @@
-#define DEBUG
+//#define DEBUG
 #ifndef DEBUG
 #include "ros/ros.h"
 #include "demo/TrainSlow.h"
 #include "demo/TrainStop.h"
+#include <iostream>
 
 ros::NodeHandle* n = nullptr;
 ros::Subscriber slowSub;
@@ -28,10 +29,10 @@ int main(int argc, char** argv)
 }
 
 void trainSlowCallback(const demo::TrainSlow::ConstPtr record){
-  if(record->slowDown == 1) ROS_DEBUG("Slow - Train(id=%d)",record->trainID);
+  if(record->slowDown == 1) std::cout << "Slow - Train(id=" << record->trainID << ")" << std::endl;//ROS_DEBUG("Slow - Train(id=%d)",record->trainID);
 }
 
 void trainStopCallback(const demo::TrainStop::ConstPtr record){
-  if(record->stopTrain == 1) ROS_DEBUG("   STOP - Train(id=%d)", record->trainID);
+  if(record->stopTrain == 1) std::cout << "    Stop - Train(id=" << record->trainID << ")" << std::endl;//ROS_DEBUG("   STOP - Train(id=%d)", record->trainID);
 }
 #endif
