@@ -1,7 +1,7 @@
 #ifndef VIATRA__QUERY__DERIVED_INPUT__VERY_CLOSE_QUERY_SPECIFICATION_H_
 #define VIATRA__QUERY__DERIVED_INPUT__VERY_CLOSE_QUERY_SPECIFICATION_H_
 
-
+		
 #include "Viatra/Query/DerivedInput/DerivedInputQueryGroup.h"
 #include "Viatra/Query/Util/Optional.h"
 
