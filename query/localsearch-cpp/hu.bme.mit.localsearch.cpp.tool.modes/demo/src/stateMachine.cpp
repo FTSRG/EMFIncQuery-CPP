@@ -5,7 +5,7 @@
 #include "Viatra/Query/DerivedInput/CloseInputUpdater.h"
 #include "Viatra/Query/DerivedInput/VeryCloseInputUpdater.h"
 
-//#define DEBUG
+#define DEBUG
 
 #ifndef DEBUG
 #include "ros/ros.h"
@@ -201,9 +201,9 @@ void updateModel(){
   ModelRoot modelRoot;
   for (size_t rp = 0; rp < 3; rp++) { //#numofRobotparts
     for (size_t tr = 0; tr < 3; tr++) { //numofTrains
-      CloseInputUpdate::update(&modelRoot, rp, tr, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
+      CloseInputUpdate::update(&modelRoot, rp+1, tr+11, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
           trainPos[tr].v[0], trainPos[tr].v[1], trainPos[tr].v[2]);
-      VeryCloseInputUpdate::update(&modelRoot, rp, tr, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
+      VeryCloseInputUpdate::update(&modelRoot, rp+1, tr+11, robotParts[rp].v[0], robotParts[rp].v[1], robotParts[rp].v[2],
           trainPos[tr].v[0], trainPos[tr].v[1], trainPos[tr].v[2]);
     }
   }
@@ -236,6 +236,7 @@ int main(int argc, char** argv) {
   while (true) {
     for (size_t i = 0; i < 32; i++) {
       trainGo();
+	  updateModel();
       sleep_until(system_clock::now() + seconds(1));
       std::cout << "CLK---" << std::endl;
       evaluate("clk");

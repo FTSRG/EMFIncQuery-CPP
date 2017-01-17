@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #ifndef DEBUG
 #include "ros/ros.h"
 #include "demo/TrainSlow.h"
