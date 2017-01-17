@@ -3,9 +3,10 @@
 
 #include <algorithm>
 #include <stdexcept>
-		
+
 #include "Viatra/Query/DerivedInput/CloseMatcher.h"
-#include "Viatra/Query/Derived/DerivedInputQueryQueryGroup.h"
+#include "Viatra/Query/DerivedInput/DerivedInputQueryGroup.h"
+#include "Viatra/Query/IteratorQuery/IteratorQueryQueryGroup.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
 
 namespace Viatra {
@@ -24,6 +25,7 @@ struct CloseInputUpdate{
 		 * Atomicity is mandatory
 		 * Not supported parallel modifications and queries
 		 */
+		using ModelRoot = ::Viatra::Query::ModelRoot;
 		auto srcInstanceList = ModelIndex<::railRoadModel::RobotPart, ::Viatra::Query::ModelRoot>::instances(modelRoot);
 		auto srcIDPredicate = [=](const ::railRoadModel::RobotPart* src){
 			return src->id == robotPartID;
@@ -33,9 +35,7 @@ struct CloseInputUpdate{
 
 		if(srcObj == srcInstanceList.end()) throw new std::invalid_argument("::railRoadModel::RobotPart ID not found");
 
-		//auto engine = QueryEngine<::Viatra::Query::ModelRoot>::of(modelRoot);
-		//auto closeMatcher = engine.template matcher< CloseQuerySpecification >();
-		CloseMatcher closeMatcher(modelRoot, DerivedInputQueryGroup::instance()->context());
+		CloseMatcher<ModelRoot> closeMatcher(modelRoot, DerivedInputQueryGroup::instance()->context());
 		auto matches = closeMatcher.matches(robotPartID, trainID, robX, robY, robZ, trX, trY, trZ);
 
 		auto trgInstanceList = ModelIndex<::railRoadModel::Train, ::Viatra::Query::ModelRoot>::instances(modelRoot);
@@ -48,7 +48,7 @@ struct CloseInputUpdate{
 		if(trgIt == trgInstanceList.end()) throw new std::invalid_argument("::railRoadModel::Train ID not found");
 
 		auto tempTrg = std::find_if((*srcObj)->close.begin(), (*srcObj)->close.end(), trgIDPredicate);
-		if(matches.size() > 0){				
+		if(matches.size() > 0){
 			if(tempTrg == (*srcObj)->close.end()){
 				(*srcObj)->close.push_back(*trgIt);
 			}

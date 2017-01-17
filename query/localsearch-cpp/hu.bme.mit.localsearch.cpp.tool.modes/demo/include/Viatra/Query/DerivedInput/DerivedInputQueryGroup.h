@@ -1,7 +1,7 @@
 #ifndef VIATRA__QUERY__DERIVED_INPUT__DERIVED_INPUT_QUERY_GROUP_H_
 #define VIATRA__QUERY__DERIVED_INPUT__DERIVED_INPUT_QUERY_GROUP_H_
 
-		
+
 #include "Viatra/Query/Matcher/ClassHelper.h"
 #include "Viatra/Query/Matcher/ISearchContext.h"
 #include "Viatra/Query/Matcher/ModelIndex.h"
@@ -55,25 +55,4 @@ private:
 } /* namespace DerivedInput */
 } /* namespace Query */
 } /* namespace Viatra */
-
-namespace Viatra {
-	namespace Query {
-
-    struct ModelRoot
-  	{
-  		ModelRoot(){}
-
-  		~ModelRoot(){}
-  	};
-
-	template<typename T>
-	struct ModelIndex<T, ModelRoot> {
-		static const std::list<T*>& instances(const ModelRoot* modelRoot)
-		{
-			return T::_instances;
-		}
-	};
-	}
-}
-
 #endif /*  VIATRA__QUERY__DERIVED_INPUT__DERIVED_INPUT_QUERY_GROUP_H_ */

@@ -1,9 +1,8 @@
 #ifndef VIATRA__QUERY__DERIVED_INPUT__CLOSE_QUERY_SPECIFICATION_H_
 #define VIATRA__QUERY__DERIVED_INPUT__CLOSE_QUERY_SPECIFICATION_H_
 
-		
 #include "Viatra/Query/DerivedInput/DerivedInputQueryGroup.h"
-#include "Viatra/Query/Operations/AllOperations.h"
+
 #include "Viatra/Query/Util/Optional.h"
 
 namespace Viatra {
