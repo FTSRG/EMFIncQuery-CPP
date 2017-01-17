@@ -21,6 +21,8 @@
 #define nullptr 0
 using namespace ::railRoadModel;
 using namespace ::Viatra::Query::DerivedInput;
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
 
 struct mat4 {
     double m[4][4];
@@ -190,15 +192,17 @@ void rotateRobot(){
   rotate = rotate * mat4::Rotate(M_PI/2, 0,0,1);
   rotate = rotate * mat4::Translate(robotParts[0].v[0],robotParts[0].v[1],robotParts[0].v[2]);
   robotParts[2] = robotParts[2] * rotate;
-
-  std::cout << std::setprecision(1) << "Robot Here:(x,y)-(x,y)-(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
+  sleep_until(system_clock::now() + seconds(3));
+  std::cout << std::fixed << std::setprecision(1) << "Robot Here:(x,y)-(x,y)-(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
 }
 
 void trainGo(){
   mat4 translate = mat4::Translate(1,0,0);
   for(int i = 0; i < 3; i++)
     trainPos[i] = trainPos[i] * translate;
-  std::cout << std::setprecision(1) << "Train Here:(x,y)....(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")...(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
+  sleep_until(system_clock::now() + seconds(1));
+  std::cout << std::fixed << std::setprecision(1) << "Robot Here:(x,y)-(x,y)-(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")-(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
+  std::cout << std::fixed << std::setprecision(1) << "Train Here:(x,y)....(x,y): (" << trainPos[0].v[0] << "," << trainPos[0].v[1] << ")...(" << trainPos[2].v[0] << "," << trainPos[2].v[1] << ")" << std::endl;
 }
 
 using ModelRoot = Viatra::Query::ModelRoot;
@@ -225,8 +229,6 @@ void init_poses(){
 }
 
 int main(int argc, char** argv) {
-  using namespace std::this_thread; // sleep_for, sleep_until
-  using namespace std::chrono; // nanoseconds, system_clock, seconds
   //signal(SIGINT,quit);
   std::cout << "---Init---" << std::endl;
   init(argc, argv);
@@ -235,12 +237,13 @@ int main(int argc, char** argv) {
   std::cout << "---Init_State---" << std::endl;
   evaluate("turnOn");
   logStates();
-  std::cout << "CLK---" << std::endl;
+  std::cout << ">>>CLK>>>" << std::endl;
   evaluate("clk");
   std::cout << "---States---" << std::endl;
   logStates();
   while (true) {
-    for (size_t i = 0; i < 32; i++) {
+    for (size_t i = 0; i < 17; i++) {
+      std::cout << "+++Position+++" << std::endl;
       switch(getState()){
         case 0:
           trainGo();
@@ -255,15 +258,19 @@ int main(int argc, char** argv) {
 	default:
 	break;
       }
+      std::cout << ">>>END>>>" << std::endl;
       updateModel();
       sleep_until(system_clock::now() + seconds(1));
-      std::cout << "CLK---" << std::endl;
+      std::cout << ">>>CLK>>>" << std::endl;
       evaluate("clk");
       std::cout << "---States---" << std::endl;
       logStates();
     }
     init_poses();
     std::cout << "---Restart---" << std::endl;
+    for(int i=1; i <= 10 ;i++){
+      std::cout << std::endl;
+    }
   }
 
 }
