@@ -81,7 +81,6 @@ void QueryServiceBase::start()
 	for (auto & name_node : remoteNodes)
 	{
 		auto & nodeInfo = name_node.second;
-
 		while (true)
 		{
 			try {
