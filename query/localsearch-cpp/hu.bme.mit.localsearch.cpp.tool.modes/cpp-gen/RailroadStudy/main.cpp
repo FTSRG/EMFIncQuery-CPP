@@ -67,6 +67,7 @@ void CheckSystemState(QueryService& service)
 
 std::thread runCheckingThread(QueryService & service) {
 	return std::thread([&service]()mutable{
+		Logger::SetThisThreadName("CHECKING");
 	
 		double lastT = seconds();
 		for (int i = 0; i < test_count; ++i)
@@ -83,6 +84,7 @@ std::thread runCheckingThread(QueryService & service) {
 std::unique_ptr<std::thread> runUpdatingThread(const char* nodeName, ModelRoot *modelRoot) {
 	Logger::Log("kekd");
 	auto t = std::make_unique<std::thread>([nodeName, modelRoot]() mutable {
+		Logger::SetThisThreadName("UPDATE");
 		Logger::Log("safs");
 		double nextT = seconds() + update_period;
 		for (int i = 0; i < test_count; ++i)
@@ -97,7 +99,6 @@ std::unique_ptr<std::thread> runUpdatingThread(const char* nodeName, ModelRoot *
 		Logger::Log("sdfsdgsdg");
 	});
 	Logger::Log("Crajted");
-	Logger::ThreadTest(std::chrono::seconds(5));
 	return t;
 }
 
@@ -105,14 +106,15 @@ int main(int argc, char**argv)
 {
 	data.reserve(test_count);
 	Logger::SetThisThreadName("MAIN");
-	const char * nodeName = argc > 1 ? argv[1] : "nodeA";
+	const char * nodeName = argv[1];
+	const char * config = argv[2];
 	// Creating the Local Model from the image
 
 	Logger::Log("Import starting json");
-	Viatra::Query::Model::ModelRoot modelRoot("configuration.json", nodeName);
+	Viatra::Query::Model::ModelRoot modelRoot(config, nodeName);
 
 	Logger::Log("Creating service");
-	QueryService service("configuration.json", nodeName, &modelRoot);
+	QueryService service(config, nodeName, &modelRoot);
 	Logger::Log("Starting service");
 	
 	service.start();

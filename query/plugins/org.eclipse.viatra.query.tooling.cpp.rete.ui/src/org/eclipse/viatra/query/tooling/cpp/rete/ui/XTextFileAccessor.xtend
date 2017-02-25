@@ -8,7 +8,7 @@
  * Contributors:
  *     Robert Doczi - initial API and implementation
  *******************************************************************************/
-package org.eclipse.viatra.query.tooling.cpp.localsearch.ui
+package org.eclipse.viatra.query.tooling.cpp.rete.ui
 
 import org.eclipse.viatra.query.tooling.cpp.localsearch.serializer.IFileAccessor
 import java.io.File
